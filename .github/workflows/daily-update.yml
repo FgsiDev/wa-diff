@@ -74,7 +74,34 @@ jobs:
           done
 
           echo "Failed to push after 3 attempts."
-          exit 1      
+          exit 1
+
+      - name: Prepare release metadata
+        id: summary
+        if: steps.commit.outputs.pushed == 'true'
+        run: |
+          set -euo pipefail
+
+          tag="v$(date -u +'%Y.%m.%d-%H%M%S')"
+          title="WhatsApp bundles update - $(date -u +'%d %B %Y, %H:%M UTC')"
+
+          sha="$(git rev-parse HEAD)"
+          short_sha="$(git rev-parse --short HEAD)"
+          prev_sha="$(git rev-parse HEAD~1)"
+
+          repo_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
+
+          {
+            echo "body<<EOF"
+            echo "Automated daily update of WhatsApp Web bundle exports."
+            echo ""
+            echo "**Commit:** [\`${short_sha}\`](${repo_url}/commit/${sha})"
+            echo "**View changes:** [\`${prev_sha:0:7}...${short_sha}\`](${repo_url}/compare/${prev_sha}...${sha})"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "title=${title}" >> "$GITHUB_OUTPUT"
 
       - name: Create release
         if: steps.commit.outputs.pushed == 'true'
@@ -82,4 +109,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ steps.summary.outputs.tag }}
           TITLE: ${{ steps.summary.outputs.title }}
-        run: gh release create "$TAG" --title "$TITLE" --notes-file release_body.md --target "$GITHUB_SHA"
+          BODY: ${{ steps.summary.outputs.body }}
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" --title "$TITLE" --notes "$BODY" --target "$GITHUB_SHA"

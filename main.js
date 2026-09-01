@@ -77,7 +77,8 @@ function runWaExport() {
     EXPORT_DIR,
     "--workers",
     WORKERS,
-    "--flat",
+    //"--flat",
+    "--merge-common-names",
     "--module-filter",
     MODULE_FILTER,
   ];
