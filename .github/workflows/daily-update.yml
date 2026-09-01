@@ -102,6 +102,17 @@ jobs:
 
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
           echo "title=${title}" >> "$GITHUB_OUTPUT"
+          
+      - name: Zip files folder
+        id: zip
+        if: steps.commit.outputs.pushed == 'true'
+        run: |
+          set -euo pipefail
+          zip_name="wa-files.zip"
+          cd files
+          zip -r -q "../${zip_name}" .
+          cd ..
+          echo "zip_path=${zip_name}" >> "$GITHUB_OUTPUT"
 
       - name: Create release
         if: steps.commit.outputs.pushed == 'true'
@@ -110,6 +121,7 @@ jobs:
           TAG: ${{ steps.summary.outputs.tag }}
           TITLE: ${{ steps.summary.outputs.title }}
           BODY: ${{ steps.summary.outputs.body }}
+          ZIP_PATH: ${{ steps.zip.outputs.zip_path }}
         run: |
           set -euo pipefail
-          gh release create "$TAG" --title "$TITLE" --notes "$BODY" --target "$GITHUB_SHA"
+          gh release create "$TAG" "$ZIP_PATH" --title "$TITLE" --notes "$BODY" --target "$GITHUB_SHA"
