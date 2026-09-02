@@ -1246,6 +1246,7 @@ __d(
             fblite_is_cutover: "2",
             fblite_is_from_meta_ai: "5",
             fblite_round_image: "#",
+            fblite_round_image_radius: "6",
             fblite_startup_resource_name: "3",
             follow_app_level_rule: ",",
             force_autorotate: "-",
