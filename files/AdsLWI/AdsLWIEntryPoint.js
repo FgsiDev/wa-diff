@@ -1230,6 +1230,10 @@ __d(
       PAGE_HOME_AD_UNIT_BOOST_POST_TIP: "page_home_ad_unit_boost_post_tip",
       PAGE_INSIGHTS_POST_SCREEN: "page_insights_post_screen",
       PAGE_INSIGHTS_POST_SECTION: "page_insights_post_section",
+      PAGE_PROFILE_AD4AD_VIDEO_MODEL_CONTROL:
+        "page_profile_ad4ad_video_model_control",
+      PAGE_PROFILE_AD4AD_VIDEO_MODEL_TEST:
+        "page_profile_ad4ad_video_model_test",
       PAYOUT_HUB_NOTIFICATIONS: "payout_hub_notifications",
       PDP_AD4AD: "pdp_ad4ad",
       PDP_EDIT_PROMOTION_BUTTON: "pdp_edit_promotion_button",
