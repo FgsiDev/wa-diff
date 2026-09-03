@@ -2427,6 +2427,16 @@ __d(
             z_index: ")",
           },
         },
+        擤: {
+          logicalStyleId: "bk.components.webbloks.DragExtension",
+          attrs: {
+            direction: "#",
+            id: "!",
+            on_drag_begin: "$",
+            on_drag_end: "&",
+            threshold_pct: "(",
+          },
+        },
       }),
       s = e;
     l.default = s;
