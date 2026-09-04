@@ -10,9 +10,11 @@ __d(
         "OneDay",
         "SevenDays",
         "ThirtyDays",
+        "Never",
       ]),
-      u = s.SevenDays;
-    function c(e) {
+      u = s.SevenDays,
+      c = "infinite";
+    function d(e) {
       switch (e) {
         case s.FiveSeconds:
           return 5;
@@ -26,9 +28,11 @@ __d(
           return 7 * o("WATimeUtils").DAY_SECONDS;
         case s.ThirtyDays:
           return 30 * o("WATimeUtils").DAY_SECONDS;
+        case s.Never:
+          return 0;
       }
     }
-    function d(e) {
+    function m(e) {
       switch (e) {
         case 5:
           return s.FiveSeconds;
@@ -42,6 +46,8 @@ __d(
           return s.SevenDays;
         case 30 * o("WATimeUtils").DAY_SECONDS:
           return s.ThirtyDays;
+        case 0:
+          return s.Never;
         default:
           throw r("err")("Unexpeded pin expiry duration");
       }
@@ -49,8 +55,9 @@ __d(
     ((l.PIN_STATE = e),
       (l.PinExpiryDurationOption = s),
       (l.DEFAULT_PIN_EXPIRY_DURATION_OPTION = u),
-      (l.getPinExpiryDuration = c),
-      (l.getPinExpiryOption = d));
+      (l.PIN_TIME_REMAINING_INFINITE = c),
+      (l.getPinExpiryDuration = d),
+      (l.getPinExpiryOption = m));
   },
   98,
 );

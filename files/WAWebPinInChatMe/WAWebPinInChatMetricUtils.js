@@ -7,6 +7,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebPinInChatInteractionWamEvent",
     "WAWebPinInChatMessageSendWamEvent",
+    "WAWebPinMsgConstants",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumGroupRoleType",
@@ -25,18 +26,18 @@ __d(
         i = e.parentMsg,
         l = e.timeRemainingToExpirySecs,
         s = l === void 0 ? 0 : l,
-        m = o("WAWebChatGetters").getIsGroup(n),
+        u = o("WAWebChatGetters").getIsGroup(n),
         p,
         _;
-      if (m) {
+      if (u) {
         var f = r("nullthrows")(n.groupMetadata);
-        ((p = c(o("WAWebGroupMetadataGetters").getGroupType(f))),
-          (_ = d(f.participants.iAmAdmin())));
+        ((p = d(o("WAWebGroupMetadataGetters").getGroupType(f))),
+          (_ = m(f.participants.iAmAdmin())));
       }
       new (o("WAWebPinInChatMessageSendWamEvent").PinInChatMessageSendWamEvent)(
         {
-          pinInChatType: u(r("nullthrows")(a.pinMessageType)),
-          isAGroup: m,
+          pinInChatType: c(r("nullthrows")(a.pinMessageType)),
+          isAGroup: u,
           groupTypeClient: p,
           groupRole: _,
           mediaType: o("WAWebWamMsgUtils").getWamMediaType(i),
@@ -55,12 +56,12 @@ __d(
         l = e.pinIndex,
         s = o("WAWebChatGetters").getIsGroup(t),
         u,
-        m,
+        c,
         p;
       if (s) {
         var _ = r("nullthrows")(t.groupMetadata);
-        ((u = c(o("WAWebGroupMetadataGetters").getGroupType(_))),
-          (m = d(_.participants.iAmAdmin())),
+        ((u = d(o("WAWebGroupMetadataGetters").getGroupType(_))),
+          (c = m(_.participants.iAmAdmin())),
           (p = _.participants.length));
       }
       new (o("WAWebPinInChatInteractionWamEvent").PinInChatInteractionWamEvent)(
@@ -69,7 +70,7 @@ __d(
             .PIN_IN_CHAT_INTERACTION_TYPE.TAP_ON_BANNER,
           isAGroup: s,
           groupTypeClient: u,
-          groupRole: m,
+          groupRole: c,
           groupSize: p,
           mediaType:
             n != null ? o("WAWebWamMsgUtils").getWamMediaType(n) : void 0,
@@ -82,6 +83,14 @@ __d(
       ).commit();
     }
     function u(e) {
+      if (e != null) {
+        var t = e.leftExpirationTime();
+        return t === o("WAWebPinMsgConstants").PIN_TIME_REMAINING_INFINITE
+          ? 0
+          : t;
+      }
+    }
+    function c(e) {
       switch (e) {
         case o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
           .PIN_FOR_ALL:
@@ -93,7 +102,7 @@ __d(
           throw r("err")("Unsupported pin message type: " + e);
       }
     }
-    function c(e) {
+    function d(e) {
       switch (e) {
         case o("WAWebGroupType").GroupType.DEFAULT:
           return o("WAWebWamEnumGroupTypeClient").GROUP_TYPE_CLIENT
@@ -110,12 +119,14 @@ __d(
           return o("WAWebWamEnumGroupTypeClient").GROUP_TYPE_CLIENT.SUB_GROUP;
       }
     }
-    function d(e) {
+    function m(e) {
       return e
         ? o("WAWebWamEnumGroupRoleType").GROUP_ROLE_TYPE.ADMIN
         : o("WAWebWamEnumGroupRoleType").GROUP_ROLE_TYPE.MEMBER;
     }
-    ((l.logPinInChatMessageSend = e), (l.logPinInChatTapOnBanner = s));
+    ((l.logPinInChatMessageSend = e),
+      (l.logPinInChatTapOnBanner = s),
+      (l.getFiniteTimeRemainingSecs = u));
   },
   98,
 );

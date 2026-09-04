@@ -321,7 +321,7 @@ __d(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.setLastPushCompleteTimestamp(),
             W(),
-            yield o("WAWebPrimaryFeatures").loadPrimaryFeatures(),
+            o("WAWebPrimaryFeatures").loadPrimaryFeatures(),
             o("WAWebMediaHosts").mediaHosts.maybeLoadMediaConnFromStorage());
           var c = o(
             "WAWebUserPrefsHistorySync",
@@ -760,6 +760,10 @@ __d(
                 }),
             o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
               "fetchBizAiLargeScreensGate",
+              { trigger: "app-launch" },
+            ),
+            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+              "fetchBizAiResponseSettingsV2Gate",
               { trigger: "app-launch" },
             ),
             o("WAWebGetReachoutTimelockJob").fetchReachoutTimelock());
