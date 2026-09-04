@@ -202,6 +202,7 @@ __d(
             (e.firstFrameSidecar = o("WAWebBaseModel").prop()),
             (e.isAnimated = o("WAWebBaseModel").prop()),
             (e.isLottie = o("WAWebBaseModel").prop()),
+            (e.mediaPngThumbnail = o("WAWebBaseModel").prop()),
             (e.matchedText = o("WAWebBaseModel").prop()),
             (e.thumbnail = o("WAWebBaseModel").prop()),
             (e.thumbnailHQ = o("WAWebBaseModel").prop()),

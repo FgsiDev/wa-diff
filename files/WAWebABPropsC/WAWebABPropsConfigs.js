@@ -135,6 +135,7 @@ __d(
       ai_group_tee_history_share_enabled: [28278, "bool", !1, !1],
       ai_group_tee_require_additional_member_enabled: [33050, "bool", !1, !1],
       ai_groups_open_enabled: [22165, "bool", !1, !1],
+      ai_hatch_activity_enabled: [36263, "bool", !1, !1],
       ai_hatch_commands_enabled: [27660, "bool", !1, !1],
       ai_hatch_document_upload_size_limit_mb: [27873, "int", 20, 20],
       ai_hatch_encrypted_media_enabled: [32496, "bool", !1, !0],
@@ -3726,6 +3727,7 @@ __d(
       web_voip_deferred_boot_init_max_delay_ms: [34924, "int", 12e4, 12e4],
       web_voip_dynamic_thread_preallocate_count: [23789, "int", 0, 0],
       web_voip_incoming_offer_init_freshness_ms: [34925, "int", 0, 0],
+      web_voip_live_caption_probe_enabled: [36276, "bool", !1, !1],
       web_voip_load_wasm_variant: [
         23045,
         "string",

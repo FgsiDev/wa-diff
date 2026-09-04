@@ -46,6 +46,7 @@ __d(
         "sharableEventInviteIsCanceled",
         "sharableEventInviteJpegThumbnail",
         "sharableEventInviteCallLink",
+        "mediaPngThumbnail",
       ],
       l = ["targetMessageKey", "pollUpdateParentKey"],
       s = {
