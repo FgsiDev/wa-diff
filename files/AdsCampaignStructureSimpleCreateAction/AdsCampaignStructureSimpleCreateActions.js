@@ -1,0 +1,28 @@
+__d(
+  "AdsCampaignStructureSimpleCreateActions",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = null;
+    function l(t) {
+      return (
+        (e = t),
+        function () {
+          e === t && (e = null);
+        }
+      );
+    }
+    function s(t, n, r) {
+      var o;
+      return ((o = e) == null ? void 0 : o.canHandle(t, n, r)) === !0;
+    }
+    function u(t, n, r) {
+      var o;
+      return s(t, n, r) ? ((o = e) == null || o.handle(t, n, r), !0) : !1;
+    }
+    ((i.registerAdsCampaignStructureSimpleCreateActions = l),
+      (i.canHandleAdsCampaignStructureSimpleCreateAction = s),
+      (i.handleAdsCampaignStructureSimpleCreateAction = u));
+  },
+  66,
+);

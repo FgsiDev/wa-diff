@@ -1,0 +1,16 @@
+__d(
+  "meta-brand-tv-outline-20",
+  ["ix", "cr:39337", "cr:39338", "fbicon"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e = n("cr:39337") != null ? n("cr:39337") : n("cr:39338"),
+      u = e != null ? [e, 20] : null,
+      c = u != null ? u : o("fbicon")._(s("530299"), 20),
+      d = u != null ? u : o("fbicon")._(s("530299"), 20),
+      m = u != null ? u : o("fbicon")._(s("1373493"), 20);
+    ((l.metaBrandTvTvOutline20 = c),
+      (l.metaBrandTvOutline20 = d),
+      (l.metaBrandTvTvRetroOutline20 = m));
+  },
+  98,
+);

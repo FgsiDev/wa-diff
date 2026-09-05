@@ -1,0 +1,24 @@
+__d(
+  "getAdsProcessingDuplicationOverrideTrackingComponent",
+  [
+    "AdsCrepePerformanceUtils",
+    "adsBulkSelectionDuplicationOpenBulkEdit",
+    "adsDuplicationShouldOpenBulkEditAfterCopy",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    function e(e, t, n) {
+      var a = o(
+        "AdsCrepePerformanceUtils",
+      ).getDuplicateCreationPackageComponent(e);
+      return a != null
+        ? a
+        : r("adsDuplicationShouldOpenBulkEditAfterCopy")(t, { silent: !0 }) ||
+            r("adsBulkSelectionDuplicationOpenBulkEdit")(t, n, { silent: !0 })
+          ? "am.editor.bulk_edit_modal"
+          : null;
+    }
+    l.getAdsProcessingDuplicationOverrideTrackingComponent = e;
+  },
+  98,
+);

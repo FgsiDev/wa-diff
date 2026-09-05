@@ -1,0 +1,158 @@
+__d(
+  "WebBloksCDSGlimmer",
+  [
+    "WebBloksStyle",
+    "WebBloksTheme",
+    "WebBloksUtils",
+    "react",
+    "react-compiler-runtime",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = e || (e = o("react")),
+      u = e.useMemo,
+      c = 200;
+    function d(e) {
+      var t = o("react-compiler-runtime").c(34),
+        n = e.node,
+        r = o("WebBloksTheme").useTheme(),
+        a,
+        i,
+        l;
+      if (t[0] !== n || t[1] !== r) {
+        ((l = r.getTheme()), (a = n.get("index")));
+        var u = n.get("color");
+        ((i =
+          u != null ? o("WebBloksUtils").getRGBColorWithTheme(u, l) : void 0),
+          (t[0] = n),
+          (t[1] = r),
+          (t[2] = a),
+          (t[3] = i),
+          (t[4] = l));
+      } else ((a = t[2]), (i = t[3]), (l = t[4]));
+      var d = i,
+        p;
+      if (t[5] !== n) {
+        var _;
+        ((p = (_ = n.get("shape")) != null ? _ : "rectangle"),
+          (t[5] = n),
+          (t[6] = p));
+      } else p = t[6];
+      var f = p,
+        g;
+      t[7] !== n || t[8] !== f
+        ? ((g =
+            f === "circle"
+              ? "50%"
+              : o("WebBloksUtils").toPx(n.get("corner_radius"))),
+          (t[7] = n),
+          (t[8] = f),
+          (t[9] = g))
+        : (g = t[9]);
+      var h = g,
+        y,
+        C;
+      if (t[10] !== n) {
+        var b,
+          v,
+          S = n.get("dark_opacity");
+        ((y = (b = S == null ? void 0 : S.get("min")) != null ? b : 0.05),
+          (C = (v = S == null ? void 0 : S.get("max")) != null ? v : 0.15),
+          (t[10] = n),
+          (t[11] = y),
+          (t[12] = C));
+      } else ((y = t[11]), (C = t[12]));
+      var R = C,
+        L,
+        E;
+      if (t[13] !== n) {
+        var k,
+          I,
+          T = n.get("light_opacity");
+        ((L = (k = T == null ? void 0 : T.get("min")) != null ? k : 0.3),
+          (E = (I = T == null ? void 0 : T.get("max")) != null ? I : 0.5),
+          (t[13] = n),
+          (t[14] = L),
+          (t[15] = E));
+      } else ((L = t[14]), (E = t[15]));
+      var D = E,
+        x;
+      t[16] !== R || t[17] !== y
+        ? ((x = o("WebBloksStyle").keyframes({
+            "0%": { opacity: y },
+            "100%": { opacity: R },
+          })),
+          (t[16] = R),
+          (t[17] = y),
+          (t[18] = x))
+        : (x = t[18]);
+      var $;
+      t[19] !== D || t[20] !== L
+        ? (($ = o("WebBloksStyle").keyframes({
+            "0%": { opacity: L },
+            "100%": { opacity: D },
+          })),
+          (t[19] = D),
+          (t[20] = L),
+          (t[21] = $))
+        : ($ = t[21]);
+      var P;
+      t[22] !== x || t[23] !== $
+        ? ((P = { darkFade: x, lightFade: $ }),
+          (t[22] = x),
+          (t[23] = $),
+          (t[24] = P))
+        : (P = t[24]);
+      var N = P,
+        M = N.darkFade,
+        w = N.lightFade,
+        A = l === o("WebBloksTheme").THEME.light ? w : M,
+        F = l === o("WebBloksTheme").THEME.light ? L : y,
+        O = (a % 10) * c + "ms",
+        B;
+      t[25] !== A || t[26] !== h || t[27] !== F || t[28] !== d || t[29] !== O
+        ? ((B = {
+            animationDelay: O,
+            animationName: A,
+            backgroundColor: d,
+            borderRadius: h,
+            opacity: F,
+          }),
+          (t[25] = A),
+          (t[26] = h),
+          (t[27] = F),
+          (t[28] = d),
+          (t[29] = O),
+          (t[30] = B))
+        : (B = t[30]);
+      var W;
+      return (
+        t[31] !== n.styleId || t[32] !== B
+          ? ((W = s.jsx("div", {
+              "data-bloks-name": n.styleId,
+              className: m.root,
+              style: B,
+            })),
+            (t[31] = n.styleId),
+            (t[32] = B),
+            (t[33] = W))
+          : (W = t[33]),
+        W
+      );
+    }
+    var m = o("WebBloksStyle").createStyles({
+      root: {
+        animationDirection: "alternate",
+        animationDuration: "1s",
+        animationIterationCount: "infinite",
+        animationTimingFunction: "cubic-bezier(0.5, 0.0, 0.5, 1.0)",
+        height: "100%",
+        width: "100%",
+        pointerEvents: "initial",
+      },
+    });
+    l.default = d;
+  },
+  98,
+);

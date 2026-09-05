@@ -1,0 +1,125 @@
+__d(
+  "inlineInitCometPlatformWebPage",
+  [
+    "ExecutionEnvironment",
+    "SiteData",
+    "cr:20592",
+    "cr:20995",
+    "cr:21001",
+    "cr:21002",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e;
+    function s(e) {
+      var t = {};
+      return (
+        Object.entries(e).forEach(function (e) {
+          var n = e[0],
+            r = e[1],
+            o =
+              typeof r == "string" && r.trim() !== ""
+                ? r
+                : JSON.stringify(r, function (e, t) {
+                    return t == null ||
+                      (typeof t == "string" && t.trim() === "")
+                      ? void 0
+                      : t;
+                  });
+          o != null && (t[n] = o);
+        }),
+        t
+      );
+    }
+    function u() {
+      (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+        (e || (e = r("ExecutionEnvironment"))).isInMainThread &&
+        (n("cr:20995") == null ||
+          n("cr:20995").init({ name: "comet" }, function () {
+            var e = new Set([
+              "al_custom_event",
+              "al_heartbeat_event",
+              "al_surface_mount",
+              "al_surface_mutation_event",
+              "al_surface_unmount",
+              "al_ui_event",
+              "al_ui_event_bubble",
+              "al_ui_event_capture",
+            ]);
+            e.forEach(function (e) {
+              n("cr:20592") == null ||
+                n("cr:20592").addListener(e, function (e) {
+                  var t,
+                    o =
+                      n("cr:21002") == null
+                        ? void 0
+                        : n("cr:21002").ALEventIndex,
+                    a =
+                      n("cr:21002") == null
+                        ? void 0
+                        : n("cr:21002").ALElementInfo,
+                    i =
+                      n("cr:21002") == null
+                        ? void 0
+                        : n("cr:21002").ALSurfaceUtils;
+                  if (e.event != null && o != null) {
+                    var l = e.element,
+                      u = e.reactComponentName,
+                      c = e.reactComponentStack;
+                    if (u == null && l != null && a != null) {
+                      var d = a.getOrCreate(l).getReactComponentData();
+                      ((u = d == null ? void 0 : d.name),
+                        (c = d == null ? void 0 : d.stack));
+                    }
+                    var m =
+                      (t = e.surface) != null
+                        ? t
+                        : i != null && l != null
+                          ? i.getElementSurface(l)
+                          : null;
+                    n("cr:21001") == null ||
+                      n("cr:21001").log(function () {
+                        var t, n, a, i, l, d, p;
+                        return {
+                          client_revision: r("SiteData").client_revision,
+                          event: e.event,
+                          event_index: o.getNextEventIndex(),
+                          event_unix_time_ms:
+                            (t = e.eventTimestamp) != null ? t : Date.now(),
+                          flowlet:
+                            (n =
+                              (a = e.callFlowlet) == null
+                                ? void 0
+                                : a.getFullName()) != null
+                              ? n
+                              : null,
+                          html_element_name:
+                            (i = e.elementName) != null ? i : null,
+                          metadata: s(
+                            babelHelpers.extends({}, e.metadata, {
+                              auto_logging_id: e.autoLoggingID,
+                              call_flowlet_id:
+                                (l = e.callFlowlet) == null ? void 0 : l.id,
+                              trigger_flowlet:
+                                (d = e.triggerFlowlet) == null
+                                  ? void 0
+                                  : d.getFullName(),
+                              trigger_flowlet_id:
+                                (p = e.triggerFlowlet) == null ? void 0 : p.id,
+                            }),
+                          ),
+                          react_component_name: u != null ? u : null,
+                          react_component_stack: c != null ? c : null,
+                          server_revision: r("SiteData").server_revision,
+                          surface: m,
+                        };
+                      });
+                  }
+                });
+            });
+          }));
+    }
+    l.default = u;
+  },
+  98,
+);

@@ -1,0 +1,97 @@
+__d(
+  "BillingBalanceRow_account.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+        {
+          kind: "InlineDataFragmentSpread",
+          name: "BillingCurrencyAmount_amount",
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "amount_with_offset",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "currency",
+              storageKey: null,
+            },
+          ],
+          args: null,
+          argumentDefinitions: [],
+        },
+      ];
+      return {
+        argumentDefinitions: [],
+        kind: "Fragment",
+        metadata: null,
+        name: "BillingBalanceRow_account",
+        selections: [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "__typename",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "CurrencyAmount",
+            kind: "LinkedField",
+            name: "prepay_balance",
+            plural: !1,
+            selections: e,
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "CurrencyAmount",
+            kind: "LinkedField",
+            name: "coupon_balance",
+            plural: !1,
+            selections: e,
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: null,
+            kind: "LinkedField",
+            name: "billable_account_tax_info",
+            plural: !1,
+            selections: [
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "is_subject_to_tax",
+                storageKey: null,
+              },
+            ],
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "payment_modes",
+            storageKey: null,
+          },
+        ],
+        type: "BillableAccount",
+        abstractKey: "__isBillableAccount",
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

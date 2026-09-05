@@ -1,0 +1,27 @@
+__d(
+  "AdsAdditionalOptionsDefaultConsts",
+  ["AdsAdditionalOptionsConsts"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = "initial",
+      s = {
+        disableEditTooltip: null,
+        isAOEnabled: !1,
+        isEditable: !0,
+        showMixedValuePlaceholder: !1,
+        readOnlyValueRenderer: function () {
+          return null;
+        },
+        fieldTitleRenderer: function () {
+          return null;
+        },
+        isMixed: !1,
+        frictionLevel: o("AdsAdditionalOptionsConsts")
+          .AdditionalOptionsFrictionLevels.F0,
+        pluginType: null,
+      };
+    ((l.DEFAULT_AO_SECTION_CONFIG = e),
+      (l.EMPTY_FIELD_VALUE_WRAPPER_STATE = s));
+  },
+  98,
+);

@@ -1,0 +1,10 @@
+__d(
+  "AdsUEditorPreflightRecommendationHubMaxAdObjectSize",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = 100;
+    i.MAX_AD_OBJECT_SIZE = e;
+  },
+  66,
+);

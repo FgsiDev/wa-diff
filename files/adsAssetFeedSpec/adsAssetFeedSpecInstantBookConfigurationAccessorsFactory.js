@@ -1,0 +1,27 @@
+__d(
+  "adsAssetFeedSpecInstantBookConfigurationAccessorsFactory",
+  ["AdsAdObjectsAccessorUtils"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    function e(e, t) {
+      return babelHelpers.extends(
+        {},
+        o("AdsAdObjectsAccessorUtils").baseFieldAccessorFactory(e, t),
+        {
+          booking_url: o("AdsAdObjectsAccessorUtils").basicFieldAccessorFactory(
+            e,
+            t,
+            "booking_url",
+          ),
+          is_enabled: o("AdsAdObjectsAccessorUtils").basicFieldAccessorFactory(
+            e,
+            t,
+            "is_enabled",
+          ),
+        },
+      );
+    }
+    l.default = e;
+  },
+  98,
+);

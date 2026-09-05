@@ -1,0 +1,110 @@
+__d(
+  "AdsSelectorUtils",
+  ["Promise", "performanceNow", "qex"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s,
+      u = new Set(),
+      c = 0,
+      d = function (t, n) {
+        c += 1;
+        var e = [],
+          o = new Set();
+        try {
+          var a = u.size > 0,
+            i = a && c === 1,
+            l = i ? (s || (s = r("performanceNow")))() : null;
+          for (var d of t) {
+            var m = d.getStores(n);
+            if (m)
+              for (var p of m) p != null && !o.has(p) && (o.add(p), e.push(p));
+          }
+          if (a) {
+            var _ = l != null ? (s || (s = r("performanceNow")))() - l : 0;
+            for (var f of u) f(_);
+          }
+        } finally {
+          c -= 1;
+        }
+        return e;
+      },
+      m = function (t, n) {
+        var e = new Set();
+        for (var r of t) {
+          var o = r.getStores(n);
+          if (o) for (var a of o) a != null && e.add(a);
+        }
+        return Array.from(e);
+      },
+      p = r("qex")._("2315") === !0 ? m : d;
+    function _(e, t) {
+      return p(e, t).map(function (e) {
+        return e.getDispatchToken();
+      });
+    }
+    function f(e, t) {
+      return p(e, t).some(function (e) {
+        return e.hasChanged();
+      });
+    }
+    function g(t, r, o) {
+      return new (e || (e = n("Promise")))(function (e, n) {
+        var a = t.getStores(o).map(function (e) {
+            return e.addListener(s);
+          }),
+          i = {
+            loading: function () {},
+            empty: function () {},
+            loaded: function (n) {
+              (l(), e(n));
+            },
+            error: function (t) {
+              (l(), n(t));
+            },
+          };
+        s();
+        function l() {
+          a.forEach(function (e) {
+            return e.remove();
+          });
+        }
+        function s() {
+          t(r).match(i);
+        }
+      });
+    }
+    function h(t, r, o) {
+      return new (e || (e = n("Promise")))(function (e, n) {
+        var a = t.getStores(o).map(function (e) {
+            return e.addListener(s);
+          }),
+          i = {
+            loading: function () {},
+            empty: function () {},
+            loaded: function (n) {
+              (l(), e(n));
+            },
+            error: function (t) {
+              (l(), n(t));
+            },
+          };
+        s();
+        function l() {
+          a.forEach(function (e) {
+            return e.remove();
+          });
+        }
+        function s() {
+          t(r)(r).match(i);
+        }
+      });
+    }
+    ((l.getStores = p),
+      (l.getStoreDispatchTokens = _),
+      (l.hasAnyStoreChanged = f),
+      (l.loadObjectSelectorToPromise = g),
+      (l.loadFunctionObjectSelectorToPromise = h));
+  },
+  98,
+);

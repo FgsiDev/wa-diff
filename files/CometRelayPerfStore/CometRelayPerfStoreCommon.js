@@ -24,7 +24,9 @@ __d(
           o = {
             flushes: [],
             hasteResponseLogEvents: [],
-            isExecTime: t.params.metadata.is_ls_relay_request === !0,
+            isExecTime:
+              t.params.metadata.is_ls_relay_request === !0 ||
+              t.params.metadata.operation != null,
             isPreloaded: !1,
             name: t.params.name,
             networkStart: n,

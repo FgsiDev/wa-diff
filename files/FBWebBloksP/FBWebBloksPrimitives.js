@@ -1,0 +1,166 @@
+__d(
+  "FBWebBloksPrimitives",
+  [
+    "FBWebBloksAlert",
+    "FBWebBloksAlertButton",
+    "FBWebBloksBottomSheetNavbar",
+    "FBWebBloksBottomSheetNavbarTrailingButton",
+    "FBWebBloksCAARemoveProfile",
+    "FBWebBloksCAASetAppLocale",
+    "FBWebBloksCatsArkoseWebView",
+    "FBWebBloksCatsReCaptchaWebView",
+    "FBWebBloksCatsReCaptchaWebViewV2",
+    "FBWebBloksContainerConfigs",
+    "FBWebBloksFullScreenNavbar",
+    "FBWebBloksFullScreenNavbarTrailingButton",
+    "FBWebBloksOpenAlert",
+    "FBWebBloksOpenMediaPickerV2",
+    "FBWebBloksPrivacyConsentCloseDialog",
+    "FBWebBloksPrivacyConsentCloseFlow",
+    "FBWebBloksPrivacyConsentCloseScreen",
+    "FBWebBloksPrivacyConsentLaunchConsent",
+    "FBWebBloksPrivacyConsentOpenDialog",
+    "FBWebBloksPrivacyConsentOpenFlow",
+    "FBWebBloksPrivacyConsentOpenLink",
+    "FBWebBloksPrivacyConsentOpenScreen",
+    "FBWebBloksPrivacyConsentRegisterExperience",
+    "FBWebBloksPrivacyConsentShutdownExperience",
+    "FBWebBloksPullToRefreshContainerFallback",
+    "FBWebBloksShowreelDynamicTextV2",
+    "FBWebBloksSurveyRtfTextQuestion",
+    "FBWebBloksUploadMedia",
+    "FBWebBloksXESwitcherDeeplinkToOtherApp",
+    "WebBloksBottomSheet",
+    "WebBloksCAAPerformDeviceBasedLogin",
+    "WebBloksCAAPerformDeviceBasedNonceValidation",
+    "WebBloksCAAPerformSSOLogin",
+    "WebBloksCAASaveCredential",
+    "WebBloksCAASaveCredentialWithNonce",
+    "WebBloksDummy",
+    "WebBloksGetObjectFromLocalDeviceCache",
+    "WebBloksIGSearch",
+    "WebBloksOpenBottomSheet",
+    "WebBloksSetObjectInLocalDeviceCache",
+    "WebBloksSolveRsaTimelockV2",
+    "WebBloksText",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = {
+        "bk.components.cats.ArkoseWebView": r("FBWebBloksCatsArkoseWebView"),
+        "bk.components.cats.ReCaptchaWebView": r(
+          "FBWebBloksCatsReCaptchaWebView",
+        ),
+        "bk.components.cats.ReCaptchaWebViewV2": r(
+          "FBWebBloksCatsReCaptchaWebViewV2",
+        ),
+        "bk.components.fb.fds.CheckBox": (e = r("WebBloksDummy")),
+        "bk.components.survey.RtfTextQuestion": r(
+          "FBWebBloksSurveyRtfTextQuestion",
+        ),
+        "mini.components.ProductSaveButton": r("WebBloksText"),
+        "msg.components.mds.Label": r("WebBloksText"),
+        "ig.components.BottomSheet": r("WebBloksBottomSheet"),
+        "ig.components.Search": r("WebBloksIGSearch"),
+        "ig.components.Spinner": r("WebBloksText"),
+        "bk.components.showreel.DynamicTextV2": r(
+          "FBWebBloksShowreelDynamicTextV2",
+        ),
+        "bk.fb.components.alert.Alert": r("FBWebBloksAlert"),
+        "bk.fb.components.alert.Button": r("FBWebBloksAlertButton"),
+        "bk.data.screen.navbar.Fb": r("FBWebBloksFullScreenNavbar"),
+        "bk.data.screen.navbar.fb.TrailingButton": r(
+          "FBWebBloksFullScreenNavbarTrailingButton",
+        ),
+        "bk.data.screen.navbar.bottomsheet.Fb": r(
+          "FBWebBloksBottomSheetNavbar",
+        ),
+        "bk.data.screen.navbar.bottomsheet.fb.TrailingButton": r(
+          "FBWebBloksBottomSheetNavbarTrailingButton",
+        ),
+        "bk.components.PullToRefreshContainerFallback": r(
+          "FBWebBloksPullToRefreshContainerFallback",
+        ),
+        "bk.components.BottomSheet": r("WebBloksBottomSheet"),
+      },
+      u = {
+        "ig.action.navigation.DismissBottomSheetV2": e,
+        "ig.action.navigation.OpenBottomSheet": r("WebBloksOpenBottomSheet"),
+        "ig.action.navigation.PushBottomSheet": e,
+        "fb.action.navigation.OpenAlert": r("FBWebBloksOpenAlert"),
+        "bk.action.privacy.consent.LaunchConsent": r(
+          "FBWebBloksPrivacyConsentLaunchConsent",
+        ),
+        "bk.action.privacy.consent.OpenFlow": r(
+          "FBWebBloksPrivacyConsentOpenFlow",
+        ),
+        "bk.action.privacy.consent.OpenIAWLink": r(
+          "FBWebBloksPrivacyConsentOpenLink",
+        ),
+        "bk.action.privacy.consent.OpenDialog": r(
+          "FBWebBloksPrivacyConsentOpenDialog",
+        ),
+        "bk.action.privacy.consent.CloseDialog": r(
+          "FBWebBloksPrivacyConsentCloseDialog",
+        ),
+        "bk.action.privacy.consent.OpenScreen": r(
+          "FBWebBloksPrivacyConsentOpenScreen",
+        ),
+        "bk.action.privacy.consent.CloseScreen": r(
+          "FBWebBloksPrivacyConsentCloseScreen",
+        ),
+        "bk.action.privacy.consent.CloseFlow": r(
+          "FBWebBloksPrivacyConsentCloseFlow",
+        ),
+        "bk.action.privacy.consent.ShutdownExperience": r(
+          "FBWebBloksPrivacyConsentShutdownExperience",
+        ),
+        "bk.action.privacy.consent.RegisterExperience": r(
+          "FBWebBloksPrivacyConsentRegisterExperience",
+        ),
+        "bk.action.caa.login.RemoveProfile": r("FBWebBloksCAARemoveProfile"),
+        "bk.action.caa.login.SetAppLocale": r("FBWebBloksCAASetAppLocale"),
+        "bk.action.caa.mobileweb.PerformDeviceBasedLogin": r(
+          "WebBloksCAAPerformDeviceBasedLogin",
+        ),
+        "bk.action.caa.mobileweb.PerformDeviceBasedNonceValidation": r(
+          "WebBloksCAAPerformDeviceBasedNonceValidation",
+        ),
+        "bk.action.caa.login.SaveCredential": r("WebBloksCAASaveCredential"),
+        "bk.action.caa.login.SaveCredentialWithNonce": r(
+          "WebBloksCAASaveCredentialWithNonce",
+        ),
+        "bk.action.caa.mobileweb.PerformSSOLogin": r(
+          "WebBloksCAAPerformSSOLogin",
+        ),
+        "bk.action.webbloks.switcher.OpenAccountsCenter": e,
+        "bk.action.DeeplinkToOtherAppOrDirectToAppStore": r(
+          "FBWebBloksXESwitcherDeeplinkToOtherApp",
+        ),
+        "bk.action.xav.switcher.AddAccountOnClick": e,
+        "bk.fx.action.SwitchProfiles": e,
+        "bk.action.cds.CloseScreen": e,
+        "bk.action.bloks.IsAppInstalled": e,
+        "bk.action.webbloks.switcher.OpenAccountSwitcher": e,
+        "bk.action.webbloks.switcher.OnAccountClick": e,
+        "bk.action.comet.feed.MetaAIPostPreviewOnClick": e,
+        "bk.action.xs.SendTextMessageCTA": e,
+        "bk.action.GetObjectFromLocalDeviceCache": r(
+          "WebBloksGetObjectFromLocalDeviceCache",
+        ),
+        "bk.action.SetObjectInLocalDeviceCache": r(
+          "WebBloksSetObjectInLocalDeviceCache",
+        ),
+        "bk.action.SolveRsaTimelockV2": r("WebBloksSolveRsaTimelockV2"),
+        "fb.action.media.UploadMedia": r("FBWebBloksUploadMedia"),
+        "bk.fx.action.media.OpenMediaPickerV2": r(
+          "FBWebBloksOpenMediaPickerV2",
+        ),
+        "bk.versioning.bloks.PayloadSpecIDsSet": e,
+      };
+    ((l.CONTAINER_CONFIGS = o("FBWebBloksContainerConfigs").CONTAINER_CONFIGS),
+      (l.COMPONENTS = s),
+      (l.ACTIONS = u));
+  },
+  98,
+);

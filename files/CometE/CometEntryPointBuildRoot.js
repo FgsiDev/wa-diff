@@ -1,0 +1,76 @@
+__d(
+  "CometEntryPointBuildRoot",
+  [
+    "Actor",
+    "CometAppShell.react",
+    "CometFBUncaughtErrorDeferred.react",
+    "CometHeroInteractionWithDiv.react",
+    "CometLayerKeyCommandWrapper.react",
+    "CometMainContentWrapper.react",
+    "CometPlatformAppWrapper.react",
+    "CometRelay",
+    "CometToasterRoot.react",
+    "RelayEnvironmentFactoryProvider",
+    "createCometRelayBaseEntryPointEnvironmentProvider",
+    "react",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = e || (e = o("react"));
+    function u(e, t, n, a, i, l, u, c) {
+      (l === void 0 && (l = !0), c === void 0 && (c = !1));
+      var d = n != null ? n : s.Fragment,
+        m = o("CometRelay").loadEntryPoint(
+          r("createCometRelayBaseEntryPointEnvironmentProvider")(i, e),
+          t.entryPoint,
+          t.entryPointParams,
+        ),
+        p = u ? { align: u } : {};
+      return function () {
+        var n;
+        return s.jsx(r("CometPlatformAppWrapper.react"), {
+          UncaughtErrorFallback: r("CometFBUncaughtErrorDeferred.react"),
+          disableTimeSpentLogging: c,
+          children: s.jsx(r("CometLayerKeyCommandWrapper.react"), {
+            children: s.jsx(
+              o("RelayEnvironmentFactoryProvider")
+                .RelayEnvironmentFactoryProvider,
+              {
+                factory: i,
+                children: s.jsx(o("Actor").ActorProvider, {
+                  initialActorID: e,
+                  readonly: !0,
+                  children: s.jsx(r("CometHeroInteractionWithDiv.react"), {
+                    interactionDesc: "initial load",
+                    interactionUUID: a,
+                    children: s.jsx(d, {
+                      children: s.jsx(r("CometAppShell.react"), {
+                        toaster: s.jsx(
+                          r("CometToasterRoot.react"),
+                          babelHelpers.extends({}, p),
+                        ),
+                        children: s.jsx(r("CometMainContentWrapper.react"), {
+                          shouldRenderTopNav: l,
+                          children: s.jsx(o("CometRelay").EntryPointContainer, {
+                            entryPointReference: m,
+                            props:
+                              (n = t.otherProps) != null
+                                ? n
+                                : t.entryPointParams,
+                          }),
+                        }),
+                      }),
+                    }),
+                  }),
+                }),
+              },
+            ),
+          }),
+        });
+      };
+    }
+    l.buildRootComponent = u;
+  },
+  98,
+);

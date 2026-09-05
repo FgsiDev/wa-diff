@@ -1,0 +1,39 @@
+__d(
+  "AdsAccountStoreNewSourceServerQueryPreloadingConfig",
+  [
+    "AdsMgmtPreloadingUtils",
+    "adsRelayHackPreloadersCreatePreloadingConfig",
+    "adsRelayHackPreloadersMatchesIDsSubsetPreloader",
+    "gkx",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    function e(e, t) {
+      var n;
+      if (r("gkx")("23953")) return t;
+      if (t.ad_account != null) return { ad_account: { id: t.ad_account.id } };
+      var o = (n = t.ad_account_ref) == null ? void 0 : n.ad_account;
+      return o == null ? t : { ad_account_ref: { ad_account: { id: o.id } } };
+    }
+    var s = r("adsRelayHackPreloadersCreatePreloadingConfig")({
+        ignoreCriticalErrors: !0,
+        ignoreIfServerDidntBeatJSExecution: !0,
+        isScenarioOngoing: o("AdsMgmtPreloadingUtils").isScenarioOngoing,
+        raceServerPreloader: !0,
+        subsetMatching: {
+          matchesRegisteredPreloader: r(
+            "adsRelayHackPreloadersMatchesIDsSubsetPreloader",
+          ),
+          slicePrefetchedResponse: e,
+        },
+      }),
+      u = r("adsRelayHackPreloadersCreatePreloadingConfig")({
+        ignoreCriticalErrors: !0,
+        ignoreIfServerDidntBeatJSExecution: !1,
+        isScenarioOngoing: o("AdsMgmtPreloadingUtils").isScenarioOngoing,
+        raceServerPreloader: r("gkx")("6068"),
+      });
+    ((l.idPreloadingConfig = s), (l.accountPreloadingConfig = u));
+  },
+  98,
+);

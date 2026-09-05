@@ -1,0 +1,90 @@
+__d(
+  "CometRootEntryPointRenderer",
+  [
+    "CometClientRootRendererSSRUtils",
+    "CometEntryPointBuildRoot",
+    "CometNavigationTracing",
+    "CometPreloaderInit",
+    "CometRelayEnvironmentFactory",
+    "CometVisualCompletion",
+    "ExecutionEnvironment",
+    "initCometPlatformWebPage",
+    "inlineInitCometPlatformWebPage",
+    "react",
+    "requireDeferred",
+    "uuidv4",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s,
+      u = s || (s = o("react")),
+      c = r("requireDeferred")("CometRootDeferredShared").__setRef(
+        "CometRootEntryPointRenderer",
+      );
+    r("inlineInitCometPlatformWebPage")();
+    function d(e) {
+      c.onReady(function (t) {
+        t.initDeferred(e);
+      });
+    }
+    function m(t) {
+      var n = t.actorID,
+        a = t.cavalryLid,
+        i = t.disableTimeSpentLogging,
+        l = t.elementId,
+        s = t.entryPointRoot,
+        c = t.preloaders,
+        d = t.qplEvent,
+        m = t.shouldRenderTopNav,
+        p = t.ssrEnabled,
+        _ = t.strictModeEnabled,
+        f = t.toastAlignPosition,
+        g = t.tracePolicy,
+        h = t.wrapperComponent;
+      if (!(e || (e = r("ExecutionEnvironment"))).canUseDOM) return;
+      (r("initCometPlatformWebPage")(a, {
+        disableTimeSpentLogging: i,
+        productAttribution: {},
+        timeSpentMetadata: null,
+        timeSpentRoute: { tracePolicy: g, url: window.location.href },
+      }),
+        o("CometPreloaderInit").initPreloaders(c));
+      function y(e, t) {
+        var a = o("CometEntryPointBuildRoot").buildRootComponent(
+          n,
+          s,
+          h,
+          e,
+          o("CometRelayEnvironmentFactory").CometRelayEnvironmentFactory,
+          m != null ? m : !0,
+          f,
+          i,
+        );
+        o("CometClientRootRendererSSRUtils").initReactRenderWithSSR({
+          CometVisualCompletion: r("CometVisualCompletion"),
+          rootComponent: u.jsx(a, {}),
+          rootElementID: l,
+          rootOptions: { unstable_strictMode: _ },
+          ssrEnabled: p,
+          traceAPI: t,
+        });
+      }
+      if (d != null) {
+        var C = r("uuidv4")();
+        o("CometNavigationTracing").traceInitialLoad(
+          C,
+          a,
+          g,
+          null,
+          function (e) {
+            return y(C, e);
+          },
+          d,
+        );
+      } else y(null);
+    }
+    ((l.initDeferred = d), (l.init = m));
+  },
+  98,
+);

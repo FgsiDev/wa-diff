@@ -1,0 +1,276 @@
+__d(
+  "CAAWebBloksPasskeyUtils",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = "Meta",
+      l = 6e5,
+      s = n("$InternalEnum")({
+        NOT_ALLOWED_ERROR: 0,
+        CONSTRAINT_ERROR: 1,
+        INVALID_STATE_ERROR: 2,
+        NOT_SUPPORTED_ERROR: 3,
+        SECURITY_ERROR: 4,
+        ABORT_ERROR: 5,
+        UNKNOWN_ERROR: 6,
+      });
+    function u(t, n) {
+      var r,
+        o,
+        a,
+        i,
+        s,
+        u,
+        c,
+        m,
+        p,
+        f,
+        h = n.getExpression("on_success"),
+        C = n.getExpression("on_error"),
+        b = n.getExpression("on_cancel"),
+        v = JSON.parse((r = n.get("additional_params")) != null ? r : "{}");
+      if (C == null) return null;
+      if (h == null) return (d(t, "on_success", C), null);
+      if (b == null) return (d(t, "on_cancel", C), null);
+      var S =
+        (o = n.get("rp_id")) != null ? o : (a = v.rp) == null ? void 0 : a.id;
+      if (S == null) return (d(t, "rp_id", C), null);
+      var R = (i = n.get("challenge")) != null ? i : v.challenge;
+      if (R == null) return (d(t, "challenge", C), null);
+      var L = n.get("userid");
+      if (L == null) return (d(t, "userid", C), null);
+      var E = n.get("username");
+      if (E == null) return (d(t, "username", C), null);
+      var k = g(v.excludeCredentials),
+        I =
+          (s =
+            (u = n.get("enable_device_key_signature_ext")) == null
+              ? void 0
+              : u.valueOf()) != null
+            ? s
+            : !1,
+        T =
+          (c =
+            (m = n.get("prefer_immediately_available_credentials")) == null
+              ? void 0
+              : m.valueOf()) != null
+            ? c
+            : !1,
+        D = { challenge: _(R) },
+        x = y(JSON.stringify(D)),
+        $ = {
+          publicKey: {
+            attestation: "none",
+            authenticatorSelection: {
+              residentKey: "preferred",
+              userVerification: "required",
+            },
+            challenge: x,
+            excludeCredentials: k,
+            hints: ["client-device"],
+            pubKeyCredParams: [
+              { alg: -7, type: "public-key" },
+              { alg: -257, type: "public-key" },
+              { alg: -8, type: "public-key" },
+            ],
+            rp: {
+              id: S,
+              name: (p = (f = v.rp) == null ? void 0 : f.name) != null ? p : e,
+            },
+            timeout: l,
+            user: { displayName: E, id: y(L.toString()), name: E },
+          },
+        };
+      return {
+        callbacks: { onCancel: b, onError: C, onSuccess: h },
+        extensions: {
+          enable_device_key_signature_ext: I,
+          prefer_immediately_available_credentials: T,
+        },
+        json: $,
+      };
+    }
+    function c(e, t) {
+      var n,
+        r,
+        o,
+        a,
+        i,
+        s,
+        u,
+        c,
+        m,
+        p = t.getExpression("on_success"),
+        _ = t.getExpression("on_error"),
+        f = t.getExpression("on_cancel"),
+        h = t.getExpression("on_no_available_credentials"),
+        C = JSON.parse((n = t.get("additional_params")) != null ? n : "{}");
+      if (_ == null) return null;
+      if (p == null) return (d(e, "on_success", _), null);
+      if (f == null) return (d(e, "on_cancel", _), null);
+      var b =
+        (r = t.get("rpid")) != null ? r : (o = C.rp) == null ? void 0 : o.id;
+      if (b == null) return (d(e, "rpid", _), null);
+      var v = (a = t.get("challenge")) != null ? a : C.challenge;
+      if (v == null) return (d(e, "challenge", _), null);
+      var S =
+          (i =
+            (s = t.get("enable_device_key_signature_ext")) == null
+              ? void 0
+              : s.valueOf()) != null
+            ? i
+            : !1,
+        R =
+          (u =
+            (c = t.get("prefer_immediately_available_credentials")) == null
+              ? void 0
+              : c.valueOf()) != null
+            ? u
+            : !1,
+        L = C.mediation,
+        E = y(v),
+        k = (m = C.userVerification) != null ? m : "preferred",
+        I = g(C.allowCredentials),
+        T = {
+          publicKey: {
+            challenge: E,
+            timeout: l,
+            rpId: b,
+            userVerification: k,
+            allowCredentials: I,
+          },
+          mediation: L,
+        };
+      return {
+        callbacks: {
+          onSuccess: p,
+          onError: _,
+          onCancel: f,
+          onNoAvailableCredentials: h,
+        },
+        json: T,
+        extensions: {
+          prefer_immediately_available_credentials: R,
+          enable_device_key_signature_ext: S,
+        },
+      };
+    }
+    function d(e, t, n) {
+      var r = "Missing required parameter " + t;
+      e.executeCatch(n.getValue(), [1, r]);
+    }
+    function m(e) {
+      var t = {
+          authenticatorAttachment: e.authenticatorAttachment,
+          id: e.id,
+          raw_id: h(e.rawId),
+          response: {
+            attestationObject: h(e.response.attestationObject),
+            clientDataJSON: h(e.response.clientDataJSON),
+          },
+          type: e.type,
+        },
+        n = _(JSON.stringify(t));
+      return {
+        extension_results: _(JSON.stringify(e.clientExtensionResults)),
+        passkey_id: e.id,
+        payload: n,
+        payload_version: "web",
+      };
+    }
+    function p(e) {
+      var t,
+        n = _(
+          JSON.stringify(
+            babelHelpers.extends({}, e.toJSON == null ? void 0 : e.toJSON(), {
+              authenticatorAttachment:
+                (t = e.authenticatorAttachment) != null ? t : "not_provided",
+            }),
+          ),
+        ),
+        r = _(JSON.stringify(e.getClientExtensionResults()));
+      return {
+        passkey_id: e.id,
+        payload: n,
+        payload_version: "web",
+        extension_results: r,
+      };
+    }
+    function _(e) {
+      var t = btoa(e);
+      return t.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
+    }
+    function f(e, t, n, r) {
+      var o = s.isValid(n) ? n : s.UNKNOWN_ERROR;
+      e.executeCatch(t.getValue(), [o, r]);
+    }
+    var g = function (t) {
+        return t.map(function (e) {
+          return { type: e.type, id: C(e.id) };
+        });
+      },
+      h = function (t) {
+        return v(t).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+      },
+      y = function (t) {
+        return new Uint8Array(t.length).map(function (e, n) {
+          return t.charCodeAt(n);
+        });
+      },
+      C = function (t) {
+        return y(atob(b(t)));
+      },
+      b = function (t) {
+        return (t + "===")
+          .slice(0, t.length + ((4 - (t.length % 4)) % 4))
+          .replace(/-/g, "+")
+          .replace(/_/g, "/");
+      },
+      v = function (t) {
+        var e = new Uint8Array(t),
+          n =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
+          r = e.length % 3;
+        function o(e) {
+          return (
+            n.charAt((e >> 18) & 63) +
+            n.charAt((e >> 12) & 63) +
+            n.charAt((e >> 6) & 63) +
+            n.charAt(e & 63)
+          );
+        }
+        for (var a = "", i = 0, l = e.length - r; i < l; i += 3) {
+          var s = (e[i] << 16) + (e[i + 1] << 8) + e[i + 2];
+          a += o(s);
+        }
+        var u;
+        switch (r) {
+          case 1:
+            ((u = e[e.length - 1]),
+              (a += n.charAt(u >> 2)),
+              (a += n.charAt((u << 4) & 63)),
+              (a += "=="));
+            break;
+          case 2:
+            ((u = (e[e.length - 2] << 8) + e[e.length - 1]),
+              (a += n.charAt(u >> 10)),
+              (a += n.charAt((u >> 4) & 63)),
+              (a += n.charAt((u << 2) & 63)),
+              (a += "="));
+            break;
+          default:
+            break;
+        }
+        return a;
+      };
+    ((i.PasskeyErrorCodes = s),
+      (i.getValidatedPasskeyRegistrationParams = u),
+      (i.getValidatedPasskeyAssertionParams = c),
+      (i.reportMissingParameter = d),
+      (i.buildBloksRegistrationArguments = m),
+      (i.buildBloksAssertionArguments = p),
+      (i.base64UrlEncode = _),
+      (i.onError = f));
+  },
+  66,
+);

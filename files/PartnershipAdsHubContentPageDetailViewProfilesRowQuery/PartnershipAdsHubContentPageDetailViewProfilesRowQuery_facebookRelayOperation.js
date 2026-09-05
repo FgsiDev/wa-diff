@@ -1,0 +1,8 @@
+__d(
+  "PartnershipAdsHubContentPageDetailViewProfilesRowQuery_facebookRelayOperation",
+  [],
+  function (t, n, r, o, a, i) {
+    a.exports = "27684127177891095";
+  },
+  null,
+);

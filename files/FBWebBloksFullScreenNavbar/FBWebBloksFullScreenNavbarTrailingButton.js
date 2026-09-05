@@ -1,0 +1,79 @@
+__d(
+  "FBWebBloksFullScreenNavbarTrailingButton",
+  [
+    "WebBloksAbstractButton",
+    "WebBloksComponentContext",
+    "WebBloksEnvironmentContext",
+    "react",
+    "react-compiler-runtime",
+    "useClickablePropsForWebBloks",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = e || (e = o("react"));
+    function u(e) {
+      var t = o("react-compiler-runtime").c(15),
+        n = e.node,
+        a = o("WebBloksComponentContext").useWebBloksContext(),
+        i = a.objectSet,
+        l = o("WebBloksEnvironmentContext").useDataBloksName(),
+        u;
+      t[0] !== n
+        ? ((u = n.get("accessibility_label")), (t[0] = n), (t[1] = u))
+        : (u = t[1]);
+      var d = u,
+        m = n.get("icon"),
+        p;
+      t[2] !== n ? ((p = n.get("title")), (t[2] = n), (t[3] = p)) : (p = t[3]);
+      var _ = p,
+        f;
+      t[4] !== n
+        ? ((f = n.getExpression("on_click")), (t[4] = n), (t[5] = f))
+        : (f = t[5]);
+      var g = r("useClickablePropsForWebBloks")(n, f),
+        h = c(i, m),
+        y;
+      t[6] !== l || t[7] !== n.styleId
+        ? ((y = l(n.styleId)), (t[6] = l), (t[7] = n.styleId), (t[8] = y))
+        : (y = t[8]);
+      var C;
+      return (
+        t[9] !== d || t[10] !== h || t[11] !== g || t[12] !== y || t[13] !== _
+          ? ((C = s.jsx(
+              r("WebBloksAbstractButton"),
+              babelHelpers.extends(
+                { trailing: !0 },
+                y,
+                { icon: h, title: _, accessibility_label: d },
+                g,
+              ),
+            )),
+            (t[9] = d),
+            (t[10] = h),
+            (t[11] = g),
+            (t[12] = y),
+            (t[13] = _),
+            (t[14] = C))
+          : (C = t[14]),
+        C
+      );
+    }
+    function c(e, t) {
+      switch (t) {
+        case "nav-cross":
+          return e.getAsset("navCross");
+        case "nav-dots-3-horizontal":
+          return e.getAsset("nav3DotHorizontal");
+        case "nav-info-circle":
+          return e.getAsset("navInfoCircle");
+        case "nav-settings":
+          return e.getAsset("settings");
+        default:
+          return null;
+      }
+    }
+    l.default = u;
+  },
+  98,
+);

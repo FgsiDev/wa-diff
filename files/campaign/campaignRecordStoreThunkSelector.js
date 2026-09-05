@@ -1,0 +1,15 @@
+__d(
+  "campaignRecordStoreThunkSelector",
+  ["AdsCampaignCombinedStore", "adsCreateStoreThunkSelector"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = r("adsCreateStoreThunkSelector")(
+      r("AdsCampaignCombinedStore"),
+      r("AdsCampaignCombinedStore").getRecord.bind(
+        r("AdsCampaignCombinedStore"),
+      ),
+    );
+    l.default = e;
+  },
+  98,
+);

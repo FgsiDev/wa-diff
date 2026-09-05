@@ -1,0 +1,21 @@
+__d(
+  "PartnershipAdsHubContentPageDetailModalQuery$Parameters",
+  ["PartnershipAdsHubContentPageDetailModalQuery_facebookRelayOperation"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = {
+      kind: "PreloadableConcreteRequest",
+      params: {
+        id: n(
+          "PartnershipAdsHubContentPageDetailModalQuery_facebookRelayOperation",
+        ),
+        metadata: {},
+        name: "PartnershipAdsHubContentPageDetailModalQuery",
+        operationKind: "query",
+        text: null,
+      },
+    };
+    a.exports = e;
+  },
+  null,
+);

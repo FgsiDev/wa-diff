@@ -1,0 +1,27 @@
+__d(
+  "BillingPhoneDialingPrefixUtils",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = 7;
+    function l(t, n) {
+      var r = (n != null ? n : "").split(" "),
+        o = r[0],
+        a = r[1],
+        i = t.replace(/\D/g, "");
+      return (
+        o != null &&
+          o !== "" &&
+          t.trim().startsWith(o) &&
+          (i = i.slice(o.replace(/\D/g, "").length)),
+        a != null &&
+          i.startsWith(a) &&
+          i.length - a.length >= e &&
+          (i = i.slice(a.length)),
+        i
+      );
+    }
+    i.stripPhoneDialingPrefix = l;
+  },
+  66,
+);

@@ -1,0 +1,13 @@
+__d(
+  "WebBloksCDSCloseScreen",
+  [],
+  function (t, n, r, o, a, i) {
+    function e(e, t, n) {
+      e.objectSet.navigationManager.close("close");
+      var r = t == null ? void 0 : t.get("callback");
+      r != null && e.executeCatch(r, [e.bloksContext]);
+    }
+    i.default = e;
+  },
+  66,
+);

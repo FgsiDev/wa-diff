@@ -1,0 +1,121 @@
+__d(
+  "CAAPRegulationUtils",
+  ["AdsBuyingTypes", "AdsRegionalRegulatedCategory"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = new Set([(e = r("AdsRegionalRegulatedCategory")).TAIWAN_UNIVERSAL]),
+      u = [e.AUSTRALIA_FINSERV, e.TAIWAN_FINSERV].filter(Boolean),
+      c = u,
+      d = [e.SINGAPORE_UNIVERSAL, e.TAIWAN_UNIVERSAL].filter(Boolean),
+      m = [].concat(u, d);
+    function p(e, t) {
+      return (t != null ? t : !0) && c.includes(e);
+    }
+    function _(e) {
+      return e.filter(function (e) {
+        return u.includes(e);
+      });
+    }
+    function f(e) {
+      return e.filter(function (e) {
+        return d.includes(e);
+      });
+    }
+    function g(e, t) {
+      var n = e.filter(function (e) {
+          return e.isFinServ;
+        }),
+        r = e.filter(function (e) {
+          return e.isUniversal;
+        }),
+        o = (
+          t
+            ? n.concat(
+                r.filter(function (e) {
+                  return !e.isFinServ;
+                }),
+              )
+            : r
+        ).toSorted(function (e, t) {
+          return e.regulationType
+            .toString()
+            .localeCompare(t.regulationType.toString());
+        });
+      return o;
+    }
+    function h(e, t) {
+      var n = e.filter(function (e) {
+          return e.isFinServ;
+        }),
+        r = e.filter(function (e) {
+          return e.isUniversal;
+        }),
+        o = (
+          t
+            ? n.concat(r).filter(function (e) {
+                return s.has(e.regulationType) === !1;
+              })
+            : r
+        ).toSorted(function (e, t) {
+          return e.regulationType
+            .toString()
+            .localeCompare(t.regulationType.toString());
+        });
+      return o;
+    }
+    function y(e, t) {
+      return t &&
+        e.length === 1 &&
+        e[0].campaignGroup.buying_type === r("AdsBuyingTypes").RESERVED
+        ? [
+            {
+              ad_target_spec_json: JSON.stringify(t),
+              campaign_id: e[0].campaign.id,
+            },
+          ]
+        : e.map(function (e) {
+            return {
+              ad_target_spec_json: JSON.stringify(e.campaign.targeting),
+              campaign_id: e.campaign.id,
+            };
+          });
+    }
+    function C(e, t) {
+      return t &&
+        e.length === 1 &&
+        e[0].campaignGroup.buying_type === r("AdsBuyingTypes").RESERVED
+        ? [
+            {
+              ad_target_spec_json: JSON.stringify({
+                geo_locations: t.geo_locations,
+                excluded_geo_locations: t.excluded_geo_locations,
+              }),
+              campaign_id: e[0].campaign.id,
+            },
+          ]
+        : e.map(function (e) {
+            return {
+              ad_target_spec_json: JSON.stringify({
+                geo_locations: e.campaign.targeting.geo_locations,
+                excluded_geo_locations:
+                  e.campaign.targeting.excluded_geo_locations,
+              }),
+              campaign_id: e.campaign.id,
+            };
+          });
+    }
+    ((l.UAVRegulationsWithFinserv = s),
+      (l.CAAP_FINSERV_REGULATORY_REGIONS = u),
+      (l.FINSERV_SELF_DECLARATION_REGULATIONS = c),
+      (l.CAAP_UNIVERSAL_REGULATORY_REGIONS = d),
+      (l.CAAP_ALL_REGULATORY_REGIONS = m),
+      (l.isFinServDeclarationRequiredFor = p),
+      (l.getCAAPFinservRegulations = _),
+      (l.getCAAPUniversalRegulations = f),
+      (l.getCAAPDisplayedRegulations = g),
+      (l.getDisplayedRegulations = h),
+      (l.getCampaignIDTargetSpec = y),
+      (l.getCampaignIDTargetGeoLocationsSpec = C));
+  },
+  98,
+);

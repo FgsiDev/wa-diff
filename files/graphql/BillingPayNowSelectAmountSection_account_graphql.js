@@ -1,0 +1,44 @@
+__d(
+  "BillingPayNowSelectAmountSection_account.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = {
+      argumentDefinitions: [],
+      kind: "Fragment",
+      metadata: null,
+      name: "BillingPayNowSelectAmountSection_account",
+      selections: [
+        {
+          alias: null,
+          args: null,
+          concreteType: "CurrencyAmount",
+          kind: "LinkedField",
+          name: "account_balance",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "formatted_amount",
+              storageKey: null,
+            },
+            {
+              alias: "localAmountNoSymbol",
+              args: [{ kind: "Literal", name: "show_symbol", value: !1 }],
+              kind: "ScalarField",
+              name: "formatted_amount",
+              storageKey: "formatted_amount(show_symbol:false)",
+            },
+          ],
+          storageKey: null,
+        },
+      ],
+      type: "BillableAccount",
+      abstractKey: "__isBillableAccount",
+    };
+    a.exports = e;
+  },
+  null,
+);

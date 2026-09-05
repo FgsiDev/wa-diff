@@ -1,0 +1,13 @@
+__d(
+  "A2UIInvitePeopleActions",
+  ["fbt"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e = "business_invite_people_skip";
+    function u() {
+      return s._(/*BTDS*/ "Skip for now").toString();
+    }
+    ((l.SKIP_INVITE_ACTION = e), (l.getDefaultSkipLabel = u));
+  },
+  226,
+);

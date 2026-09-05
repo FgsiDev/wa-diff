@@ -1,0 +1,492 @@
+__d(
+  "BillingSaveCardCredentialState",
+  [
+    "fbt",
+    "BillingCountryVerificationUtils",
+    "BillingCreditCardConstants",
+    "BillingCreditCardUtils",
+    "BillingError",
+    "BillingPaymentIconUtils.react",
+    "BillingPaymentMethodDisplayUtils",
+    "BillingSaveCardCredentialStateMutation.graphql",
+    "BillingWizardDecisionState",
+    "BillingWizardRootUPLogger",
+    "MetaConfig",
+    "asyncToGeneratorRuntime",
+  ],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e,
+      u = 3212061,
+      c =
+        e !== void 0
+          ? e
+          : (e = n("BillingSaveCardCredentialStateMutation.graphql"));
+    function d(e, t, n, o, a, i) {
+      return function () {
+        return e.showAutomaticBillingContent === !0
+          ? e.hasFunds === !0
+            ? t.MFT_USABILITY_FIXATHON_FLOW_9_1_HOLD_OUT.read()
+              ? r(
+                  "BillingCreditCardConstants",
+                ).successBodyRecurringWithFundsUpdated()
+              : t.MFT_USABILITY_FIXATHON_FLOW_10_2_HOLD_OUT.read()
+                ? r(
+                    "BillingCreditCardConstants",
+                  ).successBodyRecurringWithFundsFourDots(o, a)
+                : r("BillingCreditCardConstants").successBodyRecurringWithFunds(
+                    o,
+                    a,
+                  )
+            : t.MFT_USABILITY_FIXATHON_FLOW_10_2_HOLD_OUT.read()
+              ? r("BillingCreditCardConstants").successBodyRecurringFourDots(
+                  o,
+                  a,
+                )
+              : r("BillingCreditCardConstants").successBodyRecurring(o, a)
+          : i
+            ? r(
+                "BillingCreditCardConstants",
+              ).successBodyNonRecurringInPostpayUpgrade(o, a, n)
+            : r("BillingCreditCardConstants").successBody(o, a);
+      };
+    }
+    var m = (function (e) {
+      function t() {
+        for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
+          r[o] = arguments[o];
+        return (
+          (t = e.call.apply(e, [this].concat(r)) || this),
+          (t.name = "save_credit_card_state_decision"),
+          babelHelpers.assertThisInitialized(t) ||
+            babelHelpers.assertThisInitialized(t)
+        );
+      }
+      babelHelpers.inheritsLoose(t, e);
+      var a = t.prototype;
+      return (
+        (a.onDecide = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n,
+                a,
+                i,
+                l,
+                m,
+                p,
+                _,
+                f,
+                g,
+                h = t.gk,
+                y = t.qe,
+                C = t.relay;
+              if (!e.creditCard || e.saveCardAndPay === !0)
+                return {
+                  event: "onAddCardCredential",
+                  newProps: babelHelpers.extends({}, e),
+                };
+              var b = e.businessPaymentAccountID,
+                v = e.clientInfo,
+                S = e.creditCard,
+                R = e.hasAcknowledgedCountryMismatch,
+                L = e.inCountrySpoofingExperiment,
+                E = e.paymentAccountID,
+                k = e.skipCvvForEeaSave,
+                I = b != null && S.credentialSharability != null ? E : null,
+                T = b != null && S.credentialSharability != null ? b : E,
+                D = yield o(
+                  "BillingCreditCardUtils",
+                ).buildSaveCardCredentialInput(
+                  S,
+                  T,
+                  (n = e.country) != null ? n : "",
+                  e.currency,
+                  (a = e.paymentIntent) != null ? a : "ADD_PM",
+                  e.pmCapabilityPaymentIntent,
+                  !1,
+                  v,
+                  h,
+                  y,
+                  C,
+                  void 0,
+                  k,
+                  I,
+                  {
+                    errorMessage:
+                      "BillingSaveCardCredentialState failed to generate a platform trust token",
+                    getIsPTTRequired: function () {
+                      return r("MetaConfig")._("494");
+                    },
+                    sourceState: "save_credit_card_state_decision",
+                  },
+                ),
+                x = e.taxCountryVerificationMethod;
+              if (R !== !0 && L === !0) {
+                var $ = yield o(
+                  "BillingCountryVerificationUtils",
+                ).queryTaxCountryValidationData(C, E);
+                if (($ == null ? void 0 : $.status) !== "CONFIRMED")
+                  if (($ == null ? void 0 : $.canUpdateTaxCountry) === !0) {
+                    var P,
+                      N,
+                      M =
+                        (P =
+                          (N = S.cardNumber) == null ? void 0 : N.getBin()) !=
+                        null
+                          ? P
+                          : "",
+                      w = D.platform_trust_token,
+                      A = yield o(
+                        "BillingCountryVerificationUtils",
+                      ).queryBinProperties(C, T, M, w);
+                    if (A !== "" && A !== e.country)
+                      return {
+                        event: "onResolveLocationMismatch",
+                        newProps: babelHelpers.extends({}, e, { ptt: w }),
+                      };
+                  } else x = "SHOW_STEPUP_OPTIONS";
+              }
+              var F = C.commitMutation;
+              if (D.platform_trust_token === "") {
+                var O;
+                ((F = C.commitSecureMutation),
+                  r("BillingWizardRootUPLogger").logDebugEvent(
+                    "BillingSaveCardCredentialState_token_proxy_fallback",
+                    { country: (O = e.country) != null ? O : "" },
+                  ));
+              }
+              var B = null;
+              try {
+                var W =
+                  yield y.attempt_to_fix_stale_wizard_queries_univser.enabled.get();
+                B = yield F(
+                  {
+                    mutation: c,
+                    variables: {
+                      getRiskVerificationInfoForAllCredentialsOnPaymentAccount:
+                        !0,
+                      includeCreateNewFromOldFragment: W,
+                      input: D,
+                      paymentAccountID: E,
+                    },
+                  },
+                  {
+                    event_data: {
+                      is_ptt_empty_string:
+                        D.platform_trust_token === "" ? "true" : "false",
+                    },
+                  },
+                  !0,
+                  function (e) {
+                    var t, n;
+                    return {
+                      extra_data: {
+                        credential_id:
+                          e == null ||
+                          (t = e.xfb_billing_save_card_credential) == null ||
+                          (t = t.credit_card) == null
+                            ? void 0
+                            : t.credential_id,
+                      },
+                      payload_data: {
+                        flow_milestone:
+                          (e == null ||
+                          (n = e.xfb_billing_save_card_credential) == null ||
+                          (n = n.credit_card) == null
+                            ? void 0
+                            : n.credential_id) != null
+                            ? "PaymentMethodAdded"
+                            : void 0,
+                      },
+                    };
+                  },
+                );
+              } catch (t) {
+                if (!(t instanceof r("BillingError")))
+                  throw (
+                    r("BillingWizardRootUPLogger").logDebugEvent(
+                      "BillingSaveCardCredentialState_unexpected_error",
+                      {
+                        error_message:
+                          t instanceof Error ? t.message : String(t),
+                      },
+                    ),
+                    t
+                  );
+                if (
+                  (r("BillingWizardRootUPLogger").logBillingPayloadError(
+                    t.type,
+                    t.errorPayload,
+                  ),
+                  t.errorPayload.exception_code === u)
+                )
+                  return {
+                    event: "onSelf",
+                    newProps: babelHelpers.extends({}, e, {
+                      creditCard: void 0,
+                      status: {
+                        body: t.description,
+                        headline: t.summary,
+                        type: "ERROR",
+                      },
+                    }),
+                  };
+                throw (
+                  (t.sourceState = "save_credit_card_state_decision"),
+                  (t.paymentIntent = e.paymentIntent),
+                  t
+                );
+              }
+              var q =
+                  (i = B) == null ||
+                  (i = i.xfb_billing_save_card_credential) == null
+                    ? void 0
+                    : i.credit_card,
+                U = q == null ? void 0 : q.credential_id;
+              if (U == null)
+                throw new (r("BillingError"))(
+                  "BillingSaveCardCredentialStateMutation mutation came back with no credential ID",
+                  "mutation response came back with missing or invalid value",
+                  {
+                    event_action: "mutation",
+                    event_result: "failure",
+                    event_side: "client_side",
+                  },
+                  { action: "mutate", document_name: "save_credit_card" },
+                  "critical_error",
+                  { sourceState: "save_credit_card_state_decision" },
+                );
+              var V =
+                  (l = q == null ? void 0 : q.last_four_digits) != null
+                    ? l
+                    : "****",
+                H = q == null ? void 0 : q.card_association_name,
+                G = S.credentialSharability,
+                z = o("BillingPaymentMethodDisplayUtils")
+                  .getPaymentMethodDisplayFromFragment(q)
+                  .toString(),
+                j =
+                  (m = B.xfb_billing_save_card_credential) == null
+                    ? void 0
+                    : m.payment_account,
+                K = j == null || (p = j.business) == null ? void 0 : p.name,
+                Q =
+                  (j == null ? void 0 : j.__typename) ===
+                    "BusinessPaymentAccount" &&
+                  (j == null ? void 0 : j.billable_account) == null,
+                X =
+                  e.isNewAccountTransitionsFlow === !0 &&
+                  (e.recurring === !1 ||
+                    (q == null ? void 0 : q.supports_recurring) === !1),
+                Y = d(e, h, y, V, H, X),
+                J =
+                  e.showAutomaticBillingContent === !0
+                    ? h.MFT_USABILITY_FIXATHON_FLOW_10_2_HOLD_OUT.read()
+                      ? r(
+                          "BillingCreditCardConstants",
+                        ).successHeadlineRecurringFourDots(V, H)
+                      : r(
+                          "BillingCreditCardConstants",
+                        ).successHeadlineRecurring(V, H)
+                    : X
+                      ? y != null &&
+                        (_ = y.billing_terms_automatic_payments) != null &&
+                        (_ = _.use_automatic_payments) != null &&
+                        _.read()
+                        ? s._(/*BTDS*/ "Automatic payments not turned on")
+                        : s._(/*BTDS*/ "Automatic billing not turned on")
+                      : r("BillingCreditCardConstants").successHeadline,
+                Z =
+                  G == null &&
+                  Q &&
+                  e.showAutomaticBillingContent !== !0 &&
+                  !X &&
+                  y.billing_fixathon_2026h2_9_1.enable_h2_fixathon_9_1_flow.read() ===
+                    !0,
+                ee =
+                  G != null
+                    ? {
+                        body: r(
+                          "BillingCreditCardConstants",
+                        ).successBodyForBizCredentialSave(G, K, E),
+                        headline: r(
+                          "BillingCreditCardConstants",
+                        ).successHeadlineForBizCredentialSave(z),
+                        type: "SUCCESS",
+                      }
+                    : Z
+                      ? {
+                          body: r(
+                            "BillingCreditCardConstants",
+                          ).successBodyBusinessUpsell(V, H, K),
+                          headline: J,
+                          type: "SUCCESS",
+                        }
+                      : { body: Y, headline: J, type: X ? "LEARN" : "SUCCESS" },
+                te =
+                  (f = B.xfb_billing_save_card_credential) == null
+                    ? void 0
+                    : f.card_verification_status,
+                ne = o("BillingCreditCardUtils").updateCreditCardAfterSave(
+                  e.creditCard,
+                  U,
+                  H != null ? H : void 0,
+                  V,
+                ),
+                re = {
+                  paymentMethodID: U,
+                  verification_info:
+                    (g = B.xfb_billing_save_card_credential) == null
+                      ? void 0
+                      : g.risk_verification_info,
+                },
+                oe = babelHelpers.extends({}, e, {
+                  creditCard: ne,
+                  paymentMethodID: U,
+                  riskInfo: re,
+                  taxCountryVerificationMethod: x,
+                });
+              if (te === "SUCCESS")
+                return {
+                  event: "onNext",
+                  newProps: babelHelpers.extends({}, oe, {
+                    paymentMethodType: "CREDIT_CARD",
+                    status: ee,
+                  }),
+                };
+              if (te === "AUTHENTICATION_REQUIRED")
+                return this.handleAuthenticationRequired(B, oe, ee, te);
+              var ae = s._(
+                  /*BTDS*/ "We weren't able to complete verification, please try again.",
+                ),
+                ie = s._(/*BTDS*/ "Couldn't verify card");
+              throw new (r("BillingError"))(
+                "BillingSaveCardCredentialStateMutation GraphQL call returned an unexpected status: " +
+                  (te != null ? te : "NULL"),
+                "mutation response came back with missing or invalid value",
+                {
+                  event_action: "mutation",
+                  event_result: "failure",
+                  event_side: "client_side",
+                },
+                { action: "mutate", document_name: "save_credit_card" },
+                "critical_error",
+                {
+                  description: ae.toString(),
+                  sourceState: "save_credit_card_state_decision",
+                  summary: ie.toString(),
+                },
+              );
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.handleAuthenticationRequired = function (t, n, a, i) {
+          var e,
+            l,
+            s =
+              t == null || (e = t.xfb_billing_save_card_credential) == null
+                ? void 0
+                : e.card_verification,
+            u = (s == null ? void 0 : s.supports_native_otp) === !0,
+            c = (s == null ? void 0 : s.credential_authentication_id) != null,
+            d = "iframe_3ds";
+          if (
+            (c ? (d = "cardinal_3ds") : u && (d = "native_otp"),
+            r("BillingWizardRootUPLogger").logEvent({
+              event_action: "check",
+              event_result: "init",
+              event_side: "client",
+              extra_data: {
+                activation_path: d,
+                card_status_ent_id: String(
+                  (l = s == null ? void 0 : s.async_card_status_ent_id) != null
+                    ? l
+                    : "",
+                ),
+                card_verification_status: i,
+                supports_cardinal_3ds: String(c),
+                supports_native_otp: String(u),
+              },
+              target_name: "auth_required",
+            }),
+            s == null)
+          )
+            throw new (r("BillingError"))(
+              "BillingSaveCardCredentialStateMutation failed to return verification parameters",
+              "mutation response came back with missing or invalid value",
+              {
+                event_action: "mutation",
+                event_result: "failure",
+                event_side: "client_side",
+              },
+              { action: "mutate", document_name: "save_credit_card" },
+              "critical_error",
+            );
+          if (c)
+            return {
+              event: "onAuthenticationRequiredWithCardinal3DS",
+              newProps: babelHelpers.extends({}, n, {
+                cardStatusEntID: s.async_card_status_ent_id,
+                credentialAuthenticationId: s.credential_authentication_id,
+                externalRefID: s.external_reference_id,
+                hidePaymentAmountSection: !0,
+              }),
+            };
+          if (s.supports_native_otp === !0) {
+            var m;
+            return {
+              event: "onAuthenticationRequiredWithNativeOTP",
+              newProps: babelHelpers.extends({}, n, {
+                cardAssociation: s.card_association,
+                cardAssociationIcon:
+                  s.card_association_icon != null
+                    ? o("BillingPaymentIconUtils.react").getCDSImageProps(
+                        s.card_association_icon,
+                      )
+                    : null,
+                cardStatusEntID: s.async_card_status_ent_id,
+                externalRefID: s.external_reference_id,
+                hidePaymentAmountSection: !0,
+                indiaCardIssuer:
+                  s.india_card_issuer != null ? s.india_card_issuer : null,
+                initResults: {
+                  nonce: s.nonce,
+                  params: s.params,
+                  url: (m = s.external_uri) != null ? m : "",
+                },
+                issuerIcon:
+                  s.india_issuer_icon != null
+                    ? o("BillingPaymentIconUtils.react").getCDSImageProps(
+                        s.india_issuer_icon,
+                      )
+                    : null,
+              }),
+            };
+          } else {
+            var p,
+              _ = {
+                nonce: s.nonce,
+                params: s.params,
+                url: (p = s.external_uri) != null ? p : "",
+              };
+            return {
+              event: "onAuthenticationRequired",
+              newProps: babelHelpers.extends({}, n, {
+                cardStatusEntID: s.async_card_status_ent_id,
+                initResults: _,
+                status: a,
+              }),
+            };
+          }
+        }),
+        t
+      );
+    })(o("BillingWizardDecisionState").DecisionState);
+    l.default = m;
+  },
+  226,
+);

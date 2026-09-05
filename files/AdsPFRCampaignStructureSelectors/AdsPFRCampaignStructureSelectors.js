@@ -1,0 +1,91 @@
+__d(
+  "AdsPFRCampaignStructureSelectors",
+  [
+    "AdsCampaignStructureSelectors",
+    "AdsCrepePerformanceUtils",
+    "AdsEditorCampaignStructureStore",
+    "AdsPERouterHelper",
+    "AdsPFRCampaignStructureSelectorsUtils",
+    "adsCreateSelector",
+    "adsCreateStoreSelector",
+    "campaignStructureTreeDynamicSelector",
+    "isAdsSimpleCreateSurface",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = [],
+      u = r("adsCreateStoreSelector")(
+        [r("AdsEditorCampaignStructureStore")].concat(
+          (e = o(
+            "AdsCampaignStructureSelectors",
+          )).parentCampaignGroupIDsSelector.campaign.getStores("campaign"),
+          e.parentCampaignGroupIDsSelector.ad_set.getStores("ad_set"),
+          e.parentCampaignGroupIDsSelector.ad.getStores("ad_set"),
+        ),
+        function () {
+          return c();
+        },
+        { name: i.id + ".campaignStructurePFRCampaignGroupIDsSelector" },
+      ),
+      c = function () {
+        var e = r("AdsEditorCampaignStructureStore")
+            .getState()
+            .campaignGroupIDs.toArray(),
+          t = r("AdsEditorCampaignStructureStore").getState().selectedIDs;
+        if (
+          t.length !== 0 &&
+          !o("AdsCrepePerformanceUtils").isCreationPackage()
+        ) {
+          var n = r("AdsEditorCampaignStructureStore").getState().currentLevel,
+            a = o("AdsCampaignStructureSelectors")
+              .parentCampaignGroupIDsSelector[n];
+          if (a == null) return s;
+          var i = a("campaign");
+          return i.hasValue() ? i.getValueEnforcing() : s;
+        }
+        if (e.length === 0 && r("isAdsSimpleCreateSurface")()) {
+          var l, u;
+          return (l =
+            (u = r("AdsPERouterHelper")
+              .getRouter()
+              .getParams().selected_campaign_ids) == null
+              ? void 0
+              : u.toArray()) != null
+            ? l
+            : s;
+        }
+        return e;
+      },
+      d = r("adsCreateSelector")(
+        [u, r("campaignStructureTreeDynamicSelector")],
+        function (t, n) {
+          return o(
+            "AdsPFRCampaignStructureSelectorsUtils",
+          ).getCampaignStructurePFRTree(t, n);
+        },
+        { name: i.id + ".getCampaignStructurePFRTreeSelector" },
+      ),
+      m = r("adsCreateSelector")(
+        [e.adsDraftFragmentGroupsSelector, u, d],
+        function (t, n, r) {
+          return o(
+            "AdsCampaignStructureSelectors",
+          ).getFlatTreeItemsFastLoadSelectorLogic(t, n, [r]);
+        },
+        { name: i.id },
+      ),
+      p = r("adsCreateSelector")(
+        [m],
+        function (t) {
+          return o(
+            "AdsPFRCampaignStructureSelectorsUtils",
+          ).getFlatTreeItemsFastPlainPFR(t);
+        },
+        { name: i.id },
+      );
+    ((l.campaignStructurePFRCampaignGroupIDsSelector = u),
+      (l.getFlatTreeItemsFastPlainPFRSelector = p));
+  },
+  98,
+);

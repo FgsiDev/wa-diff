@@ -1,0 +1,182 @@
+__d(
+  "BillingMIBillingInfoUtils",
+  ["BillingMIEditBillingInfoConstants"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    function s(e) {
+      var t = new Set(),
+        n = e.filter(function (e) {
+          var n = e.key.toLowerCase();
+          return t.has(n) ? !1 : (t.add(n), !0);
+        });
+      return n;
+    }
+    function u(e) {
+      return (e != null ? e : [])
+        .filter(function (e) {
+          return !!e;
+        })
+        .map(function (e) {
+          return { key: e != null ? e : "", label: e != null ? e : "" };
+        });
+    }
+    function c(e) {
+      return e === r("BillingMIEditBillingInfoConstants").noGroupSelectedKey ||
+        !e
+        ? null
+        : e;
+    }
+    function d(t) {
+      return e.test(t);
+    }
+    function m(e, t) {
+      return e !== t;
+    }
+    function p(e) {
+      var t, n, r, o, a, i;
+      if (e == null || Object.keys(e).length === 0) return null;
+      var l =
+          (t = e.billToAddress) != null && t.id
+            ? (n = e.billToAddress) == null
+              ? void 0
+              : n.id
+            : null,
+        s =
+          e.customInvoicingEmails != null
+            ? e.customInvoicingEmails
+                .map(function (e) {
+                  return e == null ? void 0 : e.key;
+                })
+                .filter(Boolean)
+            : null,
+        u = e.selectedInvoiceGroupID ? e.selectedInvoiceGroupID : null,
+        c =
+          (r = e.liableAddress) != null && r.id
+            ? (o = e.liableAddress) == null
+              ? void 0
+              : o.id
+            : null,
+        d = e.poNumber,
+        m =
+          (a = e.soldToAddress) != null && a.id
+            ? (i = e.soldToAddress) == null
+              ? void 0
+              : i.id
+            : null,
+        p = e.billToOrgID ? e.billToOrgID : null,
+        _ = e.soldToOrgID ? e.soldToOrgID : null,
+        f = e.liableOrgID ? e.liableOrgID : null,
+        g = e.billingOrgChangeReason ? e.billingOrgChangeReason : null;
+      return {
+        bill_to_address_id: l,
+        bill_to_org_id: p,
+        billing_org_change_reason: g,
+        customer_po_number: d,
+        invoice_group_id: u,
+        invoicing_emails: s,
+        liable_address_id: c,
+        liable_org_id: f,
+        sold_to_address_id: m,
+        sold_to_org_id: _,
+        unset_invoice_group: e.unsetInvoiceGroup,
+      };
+    }
+    function _(e) {
+      var t, n, r, o, a, i;
+      if (e != null)
+        return {
+          bill_to_address: e.billToAddress.id.toString(),
+          bill_to_org: e.billToOrgID.toString(),
+          change_reason: (t = e.billingOrgChangeReason) != null ? t : "",
+          emails: ((n = e.customInvoicingEmails) != null ? n : [])
+            .map(function (e) {
+              return e == null ? void 0 : e.key;
+            })
+            .toString(),
+          invoice_group:
+            (r =
+              (o = e.selectedInvoiceGroupID) == null ? void 0 : o.toString()) !=
+            null
+              ? r
+              : "",
+          liable_address: e.liableAddress.id.toString(),
+          liable_org: e.liableOrgID.toString(),
+          po_number:
+            (a = (i = e.poNumber) == null ? void 0 : i.toString()) != null
+              ? a
+              : "",
+          sold_to_address: e.soldToAddress.id.toString(),
+          sold_to_org: e.soldToOrgID.toString(),
+        };
+    }
+    function f(e, t) {
+      var n,
+        r,
+        o,
+        a,
+        i = {};
+      if (
+        ((n = (r = e.customInvoicingEmails) == null ? void 0 : r.length) != null
+          ? n
+          : 0) !==
+        ((o = (a = t.customInvoicingEmails) == null ? void 0 : a.length) != null
+          ? o
+          : 0)
+      )
+        i.customInvoicingEmails = e.customInvoicingEmails;
+      else {
+        var l,
+          s,
+          u = ((l = t.customInvoicingEmails) != null ? l : []).map(
+            function (e) {
+              return e.key;
+            },
+          ),
+          c = ((s = e.customInvoicingEmails) != null ? s : []).filter(
+            function (e) {
+              return !u.includes(e.key);
+            },
+          );
+        c.length !== 0 && (i.customInvoicingEmails = e.customInvoicingEmails);
+      }
+      return (
+        e.poNumber !== t.poNumber && (i.poNumber = e.poNumber),
+        e.selectedInvoiceGroupID != t.selectedInvoiceGroupID &&
+          (e.selectedInvoiceGroupID == null && (i.unsetInvoiceGroup = !0),
+          (i.selectedInvoiceGroupID = e.selectedInvoiceGroupID),
+          (i.billToAddress = e.billToAddress),
+          (i.soldToAddress = e.soldToAddress),
+          (i.liableAddress = e.liableAddress)),
+        (e.billToOrgID !== t.billToOrgID ||
+          e.liableOrgID !== t.liableOrgID ||
+          e.soldToOrgID !== t.soldToOrgID) &&
+          ((i.billingOrgChangeReason = e.billingOrgChangeReason),
+          (i.billToOrgID = e.billToOrgID),
+          (i.soldToOrgID = e.soldToOrgID),
+          (i.liableOrgID = e.liableOrgID),
+          (i.billToAddress = e.billToAddress),
+          (i.soldToAddress = e.soldToAddress),
+          (i.liableAddress = e.liableAddress),
+          (i.selectedInvoiceGroupID = e.selectedInvoiceGroupID)),
+        e.billToAddress.id !== t.billToAddress.id &&
+          (i.billToAddress = e.billToAddress),
+        e.soldToAddress.id !== t.soldToAddress.id &&
+          (i.soldToAddress = e.soldToAddress),
+        e.liableAddress.id !== t.liableAddress.id &&
+          (i.liableAddress = e.liableAddress),
+        babelHelpers.extends({}, i)
+      );
+    }
+    ((l.dedupEmailsForDisplay = s),
+      (l.formatEmailsForDisplay = u),
+      (l.getValidOrNullSelectedInvoiceGroupID = c),
+      (l.isValidEmail = d),
+      (l.isAOAB = m),
+      (l.convertToMIInfoGraphQLObject = p),
+      (l.createUpdateMiInfoEventData = _),
+      (l.getUpdatedValues = f));
+  },
+  98,
+);

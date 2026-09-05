@@ -1,0 +1,18 @@
+__d(
+  "isAdsSimpleCreateSurface",
+  ["AdsInterfacesRouter"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = "simple_create";
+    function s() {
+      var t;
+      return (
+        ((t = r("AdsInterfacesRouter").getOrNull()) == null
+          ? void 0
+          : t.getGivenName()) === e
+      );
+    }
+    l.default = s;
+  },
+  98,
+);

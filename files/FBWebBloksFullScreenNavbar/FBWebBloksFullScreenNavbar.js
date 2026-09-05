@@ -1,0 +1,170 @@
+__d(
+  "FBWebBloksFullScreenNavbar",
+  [
+    "WebBloksComponentContext",
+    "WebBloksEnvironmentContext",
+    "WebBloksNavbarBackButton",
+    "WebBloksStyle",
+    "WebBloksTheme",
+    "react",
+    "react-compiler-runtime",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = e || (e = o("react")),
+      u = e.useMemo;
+    function c(e) {
+      var t = o("react-compiler-runtime").c(35),
+        n = e.node,
+        a = o("WebBloksComponentContext").useWebBloksContext(),
+        i = a.objectSet,
+        l = a.renderNode,
+        u = o("WebBloksEnvironmentContext").useDataBloksName(),
+        c = i.navigationManager,
+        m;
+      t[0] !== n ? ((m = n.get("title")), (t[0] = n), (t[1] = m)) : (m = t[1]);
+      var p = m,
+        _;
+      t[2] !== n
+        ? ((_ = n.get("title_component")), (t[2] = n), (t[3] = _))
+        : (_ = t[3]);
+      var f = _,
+        g;
+      t[4] !== n
+        ? ((g = n.get("trailing_buttons")), (t[4] = n), (t[5] = g))
+        : (g = t[5]);
+      var h = g,
+        y;
+      if (t[6] !== l || t[7] !== f || t[8] !== h) {
+        var C = [],
+          b;
+        t[10] !== l || t[11] !== f
+          ? ((b = f != null ? l(f) : null),
+            (t[10] = l),
+            (t[11] = f),
+            (t[12] = b))
+          : (b = t[12]);
+        var v = b,
+          S;
+        t[13] !== h
+          ? ((S = h != null ? h : []), (t[13] = h), (t[14] = S))
+          : (S = t[14]);
+        for (var R of S) C.push(l(R));
+        ((y = { titleBloksNode: v, trailingButtons: C }),
+          (t[6] = l),
+          (t[7] = f),
+          (t[8] = h),
+          (t[9] = y));
+      } else y = t[9];
+      var L = y,
+        E = L.titleBloksNode,
+        k = L.trailingButtons,
+        I = c.getScreenCount() > 1,
+        T = I && k.length === 0,
+        D;
+      t[15] !== u || t[16] !== n.styleId
+        ? ((D = u(n.styleId)), (t[15] = u), (t[16] = n.styleId), (t[17] = D))
+        : (D = t[17]);
+      var x = T ? d.titleContainerMargin : null,
+        $;
+      t[18] !== x
+        ? (($ = o("WebBloksStyle").classNames(d.titleContainer, x)),
+          (t[18] = x),
+          (t[19] = $))
+        : ($ = t[19]);
+      var P;
+      t[20] !== c || t[21] !== I
+        ? ((P = I
+            ? s.jsx(r("WebBloksNavbarBackButton"), {
+                onClick: function () {
+                  return c.pop();
+                },
+              })
+            : null),
+          (t[20] = c),
+          (t[21] = I),
+          (t[22] = P))
+        : (P = t[22]);
+      var N = E != null ? E : p,
+        M;
+      t[23] !== N
+        ? ((M = s.jsx("div", { className: d.title, children: N })),
+          (t[23] = N),
+          (t[24] = M))
+        : (M = t[24]);
+      var w;
+      t[25] !== M || t[26] !== $ || t[27] !== P
+        ? ((w = s.jsxs("div", { className: $, children: [P, M] })),
+          (t[25] = M),
+          (t[26] = $),
+          (t[27] = P),
+          (t[28] = w))
+        : (w = t[28]);
+      var A;
+      t[29] !== k
+        ? ((A = s.jsx("div", { className: d.trailingButtons, children: k })),
+          (t[29] = k),
+          (t[30] = A))
+        : (A = t[30]);
+      var F;
+      return (
+        t[31] !== w || t[32] !== A || t[33] !== D
+          ? ((F = s.jsxs(
+              "div",
+              babelHelpers.extends({}, D, {
+                className: d.root,
+                children: [w, A],
+              }),
+            )),
+            (t[31] = w),
+            (t[32] = A),
+            (t[33] = D),
+            (t[34] = F))
+          : (F = t[34]),
+        F
+      );
+    }
+    var d = o("WebBloksStyle").createStyles({
+      root: {
+        backgroundColor: o("WebBloksTheme").WebBloksThemeVars["navbar-bg"],
+        borderBottomStyle: "solid",
+        borderBottomColor: o("WebBloksTheme").WebBloksThemeVars.separator,
+        borderBottomWidth: 1,
+        boxSizing: "border-box",
+        display: "flex",
+        minHeight: 52,
+        justifyContent: "center",
+        position: "sticky",
+        top: 0,
+        padding: 8,
+        width: "100%",
+        zIndex: 1,
+      },
+      titleContainer: {
+        alignItems: "center",
+        display: "flex",
+        flexGrow: 1,
+        fontWeight: 600,
+        justifyContent: "center",
+      },
+      titleContainerMargin: { marginRight: 28 },
+      title: {
+        flexGrow: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "0 0px",
+        textAlign: "center",
+      },
+      trailingButtons: {
+        display: "flex",
+        flexShrink: 0,
+        alignItems: "center",
+        flexDirection: "row-reverse",
+        justifyContent: "center",
+      },
+    });
+    l.default = c;
+  },
+  98,
+);

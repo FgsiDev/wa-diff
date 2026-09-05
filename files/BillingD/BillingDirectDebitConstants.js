@@ -1,0 +1,181 @@
+__d(
+  "BillingDirectDebitConstants",
+  ["fbt", "react"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e,
+      u = e || (e = o("react")),
+      c = {
+        AccountHolderNameLabel: s._(/*BTDS*/ "Account holder's name"),
+        AgreementCheckboxLabel: function (t) {
+          var e = s._(/*BTDS*/ "Meta payment terms");
+          return s._(
+            /*BTDS*/ "Meta may instruct my bank to debit this account in accordance with {linkLabel}",
+            [
+              s._param(
+                "linkLabel",
+                u.jsx(t, {
+                  href: "https://www.facebook.com/payments_terms",
+                  inline: !0,
+                  label: e,
+                }),
+              ),
+            ],
+          );
+        },
+        AgreementRequiredMessage: s._(
+          /*BTDS*/ "Please agree to the terms listed above",
+        ),
+        BACSBankAddressLabel: s._(/*BTDS*/ "Bank address"),
+        BACSBranchSortCodeLabel: s._(/*BTDS*/ "Branch sort code"),
+        BACSDefaultCountryLabel: s._(/*BTDS*/ "United Kingdom"),
+        BACSDefaultCountryValue: s._(/*BTDS*/ "GB"),
+        BACSInstructionBodyList: [
+          s._(
+            /*BTDS*/ "This Guarantee is offered by all banks and building societies that accept instructions to pay Direct Debit.",
+          ),
+          s._(
+            /*BTDS*/ "If there are any changes to the amount, date or frequency of your Direct Debit, Meta Platforms, Inc. will notify you 3 working days in advance of your account being debited or as otherwise agreed. If you ask Meta Platforms, Inc. to collect a payment, a confirmation of the amount and date will be given to you at the time of the request.",
+          ),
+          s._(
+            /*BTDS*/ "If an error is made in the payment of your Direct Debit by Meta Platforms, Inc. or your bank or building society, you are entitled to a full and immediate refund of the amount paid from your bank or building society.",
+          ),
+          s._(
+            /*BTDS*/ "If you receive a refund you are not entitled to, you must pay it back when Meta Platforms, Inc. asks you to.",
+          ),
+          s._(
+            /*BTDS*/ "This Guarantee is offered by all banks and building societies that accept instructions to pay Direct Debit.",
+          ),
+        ],
+        BACSInstructionFooter: s._(
+          /*BTDS*/ "As part of our checking process we need to confirm the details provided against a Credit Reference Agency (CRA). A record of this check is stored by the CRA. It is not used in any credit risk scoring and does not affect credit ratings in any way.",
+        ),
+        BACSInstructionHeader: s._(/*BTDS*/ "The Direct Debit Guarantee"),
+        BACSInstructionPrimaryButton: s._(/*BTDS*/ "Add Bank Account"),
+        BACSInstructionTitle: s._(
+          /*BTDS*/ "Instruction to Pay by Direct Deposit",
+        ),
+        BACSScreenHeader: s._(
+          /*BTDS*/ "Your payment info will be stored securely.",
+        ),
+        BACSScreenTitle: s._(/*BTDS*/ "Pay By Direct Debit"),
+        BankAccountNumber: s._(/*BTDS*/ "Bank account number"),
+        SEPABicLabel: s._(/*BTDS*/ "BIC"),
+        SEPABillingAddressLabel: s._(/*BTDS*/ "Billing address"),
+        SEPAScreenHeader: s._(/*BTDS*/ "Add Bank Account"),
+        SEPAScreenTitle: s._(/*BTDS*/ "Select a Payment Method"),
+        accountAddedCVCOSuccessBody: function (t, n) {
+          return n === !0
+            ? s._(
+                /*BTDS*/ "Bank account\u00a0\u00b7\u00a0 {last four} was added. To use this payment method, you will have to verify it.",
+                [s._param("last four", t)],
+              )
+            : s._(
+                /*BTDS*/ "Bank account{bullet and space}{last four} was added. To use this payment method, you will have to contact support to verify it.",
+                [
+                  s._param("bullet and space", "\xA0\xB7\xA0"),
+                  s._param("last four", t),
+                ],
+              );
+        },
+        accountAddedCVCOSuccessHeadline: function (t) {
+          return s._(
+            /*BTDS*/ "Bank account{bullet and space}{last four} added",
+            [
+              s._param("bullet and space", "\xA0\xB7\xA0"),
+              s._param("last four", t),
+            ],
+          );
+        },
+        accountAddedSuccessBody: function (t) {
+          return s._(
+            /*BTDS*/ "Bank account{bullet and space}{last four} has been added to your account.",
+            [
+              s._param("bullet and space", "\xA0\xB7\xA0"),
+              s._param("last four", t),
+            ],
+          );
+        },
+        accountAddedSuccessHeadline: s._(
+          /*BTDS*/ "Bank account successfully saved",
+        ),
+        accountVerifiedSuccessBody: function (t) {
+          return s._(
+            /*BTDS*/ "Bank account{bullet and space}{last four} has been verified.",
+            [
+              s._param("bullet and space", "\xA0\xB7\xA0"),
+              s._param("last four", t),
+            ],
+          );
+        },
+        accountVerifiedSuccessHeadline: s._(
+          /*BTDS*/ "Bank account successfully verified",
+        ),
+        addFailureHeadline: s._(
+          /*BTDS*/ "Bank account wasn't added to your account",
+        ),
+        addFailureTitle: s._(/*BTDS*/ "Couldn't Add Bank Account"),
+        addHeadline: s._(/*BTDS*/ "Add Payment Method"),
+        addPaymentMethodButtonLabel: s._(/*BTDS*/ "Add Payment Method"),
+        bankAccount: function (t) {
+          return s._(/*BTDS*/ "Bank account{bullet and space}{last four}", [
+            s._param("bullet and space", "\xA0\xB7\xA0"),
+            s._param("last four", t),
+          ]);
+        },
+        cityLabel: s._(/*BTDS*/ "City"),
+        countryLabel: s._(/*BTDS*/ "Country"),
+        failureBody: s._(
+          /*BTDS*/ "You can try again with this bank account or a different payment method.",
+        ),
+        needsBizProfileBody: s._(
+          /*BTDS*/ "You can try adding another bank account or a different payment method.",
+        ),
+        needsBizProfileHeadline: s._(
+          /*BTDS*/ "This bank account isn't eligible for automatic payments",
+        ),
+        needsBizProfileTitle: s._(
+          /*BTDS*/ "Account is not a Business Bank Account",
+        ),
+        pennyDropSuccessBody: s._(
+          /*BTDS*/ "We've sent $0.01 to your bank account. The transaction description will include the name \"Trustly, Inc\" and a reference code. When you receive this deposit, come back to your payment settings and enter the reference code to verify your payment method. You won't be able to use this bank account to run ads until you've completed verification.",
+        ),
+        pennyDropSuccessHeadline: s._(/*BTDS*/ "Verify your bank account"),
+        pennyDropSuccessTitle: s._(/*BTDS*/ "Verification Needed"),
+        postalCodeLabel: s._(/*BTDS*/ "Postal code"),
+        primaryButtonLabel: s._(/*BTDS*/ "Next"),
+        tooltipBody: function (t) {
+          return s._(
+            /*BTDS*/ "Online Banking is a digital payment method that allows you to make or receive payment by signing in to your bank without leaving Meta. {new_line_char}{simple description}{new_line_char2}Skip credit\/debit card or bank account\/routing number entries. Just select your bank, and sign in with your usual bank credentials. {new_line_char3}{private description}{new_line_char4}This connection is encrypted by Trustly, and your identity is verified by your bank's strong Multi-Factor Authentication. {new_line_char5}{safe description}{new_line_char6}Your bank credentials won't be seen by the merchant. And, your bank data won't be shared or used without your consent.",
+            [
+              s._param("new_line_char", "\n\r"),
+              s._param(
+                "simple description",
+                u.jsx(t, { headline: s._(/*BTDS*/ "Simple"), level: 4 }),
+              ),
+              s._param("new_line_char2", "\r"),
+              s._param("new_line_char3", "\n\r"),
+              s._param(
+                "private description",
+                u.jsx(t, { headline: s._(/*BTDS*/ "Private"), level: 4 }),
+              ),
+              s._param("new_line_char4", "\r"),
+              s._param("new_line_char5", "\n\r"),
+              s._param(
+                "safe description",
+                u.jsx(t, { headline: s._(/*BTDS*/ "Safe"), level: 4 }),
+              ),
+              s._param("new_line_char6", "\r"),
+            ],
+          );
+        },
+        tooltipHeadline: s._(/*BTDS*/ "What is online banking?"),
+        verifyFailureHeadline: s._(/*BTDS*/ "Bank account wasn't verified"),
+        verifyFailureTitle: s._(/*BTDS*/ "Couldn't Verify Bank Account"),
+        verifyHeadline: s._(/*BTDS*/ "Verify Payment Method"),
+      },
+      d = c;
+    l.default = d;
+  },
+  226,
+);

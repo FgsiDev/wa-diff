@@ -1,0 +1,15 @@
+__d(
+  "MultiMediaPostSpecFields",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      DESTINATION_CUSTOMIZATIONS: "destination_customizations",
+      PLACEMENT_CUSTOMIZATIONS: "placement_customizations",
+      POST_ID: "post_id",
+      SOURCE: "source",
+      TEXT_CUSTOMIZATIONS: "text_customizations",
+    });
+    i.default = e;
+  },
+  66,
+);

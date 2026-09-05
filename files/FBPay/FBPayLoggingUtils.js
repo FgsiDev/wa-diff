@@ -1,0 +1,74 @@
+__d(
+  "FBPayLoggingUtils",
+  ["FBPayUPLSessionIDGenerator"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = "upl_[a-zA-Z0-9|_|/-]+",
+      s = "upl_",
+      u = "uplserver_",
+      c = "uplclient_";
+    function d(t) {
+      var n = new RegExp(e, "g");
+      return n.test(t);
+    }
+    function m(e) {
+      if (!(e.startsWith(s) || e.startsWith(u) || e.startsWith(c))) return !1;
+      var t = e.split("_");
+      return t.length === 3;
+    }
+    function p(e) {
+      switch (e) {
+        case "accounts_center":
+          return "accounts_center";
+        case "bookmark":
+          return "bookmark";
+        case "checkout_confirmation":
+          return "checkout_confirmation";
+        case "checkout_offers":
+          return "checkout_offers";
+        case "deeplink":
+          return "deeplink";
+        case "email":
+          return "email";
+        case "fb_marketplace":
+          return "fb_marketplace";
+        case "fbpay_support_account":
+          return "fbpay_support_account";
+        case "live_chat_support":
+          return "live_chat_support";
+        case "fxcal":
+          return "fxcal";
+        case "m.me":
+          return "m.me";
+        case "multi_merchant_orders_summary":
+          return "multi_merchant_orders_summary";
+        case "orders_hub":
+          return "orders_hub";
+        case "search":
+          return "search";
+        case "settings":
+          return "settings";
+        case "shops":
+          return "shops";
+        case "subscription":
+          return "subscription";
+        case "notification":
+          return "notification";
+        case "product_details_page":
+          return "product_details_page";
+        case "profile_menu":
+          return "profile_menu";
+        case "unknown":
+        default:
+          return "unknown";
+      }
+    }
+    ((l.sessionIDGenerator = o(
+      "FBPayUPLSessionIDGenerator",
+    ).sessionIDGenerator),
+      (l.isUPLSessionID = d),
+      (l.isValidUplSessionID = m),
+      (l.getReferrerType = p));
+  },
+  98,
+);

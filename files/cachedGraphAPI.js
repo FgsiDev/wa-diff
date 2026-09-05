@@ -1,0 +1,98 @@
+__d(
+  "cachedGraphAPI",
+  ["DateConsts", "LFUCache", "getByPath", "isStringNullOrEmpty"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = 0.15,
+      s = new (r("LFUCache"))(),
+      u = {};
+    function c(e, t) {
+      return new f(e, t);
+    }
+    function d(e, t, n, r) {
+      var o = babelHelpers.extends({}, n);
+      if (r) for (var a of r) delete o[a];
+      return e + ":" + t + ":" + JSON.stringify(o);
+    }
+    function m(e) {
+      delete u[e];
+    }
+    function p(e) {
+      return !r("isStringNullOrEmpty")(e);
+    }
+    function _(e, t, n) {
+      (u[e] == null && (u[e] = {}), (u[e][t] = n));
+    }
+    var f = (function () {
+      function t(e, t) {
+        ((this.$1 = !1),
+          (this.requestSpec = e),
+          (this.$2 = void 0),
+          (this.$3 = !1),
+          (this.$4 = t));
+      }
+      var n = t.prototype;
+      return (
+        (n.cacheFor = function (t) {
+          return ((this.$2 = t), this);
+        }),
+        (n.clearCache = function () {
+          return ((this.$1 = !0), this);
+        }),
+        (n.setReturnIsCached = function () {
+          return ((this.$3 = !0), this);
+        }),
+        (n.get = function (n, a) {
+          var t;
+          this.requestSpec = this.requestSpec.__setCacheInfo({
+            duration: this.$2 == null ? -1 : this.$2,
+            clearCache: this.$1,
+            topLevelCacheKey: a,
+            returnIsCached: this.$3,
+          });
+          var i = (t = this.requestSpec.params) != null ? t : {},
+            l = d(
+              this.requestSpec.name,
+              this.requestSpec.path,
+              babelHelpers.extends({}, i, n),
+              this.$4,
+            );
+          if (!this.$1)
+            if (p(a)) {
+              var c = r("getByPath")(u, [a, l]);
+              if (c != null) return c;
+            } else {
+              var m = s.get(l);
+              if (m)
+                return this.$3
+                  ? m.then(function (e) {
+                      return babelHelpers.extends({}, e, { __isCached: !0 });
+                    })
+                  : m;
+            }
+          var f = this.requestSpec.get(n).catch(function (t) {
+            if (p(a)) {
+              _(a, l, f);
+              var n = u[a];
+              window.setTimeout(
+                function () {
+                  delete n[l];
+                },
+                e * o("DateConsts").SEC_PER_MIN * o("DateConsts").MS_PER_SEC,
+              );
+            } else s.set(l, f, null, e);
+            throw t;
+          });
+          return (p(a) ? _(a, l, f) : s.set(l, f, null, this.$2), f);
+        }),
+        t
+      );
+    })();
+    ((c.createCacheKey = d),
+      (c.clearTopLevelCache = m),
+      (c._cache = s),
+      (c.CACHE_ERROR_FOR = e),
+      (l.default = c));
+  },
+  98,
+);

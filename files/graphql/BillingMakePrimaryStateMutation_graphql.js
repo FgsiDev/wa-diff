@@ -1,0 +1,175 @@
+__d(
+  "BillingMakePrimaryStateMutation.graphql",
+  ["BillingMakePrimaryStateMutation_facebookRelayOperation"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [{ defaultValue: null, kind: "LocalArgument", name: "input" }],
+        t = [{ kind: "Variable", name: "data", variableName: "input" }],
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "tax_country_verification_method",
+          storageKey: null,
+        },
+        o = [{ kind: "Literal", name: "filter", value: "PRIMARY_ONLY" }],
+        a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        i = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "credential_type",
+          storageKey: null,
+        },
+        l = {
+          kind: "InlineFragment",
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "credential_id",
+              storageKey: null,
+            },
+          ],
+          type: "ExternalCreditCard",
+          abstractKey: null,
+        },
+        s = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        };
+      return {
+        fragment: {
+          argumentDefinitions: e,
+          kind: "Fragment",
+          metadata: null,
+          name: "BillingMakePrimaryStateMutation",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: "BillableAccountUpdateResponse",
+              kind: "LinkedField",
+              name: "billable_account_update",
+              plural: !1,
+              selections: [
+                r,
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: null,
+                  kind: "LinkedField",
+                  name: "payment_account",
+                  plural: !1,
+                  selections: [
+                    {
+                      alias: null,
+                      args: o,
+                      concreteType: "PaymentCredentialDetails",
+                      kind: "LinkedField",
+                      name: "billing_payment_methods",
+                      plural: !0,
+                      selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: null,
+                          kind: "LinkedField",
+                          name: "credential",
+                          plural: !1,
+                          selections: [a, i, l],
+                          storageKey: null,
+                        },
+                      ],
+                      storageKey:
+                        'billing_payment_methods(filter:"PRIMARY_ONLY")',
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          type: "Mutation",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: e,
+          kind: "Operation",
+          name: "BillingMakePrimaryStateMutation",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: "BillableAccountUpdateResponse",
+              kind: "LinkedField",
+              name: "billable_account_update",
+              plural: !1,
+              selections: [
+                r,
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: null,
+                  kind: "LinkedField",
+                  name: "payment_account",
+                  plural: !1,
+                  selections: [
+                    s,
+                    {
+                      alias: null,
+                      args: o,
+                      concreteType: "PaymentCredentialDetails",
+                      kind: "LinkedField",
+                      name: "billing_payment_methods",
+                      plural: !0,
+                      selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: null,
+                          kind: "LinkedField",
+                          name: "credential",
+                          plural: !1,
+                          selections: [s, a, i, l],
+                          storageKey: null,
+                        },
+                      ],
+                      storageKey:
+                        'billing_payment_methods(filter:"PRIMARY_ONLY")',
+                    },
+                    a,
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        params: {
+          id: n("BillingMakePrimaryStateMutation_facebookRelayOperation"),
+          metadata: {},
+          name: "BillingMakePrimaryStateMutation",
+          operationKind: "mutation",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

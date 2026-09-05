@@ -1,0 +1,17 @@
+__d(
+  "adsBulkSelectionDuplicationOpenBulkEdit",
+  ["gkx"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = 50;
+    function s(t, n, o) {
+      return t !== 1 || n <= 1 || n > e
+        ? !1
+        : o != null && o.silent
+          ? r("gkx")("23991")
+          : r("gkx")("23993");
+    }
+    l.default = s;
+  },
+  98,
+);

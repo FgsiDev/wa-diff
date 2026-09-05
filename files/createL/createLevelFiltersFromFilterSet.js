@@ -1,0 +1,23 @@
+__d(
+  "createLevelFiltersFromFilterSet",
+  ["AdsPELevelFilters", "createFilterFn"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    function e(e) {
+      var t = new (r("AdsPELevelFilters"))(),
+        n = e.toAPI();
+      return (
+        n.forEach(function (e) {
+          var n = e.field,
+            o = e.operator,
+            a = e.value,
+            i = r("createFilterFn")({ field: n, operator: o, value: a });
+          t.addFilter(i, e);
+        }),
+        t
+      );
+    }
+    l.default = e;
+  },
+  98,
+);

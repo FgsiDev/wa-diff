@@ -1,0 +1,226 @@
+__d(
+  "BillingAccountInformationUtilsBrazil",
+  ["fbt", "BillingBrazilZipCodeMatchUtils", "BillingWizardRootUPLogger"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e = /[.\-/ ]/g,
+      u = /^(\d{3})(\d{3})(\d{3})(\d{2})$/g,
+      c = "$1.$2.$3-$4",
+      d = /^[0-9A-Z]$/,
+      m = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2],
+      p = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    function _(e) {
+      return e.charCodeAt(0) - 48;
+    }
+    function f(e, t) {
+      for (var n = 0, r = 0; r < t.length; r++) n += t[r] * e[r];
+      return ((n += e[t.length]), n);
+    }
+    function g(e) {
+      switch ($(e.taxID).type) {
+        case "NONE":
+          return s._(/*BTDS*/ "CNPJ \/ CPF");
+        case "CPF":
+          return s._(/*BTDS*/ "CPF");
+        case "CNPJ":
+          return s._(/*BTDS*/ "CNPJ");
+        default:
+          return s._(/*BTDS*/ "CNPJ \/ CPF");
+      }
+    }
+    function h(e) {
+      return $(e != null ? e : "").type === "CPF";
+    }
+    function y(e) {
+      return $(e != null ? e : "").type === "CNPJ";
+    }
+    function C(e) {
+      return h(e.taxID);
+    }
+    function b(e) {
+      return e.electionCnpjAddressRequired === !0;
+    }
+    function v(e, t) {
+      var n = { FAIL: "fail", SUCCESS: "success" };
+      r("BillingWizardRootUPLogger") == null ||
+        r("BillingWizardRootUPLogger").logEvent({
+          event_action: "verify",
+          event_result: n[e],
+          event_side: "client",
+          extra_data: t,
+          target_name: "brazil_cnpj_validation",
+        });
+    }
+    function S(e) {
+      var t = s._(
+          /*BTDS*/ "The Tax Identification Number you provided is incorrect. Please enter a valid CNPJ or CPF.",
+        ),
+        n = $(e),
+        r = n.taxID,
+        o = n.type,
+        a = o !== "NONE";
+      return (
+        r.length === 14 &&
+          v(a ? "SUCCESS" : "FAIL", {
+            is_alphanumeric: /[A-Z]/i.test(r) ? "true" : "false",
+          }),
+        a ? void 0 : t
+      );
+    }
+    function R(e, t) {
+      return babelHelpers.extends({}, t, {
+        taxID: L(babelHelpers.extends({}, t, { taxID: e })).taxID,
+      });
+    }
+    function L(e) {
+      return babelHelpers.extends({}, e, { taxID: I(e.taxID) });
+    }
+    function E(e) {
+      var t = $(e.taxID),
+        n = t.taxID,
+        r = t.type,
+        o,
+        a = e;
+      if (
+        (r === "CNPJ" ? (o = "BRAZIL_CNPJ") : (o = "BRAZIL_CPF"),
+        e.streetNumber != null && e.streetNumber !== "")
+      ) {
+        var i,
+          l = (
+            ((i = e.streetNumber) != null ? i : "") +
+            " " +
+            e.address1
+          ).trim();
+        return babelHelpers.extends({}, a, {
+          address1: l,
+          taxID: n,
+          taxIDType: o,
+        });
+      }
+      return babelHelpers.extends({}, a, { taxID: n, taxIDType: o });
+    }
+    function k(e) {
+      var t = $(e.taxID),
+        n = t.type;
+      if (e.taxID == null || e.taxID.length === 0 || n === "NONE")
+        return s._(/*BTDS*/ "Required");
+      var r = s._(/*BTDS*/ "CNPJ"),
+        o = s._(/*BTDS*/ "CPF"),
+        a = n === "CNPJ" ? r : o,
+        i = I(e.taxID);
+      return s._(/*BTDS*/ "{tax_label}: {tax_id}", [
+        s._param("tax_label", a),
+        s._param("tax_id", i),
+      ]);
+    }
+    function I(e) {
+      var t = $(e),
+        n = t.taxID,
+        r = t.type,
+        o;
+      return (
+        r === "CPF" ? (o = T(n)) : r === "CNPJ" ? (o = x(n)) : (o = e),
+        o
+      );
+    }
+    function T(e) {
+      return e.replace(u, c);
+    }
+    var D = /^(.{2})(.{3})(.{3})(.{4})(.{2})$/;
+    function x(e) {
+      return e.replace(D, "$1.$2.$3/$4-$5");
+    }
+    function $(e) {
+      if (e == null || e === "") return { taxID: e, type: "NONE" };
+      var t = P(e);
+      return N(t)
+        ? { taxID: t, type: "CPF" }
+        : M(t)
+          ? { taxID: t, type: "CNPJ" }
+          : { taxID: t, type: "NONE" };
+    }
+    function P(t) {
+      return t.replace(e, "").toUpperCase();
+    }
+    function N(e) {
+      if (e.length !== 11) return !1;
+      for (
+        var t = e.split("").map(function (e) {
+            return Number.parseInt(e, 10);
+          }),
+          n = 0,
+          r = 10;
+        r > 0;
+        r--
+      )
+        n += r * t[10 - r];
+      var o = n % 11,
+        a = o === 0 || (t[9] === 0 && o === 1);
+      if (!a) return !1;
+      n = 0;
+      for (var i = 10; i > 0; i--) n += i * t[11 - i];
+      var l = n % 11,
+        s = l === 0 || (t[10] === 0 && l === 1);
+      return !!s;
+    }
+    function M(e) {
+      if (e.length !== 14) return !1;
+      for (var t = e.toUpperCase(), n = 0; n < 12; n++)
+        if (!d.test(t[n])) return !1;
+      if (!/^\d$/.test(t[12]) || !/^\d$/.test(t[13])) return !1;
+      var r = t.split("").map(function (e) {
+        return _(e);
+      });
+      return w(r);
+    }
+    function w(e) {
+      var t = f(e, m),
+        n = t % 11;
+      if (!(n === 0 || (e[12] === 0 && n === 1))) return !1;
+      var r = f(e, p),
+        o = r % 11;
+      return o === 0 || (e[13] === 0 && o === 1);
+    }
+    var A = s._(
+        /*BTDS*/ "The zip code you provided is incorrect. Please enter a valid 8 digit postal code",
+      ),
+      F = function (t, n) {
+        if (!(!C(n) && !b(n))) {
+          var e = t.trim().replace(/\D/g, "");
+          if (e.length !== 8 || e === "00000000" || n.cepLookupFailed === !0)
+            return A;
+        }
+      };
+    function O(e, t) {
+      var n = o("BillingBrazilZipCodeMatchUtils").cleanBRZipCode(e),
+        r = n;
+      return (
+        n.length > 5 && (r = n.slice(0, 5) + "-" + n.slice(5)),
+        babelHelpers.extends({}, t, { postalCode: r })
+      );
+    }
+    var B = function (t) {
+      if (isNaN(t))
+        return s._(
+          /*BTDS*/ "The street number you provided is incorrect. Please enter a valid street number.",
+        );
+    };
+    ((l.labelForTaxID = g),
+      (l.isBrazilCpfTaxId = h),
+      (l.isBrazilCnpjTaxId = y),
+      (l.shouldUseCPFFormFields = C),
+      (l.isElectionCnpjNeedingAddress = b),
+      (l.validateTaxID = S),
+      (l.onChangeTaxID = R),
+      (l.preFormatValues = L),
+      (l.postFormatValues = E),
+      (l.formatForDisplay = k),
+      (l.formatTaxID = I),
+      (l.sterilize = P),
+      (l.isCNPJ = M),
+      (l.validatePostalCode = F),
+      (l.onChangePostalCode = O),
+      (l.validateStreetNumber = B));
+  },
+  226,
+);

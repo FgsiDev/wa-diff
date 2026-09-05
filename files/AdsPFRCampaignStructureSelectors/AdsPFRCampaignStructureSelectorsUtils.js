@@ -1,0 +1,20 @@
+__d(
+  "AdsPFRCampaignStructureSelectorsUtils",
+  ["LoadObject", "err"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    function e(e) {
+      return e.hasValue() ? e.getValueEnforcing() : [];
+    }
+    function s(e, t) {
+      return e.length !== 1 && new Set(e).size !== 1
+        ? r("LoadObject").withError(
+            r("err")("Only support one campaign group for the moment"),
+            { creatorModuleID: i.id },
+          )
+        : t(e[0]);
+    }
+    ((l.getFlatTreeItemsFastPlainPFR = e), (l.getCampaignStructurePFRTree = s));
+  },
+  98,
+);

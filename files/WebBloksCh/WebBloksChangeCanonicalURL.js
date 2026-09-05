@@ -1,0 +1,16 @@
+__d(
+  "WebBloksChangeCanonicalURL",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    function e(e, t) {
+      var n = t.get("canonical-url");
+      if (n) {
+        var r = history.state;
+        window.history.replaceState(r, null, n);
+      }
+    }
+    i.default = e;
+  },
+  66,
+);

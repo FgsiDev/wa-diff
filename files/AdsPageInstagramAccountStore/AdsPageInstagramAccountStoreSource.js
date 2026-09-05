@@ -1,0 +1,1078 @@
+__d(
+  "AdsPageInstagramAccountStoreSource",
+  [
+    "AdsInstagramAccountPageBatchLoadErrorDataAction",
+    "AdsInstagramAccountPageBatchLoadedDataAction",
+    "AdsLoadState_LEGACY",
+    "AdsPageInstagramAccountStoreSourceFragment.graphql",
+    "AdsPageInstagramAccountStoreSourceServerLoadedQuery.graphql",
+    "AdsPageInstagramAccountStoreSourceServerQuery.graphql",
+    "IGShoppingReviewStatus",
+    "Promise",
+    "RelayHooks",
+    "ReverseInteropStoreSourceBase",
+    "ShopStatus",
+    "TypeCoercionUtils",
+    "amFetchPreloadedQuery",
+    "clearTimeout",
+    "err",
+    "getErrorSafe",
+    "getJSEnumSafe",
+    "gkx",
+    "justknobx",
+    "promiseDone",
+    "readClientFragment",
+    "relay-runtime",
+    "setTimeout",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s,
+      u,
+      c,
+      d = 5e3,
+      m =
+        e !== void 0
+          ? e
+          : (e = n("AdsPageInstagramAccountStoreSourceServerQuery.graphql")),
+      p =
+        s !== void 0
+          ? s
+          : (s = n(
+              "AdsPageInstagramAccountStoreSourceServerLoadedQuery.graphql",
+            )),
+      _ =
+        u !== void 0
+          ? u
+          : (u = n("AdsPageInstagramAccountStoreSourceFragment.graphql")),
+      f = (function (e) {
+        function t() {
+          for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
+            r[o] = arguments[o];
+          return (
+            (t = e.call.apply(e, [this].concat(r)) || this),
+            (t.$AdsPageInstagramAccountStoreSource$p_1 = new Map()),
+            (t.$AdsPageInstagramAccountStoreSource$p_2 = new Map()),
+            (t.$AdsPageInstagramAccountStoreSource$p_3 = new Map()),
+            (t.$AdsPageInstagramAccountStoreSource$p_4 = new Map()),
+            babelHelpers.assertThisInitialized(t) ||
+              babelHelpers.assertThisInitialized(t)
+          );
+        }
+        babelHelpers.inheritsLoose(t, e);
+        var a = t.prototype;
+        return (
+          (a.registerPageRefetchOutcomeWaiter = function (t) {
+            var e,
+              r,
+              o,
+              a =
+                ((e = this.$AdsPageInstagramAccountStoreSource$p_3.get(t)) !=
+                null
+                  ? e
+                  : 0) + 1;
+            (this.$AdsPageInstagramAccountStoreSource$p_3.set(t, a),
+              this.$AdsPageInstagramAccountStoreSource$p_5(t, a));
+            var i =
+              (r = this.$AdsPageInstagramAccountStoreSource$p_2.get(t)) != null
+                ? r
+                : [];
+            (i.push(a), this.$AdsPageInstagramAccountStoreSource$p_2.set(t, i));
+            var l = function () {},
+              s = new (c || (c = n("Promise")))(function (e) {
+                l = e;
+              }),
+              u =
+                (o = this.$AdsPageInstagramAccountStoreSource$p_4.get(t)) !=
+                null
+                  ? o
+                  : new Map();
+            return (
+              u.set(a, l),
+              this.$AdsPageInstagramAccountStoreSource$p_4.set(t, u),
+              { generation: a, promise: s }
+            );
+          }),
+          (a.failPageRefetchOutcomeWaiter = function (t, n) {
+            var e = this.$AdsPageInstagramAccountStoreSource$p_2.get(t);
+            if (e != null) {
+              var r = e.filter(function (e) {
+                return e !== n;
+              });
+              r.length > 0
+                ? this.$AdsPageInstagramAccountStoreSource$p_2.set(t, r)
+                : this.$AdsPageInstagramAccountStoreSource$p_2.delete(t);
+            }
+            this.$AdsPageInstagramAccountStoreSource$p_6(t, n, {
+              status: "failed",
+            });
+          }),
+          (a.__getQuery = function () {
+            return p;
+          }),
+          (a.__getVariables = function () {
+            return { skip_ibta: !1, skip_pbta: !1 };
+          }),
+          (a.__getGQLParams = function (t) {
+            return {
+              ids: t.map(function (e) {
+                return e.toString();
+              }),
+              skip_ibta: !1,
+              skip_pbta: !1,
+            };
+          }),
+          (a.load = function (n, r, o) {
+            var t =
+              typeof o == "boolean"
+                ? o
+                : (o == null ? void 0 : o.isRefetch) === !0;
+            e.prototype.load.call(this, n, r, t);
+          }),
+          (a.__fetchQuery = function (t, n, o) {
+            o === void 0 && (o = !1);
+            var e = r("justknobx")._("4280");
+            if (t.length >= e && r("gkx")("23731"))
+              this.$AdsPageInstagramAccountStoreSource$p_7(t, n, o);
+            else
+              for (var a of t)
+                this.$AdsPageInstagramAccountStoreSource$p_7([a], n, o);
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_7 = function (t, a, l) {
+            var e = this,
+              s = new Map();
+            t.forEach(function (t) {
+              var n;
+              s.set(
+                t,
+                l
+                  ? e.$AdsPageInstagramAccountStoreSource$p_8(t)
+                  : (n = e.$AdsPageInstagramAccountStoreSource$p_3.get(t)) !=
+                      null
+                    ? n
+                    : 0,
+              );
+            });
+            var u;
+            try {
+              var d = t.map(function (e) {
+                  return e.toString();
+                }),
+                p = "loaded_pages",
+                _ = "Page";
+              this.updateRecords(d, p, _);
+              var f = this.__getGQLParams(t),
+                g = function () {
+                  return (
+                    l
+                      ? o("RelayHooks").fetchQuery(e.__environment, m, f, {
+                          fetchPolicy: "network-only",
+                        })
+                      : r("amFetchPreloadedQuery")(e.__environment, m, f, {
+                          fetchPolicy: "store-or-network",
+                        })
+                  ).toPromise();
+                },
+                h =
+                  l === !0
+                    ? this.$AdsPageInstagramAccountStoreSource$p_9(f)
+                    : null,
+                y =
+                  l === !0
+                    ? this.$AdsPageInstagramAccountStoreSource$p_10(t)
+                    : [];
+              (h != null && y.push(h),
+                (u =
+                  y.length > 0
+                    ? (c || (c = n("Promise"))).all(y).then(function () {
+                        return g();
+                      })
+                    : g()));
+            } catch (e) {
+              this.$AdsPageInstagramAccountStoreSource$p_11(t, a, s, e);
+              return;
+            }
+            var C = u
+                .then(function (t) {
+                  var n, r;
+                  return {
+                    pages:
+                      (n =
+                        t == null || (r = t.pages) == null
+                          ? void 0
+                          : r.map(function (t) {
+                              return e.$AdsPageInstagramAccountStoreSource$p_12(
+                                t,
+                              );
+                            })) != null
+                        ? n
+                        : [],
+                  };
+                })
+                .then(function (n) {
+                  var o = new Set(
+                      t
+                        .filter(function (t) {
+                          var n;
+                          return (
+                            ((n =
+                              e.$AdsPageInstagramAccountStoreSource$p_3.get(
+                                t,
+                              )) != null
+                              ? n
+                              : 0) === s.get(t)
+                          );
+                        })
+                        .map(function (e) {
+                          return e.toString();
+                        }),
+                    ),
+                    a = new Map();
+                  if (
+                    (n == null ? void 0 : n.pages) != null &&
+                    n.pages.length > 0
+                  ) {
+                    var l = new Map();
+                    (n.pages.forEach(function (e) {
+                      (e == null ? void 0 : e.id) != null &&
+                        o.has(e.id) &&
+                        (l.set(e.id, e), a.set(e.id, e));
+                    }),
+                      l.size > 0 &&
+                        r(
+                          "AdsInstagramAccountPageBatchLoadedDataAction",
+                        ).dispatch(
+                          { specs: l },
+                          {
+                            line: "598",
+                            module: "AdsPageInstagramAccountStoreSource.js",
+                            moduleID: i.id,
+                          },
+                        ));
+                  }
+                  n != null &&
+                    t.forEach(function (t) {
+                      var n,
+                        r,
+                        o,
+                        i = s.get(t);
+                      if (i != null) {
+                        if (
+                          ((n =
+                            e.$AdsPageInstagramAccountStoreSource$p_3.get(t)) !=
+                          null
+                            ? n
+                            : 0) !== i
+                        ) {
+                          e.$AdsPageInstagramAccountStoreSource$p_6(t, i, {
+                            status: "superseded",
+                          });
+                          return;
+                        }
+                        var l = a.get(t.toString()),
+                          u = (function (e) {
+                            if (
+                              Array.isArray(e) &&
+                              e.length === 2 &&
+                              e[0] === !0
+                            )
+                              return { status: "missing_page" };
+                            if (
+                              Array.isArray(e) &&
+                              e.length === 2 &&
+                              e[0] === !1 &&
+                              e[1] === !0
+                            )
+                              return { status: "success_with_accounts" };
+                            if (
+                              Array.isArray(e) &&
+                              e.length === 2 &&
+                              e[0] === !1 &&
+                              e[1] === !1
+                            )
+                              return { status: "success_without_accounts" };
+                            throw Error(
+                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                e,
+                            );
+                          })([
+                            l == null,
+                            ((r =
+                              l == null ||
+                              (o = l.instagram_accounts) == null ||
+                              (o = o.data) == null
+                                ? void 0
+                                : o.length) != null
+                              ? r
+                              : 0) > 0,
+                          ]);
+                        e.$AdsPageInstagramAccountStoreSource$p_6(t, i, u);
+                      }
+                    });
+                })
+                .catch(function (n) {
+                  e.$AdsPageInstagramAccountStoreSource$p_11(t, a, s, n);
+                })
+                .then(function () {
+                  e.notifyDataChange();
+                }),
+              b = C.then(
+                function () {},
+                function () {},
+              );
+            (this.$AdsPageInstagramAccountStoreSource$p_13(t, b),
+              r("promiseDone")(b, function () {
+                e.$AdsPageInstagramAccountStoreSource$p_14(t, b);
+              }),
+              r("promiseDone")(C));
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_11 = function (t, n, o, a) {
+            var e = this,
+              l = r("getErrorSafe")(a),
+              s = t.filter(function (t) {
+                var n;
+                return (
+                  ((n = e.$AdsPageInstagramAccountStoreSource$p_3.get(t)) !=
+                  null
+                    ? n
+                    : 0) === o.get(t)
+                );
+              }),
+              u = new Map();
+            (s.forEach(function (t) {
+              u.set(t, l);
+              var n = o.get(t);
+              n != null && e.failPageRefetchOutcomeWaiter(t, n);
+            }),
+              u.size > 0 &&
+                (r("AdsInstagramAccountPageBatchLoadErrorDataAction").dispatch(
+                  { errors: u },
+                  {
+                    line: "665",
+                    module: "AdsPageInstagramAccountStoreSource.js",
+                    moduleID: i.id,
+                  },
+                ),
+                this.handleFetchQueryError(s, n, l)));
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_8 = function (t) {
+            var e,
+              n = this.$AdsPageInstagramAccountStoreSource$p_2.get(t),
+              r = n == null ? void 0 : n.shift();
+            if (
+              ((n == null ? void 0 : n.length) === 0 &&
+                this.$AdsPageInstagramAccountStoreSource$p_2.delete(t),
+              r != null)
+            )
+              return r;
+            var o =
+              ((e = this.$AdsPageInstagramAccountStoreSource$p_3.get(t)) != null
+                ? e
+                : 0) + 1;
+            return (
+              this.$AdsPageInstagramAccountStoreSource$p_3.set(t, o),
+              this.$AdsPageInstagramAccountStoreSource$p_5(t, o),
+              o
+            );
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_5 = function (t, n) {
+            var e = this,
+              r = this.$AdsPageInstagramAccountStoreSource$p_4.get(t);
+            r == null ||
+              r.forEach(function (r, o) {
+                o < n &&
+                  e.$AdsPageInstagramAccountStoreSource$p_6(t, o, {
+                    status: "superseded",
+                  });
+              });
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_6 = function (t, n, r) {
+            var e = this.$AdsPageInstagramAccountStoreSource$p_4.get(t),
+              o = e == null ? void 0 : e.get(n);
+            o != null &&
+              (e == null || e.delete(n),
+              (e == null ? void 0 : e.size) === 0 &&
+                this.$AdsPageInstagramAccountStoreSource$p_4.delete(t),
+              o(r));
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_10 = function (t) {
+            var e = this,
+              n = new Set();
+            return (
+              t.forEach(function (t) {
+                var r;
+                (r = e.$AdsPageInstagramAccountStoreSource$p_1.get(t)) ==
+                  null ||
+                  r.forEach(function (e) {
+                    n.add(e);
+                  });
+              }),
+              Array.from(n)
+            );
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_13 = function (t, n) {
+            var e = this;
+            t.forEach(function (t) {
+              var r,
+                o =
+                  (r = e.$AdsPageInstagramAccountStoreSource$p_1.get(t)) != null
+                    ? r
+                    : new Set();
+              (o.add(n), e.$AdsPageInstagramAccountStoreSource$p_1.set(t, o));
+            });
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_14 = function (t, n) {
+            var e = this;
+            t.forEach(function (t) {
+              var r = e.$AdsPageInstagramAccountStoreSource$p_1.get(t);
+              (r == null || r.delete(n),
+                (r == null ? void 0 : r.size) === 0 &&
+                  e.$AdsPageInstagramAccountStoreSource$p_1.delete(t));
+            });
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_9 = function (t) {
+            var e = o("relay-runtime").createOperationDescriptor(
+                o("relay-runtime").getRequest(m),
+                t,
+                { force: !0 },
+              ),
+              a = o("relay-runtime").__internal.getObservableForActiveRequest(
+                this.__environment,
+                e.request,
+              );
+            return a == null
+              ? null
+              : new (c || (c = n("Promise")))(function (e, t) {
+                  var n = !1,
+                    o = null,
+                    i = function (t) {
+                      var e;
+                      n ||
+                        ((n = !0),
+                        r("clearTimeout")(l),
+                        (e = o) == null || e.unsubscribe(),
+                        t());
+                    },
+                    l = r("setTimeout")(function () {
+                      i(function () {
+                        t(
+                          r("err")(
+                            "Timed out waiting for the active Page request",
+                          ),
+                        );
+                      });
+                    }, d);
+                  ((o = a.subscribe({
+                    complete: function () {
+                      return i(e);
+                    },
+                    error: function () {
+                      return i(e);
+                    },
+                  })),
+                    n && o.unsubscribe());
+                });
+          }),
+          (a.__getCached = function (t, n) {
+            var e = this,
+              o = t.map(function (t) {
+                var n = e.__getGQLParams([t]);
+                return {
+                  key: t,
+                  value: r("readClientFragment")(
+                    e.__environment,
+                    m,
+                    _,
+                    n,
+                    { skip_ibta: !1, skip_pbta: !1 },
+                    t.toString(),
+                    function (t) {
+                      return e.$AdsPageInstagramAccountStoreSource$p_12(t);
+                    },
+                  ),
+                };
+              });
+            return o;
+          }),
+          (a.$AdsPageInstagramAccountStoreSource$p_12 = function (t) {
+            var e, n, a, l;
+            if (t != null) {
+              var s =
+                  (e =
+                    t == null ||
+                    (n = t.instagram_accounts) == null ||
+                    (n = n.nodes) == null
+                      ? void 0
+                      : n.map(function (e) {
+                          var t,
+                            n,
+                            a,
+                            l,
+                            s,
+                            u,
+                            c,
+                            d,
+                            m,
+                            p,
+                            _ = e == null ? void 0 : e.mini_shop_storefront,
+                            f = {
+                              eimu_id: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(e.eimu_id),
+                              has_profile_picture: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(e.has_profile_pic),
+                              id: o(
+                                "TypeCoercionUtils",
+                              ).coerceMaybeFBIDtoZeroOrFBID(
+                                e.legacy_instagram_user_id,
+                              ),
+                              id_v2: o("TypeCoercionUtils").coerceOptionalValue(
+                                e.id,
+                              ),
+                              is_authorized_for_political_ads: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(
+                                e.is_authorized_for_political,
+                              ),
+                              is_business:
+                                e.instagram_account_type === "BUSINESS",
+                              is_private: o(
+                                "TypeCoercionUtils",
+                              ).coerceNonMaybeValue(
+                                e.is_private,
+                                "account.is_private",
+                                i.id,
+                              ),
+                              is_professional: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(e.is_professional_account),
+                              is_messaging_light_switch_enabled: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(
+                                e == null
+                                  ? void 0
+                                  : e.is_messaging_light_switch_enabled,
+                              ),
+                              is_ctd_leads_targeting_eligible: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(
+                                e == null
+                                  ? void 0
+                                  : e.is_ctd_leads_targeting_eligible,
+                              ),
+                              is_ctd_purchase_targeting_eligible: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(
+                                e == null
+                                  ? void 0
+                                  : e.is_ctd_purchase_targeting_eligible,
+                              ),
+                              date_joined: e.date_joined,
+                              is_published: o(
+                                "TypeCoercionUtils",
+                              ).coerceNonMaybeValue(
+                                e.is_published,
+                                "account.is_published",
+                                i.id,
+                              ),
+                              is_shopless_account_with_dynamic_product_tags_enabled:
+                                (t = o("TypeCoercionUtils").coerceOptionalValue(
+                                  e.is_shopless_ig_account,
+                                )) != null
+                                  ? t
+                                  : !0,
+                              is_shopless_account_with_static_product_tags_enabled:
+                                (n = o("TypeCoercionUtils").coerceOptionalValue(
+                                  e.is_shopless_ig_account,
+                                )) != null
+                                  ? n
+                                  : !0,
+                              is_shopping_onsite_checkout_enabled: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(
+                                e.is_shopping_onsite_checkout_enabled,
+                              ),
+                              profile_pic: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(e.profile_picture_url),
+                              shopping_review_status: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(
+                                r("getJSEnumSafe")(
+                                  r("IGShoppingReviewStatus"),
+                                  e.shopping_review_status,
+                                ),
+                              ),
+                              is_text_post_app_onboarded:
+                                (e == null ||
+                                (a = e.instagram_connected_threads_user) == null
+                                  ? void 0
+                                  : a.threads_user_id) != null,
+                              threads_profile_pic:
+                                ((l = e.instagram_connected_threads_user) ==
+                                null
+                                  ? void 0
+                                  : l.threads_user_profile_pic) != null
+                                  ? o("TypeCoercionUtils").coerceOptionalValue(
+                                      (s =
+                                        (u =
+                                          e.instagram_connected_threads_user) ==
+                                        null
+                                          ? void 0
+                                          : u.threads_user_profile_pic) != null
+                                        ? s
+                                        : e == null ||
+                                            (c =
+                                              e.instagram_backed_threads_user) ==
+                                              null
+                                          ? void 0
+                                          : c.threads_user_profile_pic,
+                                    )
+                                  : void 0,
+                              threads_user_id: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(
+                                (d =
+                                  (m = e.instagram_connected_threads_user) ==
+                                  null
+                                    ? void 0
+                                    : m.threads_user_id) != null
+                                  ? d
+                                  : e == null ||
+                                      (p = e.instagram_backed_threads_user) ==
+                                        null
+                                    ? void 0
+                                    : p.threads_user_id,
+                              ),
+                              user_id: o(
+                                "TypeCoercionUtils",
+                              ).coerceOptionalValue(e.instagram_user_id),
+                              username: o(
+                                "TypeCoercionUtils",
+                              ).coerceMaybeStringToFBT(e.username),
+                            };
+                          if (
+                            (e == null ? void 0 : e.mini_shop_storefront) !=
+                            null
+                          ) {
+                            var g,
+                              h,
+                              y,
+                              C,
+                              b,
+                              v,
+                              S,
+                              R,
+                              L,
+                              E,
+                              k,
+                              I,
+                              T,
+                              D,
+                              x,
+                              $,
+                              P,
+                              N,
+                              M,
+                              w,
+                              A,
+                              F,
+                              O,
+                              B,
+                              W,
+                              q,
+                              U,
+                              V = o("TypeCoercionUtils").coerceOptionalValue(
+                                _ == null ||
+                                  (g = _.commerce_merchant_settings) == null
+                                  ? void 0
+                                  : g.shop_ads_capabilities,
+                              ),
+                              H = {
+                                id: o(
+                                  "TypeCoercionUtils",
+                                ).coerceMaybeFBIDtoZeroOrFBID(
+                                  _ == null ? void 0 : _.id,
+                                ),
+                                shop_status: o(
+                                  "TypeCoercionUtils",
+                                ).coerceOptionalValue(
+                                  r("getJSEnumSafe")(
+                                    r("ShopStatus"),
+                                    _ == null ? void 0 : _.shop_status,
+                                  ),
+                                ),
+                                title: o(
+                                  "TypeCoercionUtils",
+                                ).coerceOptionalValue(
+                                  (_ == null ||
+                                  (h = _.commerce_merchant_settings) == null
+                                    ? void 0
+                                    : h.display_name) != null
+                                    ? _ == null ||
+                                      (y = _.commerce_merchant_settings) == null
+                                      ? void 0
+                                      : y.display_name
+                                    : _ == null
+                                      ? void 0
+                                      : _.title,
+                                ),
+                                commerce_merchant_settings: o(
+                                  "TypeCoercionUtils",
+                                ).coerceOptionalValue({
+                                  id: o(
+                                    "TypeCoercionUtils",
+                                  ).coerceMaybeFBIDtoZeroOrFBID(
+                                    _ == null ||
+                                      (C = _.commerce_merchant_settings) == null
+                                      ? void 0
+                                      : C.id,
+                                  ),
+                                  display_name: o(
+                                    "TypeCoercionUtils",
+                                  ).coerceOptionalValue(
+                                    _ == null ||
+                                      (b = _.commerce_merchant_settings) == null
+                                      ? void 0
+                                      : b.display_name,
+                                  ),
+                                  shop_catalog: {
+                                    id: o(
+                                      "TypeCoercionUtils",
+                                    ).coerceMaybeFBIDtoZeroOrFBID(
+                                      _ == null ||
+                                        (v = _.commerce_merchant_settings) ==
+                                          null ||
+                                        (v = v.shop_catalog) == null
+                                        ? void 0
+                                        : v.id,
+                                    ),
+                                    name: o(
+                                      "TypeCoercionUtils",
+                                    ).coerceOptionalValue(
+                                      _ == null ||
+                                        (S = _.commerce_merchant_settings) ==
+                                          null ||
+                                        (S = S.shop_catalog) == null
+                                        ? void 0
+                                        : S.name,
+                                    ),
+                                  },
+                                  shop_ads_capabilities: V,
+                                  onsite_checkout_enabled_countries:
+                                    (_ == null ||
+                                    (R = _.commerce_merchant_settings) == null
+                                      ? void 0
+                                      : R.onsite_checkout_enabled_countries) !=
+                                      null &&
+                                    (_ == null ||
+                                    (L = _.commerce_merchant_settings) ==
+                                      null ||
+                                    (L = L.onsite_checkout_enabled_countries) ==
+                                      null
+                                      ? void 0
+                                      : L.length) > 0
+                                      ? o(
+                                          "TypeCoercionUtils",
+                                        ).coerceOptionalValue(
+                                          _ == null ||
+                                            (E =
+                                              _.commerce_merchant_settings) ==
+                                              null
+                                            ? void 0
+                                            : E.onsite_checkout_enabled_countries,
+                                        )
+                                      : void 0,
+                                  onsite_checkout_enabled_for_shops_ads_supported_countries:
+                                    o("TypeCoercionUtils").coerceOptionalValue(
+                                      _ == null ||
+                                        (k = _.commerce_merchant_settings) ==
+                                          null
+                                        ? void 0
+                                        : k.onsite_checkout_enabled_for_shops_ads_supported_countries,
+                                    ),
+                                  offsite_iab_checkout_enabled_countries:
+                                    (_ == null ||
+                                    (I = _.commerce_merchant_settings) == null
+                                      ? void 0
+                                      : I.offsite_iab_checkout_enabled_countries) !=
+                                      null &&
+                                    (_ == null ||
+                                    (T = _.commerce_merchant_settings) ==
+                                      null ||
+                                    (T =
+                                      T.offsite_iab_checkout_enabled_countries) ==
+                                      null
+                                      ? void 0
+                                      : T.length) > 0
+                                      ? o(
+                                          "TypeCoercionUtils",
+                                        ).coerceOptionalValue(
+                                          _ == null ||
+                                            (D =
+                                              _.commerce_merchant_settings) ==
+                                              null
+                                            ? void 0
+                                            : D.offsite_iab_checkout_enabled_countries,
+                                        )
+                                      : void 0,
+                                }),
+                                page:
+                                  (_ == null || (x = _.page) == null
+                                    ? void 0
+                                    : x.id) != null
+                                    ? o(
+                                        "TypeCoercionUtils",
+                                      ).coerceOptionalValue({
+                                        id: o(
+                                          "TypeCoercionUtils",
+                                        ).coerceMaybeFBIDtoZeroOrFBID(
+                                          _ == null || ($ = _.page) == null
+                                            ? void 0
+                                            : $.id,
+                                        ),
+                                        name: o(
+                                          "TypeCoercionUtils",
+                                        ).coerceOptionalValue(
+                                          _ == null || (P = _.page) == null
+                                            ? void 0
+                                            : P.name,
+                                        ),
+                                        picture: {
+                                          data: {
+                                            height: o(
+                                              "TypeCoercionUtils",
+                                            ).coerceOptionalValue(
+                                              _ == null ||
+                                                (N = _.page) == null ||
+                                                (N = N.profile_picture) == null
+                                                ? void 0
+                                                : N.height,
+                                            ),
+                                            url: o(
+                                              "TypeCoercionUtils",
+                                            ).coerceNonMaybeValue(
+                                              _ == null ||
+                                                (M = _.page) == null ||
+                                                (M = M.profile_picture) == null
+                                                ? void 0
+                                                : M.uri,
+                                              "mini_shop_storefront?.page?.profile_picture?.uri",
+                                              i.id,
+                                            ),
+                                            is_silhouette: o(
+                                              "TypeCoercionUtils",
+                                            ).coerceOptionalValue(
+                                              _ == null ||
+                                                (w = _.page) == null ||
+                                                (w = w.profile_picture) == null
+                                                ? void 0
+                                                : w.is_silhouette,
+                                            ),
+                                            width: o(
+                                              "TypeCoercionUtils",
+                                            ).coerceOptionalValue(
+                                              _ == null ||
+                                                (A = _.page) == null ||
+                                                (A = A.profile_picture) == null
+                                                ? void 0
+                                                : A.width,
+                                            ),
+                                          },
+                                        },
+                                      })
+                                    : void 0,
+                                ig_user: o(
+                                  "TypeCoercionUtils",
+                                ).coerceOptionalValue({
+                                  id: o(
+                                    "TypeCoercionUtils",
+                                  ).coerceMaybeFBIDtoZeroOrFBID(
+                                    _ == null || (F = _.ig_user) == null
+                                      ? void 0
+                                      : F.id,
+                                  ),
+                                  username: o(
+                                    "TypeCoercionUtils",
+                                  ).coerceOptionalValue(
+                                    _ == null || (O = _.ig_user) == null
+                                      ? void 0
+                                      : O.username,
+                                  ),
+                                  legacy_instagram_user_id: o(
+                                    "TypeCoercionUtils",
+                                  ).coerceOptionalValue(
+                                    _ == null || (B = _.ig_user) == null
+                                      ? void 0
+                                      : B.legacy_instagram_user_id,
+                                  ),
+                                  profile_picture_url: o(
+                                    "TypeCoercionUtils",
+                                  ).coerceOptionalValue(
+                                    _ == null || (W = _.ig_user) == null
+                                      ? void 0
+                                      : W.profile_picture_url,
+                                  ),
+                                  profile_picture: o(
+                                    "TypeCoercionUtils",
+                                  ).coerceOptionalValue(
+                                    _ == null || (q = _.ig_user) == null
+                                      ? void 0
+                                      : q.profile_pic,
+                                  ),
+                                }),
+                                workspace: {
+                                  id: o(
+                                    "TypeCoercionUtils",
+                                  ).coerceMaybeFBIDtoZeroOrFBID(
+                                    _ == null ||
+                                      (U = _.storefront_workspace) == null
+                                      ? void 0
+                                      : U.id,
+                                  ),
+                                },
+                              };
+                            return babelHelpers.extends({}, f, {
+                              mini_shop_storefront: H,
+                            });
+                          }
+                          return f;
+                        })) != null
+                    ? e
+                    : [],
+                u = t == null ? void 0 : t.instagram_business_account,
+                c =
+                  (a =
+                    t == null ||
+                    (l = t.page_backed_instagram_accounts) == null ||
+                    (l = l.nodes) == null
+                      ? void 0
+                      : l.map(function (e) {
+                          var t, n, a;
+                          return {
+                            date_joined: e.date_joined,
+                            eimu_id: (a =
+                              o("TypeCoercionUtils")).coerceOptionalValue(
+                              e.eimu_id,
+                            ),
+                            has_profile_picture: a.coerceOptionalValue(
+                              e.has_profile_pic,
+                            ),
+                            id: a.coerceMaybeFBIDtoZeroOrFBID(
+                              e.legacy_instagram_user_id,
+                            ),
+                            id_v2: a.coerceOptionalValue(e.id),
+                            is_authorized_for_political_ads:
+                              a.coerceOptionalValue(
+                                e.is_authorized_for_political,
+                              ),
+                            is_business:
+                              e.instagram_account_type === "BUSINESS",
+                            is_ctd_leads_targeting_eligible:
+                              a.coerceOptionalValue(
+                                e == null
+                                  ? void 0
+                                  : e.is_ctd_leads_targeting_eligible,
+                              ),
+                            is_ctd_purchase_targeting_eligible: o(
+                              "TypeCoercionUtils",
+                            ).coerceOptionalValue(
+                              e == null
+                                ? void 0
+                                : e.is_ctd_purchase_targeting_eligible,
+                            ),
+                            is_messaging_light_switch_enabled: o(
+                              "TypeCoercionUtils",
+                            ).coerceOptionalValue(
+                              e == null
+                                ? void 0
+                                : e.is_messaging_light_switch_enabled,
+                            ),
+                            is_private: o(
+                              "TypeCoercionUtils",
+                            ).coerceNonMaybeValue(
+                              e.is_private,
+                              "account.is_private",
+                              i.id,
+                            ),
+                            is_professional: o(
+                              "TypeCoercionUtils",
+                            ).coerceOptionalValue(e.is_professional_account),
+                            is_published: o(
+                              "TypeCoercionUtils",
+                            ).coerceNonMaybeValue(
+                              e.is_published,
+                              "account.is_published",
+                              i.id,
+                            ),
+                            is_shopless_account_with_dynamic_product_tags_enabled:
+                              (t = o("TypeCoercionUtils").coerceOptionalValue(
+                                e.is_shopless_ig_account,
+                              )) != null
+                                ? t
+                                : !0,
+                            is_shopless_account_with_static_product_tags_enabled:
+                              (n = o("TypeCoercionUtils").coerceOptionalValue(
+                                e.is_shopless_ig_account,
+                              )) != null
+                                ? n
+                                : !0,
+                            is_shopping_onsite_checkout_enabled: o(
+                              "TypeCoercionUtils",
+                            ).coerceOptionalValue(
+                              e.is_shopping_onsite_checkout_enabled,
+                            ),
+                            profile_pic: o(
+                              "TypeCoercionUtils",
+                            ).coerceOptionalValue(
+                              e == null ? void 0 : e.profile_picture_url,
+                            ),
+                            shopping_review_status: o(
+                              "TypeCoercionUtils",
+                            ).coerceOptionalValue(
+                              r("getJSEnumSafe")(
+                                r("IGShoppingReviewStatus"),
+                                e.shopping_review_status,
+                              ),
+                            ),
+                            user_id: o("TypeCoercionUtils").coerceOptionalValue(
+                              e.instagram_user_id,
+                            ),
+                            username: o(
+                              "TypeCoercionUtils",
+                            ).coerceMaybeStringToFBT(e.username),
+                          };
+                        })) != null
+                    ? a
+                    : [];
+              return {
+                id: o("TypeCoercionUtils").coerceMaybeFBIDtoZeroOrFBID(
+                  t == null ? void 0 : t.id,
+                ),
+                loadState: o("TypeCoercionUtils").coerceNonMaybeValue(
+                  r("getJSEnumSafe")(r("AdsLoadState_LEGACY"), "LOADED"),
+                  "getJSEnumSafe(AdsLoadStateType, 'LOADED')",
+                  i.id,
+                ),
+                instagram_accounts: { data: s },
+                instagram_business_account: u,
+                page_backed_instagram_accounts: { data: c },
+                page_backed_threads_accounts:
+                  t != null && t.page_backed_threads_accounts
+                    ? {
+                        data:
+                          t == null ? void 0 : t.page_backed_threads_accounts,
+                      }
+                    : void 0,
+              };
+            }
+          }),
+          t
+        );
+      })(r("ReverseInteropStoreSourceBase"));
+    l.default = f;
+  },
+  98,
+);

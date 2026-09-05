@@ -1,0 +1,103 @@
+__d(
+  "AdsIntelligentComponentsDataDispatcher",
+  [
+    "AYMTSequentialDisplayManager",
+    "AYMTTipsLoader",
+    "AdsApplicationUtils",
+    "AdsIntelligentComponentsActions",
+    "AdsIntelligentComponentsDataLoader",
+    "URI",
+    "URIInitDataUtil",
+    "isDevelopersURI",
+    "promiseDone",
+    "qex",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = "AYMTIntelligentComponentsChannel",
+      u = new Map(),
+      c = null;
+    function d(e) {
+      var t = e.messagesIDs;
+      if (t == null || t.length === 0) {
+        c = e;
+        return;
+      }
+      for (var n of t) u.set(n, e);
+    }
+    function m(e, t) {
+      var n,
+        r = e[0];
+      if (r == null)
+        return (
+          o("AdsIntelligentComponentsActions").dispatchMessages(t, {
+            messages: {
+              aymt_tips: {},
+              help_articles: null,
+              SAVED_MESSAGES_PANE: null,
+            },
+          }),
+          !0
+        );
+      var a = typeof r.name == "string" ? r.name : "",
+        i = (n = u.get(a)) != null ? n : c;
+      if (a === "" || i == null) return !1;
+      var l = {};
+      return (
+        (l[a] = r),
+        o("AdsIntelligentComponentsActions").dispatchMessages(i, {
+          messages: {
+            aymt_tips: l,
+            help_articles: null,
+            SAVED_MESSAGES_PANE: null,
+          },
+        }),
+        !0
+      );
+    }
+    function p(e) {
+      var t = {};
+      e != null && (t.ad_account_id = String(e));
+      var n = o("URIInitDataUtil").getDefaultInjectTip();
+      return (n != null && (t.inject_tip = n), t);
+    }
+    function _(t, n) {
+      if (
+        !o("AdsApplicationUtils").isFAME() &&
+        !r("isDevelopersURI")((e || (e = r("URI"))).getRequestURI())
+      ) {
+        if (
+          (t.placement === "aymt_tips" &&
+            o(
+              "AYMTSequentialDisplayManager",
+            ).AYMTCollisionExposureObserver.registerSurface(s),
+          r("qex")._("488") === !0 && t.placement === "aymt_tips")
+        ) {
+          (d(t),
+            r("AYMTTipsLoader").loadTips(
+              p(n == null ? void 0 : n.account_id),
+              s,
+              {},
+              !1,
+              function (e) {
+                return m(e, t);
+              },
+            ));
+          return;
+        }
+        r("promiseDone")(
+          o("AdsIntelligentComponentsDataLoader").loadMessages(t),
+          function (e) {
+            o("AdsIntelligentComponentsActions").dispatchMessages(t, e);
+          },
+          function (e) {
+            o("AdsIntelligentComponentsActions").messagesLoadError(t, e);
+          },
+        );
+      }
+    }
+    ((l.buildICV3Params = p), (l.loadMessages = _));
+  },
+  98,
+);
