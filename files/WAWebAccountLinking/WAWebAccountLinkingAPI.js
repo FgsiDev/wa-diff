@@ -15,7 +15,6 @@ __d(
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingHandler",
-    "WAWebDirectConnectionX509",
     "WAWebGraphQLServerError",
     "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebRelayClient",
@@ -24,6 +23,7 @@ __d(
     "WAWebWaffleIQErrorHandler",
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleTraceActionType",
+    "WAWebX509Utils",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -105,7 +105,7 @@ __d(
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
-            var a = yield o("WAWebDirectConnectionX509").extractCertificates(e),
+            var a = yield o("WAWebX509Utils").extractCertificates(e),
               i = yield o(
                 "WAWebAccountLinkingCryptoUtils",
               ).validateCertificateChain(a);
@@ -165,9 +165,7 @@ __d(
                 i = (n = a.encryptionPem) == null ? void 0 : n.elementValue;
               if (i != null) {
                 var l = String.fromCharCode.apply(null, i),
-                  s = yield o("WAWebDirectConnectionX509").extractCertificates(
-                    l,
-                  ),
+                  s = yield o("WAWebX509Utils").extractCertificates(l),
                   p = yield o(
                     "WAWebAccountLinkingCryptoUtils",
                   ).validateCertificateChain(s);
@@ -364,13 +362,13 @@ __d(
               .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_INITIATED,
           });
           var t = yield L.getAccountLinkingData();
-          if (t == null) return (U(e, !1), !1);
+          if (t == null) return (U(e), !1);
           var n = t.fbid,
             a = t.nonce,
             i = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
             l = i.privateKey,
             s = i.publicKey,
-            u = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(s, !0),
+            u = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(s),
             c = {
               version: 1,
               timestamp: Date.now(),
@@ -423,7 +421,7 @@ __d(
                     }),
                     !0
                   );
-                U(e, !1);
+                U(e);
               } catch (t) {
                 (o("WALogger")
                   .ERROR(
@@ -433,7 +431,7 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(t)),
-                  U(e, !1));
+                  U(e));
               }
             } else {
               var v = m.value.errorRefreshAccessTokensErrors,
@@ -461,16 +459,16 @@ __d(
                   v.name,
                 ));
             }
-          } else U(e, !1);
+          } else U(e);
           return !1;
         })),
         q.apply(this, arguments)
       );
     }
-    function U(e, t) {
+    function U(e) {
       o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
         elapsedMs: Date.now() - e,
-        hasAccessToken: t,
+        hasAccessToken: !1,
         traceAction: o("WAWebWamEnumWaffleLifecycleTraceActionType")
           .WAFFLE_LIFECYCLE_TRACE_ACTION_TYPE.REFRESH_TOKEN_ERROR,
       });

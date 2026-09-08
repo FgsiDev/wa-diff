@@ -23,13 +23,9 @@ __d(
     function m() {
       return u;
     }
-    function p() {
-      ((s = null), (u = !1));
-    }
     ((l.updateMarketingMessagesEligibility = c),
       (l.isMarketingMessagesEligible = d),
-      (l.hasLoadedMarketingMessagesEligibility = m),
-      (l.resetMarketingMessagesEligibility = p));
+      (l.hasLoadedMarketingMessagesEligibility = m));
   },
   98,
 );

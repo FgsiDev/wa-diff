@@ -6,13 +6,13 @@ __d(
     "WAWebCopyToClipboard",
     "WAWebDebugGatingUtils",
     "WAWebDeleteNewsletterQuestionResponsePopupLoadable",
-    "WAWebDeleteRefreshedIcon.react",
     "WAWebDevOnlyBadge.react",
     "WAWebDropdownItem.react",
     "WAWebDropdownItemSeparator.react",
     "WAWebModalManager",
     "WAWebReportNewsletterQuestionResponsePopupLoadable",
     "WDSIconIcBlock.react",
+    "WDSIconIcDelete.react",
     "WDSIconIcThumbDown.react",
     "react",
     "react-compiler-runtime",
@@ -125,10 +125,7 @@ __d(
           _.push(b));
         var v, S;
         t[22] === Symbol.for("react.memo_cache_sentinel")
-          ? ((v = u.jsx(
-              o("WAWebDeleteRefreshedIcon.react").DeleteRefreshedIcon,
-              {},
-            )),
+          ? ((v = u.jsx(r("WDSIconIcDelete.react"), {})),
             (S = s._(/*BTDS*/ "Delete")),
             (t[22] = v),
             (t[23] = S))

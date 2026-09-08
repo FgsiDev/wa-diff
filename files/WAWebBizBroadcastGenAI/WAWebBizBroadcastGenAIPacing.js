@@ -41,11 +41,6 @@ __d(
       return p() >= e;
     }
     function g() {
-      var e = o("WAWebBizBroadcastGenAIGating").getGenAIMaxDaily(),
-        t = p();
-      return Math.max(0, e - t);
-    }
-    function h() {
       var e = c();
       if (e == null || m(e)) return 0;
       var t = Date.now() - e.startTime,
@@ -55,8 +50,7 @@ __d(
     ((l.getRequestCount = p),
       (l.incrementRequestCount = _),
       (l.hasReachedDailyLimit = f),
-      (l.getRemainingGenerations = g),
-      (l.getHoursUntilReset = h));
+      (l.getHoursUntilReset = g));
   },
   98,
 );

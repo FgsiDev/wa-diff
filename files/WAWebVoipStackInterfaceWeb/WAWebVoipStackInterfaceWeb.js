@@ -24,6 +24,7 @@ __d(
     "WAWebVoipPerfOptimizations",
     "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectionUtils",
+    "WAWebVoipRelayOverrides",
     "WAWebVoipScreenShareStreamKey",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStackInterfaceWebCallbacks",
@@ -875,7 +876,7 @@ __d(
                 });
               var p = e.node();
               r("justknobx")._("360") &&
-                o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(p);
+                o("WAWebVoipRelayOverrides").overrideRelayIp(p);
               var _ = o("WABase64").encodeB64(o("WAWap").encodeStanza(p)),
                 f = V(m, d),
                 g = a != null ? String(a) : "0",
@@ -934,7 +935,7 @@ __d(
               u = yield l,
               c = s.node();
             r("justknobx")._("360") &&
-              o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(c);
+              o("WAWebVoipRelayOverrides").overrideRelayIp(c);
             var d = o("WABase64").encodeB64(o("WAWap").encodeStanza(c)),
               m = V(u, i);
             try {

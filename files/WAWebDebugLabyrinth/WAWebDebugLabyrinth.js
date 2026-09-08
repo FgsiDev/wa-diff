@@ -740,14 +740,15 @@ __d(
     me.doc =
       'Upload messages (native): encrypt one text message one or more times for a thread with Wasm and batch-upload it through wa_labyrinth_upload_messages. Example: Debug.labyrinthEncryptAndUploadMessageNative({threadId, msg, repeat: 3, threadType: "ONE_TO_ONE"})';
     var _e = {
-      labyrinthCreateBackupNativeWasm: se,
-      labyrinthRotateEpochNativeWasm: ce,
-      labyrinthDecryptFlowInputs: ie,
-      labyrinthEncryptAndUploadMessageNative: me,
-      labyrinthInboxSnapshot: ne,
-      labyrinthRangeQuery: oe,
-    };
-    l.default = _e;
+        labyrinthCreateBackupNativeWasm: se,
+        labyrinthRotateEpochNativeWasm: ce,
+        labyrinthDecryptFlowInputs: ie,
+        labyrinthEncryptAndUploadMessageNative: me,
+        labyrinthInboxSnapshot: ne,
+        labyrinthRangeQuery: oe,
+      },
+      fe = _e;
+    l.default = fe;
   },
   98,
 );
