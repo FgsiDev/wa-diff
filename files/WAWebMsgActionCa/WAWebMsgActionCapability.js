@@ -31,6 +31,7 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGroupHistoryUtils",
+    "WAWebHatchGating",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebIsAiRichResponseForwardable",
     "WAWebKeepInChatMsgUtils",
@@ -847,6 +848,22 @@ __d(
       return o("WAWebBotBaseGating").isBotEnabled() && K(t) && a && r;
     }
     function J(e) {
+      var t = e;
+      if (
+        (e instanceof o("WAWebMsgModel").Msg &&
+          (t = o("WAWebStateUtils").unproxy(e)),
+        t.id.fromMe ||
+          !o("WAWebBotUtils").isHatchBot(
+            o("WAWebFrontendMsgGetters").getCurrentChat(t).id,
+          ))
+      )
+        return !1;
+      var n =
+        o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(t) <=
+        o("WAWebRevokeMsgConstants").REVOKE_WINDOW;
+      return K(t) && n && o("WAWebHatchGating").isHatchRevokeEnabled();
+    }
+    function Z(e) {
       var t, n;
       if (
         o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
@@ -891,7 +908,8 @@ __d(
       (l.canSenderRevokeMsg = Q),
       (l.canAdminRevokeMsg = X),
       (l.canBotResponseBeRevokeByInvoker = Y),
-      (l.canDeleteMsg = J));
+      (l.canHatchReplyBeRevoked = J),
+      (l.canDeleteMsg = Z));
   },
   98,
 );
