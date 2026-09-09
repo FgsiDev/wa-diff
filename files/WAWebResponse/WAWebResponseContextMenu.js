@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WAWebBlockNewsletterQuestionResponsePopupLoadable",
     "WAWebCopyToClipboard",
-    "WAWebDebugGatingUtils",
     "WAWebDeleteNewsletterQuestionResponsePopupLoadable",
     "WAWebDevOnlyBadge.react",
     "WAWebDropdownItem.react",
@@ -14,6 +13,7 @@ __d(
     "WDSIconIcBlock.react",
     "WDSIconIcDelete.react",
     "WDSIconIcThumbDown.react",
+    "gkx",
     "react",
     "react-compiler-runtime",
   ],
@@ -149,7 +149,7 @@ __d(
               (t[25] = R))
             : (R = t[25]),
           _.push(R),
-          o("WAWebDebugGatingUtils").msgDebugMenuItemsEnabled())
+          r("gkx")("16539"))
         ) {
           var L;
           (t[26] === Symbol.for("react.memo_cache_sentinel")

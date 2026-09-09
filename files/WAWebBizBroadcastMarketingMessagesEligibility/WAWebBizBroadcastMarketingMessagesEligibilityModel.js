@@ -3,11 +3,9 @@ __d(
   ["WALogger"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = null,
-      u = !1;
-    function c(t) {
+      s = null;
+    function u(t) {
       ((s = t),
-        (u = !0),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -17,15 +15,11 @@ __d(
           String(t),
         ));
     }
-    function d() {
+    function c() {
       return s === !0;
     }
-    function m() {
-      return u;
-    }
-    ((l.updateMarketingMessagesEligibility = c),
-      (l.isMarketingMessagesEligible = d),
-      (l.hasLoadedMarketingMessagesEligibility = m));
+    ((l.updateMarketingMessagesEligibility = u),
+      (l.isMarketingMessagesEligible = c));
   },
   98,
 );

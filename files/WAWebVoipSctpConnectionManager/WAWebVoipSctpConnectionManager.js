@@ -191,15 +191,15 @@ __d(
         n,
         f,
       );
-      var g = d.transferChannel(
-        e,
-        n,
-        p,
-        _,
-        o("WAWebABProps").getABPropConfigValue(
+      var g = d.transferChannel({
+        channel: e,
+        connectionId: n,
+        enableStats: o("WAWebABProps").getABPropConfigValue(
           "voip_enable_webrtc_stats_polling",
         ),
-      );
+        ip: p,
+        port: _,
+      });
       return (
         g
           ? ((t.channelTransferred = !0),

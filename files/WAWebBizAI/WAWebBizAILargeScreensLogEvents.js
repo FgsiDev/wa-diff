@@ -928,7 +928,73 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function Ae(e) {
+    function Ae(e, t) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
+          .COACHING_ENTRYPOINT_BUTTON,
+        extraAttributes: { delivers_to_customer: t, message_age_ms: e },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.GEN_AI_COACHING,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function Fe(e, t, n) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
+          .COACHING_ENTRYPOINT_BUTTON,
+        extraAttributes: {
+          delivers_to_customer: n,
+          text_change_cnt: e,
+          timespent_ms: t,
+        },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.GEN_AI_COACHING,
+        userActionTarget: "save_button",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function Oe(e, t, n) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
+          .COACHING_ENTRYPOINT_BUTTON,
+        extraAttributes: {
+          delivers_to_customer: n,
+          text_change_cnt: e,
+          timespent_ms: t,
+        },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.GEN_AI_COACHING,
+        userActionTarget: "cancel_button",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function Be(e, t) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
+          .COACHING_ENTRYPOINT_BUTTON,
+        extraAttributes:
+          e === "success"
+            ? { delivers_to_customer: t, status: "success" }
+            : { delivers_to_customer: t, error: e },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        stickyEntryPoint: !1,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.GEN_AI_COACHING,
+        userActionTarget: "submit_coaching_response_result",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.API,
+      });
+    }
+    function We(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: { appointment_type_count: e, is_empty: e === 0 },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
@@ -939,7 +1005,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function Fe(e, t) {
+    function qe(e, t) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         extraAttributes: t != null ? { error: t, success: e } : { success: e },
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
@@ -1033,8 +1099,12 @@ __d(
       (l.logViewGoogleDriveSetupCanceled = Ne),
       (l.logViewGoogleDriveSetupDismissed = Me),
       (l.logViewGoogleDriveSetupSynced = we),
-      (l.logViewAppointmentsLanding = Ae),
-      (l.logApiAppointmentHomeFetch = Fe));
+      (l.logViewBizAiMessageEditEditor = Ae),
+      (l.logClickBizAiMessageEditSave = Fe),
+      (l.logClickBizAiMessageEditCancel = Oe),
+      (l.logApiBizAiMessageEditCoachingResult = Be),
+      (l.logViewAppointmentsLanding = We),
+      (l.logApiAppointmentHomeFetch = qe));
   },
   98,
 );

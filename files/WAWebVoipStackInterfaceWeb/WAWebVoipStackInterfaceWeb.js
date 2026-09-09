@@ -25,7 +25,6 @@ __d(
     "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipRelayOverrides",
-    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStackInterfaceWebCallbacks",
     "WAWebVoipStackInterfaceWebHelpers",
@@ -1302,14 +1301,15 @@ __d(
           return t;
         })(),
         requestKeyFrame: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield l,
-              n = o("WAWebVoipScreenShareStreamKey").getBaseJidFromStreamKey(e),
-              r = o("WAWebVoipScreenShareStreamKey").isScreenShareStreamKey(e),
-              a = r ? t.requestAuxiliaryKeyFrame(n) : t.requestKeyFrame(n);
-            return a;
-          });
-          function t(t) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = yield l,
+                r = e.toJid(),
+                o = t ? n.requestAuxiliaryKeyFrame(r) : n.requestKeyFrame(r);
+              return o;
+            },
+          );
+          function t(t, n) {
             return e.apply(this, arguments);
           }
           return t;
