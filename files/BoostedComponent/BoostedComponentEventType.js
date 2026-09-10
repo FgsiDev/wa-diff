@@ -284,6 +284,8 @@ __d(
       UPDATE_TEXT_VARIANT: "update_text_variant",
       GEN_DEFAULT_AUDIENCE: "gen_default_audience",
       GEN_DEFAULT_BUDGET: "gen_default_budget",
+      HONOR_DEFAULT_BUDGET_STICKY_BELOW_DEFAULT:
+        "honor_default_budget_sticky_below_default",
       GEN_BUDGET_LADDER_ROUNDING: "gen_budget_ladder_rounding",
       GEN_DEFAULT_AUDIENCE_FAILURE: "gen_default_audience_failure",
       DEFAULT_IG_AUDIENCE_LAL_GENERATION: "default_ig_audience_lal_generation",
@@ -1755,6 +1757,9 @@ __d(
         "hawk_ai_experiment_reviewer_v2_pd_review",
       HAWK_AI_EXPERIMENT_REVIEWER_V2_GK_REVIEW:
         "hawk_ai_experiment_reviewer_v2_gk_review",
+      HAWK_AI_OPEN_IN_ERG_REVIEW_CLICK: "hawk_ai_open_in_erg_review_click",
+      HAWK_AI_OPEN_IN_ERG_SEGMENT_REVIEW_CLICK:
+        "hawk_ai_open_in_erg_segment_review_click",
       LWI_PERFORMANCE_CALL_INSIGHTS_CTA_CLICK:
         "lwi_performance_call_insights_cta_click",
       LOG_IG_PLACEMENT_INFO: "log_ig_placement_info",

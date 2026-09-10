@@ -27,9 +27,9 @@ __d(
           var t = e.atTimeMs,
             n = e.chainBytes,
             r = e.rootCertVersion,
-            a = yield f(n, r),
+            a = yield _(n, r),
             i = s.get(a);
-          if (i == null || !h(i.chainBytes, n)) return null;
+          if (i == null || !g(i.chainBytes, n)) return null;
           if (t < i.notBeforeMs || t > i.notAfterMs) return (s.delete(a), null);
           for (var l of i.serialNumbers)
             if (
@@ -65,8 +65,8 @@ __d(
             var p = o("WAWebCertificateUtils").getCertificateSerialNumber(c);
             p != null && i.push(p);
           }
-          var _ = yield f(n, a);
-          s.put(_, {
+          var f = yield _(n, a);
+          s.put(f, {
             publicKey: r,
             chainBytes: n,
             notBeforeMs: u,
@@ -78,17 +78,14 @@ __d(
       );
     }
     function p() {
-      return s.getCurrentSize();
-    }
-    function _() {
       s.clear();
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new TextEncoder().encode(t),
             r = n.length + 4;
           for (var a of e) r += 4 + a.length;
@@ -111,10 +108,10 @@ __d(
           var d = yield crypto.subtle.digest("SHA-256", i);
           return o("WAHex").toLowerCaseHex(new Uint8Array(d));
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function g(e, t) {
       if (e.length !== t.length) return !1;
       for (var n = 0; n < e.length; n++) {
         if (e[n].length !== t[n].length) return !1;
@@ -125,8 +122,7 @@ __d(
     }
     ((l.getCachedLeafPublicKey = u),
       (l.cacheLeafPublicKey = d),
-      (l.getLeafCertificateCacheSize = p),
-      (l.clearLeafCertificateCache = _));
+      (l.clearLeafCertificateCache = p));
   },
   98,
 );

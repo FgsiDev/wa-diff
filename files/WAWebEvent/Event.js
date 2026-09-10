@@ -75,6 +75,30 @@ __d(
           } catch (e) {}
       return e;
     }
+    function _() {
+      return this.which ? this.which === 3 : this.button && this.button === 2;
+    }
+    function f() {
+      return this.which ? this.which === 2 : this.button && this.button === 4;
+    }
+    function g() {
+      var e = {
+        control: !!this.ctrlKey,
+        shift: !!this.shiftKey,
+        alt: !!this.altKey,
+        meta: !!this.metaKey,
+      };
+      return (
+        (e.access = r("UserAgent").isPlatform("Mac OS X") ? e.control : e.alt),
+        (e.any = e.control || e.shift || e.alt || e.meta),
+        e
+      );
+    }
+    function h() {
+      return (
+        this.getModifiers().any || this.isMiddleClick() || this.isRightClick()
+      );
+    }
     Object.assign(
       Event.prototype,
       {
@@ -87,42 +111,14 @@ __d(
               : this.fromElement);
           return e && e.nodeType ? e : null;
         },
-        getModifiers: function () {
-          var e = {
-            control: !!this.ctrlKey,
-            shift: !!this.shiftKey,
-            alt: !!this.altKey,
-            meta: !!this.metaKey,
-          };
-          return (
-            (e.access = r("UserAgent").isPlatform("Mac OS X")
-              ? e.control
-              : e.alt),
-            (e.any = e.control || e.shift || e.alt || e.meta),
-            e
-          );
-        },
-        isRightClick: function () {
-          return this.which
-            ? this.which === 3
-            : this.button && this.button === 2;
-        },
-        isMiddleClick: function () {
-          return this.which
-            ? this.which === 2
-            : this.button && this.button === 4;
-        },
-        isDefaultRequested: function () {
-          return (
-            this.getModifiers().any ||
-            this.isMiddleClick() ||
-            this.isRightClick()
-          );
-        },
+        getModifiers: g,
+        isRightClick: _,
+        isMiddleClick: f,
+        isDefaultRequested: h,
       },
       m.prototype,
     );
-    var _ = {
+    var y = {
       listen: function (n, o, a, i, l) {
         if (
           (typeof a == "function" &&
@@ -135,7 +131,7 @@ __d(
             : (l = { passive: l.passive || !1 }),
           !(e || (e = r("ExecutionEnvironment"))).canUseDOM)
         )
-          return new L(n, a, null, o, i, null, l);
+          return new T(n, a, null, o, i, null, l);
         if (
           (typeof n == "string" && (n = r("$")(n)),
           typeof i == "undefined" && (i = Event.Priority.NORMAL),
@@ -170,17 +166,17 @@ __d(
           p !== document.documentElement && p !== document.body && (n = p);
         }
         var _ = r("DataStore").get(n, u, {}),
-          f = h[o];
-        (f && ((o = f.base), f.wrap && (a = f.wrap(a))), b(n, _, o, l));
+          f = v[o];
+        (f && ((o = f.base), f.wrap && (a = f.wrap(a))), L(n, _, o, l));
         var g = _[o];
         i in g || (g[i] = []);
-        var y = g[i].length,
-          v = new L(n, a, _, o, i, y, l);
+        var h = g[i].length,
+          y = new T(n, a, _, o, i, h, l);
         return (
-          (g[i][y] = v),
+          (g[i][h] = y),
           g.numHandlers++,
-          l.passive || (g.numNonPassiveHandlers++, C(n, _[o], o)),
-          v
+          l.passive || (g.numNonPassiveHandlers++, R(n, _[o], o)),
+          y
         );
       },
       stop: function (t) {
@@ -230,14 +226,14 @@ __d(
         return t.keyCode;
       },
       getPriorities: function () {
-        if (!f) {
+        if (!C) {
           var e = r("getObjectValues")(Event.Priority);
           (e.sort(function (e, t) {
             return e - t;
           }),
-            (f = e));
+            (C = e));
         }
-        return f;
+        return C;
       },
       fire: function (t, n, r) {
         var e = new m(t, n, r),
@@ -267,49 +263,49 @@ __d(
         c = t;
       },
     };
-    Object.assign(Event, _);
-    var f = null,
-      g = function (t) {
+    Object.assign(Event, y);
+    var C = null,
+      b = function (t) {
         return function (e) {
           if (!o("DOMQuery").contains(this, e.getRelatedTarget()))
             return t.call(this, e);
         };
       },
-      h;
+      v;
     if (
       (window.navigator.msPointerEnabled
-        ? (h = {
+        ? (v = {
             mousedown: { base: "MSPointerDown" },
             mousemove: { base: "MSPointerMove" },
             mouseup: { base: "MSPointerUp" },
             mouseover: { base: "MSPointerOver" },
             mouseout: { base: "MSPointerOut" },
-            mouseenter: { base: "MSPointerOver", wrap: g },
-            mouseleave: { base: "MSPointerOut", wrap: g },
+            mouseenter: { base: "MSPointerOver", wrap: b },
+            mouseleave: { base: "MSPointerOut", wrap: b },
           })
-        : (h = {
-            mouseenter: { base: "mouseover", wrap: g },
-            mouseleave: { base: "mouseout", wrap: g },
+        : (v = {
+            mouseenter: { base: "mouseover", wrap: b },
+            mouseleave: { base: "mouseout", wrap: b },
           }),
       r("UserAgent").isBrowser("Firefox < 52"))
     ) {
-      var y = function (t, n) {
+      var S = function (t, n) {
         n = p(n);
         for (var e = n.getTarget(); e; )
           (Event.__fire(e, t, n), (e = e.parentNode));
       };
       (document.documentElement.addEventListener(
         "focus",
-        y.bind(null, "focusin"),
+        S.bind(null, "focusin"),
         !0,
       ),
         document.documentElement.addEventListener(
           "blur",
-          y.bind(null, "focusout"),
+          S.bind(null, "focusout"),
           !0,
         ));
     }
-    var C = function (t, n, o) {
+    var R = function (t, n, o) {
         var e = n.numNonPassiveHandlers == 0;
         e != n.options.passive &&
           (n.domHandlerRemover.remove(),
@@ -318,10 +314,10 @@ __d(
             passive: e,
           })));
       },
-      b = function (t, n, o, a) {
+      L = function (t, n, o, a) {
         if (!(o in n)) {
           var e = r("TimeSlice").guard(
-            R.bind(t, o),
+            I.bind(t, o),
             r("dedupString")("Event listenHandler " + o),
           );
           n[o] = {
@@ -343,16 +339,16 @@ __d(
           }
         }
       };
-    function v(e) {
+    function E(e) {
       return e.href.endsWith("#")
         ? e.href === document.location.href ||
             e.href === document.location.href + "#"
         : !1;
     }
-    function S(e, t) {
+    function k(e, t) {
       return e.nodeName === "INPUT" && e.type === t;
     }
-    var R = function (t, n) {
+    var I = function (t, n) {
       var e = p(n);
       if (!r("DataStore").get(this, u)) {
         var a = new Error("Bad listenHandler context.");
@@ -372,9 +368,9 @@ __d(
           c = o("Parent").byTag(s, "a");
         c instanceof HTMLAnchorElement &&
           c.href &&
-          v(c) &&
-          !S(s, "file") &&
-          !S(s, "submit") &&
+          E(c) &&
+          !k(s, "file") &&
+          !k(s, "submit") &&
           e.prevent();
       }
       for (var d = Event.getPriorities(), m = 0; m < d.length; m++) {
@@ -391,7 +387,7 @@ __d(
       return e.returnValue;
     };
     Event.Priority = { URGENT: -20, TRADITIONAL: -10, NORMAL: 0, _BUBBLE: 1e3 };
-    var L = (function () {
+    var T = (function () {
       function t(e, t, n, r, o, a, i) {
         ((this.$1 = e),
           (this.$2 = t),
@@ -421,7 +417,7 @@ __d(
                 t.numHandlers--,
                 this.$5.passive ||
                   (t.numNonPassiveHandlers--,
-                  C(this.$1, this.$3[this.$7], this.$7))),
+                  R(this.$1, this.$3[this.$7], this.$7))),
               (this.$3 = null),
               c && ((this.$1 = null), (this.$2 = null), (this.$5 = null)));
           }
@@ -441,8 +437,8 @@ __d(
       );
     })();
     t.$E = Event.$E = p;
-    var E = Event;
-    l.default = E;
+    var D = Event;
+    l.default = D;
   },
   98,
 );

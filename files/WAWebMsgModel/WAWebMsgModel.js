@@ -577,7 +577,7 @@ __d(
             (e.newType = o("WAWebBaseModel").session()),
             (e.typeOnInit = o("WAWebBaseModel").session()),
             (e.calledCiphertextDecrypted = o("WAWebBaseModel").session(!1)),
-            (e.$MsgImpl$p_23 = r("WAWebDebounce")(function (e, t) {
+            (e.$MsgImpl$p_24 = r("WAWebDebounce")(function (e, t) {
               o("WAWebDBUpdateMessageTable").updateMessageTable(e, {
                 lastPlaybackProgress: t,
               });
@@ -835,7 +835,9 @@ __d(
                 case o("WAWebBotTypes").BotMsgEditType.FULL:
                   ((this.activeBotMsgStreamingInProgress = !1),
                     this.botEditTimeoutID &&
-                      self.clearTimeout(this.botEditTimeoutID));
+                      self.clearTimeout(this.botEditTimeoutID),
+                    n === o("WAWebBotTypes").BotMsgEditType.LAST &&
+                      this.$MsgImpl$p_21());
                   return;
                 default:
                   this.botEditTimeoutID = self.setTimeout(function () {
@@ -847,6 +849,12 @@ __d(
                   }, a);
               }
             }
+          }),
+          (i.$MsgImpl$p_21 = function () {
+            !this.recvFresh ||
+              o("WAWebMsgGetters").getIsSentByMe(this) ||
+              o("WAWebMsgGetters").getIsStatus(this) ||
+              o("WAWebCmd").Cmd.alertNewMsg(this);
           }),
           (i.getMsgChunk = function (t) {
             return t != null
@@ -1042,7 +1050,7 @@ __d(
                   .MSG_CLICK,
               downloadEvenIfExpensive: i,
               rmrReason: u,
-              rmrData: this.$MsgImpl$p_21(u),
+              rmrData: this.$MsgImpl$p_22(u),
               mode: s ? "manual" : "auto",
               isAutoDownload: l,
               chatWid:
@@ -1053,7 +1061,7 @@ __d(
               shouldThrowAbortError: d,
             });
           }),
-          (i.$MsgImpl$p_21 = function (t) {
+          (i.$MsgImpl$p_22 = function (t) {
             var e = { webcRmrReason: t, webcMessageT: this.t },
               n = o("WAWebFrontendMsgGetters").getMaybeChat(this);
             if (n) {
@@ -1179,7 +1187,7 @@ __d(
             return t;
           })()),
           (i.$MsgImpl$p_20 = function (t) {
-            var e = this.$MsgImpl$p_22().get(this.id.remote);
+            var e = this.$MsgImpl$p_23().get(this.id.remote);
             if (e) {
               var n;
               ((this.id.remote.isBot() ||
@@ -1340,7 +1348,7 @@ __d(
             });
           }),
           (i.updateLastPlaybackProgress = function (t) {
-            ((this.lastPlaybackProgress = t), this.$MsgImpl$p_23(this.id, t));
+            ((this.lastPlaybackProgress = t), this.$MsgImpl$p_24(this.id, t));
           }),
           (i.$MsgImpl$p_14 = function () {
             if (
@@ -1379,7 +1387,7 @@ __d(
           (i.getCollection = function () {
             return o("WAWebMsgCollection").MsgCollection;
           }),
-          (i.$MsgImpl$p_22 = function () {
+          (i.$MsgImpl$p_23 = function () {
             return o("WAWebMsgGetters").getIsNewsletterMsg(this)
               ? r("WAWebNewsletterCollection")
               : o("WAWebChatCollection").ChatCollection;
