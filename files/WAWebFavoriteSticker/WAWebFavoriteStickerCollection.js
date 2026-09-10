@@ -173,7 +173,9 @@ __d(
             id: t.id,
             timestamp: t.timestamp,
             stickerHashWithoutMeta: t.stickerHashWithoutMeta,
-            sticker: new (o("WAWebStickerModel").StickerModel)(t.sticker),
+            sticker: new (o("WAWebStickerModel").StickerModel)(
+              babelHelpers.extends({}, t.sticker, { id: t.id }),
+            ),
           });
         }),
         (i._getStickerHashWithoutMeta = (function () {
