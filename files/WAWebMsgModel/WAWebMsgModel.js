@@ -29,7 +29,6 @@ __d(
     "WAWebMedia",
     "WAWebMediaData",
     "WAWebMediaTypes",
-    "WAWebMessageAssociationGatingUtils",
     "WAWebMessageAssociationUIUtils",
     "WAWebMessageReceiptUtils",
     "WAWebMiscGatingUtils",
@@ -934,13 +933,23 @@ __d(
               this.ack < o("WAWebAck").ACK.SENT
             );
           }),
-          (i.resumeRemoteUpload = function () {
-            return o("WAWebMsgGetters").getIsNewsletterMsg(this)
-              ? o("WAWebMedia").resumeUploadMsg(this)
-              : (this.isUnsentPhoneMsg() &&
+          (i.resumeRemoteUpload = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (o("WAWebMsgGetters").getIsNewsletterMsg(this)) {
+                var e = yield o("WAWebMedia").resumeUploadMsg(this);
+                return e == null ? void 0 : e.messageSendResult;
+              }
+              return (
+                this.isUnsentPhoneMsg() &&
                   o("WAWebSendMsgRecordAction").sendMsgRecord(this),
-                this.forceDownloadMediaEvenIfExpensive());
-          }),
+                this.forceDownloadMediaEvenIfExpensive()
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (i.cancelDownload = function () {
             o("WAWebMedia").cancelDownloadMsg(this);
           }),
@@ -1228,14 +1237,11 @@ __d(
               o("WAWebMsgModelUtils").typeIsMms(this) &&
                 o("WAWebMedia").deregisterMsg(this));
             var e = this.getCollection();
-            (o(
-              "WAWebMessageAssociationGatingUtils",
-            ).isMessageAssociationInfraEnabled() &&
-              o("WAWebMessageAssociationUIUtils")
-                .getHiddenAssociatedMessages(this.id)
-                .forEach(function (e) {
-                  e.delete();
-                }),
+            (o("WAWebMessageAssociationUIUtils")
+              .getHiddenAssociatedMessages(this.id)
+              .forEach(function (e) {
+                e.delete();
+              }),
               e.remove(this.id),
               o("WAWebMsgModelUtils").hideParentMessageInChat(this, {
                 duringDetach: !1,

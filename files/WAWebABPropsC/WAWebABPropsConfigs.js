@@ -2744,7 +2744,6 @@ __d(
       unknown_user_usync_request_cool_down: [35318, "int", -1, -1],
       unknown_user_wam_emit_cooldown_secs: [34551, "int", 30, 30],
       unknown_user_wam_max_events_per_window: [32946, "int", 10, 10],
-      updated_harmful_document_dialog: [15022, "bool", !1, !0],
       updates_privacy_notice_rollout_date: [14387, "int", 174231e4, 174231e4],
       updates_quick_promotion_banner_enabled: [13997, "bool", !1, !1],
       updates_tab_channels_header_explore_entry_point_visibility: [

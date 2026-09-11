@@ -27,9 +27,9 @@ __d(
           var t = e.atTimeMs,
             n = e.chainBytes,
             r = e.rootCertVersion,
-            a = yield _(n, r),
+            a = yield p(n, r),
             i = s.get(a);
-          if (i == null || !g(i.chainBytes, n)) return null;
+          if (i == null || !f(i.chainBytes, n)) return null;
           if (t < i.notBeforeMs || t > i.notAfterMs) return (s.delete(a), null);
           for (var l of i.serialNumbers)
             if (
@@ -62,10 +62,10 @@ __d(
               m = new Date(c.notBefore.value).getTime();
             if (!Number.isFinite(d) || !Number.isFinite(m)) return;
             (d < l && (l = d), m > u && (u = m));
-            var p = o("WAWebCertificateUtils").getCertificateSerialNumber(c);
-            p != null && i.push(p);
+            var _ = o("WAWebCertificateUtils").getCertificateSerialNumber(c);
+            _ != null && i.push(_);
           }
-          var f = yield _(n, a);
+          var f = yield p(n, a);
           s.put(f, {
             publicKey: r,
             chainBytes: n,
@@ -77,15 +77,12 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p() {
-      s.clear();
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new TextEncoder().encode(t),
             r = n.length + 4;
           for (var a of e) r += 4 + a.length;
@@ -108,10 +105,10 @@ __d(
           var d = yield crypto.subtle.digest("SHA-256", i);
           return o("WAHex").toLowerCaseHex(new Uint8Array(d));
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(e, t) {
+    function f(e, t) {
       if (e.length !== t.length) return !1;
       for (var n = 0; n < e.length; n++) {
         if (e[n].length !== t[n].length) return !1;
@@ -120,9 +117,7 @@ __d(
       }
       return !0;
     }
-    ((l.getCachedLeafPublicKey = u),
-      (l.cacheLeafPublicKey = d),
-      (l.clearLeafCertificateCache = p));
+    ((l.getCachedLeafPublicKey = u), (l.cacheLeafPublicKey = d));
   },
   98,
 );
