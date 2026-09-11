@@ -1,12 +1,1 @@
-__d(
-  "ApiAdCreativeDestinationScreenshotSpecFields",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = Object.freeze({
-      ENROLL_STATUS: "enroll_status",
-      SCREENSHOT_IMAGE_HASH: "screenshot_image_hash",
-    });
-    i.default = e;
-  },
-  66,
-);
+__d("ApiAdCreativeDestinationScreenshotSpecFields",[],(function(t,n,r,o,a,i){var e=Object.freeze({ENROLL_STATUS:"enroll_status",SCREENSHOT_IMAGE_HASH:"screenshot_image_hash"});i.default=e}),66);

@@ -1,12 +1,1 @@
-__d(
-  "AYMTAMGlobalBannerResolutionFlowProvider",
-  ["AYMTAMGlobalBannerResolutionFlowProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AYMTAMGlobalBannerResolutionFlowProviderPlugin"),
-      "AYMTAMGlobalBannerResolutionFlowProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AYMTAMGlobalBannerResolutionFlowProvider",["AYMTAMGlobalBannerResolutionFlowProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AYMTAMGlobalBannerResolutionFlowProviderPlugin"),"AYMTAMGlobalBannerResolutionFlowProviderPlugin")}),null);

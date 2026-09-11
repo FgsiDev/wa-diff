@@ -1,9 +1,1 @@
-__d(
-  "AdsPEFluxStatsSetStatRangeActionFlux",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = { actionType: "STATS.SET_STAT_RANGE" };
-  },
-  null,
-);
+__d("AdsPEFluxStatsSetStatRangeActionFlux",[],(function(t,n,r,o,a,i){"use strict";a.exports={actionType:"STATS.SET_STAT_RANGE"}}),null);

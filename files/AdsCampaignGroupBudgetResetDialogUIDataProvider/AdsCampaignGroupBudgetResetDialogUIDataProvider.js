@@ -1,12 +1,1 @@
-__d(
-  "AdsCampaignGroupBudgetResetDialogUIDataProvider",
-  ["AdsCampaignGroupBudgetResetDialogUIDataProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsCampaignGroupBudgetResetDialogUIDataProviderPlugin"),
-      "AdsCampaignGroupBudgetResetDialogUIDataProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsCampaignGroupBudgetResetDialogUIDataProvider",["AdsCampaignGroupBudgetResetDialogUIDataProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsCampaignGroupBudgetResetDialogUIDataProviderPlugin"),"AdsCampaignGroupBudgetResetDialogUIDataProviderPlugin")}),null);

@@ -1,18 +1,1 @@
-__d(
-  "AdsIntelligentComponentsClickMessageAction",
-  ["Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    var e = n("Laminar").__createAction(
-      function () {
-        return [];
-      },
-      function () {
-        return [];
-      },
-      "AdsIntelligentComponents.CLICK_MESSAGE",
-    );
-    a.exports = e;
-  },
-  null,
-);
+__d("AdsIntelligentComponentsClickMessageAction",["Laminar"],(function(t,n,r,o,a,i){"use strict";var e=n("Laminar").__createAction(function(){return[]},function(){return[]},"AdsIntelligentComponents.CLICK_MESSAGE");a.exports=e}),null);

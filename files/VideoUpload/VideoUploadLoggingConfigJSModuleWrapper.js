@@ -1,9 +1,1 @@
-__d(
-  "VideoUploadLoggingConfigJSModuleWrapper",
-  ["VideoUploadLoggingConfig"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = r("VideoUploadLoggingConfig");
-  },
-  98,
-);
+__d("VideoUploadLoggingConfigJSModuleWrapper",["VideoUploadLoggingConfig"],(function(t,n,r,o,a,i,l){"use strict";l.default=r("VideoUploadLoggingConfig")}),98);

@@ -1,14 +1,1 @@
-__d(
-  "XAdsEventsManagerConsolidatedDatasetRemoveDomainControlRuleControllerRouteBuilder",
-  ["jsRouteBuilder"],
-  function (t, n, r, o, a, i, l) {
-    var e = r("jsRouteBuilder")(
-        "/events_manager/consolidation/domain_control_rule/remove/",
-        Object.freeze({}),
-        void 0,
-      ),
-      s = e;
-    l.default = s;
-  },
-  98,
-);
+__d("XAdsEventsManagerConsolidatedDatasetRemoveDomainControlRuleControllerRouteBuilder",["jsRouteBuilder"],(function(t,n,r,o,a,i,l){var e=r("jsRouteBuilder")("/events_manager/consolidation/domain_control_rule/remove/",Object.freeze({}),void 0),s=e;l.default=s}),98);

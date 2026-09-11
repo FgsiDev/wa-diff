@@ -1,9 +1,1 @@
-__d(
-  "InstreamOnlyContextualTargetingTopicsConfigJSModuleWrapper",
-  ["InstreamOnlyContextualTargetingTopicsConfig"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = r("InstreamOnlyContextualTargetingTopicsConfig");
-  },
-  98,
-);
+__d("InstreamOnlyContextualTargetingTopicsConfigJSModuleWrapper",["InstreamOnlyContextualTargetingTopicsConfig"],(function(t,n,r,o,a,i,l){"use strict";l.default=r("InstreamOnlyContextualTargetingTopicsConfig")}),98);

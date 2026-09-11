@@ -1,12 +1,1 @@
-__d(
-  "AdsFragmentsPostPublishMonitoringDataProvider",
-  ["AdsFragmentsPostPublishMonitoringDataProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsFragmentsPostPublishMonitoringDataProviderPlugin"),
-      "AdsFragmentsPostPublishMonitoringDataProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsFragmentsPostPublishMonitoringDataProvider",["AdsFragmentsPostPublishMonitoringDataProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsFragmentsPostPublishMonitoringDataProviderPlugin"),"AdsFragmentsPostPublishMonitoringDataProviderPlugin")}),null);

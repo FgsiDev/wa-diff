@@ -1,9 +1,1 @@
-__d(
-  "AdsInteropConfigJSModuleWrapper",
-  ["AdsInteropConfig"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = r("AdsInteropConfig");
-  },
-  98,
-);
+__d("AdsInteropConfigJSModuleWrapper",["AdsInteropConfig"],(function(t,n,r,o,a,i,l){"use strict";l.default=r("AdsInteropConfig")}),98);

@@ -1,9 +1,1 @@
-__d(
-  "AdsCreativeBadgeShippingPolicyWindowUnits",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = Object.freeze({ DAY: "day", WEEK: "week" });
-    i.default = e;
-  },
-  66,
-);
+__d("AdsCreativeBadgeShippingPolicyWindowUnits",[],(function(t,n,r,o,a,i){var e=Object.freeze({DAY:"day",WEEK:"week"});i.default=e}),66);

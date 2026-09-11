@@ -1,9 +1,1 @@
-__d(
-  "ComposerXNativeAudioUploadsConfig.experimental",
-  ["cr:10969"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = n("cr:10969");
-  },
-  98,
-);
+__d("ComposerXNativeAudioUploadsConfig.experimental",["cr:10969"],(function(t,n,r,o,a,i,l){"use strict";l.default=n("cr:10969")}),98);

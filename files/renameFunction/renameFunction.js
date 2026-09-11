@@ -1,9 +1,1 @@
-__d(
-  "renameFunction",
-  ["fb-error"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = r("fb-error").renameFunction;
-  },
-  98,
-);
+__d("renameFunction",["fb-error"],(function(t,n,r,o,a,i,l){"use strict";l.default=r("fb-error").renameFunction}),98);

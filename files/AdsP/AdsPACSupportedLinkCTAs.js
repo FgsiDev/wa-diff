@@ -1,10 +1,1 @@
-__d(
-  "AdsPACSupportedLinkCTAs",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    var e = ["CALL_NOW", "GET_DIRECTIONS"];
-    i.default = e;
-  },
-  66,
-);
+__d("AdsPACSupportedLinkCTAs",[],(function(t,n,r,o,a,i){"use strict";var e=["CALL_NOW","GET_DIRECTIONS"];i.default=e}),66);

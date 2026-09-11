@@ -1,8 +1,1 @@
-__d(
-  "BillingAutoReloadAmountScreenQuery_facebookRelayOperation",
-  [],
-  function (t, n, r, o, a, i) {
-    a.exports = "26534146879621178";
-  },
-  null,
-);
+__d("BillingAutoReloadAmountScreenQuery_facebookRelayOperation",[],(function(t,n,r,o,a,i){a.exports="26534146879621178"}),null);

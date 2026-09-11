@@ -1,9 +1,1 @@
-__d(
-  "CometRouteMapper",
-  ["cr:6106"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = n("cr:6106");
-  },
-  98,
-);
+__d("CometRouteMapper",["cr:6106"],(function(t,n,r,o,a,i,l){"use strict";l.default=n("cr:6106")}),98);

@@ -1,9 +1,1 @@
-__d(
-  "AdTargetSubscriberUniverseSubscriberSourceField",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = Object.freeze({ ID: "id", NAME: "name" });
-    i.default = e;
-  },
-  66,
-);
+__d("AdTargetSubscriberUniverseSubscriberSourceField",[],(function(t,n,r,o,a,i){var e=Object.freeze({ID:"id",NAME:"name"});i.default=e}),66);

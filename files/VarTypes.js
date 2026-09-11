@@ -1,1 +1,1 @@
-__d("VarTypes", [], function (t, n, r, o, a, i) {}, null);
+__d("VarTypes",[],(function(t,n,r,o,a,i){}),null);

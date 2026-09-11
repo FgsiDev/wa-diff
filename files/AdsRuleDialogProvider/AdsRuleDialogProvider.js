@@ -1,12 +1,1 @@
-__d(
-  "AdsRuleDialogProvider",
-  ["AdsRuleDialogProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsRuleDialogProviderPlugin"),
-      "AdsRuleDialogProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsRuleDialogProvider",["AdsRuleDialogProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsRuleDialogProviderPlugin"),"AdsRuleDialogProviderPlugin")}),null);

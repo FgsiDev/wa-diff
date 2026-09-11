@@ -1,15 +1,1 @@
-__d(
-  "MqttUnifiedClientOutgoingPublishFalcoEvent",
-  ["FalcoLoggerInternal", "getFalcoLogPolicy_DO_NOT_USE"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    var e = r("getFalcoLogPolicy_DO_NOT_USE")("1744060"),
-      s = o("FalcoLoggerInternal").create(
-        "mqtt_unified_client_outgoing_publish",
-        e,
-      ),
-      u = s;
-    l.default = u;
-  },
-  98,
-);
+__d("MqttUnifiedClientOutgoingPublishFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(t,n,r,o,a,i,l){"use strict";var e=r("getFalcoLogPolicy_DO_NOT_USE")("1744060"),s=o("FalcoLoggerInternal").create("mqtt_unified_client_outgoing_publish",e),u=s;l.default=u}),98);

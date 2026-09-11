@@ -1,14 +1,1 @@
-__d(
-  "XCometLWIAppInstallCreationControllerRouteBuilder",
-  ["jsRouteBuilder"],
-  function (t, n, r, o, a, i, l) {
-    var e = r("jsRouteBuilder")(
-        "/ad_center/create/appinstall/",
-        Object.freeze({}),
-        void 0,
-      ),
-      s = e;
-    l.default = s;
-  },
-  98,
-);
+__d("XCometLWIAppInstallCreationControllerRouteBuilder",["jsRouteBuilder"],(function(t,n,r,o,a,i,l){var e=r("jsRouteBuilder")("/ad_center/create/appinstall/",Object.freeze({}),void 0),s=e;l.default=s}),98);

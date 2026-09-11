@@ -1,12 +1,1 @@
-__d(
-  "AdsGuidanceNarrowWebsiteCustomAudienceDataProvider",
-  ["AdsGuidanceNarrowWebsiteCustomAudienceDataProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsGuidanceNarrowWebsiteCustomAudienceDataProviderPlugin"),
-      "AdsGuidanceNarrowWebsiteCustomAudienceDataProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsGuidanceNarrowWebsiteCustomAudienceDataProvider",["AdsGuidanceNarrowWebsiteCustomAudienceDataProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsGuidanceNarrowWebsiteCustomAudienceDataProviderPlugin"),"AdsGuidanceNarrowWebsiteCustomAudienceDataProviderPlugin")}),null);

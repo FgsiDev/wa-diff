@@ -1,12 +1,1 @@
-__d(
-  "AdsUserProvider",
-  ["AdsUserProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsUserProviderPlugin"),
-      "AdsUserProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsUserProvider",["AdsUserProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsUserProviderPlugin"),"AdsUserProviderPlugin")}),null);

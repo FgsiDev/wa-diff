@@ -1,13 +1,1 @@
-__d(
-  "BillingRiskCheckUtils_restriction.graphql",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    var e = {
-      kind: "InlineDataFragment",
-      name: "BillingRiskCheckUtils_restriction",
-    };
-    a.exports = e;
-  },
-  null,
-);
+__d("BillingRiskCheckUtils_restriction.graphql",[],(function(t,n,r,o,a,i){"use strict";var e={kind:"InlineDataFragment",name:"BillingRiskCheckUtils_restriction"};a.exports=e}),null);

@@ -1,9 +1,1 @@
-__d(
-  "CometRelayEnvironment",
-  ["cr:2548"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = n("cr:2548");
-  },
-  98,
-);
+__d("CometRelayEnvironment",["cr:2548"],(function(t,n,r,o,a,i,l){"use strict";l.default=n("cr:2548")}),98);

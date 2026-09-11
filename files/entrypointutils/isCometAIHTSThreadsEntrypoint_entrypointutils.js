@@ -1,12 +1,1 @@
-__d(
-  "isCometAIHTSThreadsEntrypoint.entrypointutils",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    function e(e) {
-      return String(e).toLowerCase().startsWith("threads_");
-    }
-    i.default = e;
-  },
-  66,
-);
+__d("isCometAIHTSThreadsEntrypoint.entrypointutils",[],(function(t,n,r,o,a,i){"use strict";function e(e){return String(e).toLowerCase().startsWith("threads_")}i.default=e}),66);

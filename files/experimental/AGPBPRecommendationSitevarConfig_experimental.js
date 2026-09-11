@@ -1,9 +1,1 @@
-__d(
-  "AGPBPRecommendationSitevarConfig.experimental",
-  ["cr:10958"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = n("cr:10958");
-  },
-  98,
-);
+__d("AGPBPRecommendationSitevarConfig.experimental",["cr:10958"],(function(t,n,r,o,a,i,l){"use strict";l.default=n("cr:10958")}),98);

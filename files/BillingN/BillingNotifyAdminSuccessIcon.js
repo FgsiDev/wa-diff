@@ -1,10 +1,1 @@
-__d(
-  "BillingNotifyAdminSuccessIcon",
-  ["ix", "FrontierForkedAssetUtils"],
-  function (t, n, r, o, a, i, l, s) {
-    "use strict";
-    var e = o("FrontierForkedAssetUtils").getFrontierForkedAsset(s("924993"));
-    l.default = e;
-  },
-  98,
-);
+__d("BillingNotifyAdminSuccessIcon",["ix","FrontierForkedAssetUtils"],(function(t,n,r,o,a,i,l,s){"use strict";var e=o("FrontierForkedAssetUtils").getFrontierForkedAsset(s("924993"));l.default=e}),98);

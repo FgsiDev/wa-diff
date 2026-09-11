@@ -1,18 +1,1 @@
-__d(
-  "AdsPEEmployeeSelectDraftUtils",
-  ["URI"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    var e;
-    function s() {
-      var t;
-      return typeof window == "undefined"
-        ? !1
-        : !!new (e || (e = r("URI")))(
-            ((t = window) == null ? void 0 : t.location).href,
-          ).getQueryData().use_loginas_active;
-    }
-    l.isUseLoginAsActiveUrlParamPresent = s;
-  },
-  98,
-);
+__d("AdsPEEmployeeSelectDraftUtils",["ExecutionEnvironment","URI"],(function(t,n,r,o,a,i,l){"use strict";var e,s;function u(){return(e||(e=r("ExecutionEnvironment"))).canUseDOM?!!new(s||(s=r("URI")))(window.location.href).getQueryData().use_loginas_active:!1}l.isUseLoginAsActiveUrlParamPresent=u}),98);

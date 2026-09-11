@@ -1,8 +1,1 @@
-__d(
-  "TimezoneRulesFrom2009",
-  ["cr:6055"],
-  function (t, n, r, o, a, i) {
-    a.exports = n("cr:6055");
-  },
-  null,
-);
+__d("TimezoneRulesFrom2009",["cr:6055"],(function(t,n,r,o,a,i){a.exports=n("cr:6055")}),null);

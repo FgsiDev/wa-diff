@@ -1,15 +1,1 @@
-__d(
-  "memoizeByIdentity",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    function e(e) {
-      var t = new Map();
-      return function (n) {
-        return (t.has(n) || t.set(n, e.call(this, n)), t.get(n));
-      };
-    }
-    i.default = e;
-  },
-  66,
-);
+__d("memoizeByIdentity",["qex"],(function(t,n,r,o,a,i,l){"use strict";function e(e){return typeof e=="object"&&e!==null}function s(t){var n=new Map,o=r("qex")._("5330")===!0?new WeakMap:null;return function(r){var a=this;return o!=null&&e(r)?o.getOrInsertComputed(r,function(e){return t.call(a,r)}):n.getOrInsertComputed(r,function(e){return t.call(a,e)})}}l.default=s}),98);

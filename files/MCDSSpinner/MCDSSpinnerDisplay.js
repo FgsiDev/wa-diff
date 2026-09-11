@@ -1,10 +1,1 @@
-__d(
-  "MCDSSpinnerDisplay",
-  ["$InternalEnum"],
-  function (t, n, r, o, a, i) {
-    var e = n("$InternalEnum")({ BLOCK: "block", INLINE: "inline" }),
-      l = e;
-    i.default = l;
-  },
-  66,
-);
+__d("MCDSSpinnerDisplay",["$InternalEnum"],(function(t,n,r,o,a,i){var e=n("$InternalEnum")({BLOCK:"block",INLINE:"inline"}),l=e;i.default=l}),66);

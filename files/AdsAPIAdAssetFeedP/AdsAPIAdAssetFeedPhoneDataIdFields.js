@@ -1,9 +1,1 @@
-__d(
-  "AdsAPIAdAssetFeedPhoneDataIdFields",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = Object.freeze({ ADLABELS: "adlabels", ID: "id" });
-    i.default = e;
-  },
-  66,
-);
+__d("AdsAPIAdAssetFeedPhoneDataIdFields",[],(function(t,n,r,o,a,i){var e=Object.freeze({ADLABELS:"adlabels",ID:"id"});i.default=e}),66);

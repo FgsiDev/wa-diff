@@ -1,12 +1,1 @@
-__d(
-  "WAWebVoipVideoFrameCtor",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    function e() {
-      return globalThis.VideoFrame;
-    }
-    i.default = e;
-  },
-  66,
-);
+__d("WAWebVoipVideoFrameCtor",[],(function(t,n,r,o,a,i){"use strict";function e(){return globalThis.VideoFrame}i.default=e}),66);

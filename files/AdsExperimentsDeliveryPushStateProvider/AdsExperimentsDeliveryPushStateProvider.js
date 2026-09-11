@@ -1,12 +1,1 @@
-__d(
-  "AdsExperimentsDeliveryPushStateProvider",
-  ["AdsExperimentsDeliveryPushStateProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsExperimentsDeliveryPushStateProviderPlugin"),
-      "AdsExperimentsDeliveryPushStateProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsExperimentsDeliveryPushStateProvider",["AdsExperimentsDeliveryPushStateProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsExperimentsDeliveryPushStateProviderPlugin"),"AdsExperimentsDeliveryPushStateProviderPlugin")}),null);

@@ -1,12 +1,1 @@
-__d(
-  "BizHomeAYMTProvider",
-  ["BizHomeAYMTProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("BizHomeAYMTProviderPlugin"),
-      "BizHomeAYMTProviderPlugin",
-    );
-  },
-  null,
-);
+__d("BizHomeAYMTProvider",["BizHomeAYMTProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("BizHomeAYMTProviderPlugin"),"BizHomeAYMTProviderPlugin")}),null);

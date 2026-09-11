@@ -1,12 +1,1 @@
-__d(
-  "AdsInstagramAccountLinkedPageProvider",
-  ["AdsInstagramAccountLinkedPageProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsInstagramAccountLinkedPageProviderPlugin"),
-      "AdsInstagramAccountLinkedPageProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsInstagramAccountLinkedPageProvider",["AdsInstagramAccountLinkedPageProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsInstagramAccountLinkedPageProviderPlugin"),"AdsInstagramAccountLinkedPageProviderPlugin")}),null);

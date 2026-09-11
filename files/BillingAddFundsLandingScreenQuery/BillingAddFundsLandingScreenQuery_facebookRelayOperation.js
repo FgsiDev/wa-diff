@@ -1,8 +1,1 @@
-__d(
-  "BillingAddFundsLandingScreenQuery_facebookRelayOperation",
-  [],
-  function (t, n, r, o, a, i) {
-    a.exports = "28079599658398770";
-  },
-  null,
-);
+__d("BillingAddFundsLandingScreenQuery_facebookRelayOperation",[],(function(t,n,r,o,a,i){a.exports="28079599658398770"}),null);

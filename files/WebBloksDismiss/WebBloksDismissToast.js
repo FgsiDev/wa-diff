@@ -1,11 +1,1 @@
-__d(
-  "WebBloksDismissToast",
-  [],
-  function (t, n, r, o, a, i) {
-    function e(e, t, n, r) {
-      e.objectSet.toastManager.dismissToastWithID(t, n);
-    }
-    i.default = e;
-  },
-  66,
-);
+__d("WebBloksDismissToast",[],(function(t,n,r,o,a,i){function e(e,t,n,r){e.objectSet.toastManager.dismissToastWithID(t,n)}i.default=e}),66);

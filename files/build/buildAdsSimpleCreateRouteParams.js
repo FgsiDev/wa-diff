@@ -1,17 +1,1 @@
-__d(
-  "buildAdsSimpleCreateRouteParams",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    function e(e, t, n, r) {
-      return {
-        act: e,
-        selected_campaign_ids: [t],
-        selected_adset_ids: [n],
-        selected_ad_ids: [r],
-      };
-    }
-    i.default = e;
-  },
-  66,
-);
+__d("buildAdsSimpleCreateRouteParams",[],(function(t,n,r,o,a,i){"use strict";function e(e,t,n,r,o){return o===void 0&&(o=!1),babelHelpers.extends({act:e,selected_campaign_ids:[t],selected_adset_ids:[n],selected_ad_ids:[r]},o?{sc_1nn:!0}:null)}i.default=e}),66);

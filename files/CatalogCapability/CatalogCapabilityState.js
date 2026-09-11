@@ -1,9 +1,1 @@
-__d(
-  "CatalogCapabilityState",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = Object.freeze({ ENABLED: "enabled", DISABLED: "disabled" });
-    i.default = e;
-  },
-  66,
-);
+__d("CatalogCapabilityState",[],(function(t,n,r,o,a,i){var e=Object.freeze({ENABLED:"enabled",DISABLED:"disabled"});i.default=e}),66);

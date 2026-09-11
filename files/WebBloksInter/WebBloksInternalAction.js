@@ -1,12 +1,1 @@
-__d(
-  "WebBloksInternalAction",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    function e(e) {
-      return null;
-    }
-    i.default = e;
-  },
-  66,
-);
+__d("WebBloksInternalAction",[],(function(t,n,r,o,a,i){"use strict";function e(e){return null}i.default=e}),66);

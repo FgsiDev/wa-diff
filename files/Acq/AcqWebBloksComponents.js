@@ -1,9 +1,1 @@
-__d(
-  "AcqWebBloksComponents",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = {};
-    i.COMPONENTS = e;
-  },
-  66,
-);
+__d("AcqWebBloksComponents",[],(function(t,n,r,o,a,i){var e={};i.COMPONENTS=e}),66);

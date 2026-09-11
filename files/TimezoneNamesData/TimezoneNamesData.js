@@ -1,8 +1,1 @@
-__d(
-  "TimezoneNamesData",
-  ["cr:5098"],
-  function (t, n, r, o, a, i) {
-    a.exports = n("cr:5098");
-  },
-  null,
-);
+__d("TimezoneNamesData",["cr:5098"],(function(t,n,r,o,a,i){a.exports=n("cr:5098")}),null);

@@ -1,10 +1,1 @@
-__d(
-  "A2UISubmittedTreatment",
-  [],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    var e = { dimmed: { opacity: "xbyyjgo", $$css: !0 } };
-    l.a2uiSubmittedStyles = e;
-  },
-  98,
-);
+__d("A2UISubmittedTreatment",[],(function(t,n,r,o,a,i,l){"use strict";var e={dimmed:{opacity:"xbyyjgo",$$css:!0}};l.a2uiSubmittedStyles=e}),98);

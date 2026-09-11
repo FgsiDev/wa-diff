@@ -1,9 +1,1 @@
-__d(
-  "HeroTracingCoreConfig",
-  ["cr:8907"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = n("cr:8907");
-  },
-  98,
-);
+__d("HeroTracingCoreConfig",["cr:8907"],(function(t,n,r,o,a,i,l){"use strict";l.default=n("cr:8907")}),98);

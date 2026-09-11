@@ -1,17 +1,1 @@
-__d(
-  "PromoAdsManualCodeDefaultSelectionGatingUtils",
-  ["qex"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    function e(e) {
-      var t;
-      if ((e === void 0 && (e = !1), e)) {
-        var n;
-        return (n = r("qex")._("1870")) != null ? n : !1;
-      }
-      return (t = r("qex")._("1948")) != null ? t : !1;
-    }
-    l.isPromoAdsManualCodeDefaultSelectionEnabled = e;
-  },
-  98,
-);
+__d("PromoAdsManualCodeDefaultSelectionGatingUtils",["qex"],(function(t,n,r,o,a,i,l){"use strict";function e(e){var t;if(e===void 0&&(e=!1),e){var n;return(n=r("qex")._("1870"))!=null?n:!1}return(t=r("qex")._("1948"))!=null?t:!1}l.isPromoAdsManualCodeDefaultSelectionEnabled=e}),98);

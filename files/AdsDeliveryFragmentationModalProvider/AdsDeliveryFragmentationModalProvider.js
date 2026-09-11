@@ -1,12 +1,1 @@
-__d(
-  "AdsDeliveryFragmentationModalProvider",
-  ["AdsDeliveryFragmentationModalProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsDeliveryFragmentationModalProviderPlugin"),
-      "AdsDeliveryFragmentationModalProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsDeliveryFragmentationModalProvider",["AdsDeliveryFragmentationModalProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsDeliveryFragmentationModalProviderPlugin"),"AdsDeliveryFragmentationModalProviderPlugin")}),null);

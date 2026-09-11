@@ -1,11 +1,1 @@
-__d(
-  "adsGetIsMessageMarketingEnabledFromCampaignIDSelector",
-  ["adsGetIsMessageMarketingEnabledFromCampaignIDDynamicSelector"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = r(
-      "adsGetIsMessageMarketingEnabledFromCampaignIDDynamicSelector",
-    );
-  },
-  98,
-);
+__d("adsGetIsMessageMarketingEnabledFromCampaignIDSelector",["adsGetIsMessageMarketingEnabledFromCampaignIDDynamicSelector"],(function(t,n,r,o,a,i,l){"use strict";l.default=r("adsGetIsMessageMarketingEnabledFromCampaignIDDynamicSelector")}),98);

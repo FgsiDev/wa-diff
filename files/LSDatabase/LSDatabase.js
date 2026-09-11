@@ -1,1 +1,1 @@
-__d("LSDatabase", [], function (t, n, r, o, a, i) {}, null);
+__d("LSDatabase",[],(function(t,n,r,o,a,i){}),null);

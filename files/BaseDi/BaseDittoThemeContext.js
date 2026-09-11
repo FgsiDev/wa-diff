@@ -1,13 +1,1 @@
-__d(
-  "BaseDittoThemeContext",
-  ["react"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    var e,
-      s = e || (e = o("react")),
-      u = { classNames: null },
-      c = s.createContext(u);
-    l.default = c;
-  },
-  98,
-);
+__d("BaseDittoThemeContext",["react"],(function(t,n,r,o,a,i,l){"use strict";var e,s=e||(e=o("react")),u={classNames:null},c=s.createContext(u);l.default=c}),98);

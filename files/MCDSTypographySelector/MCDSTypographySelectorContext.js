@@ -1,14 +1,1 @@
-__d(
-  "MCDSTypographySelectorContext",
-  ["MCDSTypographySelectors", "react"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    var e,
-      s = e || (e = o("react")),
-      u = s.createContext(
-        o("MCDSTypographySelectors").mcdsDefaultTypographySelectors,
-      );
-    l.default = u;
-  },
-  98,
-);
+__d("MCDSTypographySelectorContext",["MCDSTypographySelectors","react"],(function(t,n,r,o,a,i,l){"use strict";var e,s=e||(e=o("react")),u=s.createContext(o("MCDSTypographySelectors").mcdsDefaultTypographySelectors);l.default=u}),98);

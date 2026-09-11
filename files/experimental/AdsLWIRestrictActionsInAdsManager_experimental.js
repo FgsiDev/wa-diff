@@ -1,9 +1,1 @@
-__d(
-  "AdsLWIRestrictActionsInAdsManager.experimental",
-  ["cr:19598"],
-  function (t, n, r, o, a, i, l) {
-    "use strict";
-    l.default = n("cr:19598");
-  },
-  98,
-);
+__d("AdsLWIRestrictActionsInAdsManager.experimental",["cr:19598"],(function(t,n,r,o,a,i,l){"use strict";l.default=n("cr:19598")}),98);

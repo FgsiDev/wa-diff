@@ -1,9 +1,1 @@
-__d(
-  "AdsPageSignLeadgenTosDataActionFlux",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = { actionType: "PAGE.SIGN_LEADGEN_TOS" };
-  },
-  null,
-);
+__d("AdsPageSignLeadgenTosDataActionFlux",[],(function(t,n,r,o,a,i){"use strict";a.exports={actionType:"PAGE.SIGN_LEADGEN_TOS"}}),null);

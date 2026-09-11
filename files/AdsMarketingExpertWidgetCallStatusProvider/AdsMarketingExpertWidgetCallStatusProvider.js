@@ -1,12 +1,1 @@
-__d(
-  "AdsMarketingExpertWidgetCallStatusProvider",
-  ["AdsMarketingExpertWidgetCallStatusProviderPlugin", "Laminar"],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = n("Laminar").__createProvider(
-      n("AdsMarketingExpertWidgetCallStatusProviderPlugin"),
-      "AdsMarketingExpertWidgetCallStatusProviderPlugin",
-    );
-  },
-  null,
-);
+__d("AdsMarketingExpertWidgetCallStatusProvider",["AdsMarketingExpertWidgetCallStatusProviderPlugin","Laminar"],(function(t,n,r,o,a,i){"use strict";a.exports=n("Laminar").__createProvider(n("AdsMarketingExpertWidgetCallStatusProviderPlugin"),"AdsMarketingExpertWidgetCallStatusProviderPlugin")}),null);

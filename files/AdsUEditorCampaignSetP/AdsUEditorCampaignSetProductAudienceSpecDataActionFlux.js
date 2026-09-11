@@ -1,11 +1,1 @@
-__d(
-  "AdsUEditorCampaignSetProductAudienceSpecDataActionFlux",
-  [],
-  function (t, n, r, o, a, i) {
-    "use strict";
-    a.exports = {
-      actionType: "AdsUEditorCampaignSetProductAudienceSpecDataActionPlugin",
-    };
-  },
-  null,
-);
+__d("AdsUEditorCampaignSetProductAudienceSpecDataActionFlux",[],(function(t,n,r,o,a,i){"use strict";a.exports={actionType:"AdsUEditorCampaignSetProductAudienceSpecDataActionPlugin"}}),null);
