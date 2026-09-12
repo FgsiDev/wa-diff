@@ -1,1 +1,11 @@
-__d("WAWebMessageChatMsgDisplayClass",[],function(t,n,r,o,a,i){function e(e){return"messageChat"}i.default=e},66);
+__d(
+  "WAWebMessageChatMsgDisplayClass",
+  [],
+  function (t, n, r, o, a, i) {
+    function e(e) {
+      return "messageChat";
+    }
+    i.default = e;
+  },
+  66,
+);

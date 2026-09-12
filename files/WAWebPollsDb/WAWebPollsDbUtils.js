@@ -1,1 +1,91 @@
-__d("WAWebPollsDbUtils",["invariant","WAWebPollOptionHashUtils","nullthrows"],(function(t,n,r,o,a,i,l,s){function e(e){return e==null?void 0:e.slice().sort(function(e,t){return e.localId-t.localId}).map(function(e,t){var n=e.hash,r=e.localId,o=e.name;return r===t||s(0,59784),n!=null?{name:o,hash:n}:{name:o}})}function u(e){var t,n=(t=e==null?void 0:e.pollVotes)!=null?t:[],r=n==null?void 0:n.slice().sort(function(e,t){return e.option.localId-t.option.localId}).map(function(e,t){var n=e.option,r=e.optionVoteCount;return n.localId===t||s(0,59784),{option:{name:n.name},optionVoteCount:r}});return{pollVotes:r}}function c(e){return e==null?void 0:e.map(function(e,t){var n=e.hash,a=e.name;return n==null?{name:r("nullthrows")(a),localId:t}:{name:r("nullthrows")(a),localId:t,hash:o("WAWebPollOptionHashUtils").createOptionHashHexFromString(n)}})}function d(e){var t,n=(t=e==null?void 0:e.pollVotes)!=null?t:[],o=n==null?void 0:n.map(function(e,t){var n=e.option,o=e.optionVoteCount;return{option:{name:r("nullthrows")(n==null?void 0:n.name),localId:t},optionVoteCount:r("nullthrows")(o)}});return{pollVotes:o}}l.compressPollOptions=e,l.compressPollVotesSnapshot=u,l.expandPollOptions=c,l.expandPollVotesSnapshot=d}),98);
+__d(
+  "WAWebPollsDbUtils",
+  ["invariant", "WAWebPollOptionHashUtils", "nullthrows"],
+  function (t, n, r, o, a, i, l, s) {
+    function e(e) {
+      return e == null
+        ? void 0
+        : e
+            .slice()
+            .sort(function (e, t) {
+              return e.localId - t.localId;
+            })
+            .map(function (e, t) {
+              var n = e.addOptionMsgKey,
+                r = e.hash,
+                o = e.localId,
+                a = e.name;
+              return (
+                o === t || s(0, 59784),
+                r != null
+                  ? { name: a, hash: r, addOptionMsgKey: n }
+                  : { name: a, addOptionMsgKey: n }
+              );
+            });
+    }
+    function u(e) {
+      var t,
+        n = (t = e == null ? void 0 : e.pollVotes) != null ? t : [],
+        r =
+          n == null
+            ? void 0
+            : n
+                .slice()
+                .sort(function (e, t) {
+                  return e.option.localId - t.option.localId;
+                })
+                .map(function (e, t) {
+                  var n = e.option,
+                    r = e.optionVoteCount;
+                  return (
+                    n.localId === t || s(0, 59784),
+                    { option: { name: n.name }, optionVoteCount: r }
+                  );
+                });
+      return { pollVotes: r };
+    }
+    function c(e) {
+      return e == null
+        ? void 0
+        : e.map(function (e, t) {
+            var n = e.addOptionMsgKey,
+              a = e.hash,
+              i = e.name;
+            return a == null
+              ? { name: r("nullthrows")(i), localId: t, addOptionMsgKey: n }
+              : {
+                  name: r("nullthrows")(i),
+                  localId: t,
+                  hash: o(
+                    "WAWebPollOptionHashUtils",
+                  ).createOptionHashHexFromString(a),
+                  addOptionMsgKey: n,
+                };
+          });
+    }
+    function d(e) {
+      var t,
+        n = (t = e == null ? void 0 : e.pollVotes) != null ? t : [],
+        o =
+          n == null
+            ? void 0
+            : n.map(function (e, t) {
+                var n = e.option,
+                  o = e.optionVoteCount;
+                return {
+                  option: {
+                    name: r("nullthrows")(n == null ? void 0 : n.name),
+                    localId: t,
+                  },
+                  optionVoteCount: r("nullthrows")(o),
+                };
+              });
+      return { pollVotes: o };
+    }
+    ((l.compressPollOptions = e),
+      (l.compressPollVotesSnapshot = u),
+      (l.expandPollOptions = c),
+      (l.expandPollVotesSnapshot = d));
+  },
+  98,
+);

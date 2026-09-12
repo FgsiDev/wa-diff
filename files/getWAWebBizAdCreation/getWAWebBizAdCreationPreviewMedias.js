@@ -1,6 +1,6 @@
 __d(
   "getWAWebBizAdCreationPreviewMedias",
-  ["FBLogger"],
+  ["FBLogger", "WAWebBizAdCreationCreativeMediaModel"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -14,7 +14,6 @@ __d(
       return t;
     }
     function c(t) {
-      var n;
       return t.attachMedia != null
         ? t.attachMedia
         : t.kind === "video"
@@ -29,12 +28,7 @@ __d(
                 t.key,
               )),
             null)
-          : (n = d(t.resolvedUrl)) != null
-            ? n
-            : d(t.displayUrl);
-    }
-    function d(e) {
-      return e == null || e === "" ? null : e;
+          : o("WAWebBizAdCreationCreativeMediaModel").getCreativeMediaUrl(t);
     }
     l.default = u;
   },

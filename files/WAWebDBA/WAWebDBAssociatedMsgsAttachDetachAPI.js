@@ -1,1 +1,134 @@
-__d("WAWebDBAssociatedMsgsAttachDetachAPI",["$InternalEnum","WALogger","WAWebAssociationProcessor","WAWebAssociationProcessorConstants","WAWebBackendApi","WAWebDBGetAssociatedMsgsByParentMsgKey","WAWebSchemaMessage","WAWebViewMode.flow","asyncToGeneratorRuntime","nullthrows"],function(t,n,r,o,a,i,l){var e,s=n("$InternalEnum").Mirrored(["Attach","Detach"]);function u(e){return c.apply(this,arguments)}function c(){return c=n("asyncToGeneratorRuntime").asyncToGenerator(function*(e){var t=yield d(e.map(function(e){return e.id})),n=yield o("WAWebSchemaMessage").getMessageTable().bulkGet(t.map(function(e){return e.msgKey.toString()}),!1),a=_(n.filter(Boolean),s.Attach).filter(Boolean);yield o("WAWebSchemaMessage").getMessageTable().bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY(a);var i=new Map;a.forEach(function(e){var t=r("nullthrows")(e.viewMode);i.set(e.id,t)}),o("WAWebBackendApi").frontendFireAndForget("updateViewModeForMsgs",{msgIdsViewModeMap:i})}),c.apply(this,arguments)}function d(e){return m.apply(this,arguments)}function m(){return m=n("asyncToGeneratorRuntime").asyncToGenerator(function*(t){var n=yield o("WAWebDBGetAssociatedMsgsByParentMsgKey").bulkGetMessagesByParentMsgKey(t);return n.length&&o("WALogger").LOG(e||(e=babelHelpers.taggedTemplateLiteralLoose(["[viewModeUpdate] found associated msgs"]))),n}),m.apply(this,arguments)}function p(e,t){var n=[];return e.map(function(e){var r=o("WAWebAssociationProcessor").getAssociationProcessorByAssociationType(e.associationType);r!=null&&(t!==s.Detach||g(r.processorType))&&n.push(e)}),n}function _(e,t){return e.map(function(e){if(!e.associationType)return null;var n=o("WAWebAssociationProcessor").getAssociationProcessorByAssociationType(e.associationType);return n==null||t===s.Detach&&!g(n.processorType)?null:babelHelpers.extends({},e,{viewMode:t===s.Detach?o("WAWebViewMode.flow").ViewModeType.VISIBLE:n.viewMode})})}function f(e){return e.map(function(e){if(!e.associationType)return null;var t=o("WAWebAssociationProcessor").getAssociationProcessorByAssociationType(e.associationType);return t==null||!g(t.processorType)?null:babelHelpers.extends({},e,{viewMode:o("WAWebViewMode.flow").ViewModeType.VISIBLE,parentMsgKey:void 0,associationType:void 0})})}function g(e){return e===o("WAWebAssociationProcessorConstants").AssociationProcessorType.WithDetachedMessages}l.ViewModeUpdateType=s,l.processOrphansFromAssociationsTableForNewMsg=u,l.getAssociatedMsgsByParentMsgKeyFromAssociationTable=d,l.getValidAssociatedMsgs=p,l.getDetachedForeverAssociatedMsgs=f},98);
+__d(
+  "WAWebDBAssociatedMsgsAttachDetachAPI",
+  [
+    "$InternalEnum",
+    "WALogger",
+    "WAWebAssociationProcessor",
+    "WAWebAssociationProcessorConstants",
+    "WAWebBackendApi",
+    "WAWebDBGetAssociatedMsgsByParentMsgKey",
+    "WAWebSchemaMessage",
+    "WAWebViewMode.flow",
+    "asyncToGeneratorRuntime",
+    "nullthrows",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = n("$InternalEnum").Mirrored(["Attach", "Detach"]);
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield d(
+              e.map(function (e) {
+                return e.id;
+              }),
+            ),
+            n = yield o("WAWebSchemaMessage")
+              .getMessageTable()
+              .bulkGet(
+                t.map(function (e) {
+                  return e.msgKey.toString();
+                }),
+                !1,
+              ),
+            a = _(n.filter(Boolean), s.Attach).filter(Boolean);
+          yield o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY(a);
+          var i = new Map();
+          (a.forEach(function (e) {
+            var t = r("nullthrows")(e.viewMode);
+            i.set(e.id, t);
+          }),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateViewModeForMsgs",
+              { msgIdsViewModeMap: i },
+            ));
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = yield o(
+            "WAWebDBGetAssociatedMsgsByParentMsgKey",
+          ).bulkGetMessagesByParentMsgKey(t);
+          return (
+            n.length &&
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[viewModeUpdate] found associated msgs",
+                  ])),
+              ),
+            n
+          );
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
+      var n = [];
+      return (
+        e.map(function (e) {
+          var r = o(
+            "WAWebAssociationProcessor",
+          ).getAssociationProcessorByAssociationType(e.associationType);
+          r != null && (t !== s.Detach || g(r.processorType)) && n.push(e);
+        }),
+        n
+      );
+    }
+    function _(e, t) {
+      return e.map(function (e) {
+        if (!e.associationType) return null;
+        var n = o(
+          "WAWebAssociationProcessor",
+        ).getAssociationProcessorByAssociationType(e.associationType);
+        return n == null || (t === s.Detach && !g(n.processorType))
+          ? null
+          : babelHelpers.extends({}, e, {
+              viewMode:
+                t === s.Detach
+                  ? o("WAWebViewMode.flow").ViewModeType.VISIBLE
+                  : n.viewMode,
+            });
+      });
+    }
+    function f(e) {
+      return e.map(function (e) {
+        if (!e.associationType) return null;
+        var t = o(
+          "WAWebAssociationProcessor",
+        ).getAssociationProcessorByAssociationType(e.associationType);
+        return t == null || !g(t.processorType)
+          ? null
+          : babelHelpers.extends({}, e, {
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+              parentMsgKey: void 0,
+              associationType: void 0,
+            });
+      });
+    }
+    function g(e) {
+      return (
+        e ===
+        o("WAWebAssociationProcessorConstants").AssociationProcessorType
+          .WithDetachedMessages
+      );
+    }
+    ((l.ViewModeUpdateType = s),
+      (l.processOrphansFromAssociationsTableForNewMsg = u),
+      (l.getAssociatedMsgsByParentMsgKeyFromAssociationTable = d),
+      (l.getValidAssociatedMsgs = p),
+      (l.getDetachedForeverAssociatedMsgs = f));
+  },
+  98,
+);

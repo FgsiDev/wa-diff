@@ -1,1 +1,9 @@
-__d("WAWebWamEnumStickerSendMessageType",[],function(t,n,r,o,a,i){var e=Object.freeze({REGULAR:1,PAYMENTS:2,ANNOTATION:3});i.STICKER_SEND_MESSAGE_TYPE=e},66);
+__d(
+  "WAWebWamEnumStickerSendMessageType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({ REGULAR: 1, PAYMENTS: 2, ANNOTATION: 3 });
+    i.STICKER_SEND_MESSAGE_TYPE = e;
+  },
+  66,
+);
