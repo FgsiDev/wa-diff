@@ -1,1 +1,296 @@
-__d("WebBloksModel",["WebBloksErrors","WebBloksExpressionParser","WebBloksScript","WebBloksScriptParser","WebBloksScriptString","WebBloksUpdateTraversal","WebBloksUtils","webBloksGlobalAttributeKeys"],(function(t,n,r,o,a,i,l){var e=Object.fromEntries(Object.entries(r("webBloksGlobalAttributeKeys").toCanonicalAttrs).map(function(e){var t=e[0],n=e[1];return[String(n),t]}));function s(e){return e}var u=(function(){function t(e,t,n,r,a,i){n===void 0&&(n=o("WebBloksUtils").getNextGlobalBloksClientId()),i===void 0&&(i=!1),this.$isBloksModel=!0,this.clientId=n,this.styleId=e,this.$1=r,this.$2=t,i?r!=null?this.$3=a!=null?a:String(e):this.$3=void 0:this.$3=null,this.uiMutableContainer={}}var n=t.prototype;return n.getId=function(){var e=this.get(this.usesCanonicalKeys()?r("webBloksGlobalAttributeKeys").toCanonicalAttrs.id:"id");return e==null?null:String(e)},n.get=function(t){return this.$2[this.$4(t)]},n.set=function(t,n){var e=this.$2;e[this.$4(t)]=n},n.getWireValue=function(t){return this.$2[t]},n.setWireValue=function(t,n){var e=this.$2;e[t]=n},n.getWireStyleId=function(){return typeof this.$3=="string"?this.$3:String(this.styleId)},n.getWireAttributeKey=function(t){return this.$4(t)},n.usesCanonicalKeys=function(){return this.$3!==null},n.getCanonicalAttributeKey=function(t){var e,n,o=this.$1;return o==null?t:(e=(n=o.toCanonicalAttrs[t])!=null?n:r("webBloksGlobalAttributeKeys").toCanonicalAttrs[t])!=null?e:t},n.getSubNode=function(t){var e=this.get(t);return e},n.getExpression=function(t){var e=this.get(t),n=e;if(e==null||e instanceof o("WebBloksScript").WebBloksScript)return e;if(o("WebBloksScriptString").isWebBloksScriptString(e)&&(e=o("WebBloksScriptParser").parse(e)),Array.isArray(e)||typeof e=="function"){if(e=o("WebBloksExpressionParser").makeWebBloksExpression(e,this,[this.getWireStyleId(),this.$4(t)]),this.set(t,e),this.sourceModel&&n===this.sourceModel.get(t)){var r;(r=this.sourceModel)==null||r.set(t,e)}return e}return null},n.getSubNodes=function(t){var e;return(e=this.get(t))!=null?e:o("WebBloksUtils").EMPTY_ARRAY},n.getChildren_DEPRECATED=function(t){var e=this.getSubNodes(t!=null?t:this.usesCanonicalKeys()?r("webBloksGlobalAttributeKeys").toCanonicalAttrs.children:"children");return e},n.getStyle=function(t){var e=this.getSubNode(this.usesCanonicalKeys()?r("webBloksGlobalAttributeKeys").toCanonicalAttrs.$5:"_style");return d(e)&&(e==null?void 0:e.styleId)===t?e:null},n.getValues_DO_NOT_USE=function(){return this.$2},n.entries=function(){return Object.entries(this.$2)},n.canonicalEntries=function(){var e=this.$1;return e==null?this.entries():this.entries().map(function(t){var n,o,a=t[0],i=t[1];return[(n=(o=e.toCanonicalAttrs[a])!=null?o:r("webBloksGlobalAttributeKeys").toCanonicalAttrs[a])!=null?n:a,i]})},n.cloneValues=function(){var e=babelHelpers.extends({},this.$2),t=this.$4(this.usesCanonicalKeys()?r("webBloksGlobalAttributeKeys").toCanonicalAttrs.children:"children"),n=this.$2[t];if(Array.isArray(n)&&n.length!==0){var o=e;o[t]=n.slice()}return e},n.makeCopy=function(n){var e=new t(this.styleId,this.cloneValues(),this.clientId,this.$1,this.$3,this.usesCanonicalKeys());if(n){var r=e.$2;for(var o of Object.entries(n)){var a=o[0],i=o[1];r[e.$4(a)]=i}}return e.uiMutableContainer=this.uiMutableContainer,e.shadowParents=this.shadowParents,e.keyPath=this.keyPath,e.sourceModel=this.sourceModel,e.sourceMapNode=this.sourceMapNode,e},n.makeBoundCopy=function(){var e=this.makeCopy();return e.sourceModel=this,e},n.makeCopyWithKeypath=function(t,n){var e=this.makeCopy();return e.clientId!==t&&(e.uiMutableContainer={}),e.clientId=t,e.keyPath=n,e},n.makeDeepCopyWithNewClientIds=function(n,r){return o("WebBloksUpdateTraversal").runUpdateTraversal(this,{apply:function(r){return t.makeCopyWithNewClientId(r,n)},onUpdatesApplied:function(t){}},r)},t.makeCopyWithNewClientId=function(n,r){var e=new t(n.styleId,n.cloneValues(),void 0,n.$1,n.$3,n.usesCanonicalKeys());return e.shadowParents=n.shadowParents,e.keyPath=r,e.sourceMapNode=n.sourceMapNode,e},n.traverse=function(t,n){if(t(this))return!0;var e=n[this.styleId];if(e==null)return!1;var r=e.plural_subnodes,o=e.subnodes;if(o)for(var a of o){var i=this.getSubNode(a);if(d(i)&&i.traverse(t,n))return!0}if(r)for(var l of r){var s=this.getSubNodes(l);if(Array.isArray(s)){for(var u of s)if(d(u)&&u.traverse(t,n))return!0}}return!1},n.toJSON=function(){var e,t=Object.entries(this.$2).filter(function(e){var t=e[0];return t[0]!=="$"}).map(function(e){var t=e[0],n=e[1];return d(n)?[t,n.toJSON()]:Array.isArray(n)&&n[0]&&d(n[0])?[t,n.map(function(e){return e.toJSON()})]:[t,n]});return e={},e[this.getWireStyleId()]=Object.fromEntries(t),e},n.$4=function(n){var t,r;return this.$1==null?n:(t=(r=this.$1.toLogicalAttrs[n])!=null?r:e[n])!=null?t:n},t})();function c(e,t,n,r){var a,i=r?n==null?void 0:n[e]:null;if(r&&n!=null&&i==null)throw new(o("WebBloksErrors")).WebBloksError("No unminification-map entry found for WebBloks style "+e+".");return new u((a=i==null?void 0:i.styleId)!=null?a:e,t,void 0,i,e,r)}function d(e){return e!=null&&(e==null?void 0:e.$isBloksModel)===!0}l.defineWebBloksMinificationMap=s,l.WebBloksModel=u,l.createWebBloksModelFromWire=c,l.isWebBloksModel=d}),98);
+__d(
+  "WebBloksModel",
+  [
+    "WebBloksErrors",
+    "WebBloksExpressionParser",
+    "WebBloksInternalAttributeKeys",
+    "WebBloksMinificationUtils",
+    "WebBloksScript",
+    "WebBloksScriptParser",
+    "WebBloksScriptString",
+    "WebBloksUpdateTraversal",
+    "WebBloksUtils",
+    "webBloksGlobalAttributeKeys",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e = "id",
+      s = "_style",
+      u = "children",
+      c = r("webBloksGlobalAttributeKeys").toCanonicalAttrs[e],
+      d = r("webBloksGlobalAttributeKeys").toCanonicalAttrs[s],
+      m = r("webBloksGlobalAttributeKeys").toCanonicalAttrs[u];
+    function p(e) {
+      return e;
+    }
+    function _(e) {
+      return e;
+    }
+    function f(e) {
+      return e;
+    }
+    function g(e) {
+      return o("WebBloksUtils").cast(e);
+    }
+    function h(e) {
+      return e;
+    }
+    function y(e) {
+      return e;
+    }
+    function C(e, t, n) {
+      var r = {},
+        a = o("WebBloksUtils").cast(r);
+      for (var i of Object.entries(t)) {
+        var l = i[0],
+          s = i[1];
+        if (l[0] === "$") {
+          a[l] = s;
+          continue;
+        }
+        var u = String(e),
+          c = b(u, l),
+          d =
+            c != null
+              ? c
+              : o(
+                  "WebBloksMinificationUtils",
+                ).getOptionalMinifiedWebBloksAttributeKeyFromEntry(l, n);
+        d != null && (a[d] = s);
+      }
+      return r;
+    }
+    function b(e, t) {
+      return e !== "flex" && e !== "bk.style.Base"
+        ? null
+        : t === "margin"
+          ? o("WebBloksInternalAttributeKeys").MARGIN_ATTRIBUTE_KEY
+          : t === "margin_horizontal"
+            ? o("WebBloksInternalAttributeKeys").MARGIN_HORIZONTAL_ATTRIBUTE_KEY
+            : t === "margin_vertical"
+              ? o("WebBloksInternalAttributeKeys").MARGIN_VERTICAL_ATTRIBUTE_KEY
+              : null;
+    }
+    var v = (function () {
+      function e(e, t, n) {
+        (n === void 0 && (n = o("WebBloksUtils").getNextGlobalBloksClientId()),
+          (this.$isBloksModel = !0),
+          (this.clientId = n),
+          (this.styleId = e),
+          (this.$1 = t),
+          (this.uiMutableContainer = {}));
+      }
+      var t = e.prototype;
+      return (
+        (t.getId = function () {
+          var e = this.getUntyped(c);
+          return e == null ? null : String(e);
+        }),
+        (t.get = function (t) {
+          return this.$1[t];
+        }),
+        (t.getUntyped = function (t) {
+          return this.$1[t];
+        }),
+        (t.set = function (t, n) {
+          var e = this.$1;
+          e[t] = n;
+        }),
+        (t.getWireStyleId = function () {
+          return String(this.styleId);
+        }),
+        (t.getSubNode = function (t) {
+          var e = this.get(t);
+          return e;
+        }),
+        (t.getExpression = function (t) {
+          var e = this.get(t),
+            n = e;
+          if (e == null || e instanceof o("WebBloksScript").WebBloksScript)
+            return e;
+          if (
+            (o("WebBloksScriptString").isWebBloksScriptString(e) &&
+              (e = o("WebBloksScriptParser").parse(e)),
+            Array.isArray(e) || typeof e == "function")
+          ) {
+            if (
+              ((e = o("WebBloksExpressionParser").makeWebBloksExpression(
+                e,
+                this,
+                [this.getWireStyleId(), t],
+              )),
+              this.set(t, e),
+              this.sourceModel && n === this.sourceModel.get(t))
+            ) {
+              var r;
+              (r = this.sourceModel) == null || r.set(t, e);
+            }
+            return e;
+          }
+          return null;
+        }),
+        (t.getSubNodes = function (t) {
+          var e;
+          return (e = this.get(t)) != null ? e : o("WebBloksUtils").EMPTY_ARRAY;
+        }),
+        (t.getChildren_DEPRECATED = function (t) {
+          var e;
+          return (
+            t === void 0 &&
+              (t = r("webBloksGlobalAttributeKeys").toCanonicalAttrs[u]),
+            o("WebBloksUtils").cast(
+              (e = this.getUntyped(t)) != null
+                ? e
+                : o("WebBloksUtils").EMPTY_ARRAY,
+            )
+          );
+        }),
+        (t.getStyle = function (t) {
+          var e = this.getUntyped(d);
+          return L(e) && (e == null ? void 0 : e.styleId) === t ? e : null;
+        }),
+        (t.getValues = function () {
+          return this.$1;
+        }),
+        (t.entries = function () {
+          return Object.entries(this.$1);
+        }),
+        (t.cloneValues = function () {
+          var e = babelHelpers.extends({}, this.$1),
+            t = m,
+            n = this.$1[t];
+          if (Array.isArray(n) && n.length !== 0) {
+            var r = e;
+            r[t] = n.slice();
+          }
+          return e;
+        }),
+        (t.makeCopy = function (n) {
+          var t = new e(this.styleId, this.cloneValues(), this.clientId);
+          if (n) {
+            var r = t.$1;
+            for (var o of Object.entries(n)) {
+              var a = o[0],
+                i = o[1];
+              r[a] = i;
+            }
+          }
+          return (
+            (t.uiMutableContainer = this.uiMutableContainer),
+            (t.shadowParents = this.shadowParents),
+            (t.keyPath = this.keyPath),
+            (t.sourceModel = this.sourceModel),
+            (t.sourceMapNode = this.sourceMapNode),
+            t
+          );
+        }),
+        (t.makeBoundCopy = function () {
+          var e = this.makeCopy();
+          return ((e.sourceModel = this), e);
+        }),
+        (t.makeCopyWithKeypath = function (t, n) {
+          var e = this.makeCopy();
+          return (
+            e.clientId !== t && (e.uiMutableContainer = {}),
+            (e.clientId = t),
+            (e.keyPath = n),
+            e
+          );
+        }),
+        (t.makeDeepCopyWithNewClientIds = function (n, r) {
+          return o("WebBloksUpdateTraversal").runUpdateTraversal(
+            this,
+            {
+              apply: function (r) {
+                return e.makeCopyWithNewClientId(r, n);
+              },
+              onUpdatesApplied: function (t) {},
+            },
+            r,
+          );
+        }),
+        (e.makeCopyWithNewClientId = function (n, r) {
+          var t = new e(n.styleId, n.cloneValues(), void 0);
+          return (
+            (t.shadowParents = n.shadowParents),
+            (t.keyPath = r),
+            (t.sourceMapNode = n.sourceMapNode),
+            t
+          );
+        }),
+        (t.traverse = function (t, n) {
+          if (t(this)) return !0;
+          var e = n[this.styleId];
+          if (e == null) return !1;
+          var r = e.plural_subnodes,
+            o = e.subnodes;
+          if (o)
+            for (var a of o) {
+              var i = this.getUntyped(a);
+              if (L(i) && i.traverse(t, n)) return !0;
+            }
+          if (r)
+            for (var l of r) {
+              var s = this.getUntyped(l);
+              if (Array.isArray(s)) {
+                for (var u of s) if (L(u) && u.traverse(t, n)) return !0;
+              }
+            }
+          return !1;
+        }),
+        (t.toJSON = function () {
+          var e,
+            t = Object.entries(this.$1)
+              .filter(function (e) {
+                var t = e[0];
+                return t.length === 1 || t[0] !== "$";
+              })
+              .map(function (e) {
+                var t = e[0],
+                  n = e[1];
+                return L(n)
+                  ? [t, n.toJSON()]
+                  : Array.isArray(n) && n[0] && L(n[0])
+                    ? [
+                        t,
+                        n.map(function (e) {
+                          return e.toJSON();
+                        }),
+                      ]
+                    : [t, n];
+              });
+          return (
+            (e = {}),
+            (e[this.getWireStyleId()] = Object.fromEntries(t)),
+            e
+          );
+        }),
+        e
+      );
+    })();
+    function S(e, t, n) {
+      var r = n[e];
+      if (r == null)
+        throw new (o("WebBloksErrors").WebBloksError)(
+          "No unminification-map entry found for WebBloks style " + e + ".",
+        );
+      return new v(e, C(e, t, r));
+    }
+    function R(e) {
+      return new v(e, {});
+    }
+    function L(e) {
+      return e != null && (e == null ? void 0 : e.$isBloksModel) === !0;
+    }
+    ((l.defineWebBloksAttributeKey = p),
+      (l.defineWebBloksGlobalAttributeKey = _),
+      (l.defineWebBloksInternalAttributeKey = f),
+      (l.defineWebBloksMinifiedTraversalKeys = g),
+      (l.defineWebBloksMinificationMap = h),
+      (l.defineWebBloksUnminificationMap = y),
+      (l.WebBloksModel = v),
+      (l.createWebBloksModelFromLogicalValues = S),
+      (l.createSyntheticWebBloksModel = R),
+      (l.isWebBloksModel = L));
+  },
+  98,
+);

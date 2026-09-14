@@ -1,1 +1,32 @@
-__d("stdlibTraversalKeys",[],(function(t,n,r,o,a,i){var e={"bk.components.Tooltip":{subnodes:["_style","child","decoration","margin"],plural_subnodes:["child_templates","extensions"]},"bk.components.TooltipContainer":{subnodes:["_style","child","tooltip"],plural_subnodes:["child_templates","extensions"]},"bk.components.screen.ScreenWrapper":{subnodes:["_style","container_config","content","navigation_callbacks"],plural_subnodes:["child_templates","extensions"]},"bk.data.ComposableTextSpan":{subnodes:[],plural_subnodes:["child_templates","spans","styles"]},"bk.data.ImageSpan":{subnodes:["image_component","image_margin"],plural_subnodes:["child_templates","styles"]},"bk.data.TextSpan":{subnodes:["text_provider"],plural_subnodes:["child_templates","styles"]}},l=e;i.default=l}),66);
+__d(
+  "stdlibTraversalKeys",
+  ["WebBloksModel"],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WebBloksModel").defineWebBloksMinifiedTraversalKeys({
+        "bk.components.Tooltip": {
+          subnodes: [")", "*", ",", "\x84"],
+          plural_subnodes: ["\x85", "\x8F"],
+        },
+        "bk.components.TooltipContainer": {
+          subnodes: ["*", "+", "\x84"],
+          plural_subnodes: ["\x85", "\x8F"],
+        },
+        "bk.components.screen.ScreenWrapper": {
+          subnodes: ["#", "$", "&", "\x84"],
+          plural_subnodes: ["\x85", "\x8F"],
+        },
+        "bk.data.ComposableTextSpan": {
+          subnodes: [],
+          plural_subnodes: ["$", "&", "\x8F"],
+        },
+        "bk.data.ImageSpan": {
+          subnodes: ["&", ")"],
+          plural_subnodes: ["+", "\x8F"],
+        },
+        "bk.data.TextSpan": { subnodes: ["("], plural_subnodes: ["$", "\x8F"] },
+      }),
+      s = e;
+    l.default = s;
+  },
+  98,
+);

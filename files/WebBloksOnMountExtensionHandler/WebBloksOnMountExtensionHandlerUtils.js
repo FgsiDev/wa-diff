@@ -1,1 +1,36 @@
-__d("WebBloksOnMountExtensionHandlerUtils",["WebBloksConstants"],(function(t,n,r,o,a,i,l){function e(e,t,n){var r=n.bloksContext,a=n.executeOnNextTickCatch,i=r.initAssociatedObject_INTERNAL(e,o("WebBloksConstants").CONTROLLER_ASSOCIATED_OBJECT,{firstMountRecorded:!1}),l=e.getExpression("on_first_mount"),s=e.getExpression("on_mount"),u=e.getExpression("on_unmount");return i.firstMountRecorded!==!0&&(r.updateAssociatedObject_INTERNAL(e,o("WebBloksConstants").CONTROLLER_ASSOCIATED_OBJECT,{firstMountRecorded:!0}),l!=null&&a(t.current,l,[t.current,n])),s!=null&&a(t.current,s,[t.current,n]),function(){u!=null&&a(t.current,u,[t.current])}}l.runMountEffects=e}),98);
+__d(
+  "WebBloksOnMountExtensionHandlerUtils",
+  ["WebBloksConstants", "WebBloksModel"],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WebBloksModel").defineWebBloksAttributeKey(")"),
+      s = o("WebBloksModel").defineWebBloksAttributeKey("*"),
+      u = o("WebBloksModel").defineWebBloksAttributeKey("+");
+    function c(t, n, r) {
+      var a = r.bloksContext,
+        i = r.executeOnNextTickCatch,
+        l = a.initAssociatedObject_INTERNAL(
+          t,
+          o("WebBloksConstants").CONTROLLER_ASSOCIATED_OBJECT,
+          { firstMountRecorded: !1 },
+        ),
+        c = t.getExpression(e),
+        d = t.getExpression(s),
+        m = t.getExpression(u);
+      return (
+        l.firstMountRecorded !== !0 &&
+          (a.updateAssociatedObject_INTERNAL(
+            t,
+            o("WebBloksConstants").CONTROLLER_ASSOCIATED_OBJECT,
+            { firstMountRecorded: !0 },
+          ),
+          c != null && i(n.current, c, [n.current, r])),
+        d != null && i(n.current, d, [n.current, r]),
+        function () {
+          m != null && i(n.current, m, [n.current]);
+        }
+      );
+    }
+    l.runMountEffects = c;
+  },
+  98,
+);

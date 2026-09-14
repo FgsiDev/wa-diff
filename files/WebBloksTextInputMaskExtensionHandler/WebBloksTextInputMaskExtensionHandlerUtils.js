@@ -1,1 +1,57 @@
-__d("WebBloksTextInputMaskExtensionHandlerUtils",["WebBloksTextInputHelpers","WebBloksUtils"],(function(t,n,r,o,a,i,l){function e(e,t){return e.replace(/[^0-9]/g,"")}function s(t){var n=o("WebBloksUtils").findExtension(t.get("extensions"),"bk.components.TextInputMaskExtension");if(n!=null){var r=n.get("mask");if(!(r.length<=0)){var a=function(n,o){for(var t=e(o,r),a=t.split(""),i=r.split(""),l="";a.length&&i.length;){var s=i.shift();if(s==="#"){var u;l+=(u=a.shift())!=null?u:""}else l+=s!=null?s:""}if(!i.includes("#")){var c=l+i.join("");return n.length===r.length&&o.length<r.length?l.slice(0,-1):c}return l},i=Object.prototype.hasOwnProperty.call(o("WebBloksTextInputHelpers").WEBBLOKS_TEXT_INPUT_TYPES_WITH_INPUT_MODES,t.get("type"))?void 0:"text";return{onBeforeChange:a,maxLength:r.length,typeOverride:i}}}}l.getTextInputMaskExtensionProps=s}),98);
+__d(
+  "WebBloksTextInputMaskExtensionHandlerUtils",
+  [
+    "WebBloksConstants",
+    "WebBloksModel",
+    "WebBloksTextInputHelpers",
+    "WebBloksUtils",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WebBloksModel").defineWebBloksAttributeKey("8"),
+      s = o("WebBloksModel").defineWebBloksAttributeKey("#"),
+      u = "bk.components.TextInputMaskExtension";
+    function c(e, t) {
+      return e.replace(/[^0-9]/g, "");
+    }
+    function d(t) {
+      var n = o("WebBloksUtils").findExtension(
+        t.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
+        u,
+      );
+      if (n != null) {
+        var r = n.get(s);
+        if (!(r.length <= 0)) {
+          var a = function (t, n) {
+              for (
+                var e = c(n, r), o = e.split(""), a = r.split(""), i = "";
+                o.length && a.length;
+              ) {
+                var l = a.shift();
+                if (l === "#") {
+                  var s;
+                  i += (s = o.shift()) != null ? s : "";
+                } else i += l != null ? l : "";
+              }
+              if (!a.includes("#")) {
+                var u = i + a.join("");
+                return t.length === r.length && n.length < r.length
+                  ? i.slice(0, -1)
+                  : u;
+              }
+              return i;
+            },
+            i = Object.prototype.hasOwnProperty.call(
+              o("WebBloksTextInputHelpers")
+                .WEBBLOKS_TEXT_INPUT_TYPES_WITH_INPUT_MODES,
+              t.get(e),
+            )
+              ? void 0
+              : "text";
+          return { onBeforeChange: a, maxLength: r.length, typeOverride: i };
+        }
+      }
+    }
+    l.getTextInputMaskExtensionProps = d;
+  },
+  98,
+);

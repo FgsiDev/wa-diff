@@ -1,1 +1,16 @@
-__d("WebBloksAutomationTestExtensionHandler",[],(function(t,n,r,o,a,i){var e={getProps:function(t){var e=t.get("testing_id");if(e!=null)return{"data-testid":e}}},l=e;i.default=l}),66);
+__d(
+  "WebBloksAutomationTestExtensionHandler",
+  ["WebBloksModel"],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WebBloksModel").defineWebBloksAttributeKey("#"),
+      s = {
+        getProps: function (n) {
+          var t = n.get(e);
+          if (t != null) return { "data-testid": t };
+        },
+      },
+      u = s;
+    l.default = u;
+  },
+  98,
+);

@@ -1,1 +1,687 @@
-__d("WebBloksBind",["BindResourceProcessingDelegate","WebBloksBindInstrumentation","WebBloksConstants","WebBloksDataModule","WebBloksErrors","WebBloksInterpreterEnvironment","WebBloksModel","WebBloksNormaliseYogaDimension","WebBloksPayloadParser","WebBloksScopedIds","WebBloksScriptExecutor","WebBloksScriptTokens","WebBloksUpdateTraversal","WebBloksUtils","webBloksGlobalAttributeKeys"],(function(t,n,r,o,a,i,l){"use strict";var e="$DESCENDANT_BIND_VARIABLE_DEPENDENCIES",s="$DESCENDANT_EXPANDED_VARIABLES",u=(function(){function e(e,t,n,r){var a=this;if(this.previousVariableDependencies=o("WebBloksUtils").EMPTY_MAP,this.expandedVariables=new Map,this.$1=new Set,this.$2=new Map,this.$3=new Map,this.$4=null,this.subtreeReuseEnabled=!1,this.instrumentationEnabled=!1,this.$5=!1,this.bindDataModuleDelegate=new(o("BindResourceProcessingDelegate")).BindResourceProcessingDelegate({containsVariable:function(t){return a.containsVariable(t)}}),this.$6=0,this.bloksContext=e,this.resources=t,this.clientIdToScopedIdMapper=n,this.subtreeReuseEnabled=e.objectSet.environment.enableBindSubtreeReuse,this.instrumentationEnabled=o("WebBloksBindInstrumentation").isBindInstrumentationEnabled(),r)if(this.nextCache=new c(r.bindCache),this.cache=r.bindCache,this.previousExpandedVariables=r.expandedVariables,this.variablesChanged=new Set,r.dependencies){this.previousVariableDependencies=r.dependencies;for(var i of r.dependencies){var l=i[0],s=i[1];s!==t.variables.get(l)&&this.variablesChanged.add(l)}}else this.previousVariableDependencies=o("WebBloksUtils").EMPTY_MAP;else this.nextCache=new c(null),this.cache=new c(null),this.previousExpandedVariables=o("WebBloksUtils").EMPTY_MAP,this.previousVariableDependencies=o("WebBloksUtils").EMPTY_MAP,this.variablesChanged=void 0}var t=e.prototype;return t.getClockReadCount=function(){return this.$6},t.getBindTimeSnapshotMs=function(){return this.subtreeReuseEnabled&&this.$6++,this.$4==null&&(this.$4=Date.now()),this.$4},t.cacheDependencies=function(t,n,r,o){this.nextCache.cacheVariableDependencies(t,n),this.nextCache.cacheExpandedVariables(t,r),this.nextCache.cacheClockDependentSubtree(t,o)},t.$7=function(t){var e=this.variablesChanged;if(e==null)return!0;for(var n of t)if(e.has(n))return!0;return!1},t.processNodeForOptimization=function(t,n,r){if(this.variablesChanged==null||this.cache.isClockDependent(t))return!1;var e=this.cache.getVariableDependencies(t);if(e==null)return this.$5||(this.$5=!0,this.bloksContext.objectSet.environment.logger.warn("WebBloksBind: a previously bound node has no variable dependency set; skipping subtree reuse for it")),!1;if(this.$7(e))return!1;for(var o of e)n.add(o);var a=this.cache.getExpandedVariables(t);if(a!=null)for(var i of a){var l=i[0],s=i[1];this.addExpandedVariable(l,s),r.set(l,s)}return!0},e.isValidCachedModel=function(t,n){return n.sourceModel===t},t.apply=function(n,a,i,l,s){var t=this,u,c,d=n,m=d.getExpression(d.usesCanonicalKeys()?r("webBloksGlobalAttributeKeys").toCanonicalAttrs.on_bind:"on_bind");if(m==null)return d;var p=r("WebBloksInterpreterEnvironment").forBind(this.bloksContext,m.getSourceMapNode(),this.resources,this.expandedVariables,function(){return t.getBindTimeSnapshotMs()});p.scope=(u=d.keyPath)!=null?u:o("WebBloksUtils").EMPTY_KEY_PATH,p.variableAccessLog=l;var _=m.getValue(),f=Array.isArray(_)&&_.length>0&&!(_[0]instanceof o("WebBloksScriptTokens").WebBloksIdentifierToken),g;if(f){var v=o("WebBloksUtils").cast(_);g=[];for(var S=0;S<v.length;S+=2){var R=v[S],L=o("WebBloksUtils").cast(v[S+1]),E=o("WebBloksScriptExecutor").execute(p,L,o("WebBloksUtils").EMPTY_ARRAY);g.push(R,E)}}else g=o("WebBloksUtils").cast(o("WebBloksScriptExecutor").execute(p,_,o("WebBloksUtils").EMPTY_ARRAY));for(var k=null,I=d.getId(),T=(c=d.keyPath)!=null?c:[],D=this.bloksContext.objectSet.environment,x=D.minificationMap,$=D.traversalKeys,P=D.unminificationMap,N=D.useMinification,M=N||P!=null,w=f||g.length>0&&!Array.isArray(g[0]),A=0;A<g.length;A++){var F=null,O=void 0,B=void 0;if(w)B=g[A],O=g[++A];else{var W=g[A];F=W[0]==null?null:""+W[0],B=""+W[1],O=W[2]}var q=d.getCanonicalAttributeKey(B),U=void 0;if(h(q,d.styleId,$)){var V=C(this,d,i,T,s,O,$,x,P,M);for(var H of V)k=this.addToTemplateCache(k,H);U=V}else if(y(q,d.styleId,$)){var G=b(this,d,i,T,s,O,$,x,P,M);U=G,G!=null&&(k=this.addToTemplateCache(k,G))}else U=O;if(w||F===I)d=e.applyOperation(d,a,B,U);else throw new(o("WebBloksErrors")).WebBloksError('Encountered binding targeted for a descendant from bind script "'+B+'"')}return this.nextCache.cacheUnboundChildTemplates(d,k),d},t.addToTemplateCache=function(t,n){var e=t!=null?t:new Map;return e.set(n.clientId,n),e},t.addExpandedVariable=function(t,n){if(this.expandedVariables.set(t,n),this.variablesChanged){var e=this.previousExpandedVariables.get(t);if(e!==n){var r;(r=this.variablesChanged)==null||r.add(t)}}},t.isResourceProcessed=function(t){return this.$1.has(t)},t.collectTreeResource=function(t,n){this.$1.has(n)||(this.$1.add(n),this.$2.set(n,t),this.resources=this.resources.withTreeResourceUpdates(t))},t.getCollectedTreeResources=function(){return this.$2},t.getCachedTemplatePayload=function(t){return this.$3.get(t)},t.cacheTemplatePayload=function(t,n){this.$3.set(t,n)},t.containsVariable=function(t){return this.expandedVariables.has(t)||this.resources.variables.has(t)},t.processVariableManifestsInBind=function(t,n){var e=this;if(t.length!==0){var a=n.length>0?o("WebBloksScopedIds").buildKeypathBase(n):null,i=new Map;for(var l of t){var s,u=l.id,c=l.scoped===!0&&a!=null?o("WebBloksScopedIds").buildScopedVariableIdentifier(u,a):u;if(!this.containsVariable(c)){var d=l.type,m=o("WebBloksDataModule").getDataModuleFromContext(this.bloksContext,d);if(!m)throw new(o("WebBloksErrors")).WebBloksError("Missing variable module with type: "+d);var p=function(a){var t=r("WebBloksInterpreterEnvironment").forBind(e.bloksContext,null,e.resources,e.expandedVariables,function(){return e.getBindTimeSnapshotMs()});return t.scope=n,o("WebBloksScriptExecutor").execute(t,a,[])},_=(s=i.get(d))!=null?s:new Map,f=m.setup(this.bloksContext,l,p,_);f.snapshot!=null&&i.set(d,f.snapshot),this.addExpandedVariable(c,f.initialData.initialValue),this.bindDataModuleDelegate.collectVariable(c,l,f.initialData,f.snapshot)}}}},e.applyOperation=function(n,r,o,a){return e.applyWireAttribute(n,r,o,a)},e.applyWireAttribute=function(n,r,o,a){if(n!==r||r.getWireValue(o)!==a){var t=e.ensureUnique(n,r);return t.setWireValue(o,a),t}return n},e.applyAttribute=function(n,r,o,a){if(n!==r||r.get(o)!==a){var t=e.ensureUnique(n,r);return t.set(o,a),t}return n},e.ensureUnique=function(t,n){return t===n?n.makeBoundCopy():t},e})(),c=(function(){function e(e){var t,n,r,o;this.expandedVariables=(t=e==null?void 0:e.expandedVariables)!=null?t:new Map,this.unboundChildTemplates=(n=e==null?void 0:e.unboundChildTemplates)!=null?n:new Map,this.variableDependencies=(r=e==null?void 0:e.variableDependencies)!=null?r:new Map,this.clockDependentSubtrees=(o=e==null?void 0:e.clockDependentSubtrees)!=null?o:new Set}var t=e.prototype;return t.transferCache=function(t,n,r){var e=this;t.traverse(function(t){return e.$1(t,n),!1},r)},t.cacheClockDependentSubtree=function(t,n){n?this.clockDependentSubtrees.add(t.clientId):this.clockDependentSubtrees.delete(t.clientId)},t.isClockDependent=function(t){return this.clockDependentSubtrees.has(t.clientId)},t.cacheUnboundChildTemplates=function(t,n){n&&this.unboundChildTemplates.set(t.clientId,n)},t.cacheVariableDependencies=function(t,n){this.variableDependencies.set(t.clientId,n)},t.cacheExpandedVariables=function(t,n){n.size>0&&this.expandedVariables.set(t.clientId,n)},t.getVariableDependencies=function(t){return this.variableDependencies.get(t.clientId)},t.getExpandedVariables=function(t){return this.expandedVariables.get(t.clientId)},t.getUnboundChildTemplates=function(t){return t?this.unboundChildTemplates.get(t.clientId):null},t.$1=function(t,n){var e=t.clientId,r=this.expandedVariables.get(e);r&&n.expandedVariables.set(e,r);var o=this.unboundChildTemplates.get(e);o&&n.unboundChildTemplates.set(e,o);var a=this.variableDependencies.get(e);a&&n.variableDependencies.set(e,a)},e})();function d(e,t,n,r,a){var i=o("WebBloksBindInstrumentation").isBindInstrumentationEnabled(),l=i?o("WebBloksBindInstrumentation").bindClockNowMs():0,s=r!=null?n.withVariableUpdates(r):n,u=m(e,t,s,a);return u.boundModel=o("WebBloksNormaliseYogaDimension").normaliseBoundModel(u.boundModel,e.objectSet.environment.traversalKeys),i&&(o("WebBloksBindInstrumentation").bindCounters.bindMs+=o("WebBloksBindInstrumentation").bindClockNowMs()-l),u}function m(e,t,n,r){var o=new u(e,n,e.scopedClientIdMapper,r);return p(t,r,o)}function p(e,t,n){var r=new Set,a=new Map,i=_(e,t==null?void 0:t.boundModel,n,r,a),l=new Map;for(var s of r)l.set(s,n.resources.variables.get(s));return o("WebBloksUtils").putAll(l,n.expandedVariables),{unboundModel:e,boundModel:i,variables:n.resources.variables,expandedVariables:n.expandedVariables,dependencies:l,bindCache:n.nextCache,collectedTreeResources:n.getCollectedTreeResources(),bindDataModuleDelegate:n.bindDataModuleDelegate}}function _(t,n,r,a,i){if(t.get(o("WebBloksConstants").DESCENDANT_HAS_BIND)===!1)return t;r.instrumentationEnabled&&o("WebBloksBindInstrumentation").bindCounters.nodesVisited++;var l=r.subtreeReuseEnabled;if(l&&n!=null&&u.isValidCachedModel(t,n)&&r.processNodeForOptimization(n,a,i))return r.instrumentationEnabled&&o("WebBloksBindInstrumentation").bindCounters.subtreesReusedAtEntry++,n;var c=l?r.getClockReadCount():0,d=t,m=new Set,p=new Map;d=r.apply(d,t,n,m,p),d=f(d,t,n,r,m,p),l?r.cacheDependencies(d,m,p,r.getClockReadCount()>c):(p.size>0&&(d=u.applyAttribute(d,t,s,p)),d!==t&&(d=u.applyAttribute(d,t,e,m)));for(var _ of m)a.add(_);return o("WebBloksUtils").putAll(i,p),r.instrumentationEnabled&&d!==t&&o("WebBloksBindInstrumentation").bindCounters.modelsRebuilt++,d}function f(e,t,n,a,i,l){var s=e,c=a.bloksContext.objectSet.environment.traversalKeys[s.styleId];if(c==null)return s;var d=a.subtreeReuseEnabled,m=d?e!==t||t.get(t.usesCanonicalKeys()?r("webBloksGlobalAttributeKeys").toCanonicalAttrs.on_bind:"on_bind")!=null:!0,p=c.plural_subnodes,f=c.subnodes;if(f)for(var h of f){var y=s.getSubNode(h);if(y instanceof o("WebBloksModel").WebBloksModel){var C=n==null?void 0:n.getSubNode(h);if(C instanceof o("WebBloksModel").WebBloksModel||C==null){var b=_(y,C,a,i,l);m=m||b!==C,s=u.applyAttribute(s,t,h,b)}else m=!0}}if(p){for(var v of p)if(!(v===o("WebBloksConstants").CHILD_TEMPLATES||v===r("webBloksGlobalAttributeKeys").toCanonicalAttrs.child_templates)){for(var S=s.getChildren_DEPRECATED(v),R=S,L=n==null?void 0:n.getChildren_DEPRECATED(v),E=0,k=0;k<S.length;k++){var I=S[k];if(I){var T=g(I,L,k),D=_(I,T,a,i,l);if(m=m||D!==T,D!==I)if(R===S&&(R=S.slice()),D.styleId===o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND){var x,$=D.getChildren_DEPRECATED();(x=R).splice.apply(x,[k+E,1].concat($)),E+=$.length-1}else R[k+E]=D}}R!==S&&(s=u.applyAttribute(s,t,v,R))}}return d&&!m&&n!=null&&u.isValidCachedModel(t,n)?(a.instrumentationEnabled&&o("WebBloksBindInstrumentation").bindCounters.subtreesReusedAtExit++,n):s}function g(e,t,n){var r;if(t)return((r=t[n])==null?void 0:r.clientId)===e.clientId?t[n]:t.find(function(t){return t.clientId===e.clientId})}function h(e,t,n){var r;return!!((r=n[t])!=null&&(r=r.plural_subnodes)!=null&&r.includes(e))}function y(e,t,n){var r;return!!((r=n[t])!=null&&(r=r.subnodes)!=null&&r.includes(e))}function C(e,t,n,r,o,a,i,l,s,u){return a.map(function(a){return b(e,t,n,r,o,a,i,l,s,u)}).filter(Boolean)}function b(e,t,n,a,i,l,s,u,c,d){if(l==null)return null;var m;Array.isArray(l)?m={templateId:l[0],expandedVariables:new Map(Object.entries(l[1])),scopeKey:l[2],keyPathBase:a}:m=l;var p,_=m.parseResult,f=null;if(_!=null){var g;p=_.unboundModel;var h=e.clientIdToScopedIdMapper.getScopedClientId(p,m.scopeKey);f=o("WebBloksScopedIds").extendKeyPath(m.keyPathBase,h);var y=(g=m.resourceIdentifier)!=null?g:String(p.clientId);if(!e.isResourceProcessed(y)){var C;e.collectTreeResource(_.resources,y);var b=(C=_.resources.variableDefinitions)!=null?C:[];b.length>0&&e.processVariableManifestsInBind(b,f)}}else if(typeof m.templateId=="number"){var S=m.templateId,R=t.getChildren_DEPRECATED(t.usesCanonicalKeys()?r("webBloksGlobalAttributeKeys").toCanonicalAttrs.child_templates:o("WebBloksConstants").CHILD_TEMPLATES);if(S<0||S>=R.length)throw new(o("WebBloksErrors")).WebBloksError("Invalid child template index "+S+" for "+m.scopeKey);p=R[S]}else{var L=m.templateId,E=e.resources.payloads.get(L);if(E!=null){var k=e.getCachedTemplatePayload(L);k==null&&(k=o("WebBloksPayloadParser").parseTree(E.payload,s,u,null,c,d),e.cacheTemplatePayload(L,k)),p=k.unboundModel;var I=L;if(!e.isResourceProcessed(I)){var T;e.collectTreeResource(k.resources,I);var D=(T=k.resources.variableDefinitions)!=null?T:[];D.length>0&&e.processVariableManifestsInBind(D,a)}}else{var x=e.resources.templates.get(L);if(x==null)throw new(o("WebBloksErrors")).WebBloksError("No such template in tree resources: "+L);p=x}}var $=e.clientIdToScopedIdMapper.getScopedClientId(p,m.scopeKey),P=f!=null?f:o("WebBloksScopedIds").extendKeyPath(m.keyPathBase,$),N=o("WebBloksScopedIds").buildKeypathBase(P);m.expandedVariables.size>0&&v(e,m.expandedVariables,N,i);var M=e.cache.getUnboundChildTemplates(n);if(M){var w=M.get($);if(w)return w}return o("WebBloksUpdateTraversal").runUpdateTraversal(p,{apply:function(n){return e.clientIdToScopedIdMapper.copyModelWithKeyPath(n,P,m.scopeKey)},onUpdatesApplied:function(){}},s)}function v(e,t,n,r){for(var a of t.entries()){var i=a[0],l=a[1],s=o("WebBloksScopedIds").buildScopedVariableIdentifier(i,n);e.addExpandedVariable(s,l),r.set(s,l)}}l.bind=d}),98);
+__d(
+  "WebBloksBind",
+  [
+    "BindResourceProcessingDelegate",
+    "WebBloksBindInstrumentation",
+    "WebBloksConstants",
+    "WebBloksDataModule",
+    "WebBloksErrors",
+    "WebBloksInterpreterEnvironment",
+    "WebBloksMinificationUtils",
+    "WebBloksModel",
+    "WebBloksNormaliseYogaDimension",
+    "WebBloksPayloadParser",
+    "WebBloksScopedIds",
+    "WebBloksScriptExecutor",
+    "WebBloksScriptTokens",
+    "WebBloksUpdateTraversal",
+    "WebBloksUtils",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = "$DESCENDANT_BIND_VARIABLE_DEPENDENCIES",
+      s = "$DESCENDANT_EXPANDED_VARIABLES",
+      u = (function () {
+        function e(e, t, n, r) {
+          var a = this;
+          if (
+            ((this.previousVariableDependencies = o("WebBloksUtils").EMPTY_MAP),
+            (this.expandedVariables = new Map()),
+            (this.$1 = new Set()),
+            (this.$2 = new Map()),
+            (this.$3 = new Map()),
+            (this.$4 = null),
+            (this.subtreeReuseEnabled = !1),
+            (this.instrumentationEnabled = !1),
+            (this.$5 = !1),
+            (this.bindDataModuleDelegate = new (o(
+              "BindResourceProcessingDelegate",
+            ).BindResourceProcessingDelegate)({
+              containsVariable: function (t) {
+                return a.containsVariable(t);
+              },
+            })),
+            (this.$6 = 0),
+            (this.bloksContext = e),
+            (this.resources = t),
+            (this.clientIdToScopedIdMapper = n),
+            (this.subtreeReuseEnabled =
+              e.objectSet.environment.enableBindSubtreeReuse),
+            (this.instrumentationEnabled = o(
+              "WebBloksBindInstrumentation",
+            ).isBindInstrumentationEnabled()),
+            r)
+          )
+            if (
+              ((this.nextCache = new c(r.bindCache)),
+              (this.cache = r.bindCache),
+              (this.previousExpandedVariables = r.expandedVariables),
+              (this.variablesChanged = new Set()),
+              r.dependencies)
+            ) {
+              this.previousVariableDependencies = r.dependencies;
+              for (var i of r.dependencies) {
+                var l = i[0],
+                  s = i[1];
+                s !== t.variables.get(l) && this.variablesChanged.add(l);
+              }
+            } else
+              this.previousVariableDependencies = o("WebBloksUtils").EMPTY_MAP;
+          else
+            ((this.nextCache = new c(null)),
+              (this.cache = new c(null)),
+              (this.previousExpandedVariables = o("WebBloksUtils").EMPTY_MAP),
+              (this.previousVariableDependencies =
+                o("WebBloksUtils").EMPTY_MAP),
+              (this.variablesChanged = void 0));
+        }
+        var t = e.prototype;
+        return (
+          (t.getClockReadCount = function () {
+            return this.$6;
+          }),
+          (t.getBindTimeSnapshotMs = function () {
+            return (
+              this.subtreeReuseEnabled && this.$6++,
+              this.$4 == null && (this.$4 = Date.now()),
+              this.$4
+            );
+          }),
+          (t.cacheDependencies = function (t, n, r, o) {
+            (this.nextCache.cacheVariableDependencies(t, n),
+              this.nextCache.cacheExpandedVariables(t, r),
+              this.nextCache.cacheClockDependentSubtree(t, o));
+          }),
+          (t.$7 = function (t) {
+            var e = this.variablesChanged;
+            if (e == null) return !0;
+            for (var n of t) if (e.has(n)) return !0;
+            return !1;
+          }),
+          (t.processNodeForOptimization = function (t, n, r) {
+            if (this.variablesChanged == null || this.cache.isClockDependent(t))
+              return !1;
+            var e = this.cache.getVariableDependencies(t);
+            if (e == null)
+              return (
+                this.$5 ||
+                  ((this.$5 = !0),
+                  this.bloksContext.objectSet.environment.logger.warn(
+                    "WebBloksBind: a previously bound node has no variable dependency set; skipping subtree reuse for it",
+                  )),
+                !1
+              );
+            if (this.$7(e)) return !1;
+            for (var o of e) n.add(o);
+            var a = this.cache.getExpandedVariables(t);
+            if (a != null)
+              for (var i of a) {
+                var l = i[0],
+                  s = i[1];
+                (this.addExpandedVariable(l, s), r.set(l, s));
+              }
+            return !0;
+          }),
+          (e.isValidCachedModel = function (t, n) {
+            return n.sourceModel === t;
+          }),
+          (t.apply = function (n, a, i, l, s) {
+            var t = this,
+              u,
+              c,
+              d = n,
+              m = d.getExpression(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY);
+            if (m == null) return d;
+            var p = r("WebBloksInterpreterEnvironment").forBind(
+              this.bloksContext,
+              m.getSourceMapNode(),
+              this.resources,
+              this.expandedVariables,
+              function () {
+                return t.getBindTimeSnapshotMs();
+              },
+            );
+            ((p.scope =
+              (u = d.keyPath) != null ? u : o("WebBloksUtils").EMPTY_KEY_PATH),
+              (p.variableAccessLog = l));
+            var _ = m.getValue(),
+              f =
+                Array.isArray(_) &&
+                _.length > 0 &&
+                !(
+                  _[0] instanceof
+                  o("WebBloksScriptTokens").WebBloksIdentifierToken
+                ),
+              g;
+            if (f) {
+              var v = o("WebBloksUtils").cast(_);
+              g = [];
+              for (var S = 0; S < v.length; S += 2) {
+                var R = v[S],
+                  L = o("WebBloksUtils").cast(v[S + 1]),
+                  E = o("WebBloksScriptExecutor").execute(
+                    p,
+                    L,
+                    o("WebBloksUtils").EMPTY_ARRAY,
+                  );
+                g.push(R, E);
+              }
+            } else
+              g = o("WebBloksUtils").cast(
+                o("WebBloksScriptExecutor").execute(
+                  p,
+                  _,
+                  o("WebBloksUtils").EMPTY_ARRAY,
+                ),
+              );
+            for (
+              var k = null,
+                I = d.getId(),
+                T = (c = d.keyPath) != null ? c : [],
+                D = this.bloksContext.objectSet.environment,
+                x = D.loadedMinificationMaps,
+                $ = D.minificationMap,
+                P = D.traversalKeys,
+                N = x.unminificationMap,
+                M = f || (g.length > 0 && !Array.isArray(g[0])),
+                w = 0;
+              w < g.length;
+              w++
+            ) {
+              var A = null,
+                F = void 0,
+                O = void 0;
+              if (M) ((O = g[w]), (F = g[++w]));
+              else {
+                var B = g[w];
+                ((A = B[0] == null ? null : "" + B[0]),
+                  (O = "" + B[1]),
+                  (F = B[2]));
+              }
+              var W = o(
+                "WebBloksMinificationUtils",
+              ).getOptionalMinifiedWebBloksAttributeKey(
+                String(d.styleId),
+                O,
+                N,
+              );
+              if (W != null) {
+                var q = o("WebBloksModel").defineWebBloksAttributeKey(W),
+                  U = void 0;
+                if (h(q, d.styleId, P)) {
+                  var V = C(this, d, i, T, s, F, P, $, N);
+                  for (var H of V) k = this.addToTemplateCache(k, H);
+                  U = V;
+                } else if (y(q, d.styleId, P)) {
+                  var G = b(this, d, i, T, s, F, P, $, N);
+                  ((U = G), G != null && (k = this.addToTemplateCache(k, G)));
+                } else U = F;
+                if (M || A === I) d = e.applyOperation(d, a, q, U);
+                else
+                  throw new (o("WebBloksErrors").WebBloksError)(
+                    'Encountered binding targeted for a descendant from bind script "' +
+                      O +
+                      '"',
+                  );
+              }
+            }
+            return (this.nextCache.cacheUnboundChildTemplates(d, k), d);
+          }),
+          (t.addToTemplateCache = function (t, n) {
+            var e = t != null ? t : new Map();
+            return (e.set(n.clientId, n), e);
+          }),
+          (t.addExpandedVariable = function (t, n) {
+            if ((this.expandedVariables.set(t, n), this.variablesChanged)) {
+              var e = this.previousExpandedVariables.get(t);
+              if (e !== n) {
+                var r;
+                (r = this.variablesChanged) == null || r.add(t);
+              }
+            }
+          }),
+          (t.isResourceProcessed = function (t) {
+            return this.$1.has(t);
+          }),
+          (t.collectTreeResource = function (t, n) {
+            this.$1.has(n) ||
+              (this.$1.add(n),
+              this.$2.set(n, t),
+              (this.resources = this.resources.withTreeResourceUpdates(t)));
+          }),
+          (t.getCollectedTreeResources = function () {
+            return this.$2;
+          }),
+          (t.getCachedTemplatePayload = function (t) {
+            return this.$3.get(t);
+          }),
+          (t.cacheTemplatePayload = function (t, n) {
+            this.$3.set(t, n);
+          }),
+          (t.containsVariable = function (t) {
+            return (
+              this.expandedVariables.has(t) || this.resources.variables.has(t)
+            );
+          }),
+          (t.processVariableManifestsInBind = function (t, n) {
+            var e = this;
+            if (t.length !== 0) {
+              var a =
+                  n.length > 0
+                    ? o("WebBloksScopedIds").buildKeypathBase(n)
+                    : null,
+                i = new Map();
+              for (var l of t) {
+                var s,
+                  u = l.id,
+                  c =
+                    l.scoped === !0 && a != null
+                      ? o("WebBloksScopedIds").buildScopedVariableIdentifier(
+                          u,
+                          a,
+                        )
+                      : u;
+                if (!this.containsVariable(c)) {
+                  var d = l.type,
+                    m = o("WebBloksDataModule").getDataModuleFromContext(
+                      this.bloksContext,
+                      d,
+                    );
+                  if (!m)
+                    throw new (o("WebBloksErrors").WebBloksError)(
+                      "Missing variable module with type: " + d,
+                    );
+                  var p = function (a) {
+                      var t = r("WebBloksInterpreterEnvironment").forBind(
+                        e.bloksContext,
+                        null,
+                        e.resources,
+                        e.expandedVariables,
+                        function () {
+                          return e.getBindTimeSnapshotMs();
+                        },
+                      );
+                      return (
+                        (t.scope = n),
+                        o("WebBloksScriptExecutor").execute(t, a, [])
+                      );
+                    },
+                    _ = (s = i.get(d)) != null ? s : new Map(),
+                    f = m.setup(this.bloksContext, l, p, _);
+                  (f.snapshot != null && i.set(d, f.snapshot),
+                    this.addExpandedVariable(c, f.initialData.initialValue),
+                    this.bindDataModuleDelegate.collectVariable(
+                      c,
+                      l,
+                      f.initialData,
+                      f.snapshot,
+                    ));
+                }
+              }
+            }
+          }),
+          (e.applyOperation = function (n, r, o, a) {
+            return e.applyWireAttribute(n, r, o, a);
+          }),
+          (e.applyWireAttribute = function (n, r, a, i) {
+            if (
+              n !== r ||
+              r.getUntyped(o("WebBloksModel").defineWebBloksAttributeKey(a)) !==
+                i
+            ) {
+              var t = e.ensureUnique(n, r);
+              return (
+                t.set(o("WebBloksModel").defineWebBloksAttributeKey(a), i),
+                t
+              );
+            }
+            return n;
+          }),
+          (e.ensureUnique = function (t, n) {
+            return t === n ? n.makeBoundCopy() : t;
+          }),
+          e
+        );
+      })(),
+      c = (function () {
+        function e(e) {
+          var t, n, r, o;
+          ((this.expandedVariables =
+            (t = e == null ? void 0 : e.expandedVariables) != null
+              ? t
+              : new Map()),
+            (this.unboundChildTemplates =
+              (n = e == null ? void 0 : e.unboundChildTemplates) != null
+                ? n
+                : new Map()),
+            (this.variableDependencies =
+              (r = e == null ? void 0 : e.variableDependencies) != null
+                ? r
+                : new Map()),
+            (this.clockDependentSubtrees =
+              (o = e == null ? void 0 : e.clockDependentSubtrees) != null
+                ? o
+                : new Set()));
+        }
+        var t = e.prototype;
+        return (
+          (t.transferCache = function (t, n, r) {
+            var e = this;
+            t.traverse(function (t) {
+              return (e.$1(t, n), !1);
+            }, r);
+          }),
+          (t.cacheClockDependentSubtree = function (t, n) {
+            n
+              ? this.clockDependentSubtrees.add(t.clientId)
+              : this.clockDependentSubtrees.delete(t.clientId);
+          }),
+          (t.isClockDependent = function (t) {
+            return this.clockDependentSubtrees.has(t.clientId);
+          }),
+          (t.cacheUnboundChildTemplates = function (t, n) {
+            n && this.unboundChildTemplates.set(t.clientId, n);
+          }),
+          (t.cacheVariableDependencies = function (t, n) {
+            this.variableDependencies.set(t.clientId, n);
+          }),
+          (t.cacheExpandedVariables = function (t, n) {
+            n.size > 0 && this.expandedVariables.set(t.clientId, n);
+          }),
+          (t.getVariableDependencies = function (t) {
+            return this.variableDependencies.get(t.clientId);
+          }),
+          (t.getExpandedVariables = function (t) {
+            return this.expandedVariables.get(t.clientId);
+          }),
+          (t.getUnboundChildTemplates = function (t) {
+            return t ? this.unboundChildTemplates.get(t.clientId) : null;
+          }),
+          (t.$1 = function (t, n) {
+            var e = t.clientId,
+              r = this.expandedVariables.get(e);
+            r && n.expandedVariables.set(e, r);
+            var o = this.unboundChildTemplates.get(e);
+            o && n.unboundChildTemplates.set(e, o);
+            var a = this.variableDependencies.get(e);
+            a && n.variableDependencies.set(e, a);
+          }),
+          e
+        );
+      })();
+    function d(e, t, n, r, a) {
+      var i = o("WebBloksBindInstrumentation").isBindInstrumentationEnabled(),
+        l = i ? o("WebBloksBindInstrumentation").bindClockNowMs() : 0,
+        s = r != null ? n.withVariableUpdates(r) : n,
+        u = m(e, t, s, a);
+      return (
+        (u.boundModel = o("WebBloksNormaliseYogaDimension").normaliseBoundModel(
+          u.boundModel,
+          e.objectSet.environment.traversalKeys,
+        )),
+        i &&
+          (o("WebBloksBindInstrumentation").bindCounters.bindMs +=
+            o("WebBloksBindInstrumentation").bindClockNowMs() - l),
+        u
+      );
+    }
+    function m(e, t, n, r) {
+      var o = new u(e, n, e.scopedClientIdMapper, r);
+      return p(t, r, o);
+    }
+    function p(e, t, n) {
+      var r = new Set(),
+        a = new Map(),
+        i = _(e, t == null ? void 0 : t.boundModel, n, r, a),
+        l = new Map();
+      for (var s of r) l.set(s, n.resources.variables.get(s));
+      return (
+        o("WebBloksUtils").putAll(l, n.expandedVariables),
+        {
+          unboundModel: e,
+          boundModel: i,
+          variables: n.resources.variables,
+          expandedVariables: n.expandedVariables,
+          dependencies: l,
+          bindCache: n.nextCache,
+          collectedTreeResources: n.getCollectedTreeResources(),
+          bindDataModuleDelegate: n.bindDataModuleDelegate,
+        }
+      );
+    }
+    function _(t, n, r, a, i) {
+      if (t.getUntyped(o("WebBloksConstants").DESCENDANT_HAS_BIND) === !1)
+        return t;
+      r.instrumentationEnabled &&
+        o("WebBloksBindInstrumentation").bindCounters.nodesVisited++;
+      var l = r.subtreeReuseEnabled;
+      if (
+        l &&
+        n != null &&
+        u.isValidCachedModel(t, n) &&
+        r.processNodeForOptimization(n, a, i)
+      )
+        return (
+          r.instrumentationEnabled &&
+            o("WebBloksBindInstrumentation").bindCounters
+              .subtreesReusedAtEntry++,
+          n
+        );
+      var c = l ? r.getClockReadCount() : 0,
+        d = t,
+        m = new Set(),
+        p = new Map();
+      ((d = r.apply(d, t, n, m, p)),
+        (d = f(d, t, n, r, m, p)),
+        l
+          ? r.cacheDependencies(d, m, p, r.getClockReadCount() > c)
+          : (p.size > 0 && (d = u.applyWireAttribute(d, t, s, p)),
+            d !== t && (d = u.applyWireAttribute(d, t, e, m))));
+      for (var _ of m) a.add(_);
+      return (
+        o("WebBloksUtils").putAll(i, p),
+        r.instrumentationEnabled &&
+          d !== t &&
+          o("WebBloksBindInstrumentation").bindCounters.modelsRebuilt++,
+        d
+      );
+    }
+    function f(e, t, n, r, a, i) {
+      var l = e,
+        s = r.bloksContext.objectSet.environment.traversalKeys[l.styleId];
+      if (s == null) return l;
+      var c = r.subtreeReuseEnabled,
+        d = c
+          ? e !== t ||
+            t.get(o("WebBloksConstants").ON_BIND_ATTRIBUTE_KEY) != null
+          : !0,
+        m = s.plural_subnodes,
+        p = s.subnodes;
+      if (p)
+        for (var f of p) {
+          var h = l.getSubNode(f);
+          if (h instanceof o("WebBloksModel").WebBloksModel) {
+            var y = n == null ? void 0 : n.getSubNode(f);
+            if (y instanceof o("WebBloksModel").WebBloksModel || y == null) {
+              var C = _(h, y, r, a, i);
+              ((d = d || C !== y), (l = u.applyWireAttribute(l, t, f, C)));
+            } else d = !0;
+          }
+        }
+      if (m) {
+        for (var b of m)
+          if (b !== o("WebBloksConstants").CHILD_TEMPLATES_ATTRIBUTE_KEY) {
+            for (
+              var v = l.getChildren_DEPRECATED(b),
+                S = v,
+                R = n == null ? void 0 : n.getChildren_DEPRECATED(b),
+                L = 0,
+                E = 0;
+              E < v.length;
+              E++
+            ) {
+              var k = v[E];
+              if (k) {
+                var I = g(k, R, E),
+                  T = _(k, I, r, a, i);
+                if (((d = d || T !== I), T !== k))
+                  if (
+                    (S === v && (S = v.slice()),
+                    T.styleId ===
+                      o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND)
+                  ) {
+                    var D,
+                      x = T.getChildren_DEPRECATED();
+                    ((D = S).splice.apply(D, [E + L, 1].concat(x)),
+                      (L += x.length - 1));
+                  } else S[E + L] = T;
+              }
+            }
+            S !== v && (l = u.applyWireAttribute(l, t, b, S));
+          }
+      }
+      return c && !d && n != null && u.isValidCachedModel(t, n)
+        ? (r.instrumentationEnabled &&
+            o("WebBloksBindInstrumentation").bindCounters
+              .subtreesReusedAtExit++,
+          n)
+        : l;
+    }
+    function g(e, t, n) {
+      var r;
+      if (t)
+        return ((r = t[n]) == null ? void 0 : r.clientId) === e.clientId
+          ? t[n]
+          : t.find(function (t) {
+              return t.clientId === e.clientId;
+            });
+    }
+    function h(e, t, n) {
+      var r;
+      return !!(
+        (r = n[t]) != null &&
+        (r = r.plural_subnodes) != null &&
+        r.includes(e)
+      );
+    }
+    function y(e, t, n) {
+      var r;
+      return !!(
+        (r = n[t]) != null &&
+        (r = r.subnodes) != null &&
+        r.includes(e)
+      );
+    }
+    function C(e, t, n, r, o, a, i, l, s) {
+      return a
+        .map(function (a) {
+          return b(e, t, n, r, o, a, i, l, s);
+        })
+        .filter(Boolean);
+    }
+    function b(e, t, n, r, a, i, l, s, u) {
+      if (i == null) return null;
+      var c;
+      Array.isArray(i)
+        ? (c = {
+            templateId: i[0],
+            expandedVariables: new Map(Object.entries(i[1])),
+            scopeKey: i[2],
+            keyPathBase: r,
+          })
+        : (c = i);
+      var d,
+        m = c.parseResult,
+        p = null;
+      if (m != null) {
+        var _;
+        d = m.unboundModel;
+        var f = e.clientIdToScopedIdMapper.getScopedClientId(d, c.scopeKey);
+        p = o("WebBloksScopedIds").extendKeyPath(c.keyPathBase, f);
+        var g = (_ = c.resourceIdentifier) != null ? _ : String(d.clientId);
+        if (!e.isResourceProcessed(g)) {
+          var h;
+          e.collectTreeResource(m.resources, g);
+          var y = (h = m.resources.variableDefinitions) != null ? h : [];
+          y.length > 0 && e.processVariableManifestsInBind(y, p);
+        }
+      } else if (typeof c.templateId == "number") {
+        var C = c.templateId,
+          b = t.getChildren_DEPRECATED(
+            o("WebBloksConstants").CHILD_TEMPLATES_ATTRIBUTE_KEY,
+          );
+        if (C < 0 || C >= b.length)
+          throw new (o("WebBloksErrors").WebBloksError)(
+            "Invalid child template index " + C + " for " + c.scopeKey,
+          );
+        d = b[C];
+      } else {
+        var S = c.templateId,
+          R = e.resources.payloads.get(S);
+        if (R != null) {
+          var L = e.getCachedTemplatePayload(S);
+          (L == null &&
+            ((L = o("WebBloksPayloadParser").parseTree(
+              R.payload,
+              l,
+              s,
+              null,
+              u,
+            )),
+            e.cacheTemplatePayload(S, L)),
+            (d = L.unboundModel));
+          var E = S;
+          if (!e.isResourceProcessed(E)) {
+            var k;
+            e.collectTreeResource(L.resources, E);
+            var I = (k = L.resources.variableDefinitions) != null ? k : [];
+            I.length > 0 && e.processVariableManifestsInBind(I, r);
+          }
+        } else {
+          var T = e.resources.templates.get(S);
+          if (T == null)
+            throw new (o("WebBloksErrors").WebBloksError)(
+              "No such template in tree resources: " + S,
+            );
+          d = T;
+        }
+      }
+      var D = e.clientIdToScopedIdMapper.getScopedClientId(d, c.scopeKey),
+        x =
+          p != null
+            ? p
+            : o("WebBloksScopedIds").extendKeyPath(c.keyPathBase, D),
+        $ = o("WebBloksScopedIds").buildKeypathBase(x);
+      c.expandedVariables.size > 0 && v(e, c.expandedVariables, $, a);
+      var P = e.cache.getUnboundChildTemplates(n);
+      if (P) {
+        var N = P.get(D);
+        if (N) return N;
+      }
+      return o("WebBloksUpdateTraversal").runUpdateTraversal(
+        d,
+        {
+          apply: function (n) {
+            return e.clientIdToScopedIdMapper.copyModelWithKeyPath(
+              n,
+              x,
+              c.scopeKey,
+            );
+          },
+          onUpdatesApplied: function () {},
+        },
+        l,
+      );
+    }
+    function v(e, t, n, r) {
+      for (var a of t.entries()) {
+        var i = a[0],
+          l = a[1],
+          s = o("WebBloksScopedIds").buildScopedVariableIdentifier(i, n);
+        (e.addExpandedVariable(s, l), r.set(s, l));
+      }
+    }
+    l.bind = d;
+  },
+  98,
+);

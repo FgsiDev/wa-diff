@@ -1,1 +1,370 @@
-__d("WebBloksNavbar",["WebBloksAbstractButton","WebBloksComponentContext","WebBloksEnvironmentContext","WebBloksNavbarBackButton","WebBloksScreen","WebBloksScreenHost","WebBloksStyle","WebBloksTheme","WebBloksUtils","react","react-compiler-runtime","useClickablePropsForWebBloks"],(function(t,n,r,o,a,i,l){var e,s=e||(e=o("react")),u=e.useMemo,c=o("WebBloksStyle").createStyles({root:{height:52,width:"100%",zIndex:1,backgroundColor:o("WebBloksTheme").WebBloksThemeVars["navbar-bg"],padding:8,borderBottomStyle:"solid",borderBottomColor:o("WebBloksTheme").WebBloksThemeVars.separator,borderBottomWidth:1,justifyContent:"center"},backButton:{display:"flex",alignItems:"center",flexShrink:0,flexGrow:0,flexDirection:"row",justifyContent:"center"},titleContainer:{alignItems:"center",flexGrow:1,fontWeight:600,justifyContent:"center"},titleContainerMargin:{marginRight:28},title:{flexGrow:1,alignItems:"center",justifyContent:"center",margin:"0 0px",textAlign:"center"},trailingButtons:{display:"flex",flexShrink:0,alignItems:"center",flexDirection:"row-reverse",justifyContent:"center"}});function d(e){var t=o("react-compiler-runtime").c(37),n=e.node,a=o("WebBloksComponentContext").useWebBloksContext(),i=a.executeCatch,l=a.isLoadingNode,u=a.objectSet,d=a.ownerContext,p=a.renderNode,_=o("WebBloksEnvironmentContext").useDataBloksName(),f=u.navigationManager,g;t[0]!==n?(g=n.get("contribs"),t[0]=n,t[1]=g):g=t[1];var h=g,y=n.get("hide_navbar"),C;t[2]!==n?(C=n.get("title"),t[2]=n,t[3]=C):C=t[3];var b=C,v;if(t[4]!==h||t[5]!==i||t[6]!==l||t[7]!==n||t[8]!==u||t[9]!==d||t[10]!==p){e:{var S=[],R=null;if(h==null){v={titleBloksNode:null,trailingButtons:S};break e}for(var L of h){var E=L.get("right_buttons"),k=L.get("trailing_buttons"),I=L.getExpression("custom_title_parseresult");if(I!=null){var T=void 0;l&&d?T=d.executeCatch(I.getValue(),[]):T=i(n,I,[]);var D=o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(u,o("WebBloksUtils").cast(T),{isModal:!1,isEmbedded:!0});R=s.jsx(r("WebBloksScreenHost"),{screen:D})}if(k!==void 0)for(var x of k)S.push(s.jsx(m,{node:x},x.clientId));if(E!==void 0)for(var $ of E)S.push(p($))}var P;t[12]!==R||t[13]!==S?(P={titleBloksNode:R,trailingButtons:S},t[12]=R,t[13]=S,t[14]=P):P=t[14],v=P}t[4]=h,t[5]=i,t[6]=l,t[7]=n,t[8]=u,t[9]=d,t[10]=p,t[11]=v}else v=t[11];var N=v,M=N.titleBloksNode,w=N.trailingButtons;if(y===!0)return null;var A=f.getScreenCount()>1,F=A&&w.length===0,O;t[15]!==_||t[16]!==n.styleId?(O=_(n.styleId),t[15]=_,t[16]=n.styleId,t[17]=O):O=t[17];var B;t[18]===Symbol.for("react.memo_cache_sentinel")?(B=o("WebBloksStyle").classNames(o("WebBloksStyle").WebBloksStyles.container,c.root),t[18]=B):B=t[18];var W=F?c.titleContainerMargin:null,q;t[19]!==W?(q=o("WebBloksStyle").classNames(o("WebBloksStyle").WebBloksStyles.container,c.titleContainer,W),t[19]=W,t[20]=q):q=t[20];var U;t[21]!==f||t[22]!==A?(U=A?s.jsx(r("WebBloksNavbarBackButton"),{onClick:function(){return f.pop()}}):null,t[21]=f,t[22]=A,t[23]=U):U=t[23];var V=M!=null?M:b,H;t[24]!==V?(H=s.jsx("div",{className:c.title,children:V}),t[24]=V,t[25]=H):H=t[25];var G;t[26]!==H||t[27]!==q||t[28]!==U?(G=s.jsxs("div",{className:q,children:[U,H]}),t[26]=H,t[27]=q,t[28]=U,t[29]=G):G=t[29];var z;t[30]===Symbol.for("react.memo_cache_sentinel")?(z=o("WebBloksStyle").classNames(o("WebBloksStyle").WebBloksStyles.container,c.trailingButtons),t[30]=z):z=t[30];var j;t[31]!==w?(j=s.jsx("div",{className:z,children:w}),t[31]=w,t[32]=j):j=t[32];var K;return t[33]!==G||t[34]!==j||t[35]!==O?(K=s.jsxs("div",babelHelpers.extends({},O,{className:B,children:[G,j]})),t[33]=G,t[34]=j,t[35]=O,t[36]=K):K=t[36],K}function m(e){var t=e.node,n=o("WebBloksEnvironmentContext").useDataBloksName(),a=t.getExpression("on_click"),i=t.get("icon"),l=t.get("title"),u=t.get("accessibility_label"),c=t.get("badge_count"),d=o("WebBloksComponentContext").useWebBloksContext(),m=d.objectSet,_=r("useClickablePropsForWebBloks")(t,a);if(_.onClick===void 0||!i&&(l==null||l===""))return null;var f=p(m,i);return s.jsx(r("WebBloksAbstractButton"),babelHelpers.extends({trailing:!0},n(t.styleId),{icon:f,title:l,accessibility_label:u,badge_count:c},_))}m.displayName=m.name+" [from "+i.id+"]";function p(e,t){if(!t)return null;switch(t){case"nav-app-messenger":return e.getAsset("appMessenger");case"nav-navicon":return e.getAsset("navIcon");case"nav-shopping-cart":return e.getAsset("navShoppingCart");case"nav-info-circle":return e.getAsset("navInfoCircle");case"nav-magnifying-glass":return e.getAsset("magnifyingGlass")}}l.default=d}),98);
+__d(
+  "WebBloksNavbar",
+  [
+    "WebBloksAbstractButton",
+    "WebBloksComponentContext",
+    "WebBloksEnvironmentContext",
+    "WebBloksModel",
+    "WebBloksNavbarBackButton",
+    "WebBloksScreen",
+    "WebBloksScreenHost",
+    "WebBloksStyle",
+    "WebBloksTheme",
+    "WebBloksUtils",
+    "react",
+    "react-compiler-runtime",
+    "useClickablePropsForWebBloks",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = e || (e = o("react")),
+      u = e.useMemo,
+      c = o("WebBloksModel").defineWebBloksAttributeKey("("),
+      d = o("WebBloksModel").defineWebBloksAttributeKey("#"),
+      m = o("WebBloksModel").defineWebBloksAttributeKey("$"),
+      p = "bk.data.contrib.screen.navbar.Fb",
+      _ = o("WebBloksModel").defineWebBloksAttributeKey("-"),
+      f = o("WebBloksModel").defineWebBloksAttributeKey(")"),
+      g = "bk.data.contrib.screen.navbar.Fblite",
+      h = o("WebBloksModel").defineWebBloksAttributeKey("("),
+      y = "bk.data.contrib.screen.navbar.Ig",
+      C = o("WebBloksModel").defineWebBloksAttributeKey("3"),
+      b = o("WebBloksModel").defineWebBloksAttributeKey("+"),
+      v = "bk.data.screen.navbar.contrib.Msg",
+      S = o("WebBloksModel").defineWebBloksAttributeKey("*"),
+      R = "bk.data.screen.navbar.contrib.Phoenix",
+      L = o("WebBloksModel").defineWebBloksAttributeKey(","),
+      E = o("WebBloksModel").defineWebBloksAttributeKey("&"),
+      k = o("WebBloksModel").defineWebBloksAttributeKey("$"),
+      I = o("WebBloksModel").defineWebBloksAttributeKey("("),
+      T = o("WebBloksModel").defineWebBloksAttributeKey(")"),
+      D = o("WebBloksModel").defineWebBloksAttributeKey(","),
+      x = "bk.data.phoenix.screen.navbar.TrailingButton",
+      $ = o("WebBloksModel").defineWebBloksAttributeKey("&"),
+      P = o("WebBloksModel").defineWebBloksAttributeKey("#"),
+      N = o("WebBloksStyle").createStyles({
+        root: {
+          height: 52,
+          width: "100%",
+          zIndex: 1,
+          backgroundColor: o("WebBloksTheme").WebBloksThemeVars["navbar-bg"],
+          padding: 8,
+          borderBottomStyle: "solid",
+          borderBottomColor: o("WebBloksTheme").WebBloksThemeVars.separator,
+          borderBottomWidth: 1,
+          justifyContent: "center",
+        },
+        backButton: {
+          display: "flex",
+          alignItems: "center",
+          flexShrink: 0,
+          flexGrow: 0,
+          flexDirection: "row",
+          justifyContent: "center",
+        },
+        titleContainer: {
+          alignItems: "center",
+          flexGrow: 1,
+          fontWeight: 600,
+          justifyContent: "center",
+        },
+        titleContainerMargin: { marginRight: 28 },
+        title: {
+          flexGrow: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0 0px",
+          textAlign: "center",
+        },
+        trailingButtons: {
+          display: "flex",
+          flexShrink: 0,
+          alignItems: "center",
+          flexDirection: "row-reverse",
+          justifyContent: "center",
+        },
+      });
+    function M(e) {
+      switch (e.styleId) {
+        case p:
+        case "bk.data.contrib.screen.navbar.Fb": {
+          var t = o("WebBloksUtils").cast(e);
+          return {
+            custom_title_parseresult: t.getExpression(_),
+            right_buttons: void 0,
+            trailing_buttons: t.get(f),
+          };
+        }
+        case g:
+        case "bk.data.contrib.screen.navbar.Fblite": {
+          var n = o("WebBloksUtils").cast(e);
+          return {
+            custom_title_parseresult: void 0,
+            right_buttons: void 0,
+            trailing_buttons: n.get(h),
+          };
+        }
+        case y:
+        case "bk.data.contrib.screen.navbar.Ig": {
+          var r = o("WebBloksUtils").cast(e);
+          return {
+            custom_title_parseresult: r.getExpression(C),
+            right_buttons: r.get(b),
+            trailing_buttons: void 0,
+          };
+        }
+        case v:
+        case "bk.data.screen.navbar.contrib.Msg": {
+          var a = o("WebBloksUtils").cast(e);
+          return {
+            custom_title_parseresult: void 0,
+            right_buttons: a.get(S),
+            trailing_buttons: void 0,
+          };
+        }
+        case R:
+        case "bk.data.screen.navbar.contrib.Phoenix": {
+          var i = o("WebBloksUtils").cast(e);
+          return {
+            custom_title_parseresult: void 0,
+            right_buttons: void 0,
+            trailing_buttons: i.get(L),
+          };
+        }
+        default:
+          return {
+            custom_title_parseresult: void 0,
+            right_buttons: void 0,
+            trailing_buttons: void 0,
+          };
+      }
+    }
+    function w(e) {
+      var t = o("react-compiler-runtime").c(37),
+        n = e.node,
+        a = o("WebBloksComponentContext").useWebBloksContext(),
+        i = a.executeCatch,
+        l = a.isLoadingNode,
+        u = a.objectSet,
+        p = a.ownerContext,
+        _ = a.renderNode,
+        f = o("WebBloksEnvironmentContext").useDataBloksName(),
+        g = u.navigationManager,
+        h;
+      t[0] !== n ? ((h = n.get(c)), (t[0] = n), (t[1] = h)) : (h = t[1]);
+      var y = h,
+        C = n.get(d),
+        b;
+      t[2] !== n ? ((b = n.get(m)), (t[2] = n), (t[3] = b)) : (b = t[3]);
+      var v = b,
+        S;
+      if (
+        t[4] !== y ||
+        t[5] !== i ||
+        t[6] !== l ||
+        t[7] !== n ||
+        t[8] !== u ||
+        t[9] !== p ||
+        t[10] !== _
+      ) {
+        e: {
+          var R = [],
+            L = null;
+          if (y == null) {
+            S = { titleBloksNode: null, trailingButtons: R };
+            break e;
+          }
+          for (var E of y) {
+            var k = M(E),
+              I = k.custom_title_parseresult,
+              T = k.right_buttons,
+              D = k.trailing_buttons;
+            if (I != null) {
+              var x = void 0;
+              l && p
+                ? (x = p.executeCatch(I.getValue(), []))
+                : (x = i(n, I, []));
+              var $ = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
+                u,
+                o("WebBloksUtils").cast(x),
+                { isModal: !1, isEmbedded: !0 },
+              );
+              L = s.jsx(r("WebBloksScreenHost"), { screen: $ });
+            }
+            if (D !== void 0)
+              for (var P of D) R.push(s.jsx(A, { node: P }, P.clientId));
+            if (T !== void 0) for (var w of T) R.push(_(w));
+          }
+          var F;
+          (t[12] !== L || t[13] !== R
+            ? ((F = { titleBloksNode: L, trailingButtons: R }),
+              (t[12] = L),
+              (t[13] = R),
+              (t[14] = F))
+            : (F = t[14]),
+            (S = F));
+        }
+        ((t[4] = y),
+          (t[5] = i),
+          (t[6] = l),
+          (t[7] = n),
+          (t[8] = u),
+          (t[9] = p),
+          (t[10] = _),
+          (t[11] = S));
+      } else S = t[11];
+      var O = S,
+        B = O.titleBloksNode,
+        W = O.trailingButtons;
+      if (C === !0) return null;
+      var q = g.getScreenCount() > 1,
+        U = q && W.length === 0,
+        V;
+      t[15] !== f || t[16] !== n.styleId
+        ? ((V = f(n.styleId)), (t[15] = f), (t[16] = n.styleId), (t[17] = V))
+        : (V = t[17]);
+      var H;
+      t[18] === Symbol.for("react.memo_cache_sentinel")
+        ? ((H = o("WebBloksStyle").classNames(
+            o("WebBloksStyle").WebBloksStyles.container,
+            N.root,
+          )),
+          (t[18] = H))
+        : (H = t[18]);
+      var G = U ? N.titleContainerMargin : null,
+        z;
+      t[19] !== G
+        ? ((z = o("WebBloksStyle").classNames(
+            o("WebBloksStyle").WebBloksStyles.container,
+            N.titleContainer,
+            G,
+          )),
+          (t[19] = G),
+          (t[20] = z))
+        : (z = t[20]);
+      var j;
+      t[21] !== g || t[22] !== q
+        ? ((j = q
+            ? s.jsx(r("WebBloksNavbarBackButton"), {
+                onClick: function () {
+                  return g.pop();
+                },
+              })
+            : null),
+          (t[21] = g),
+          (t[22] = q),
+          (t[23] = j))
+        : (j = t[23]);
+      var K = B != null ? B : v,
+        Q;
+      t[24] !== K
+        ? ((Q = s.jsx("div", { className: N.title, children: K })),
+          (t[24] = K),
+          (t[25] = Q))
+        : (Q = t[25]);
+      var X;
+      t[26] !== Q || t[27] !== z || t[28] !== j
+        ? ((X = s.jsxs("div", { className: z, children: [j, Q] })),
+          (t[26] = Q),
+          (t[27] = z),
+          (t[28] = j),
+          (t[29] = X))
+        : (X = t[29]);
+      var Y;
+      t[30] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Y = o("WebBloksStyle").classNames(
+            o("WebBloksStyle").WebBloksStyles.container,
+            N.trailingButtons,
+          )),
+          (t[30] = Y))
+        : (Y = t[30]);
+      var J;
+      t[31] !== W
+        ? ((J = s.jsx("div", { className: Y, children: W })),
+          (t[31] = W),
+          (t[32] = J))
+        : (J = t[32]);
+      var Z;
+      return (
+        t[33] !== X || t[34] !== J || t[35] !== V
+          ? ((Z = s.jsxs(
+              "div",
+              babelHelpers.extends({}, V, { className: H, children: [X, J] }),
+            )),
+            (t[33] = X),
+            (t[34] = J),
+            (t[35] = V),
+            (t[36] = Z))
+          : (Z = t[36]),
+        Z
+      );
+    }
+    function A(e) {
+      var t = e.node,
+        n = o("WebBloksEnvironmentContext").useDataBloksName(),
+        a = F(t),
+        i = a.accessibility_label,
+        l = a.badge_count,
+        u = a.icon,
+        c = a.on_click,
+        d = a.title,
+        m = o("WebBloksComponentContext").useWebBloksContext(),
+        p = m.objectSet,
+        _ = r("useClickablePropsForWebBloks")(t, c);
+      if (_.onClick === void 0 || (!u && (d == null || d === ""))) return null;
+      var f = O(p, u);
+      return s.jsx(
+        r("WebBloksAbstractButton"),
+        babelHelpers.extends(
+          { trailing: !0 },
+          n(t.styleId),
+          { icon: f, title: d, accessibility_label: i, badge_count: l },
+          _,
+        ),
+      );
+    }
+    A.displayName = A.name + " [from " + i.id + "]";
+    function F(e) {
+      switch (e.styleId) {
+        case x:
+        case "bk.data.phoenix.screen.navbar.TrailingButton": {
+          var t = o("WebBloksUtils").cast(e);
+          return {
+            accessibility_label: void 0,
+            badge_count: void 0,
+            icon: t.get(P),
+            on_click: t.getExpression($),
+            title: void 0,
+          };
+        }
+        default: {
+          var n = o("WebBloksUtils").cast(e);
+          return {
+            accessibility_label: n.get(T),
+            badge_count: n.get(D),
+            icon: n.get(k),
+            on_click: n.getExpression(E),
+            title: n.get(I),
+          };
+        }
+      }
+    }
+    function O(e, t) {
+      if (!t) return null;
+      switch (t) {
+        case "nav-app-messenger":
+          return e.getAsset("appMessenger");
+        case "nav-navicon":
+          return e.getAsset("navIcon");
+        case "nav-shopping-cart":
+          return e.getAsset("navShoppingCart");
+        case "nav-info-circle":
+          return e.getAsset("navInfoCircle");
+        case "nav-magnifying-glass":
+          return e.getAsset("magnifyingGlass");
+      }
+    }
+    l.default = w;
+  },
+  98,
+);
