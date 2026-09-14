@@ -1,0 +1,130 @@
+__d(
+  "AdsMetadataSiteExtensionUtils",
+  ["AdsMetadataWebsiteSourceItemTypes", "gkx", "immutable"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    function e(e) {
+      return e == null ? void 0 : e.filter(d);
+    }
+    function s(e, t) {
+      if (e != null) return e.push(t);
+      if (r("gkx")("23304")) return r("immutable").List([t]);
+    }
+    function u(e, t, n, o) {
+      if (!o) return null;
+      var a =
+          e == null
+            ? void 0
+            : e.filter(function (e) {
+                return e.site_link_id !== n;
+              }),
+        i = a != null && a.size !== (e == null ? void 0 : e.size),
+        l = (t == null ? void 0 : t.has(n)) === !0;
+      return (!i && l) || !r("gkx")("23304")
+        ? null
+        : babelHelpers.extends({}, i ? { allAvailableDiscoveryLinks: a } : {}, {
+            deletedManagedSiteLinkIds: (t != null
+              ? t
+              : r("immutable").Set()
+            ).add(n),
+          });
+    }
+    function c(e, t) {
+      if (e == null || t == null || t.isEmpty()) return e;
+      var n = e.filter(function (e) {
+        return e.site_link_id == null || !t.has(e.site_link_id);
+      });
+      return n.size === e.size ? e : n.isEmpty() ? null : n;
+    }
+    function d(e) {
+      return e.site_link_id != null;
+    }
+    function m(e, t, n, r) {
+      return (
+        r === void 0 && (r = !1),
+        e && t && (r || n)
+          ? o("AdsMetadataWebsiteSourceItemTypes").SalesChannel.RETAILER_LINKS
+          : o("AdsMetadataWebsiteSourceItemTypes").SalesChannel.DISCOVERY_LINKS
+      );
+    }
+    function p(e) {
+      var t = e == null ? void 0 : e.siteLinks,
+        n = e == null ? void 0 : e.managedSiteLinksLocalState;
+      if (n == null) return t;
+      if (t == null) return n;
+      var r = t.filter(function (e) {
+        return !d(e);
+      });
+      return r.concat(n);
+    }
+    function _(e) {
+      var t, n;
+      return (
+        ((t = (n = f(e).siteLinks) == null ? void 0 : n.size) != null ? t : 0) >
+        0
+      );
+    }
+    function f(e) {
+      var t,
+        n,
+        r,
+        o = new Set(
+          (t = e == null ? void 0 : e.visibleManagedLinkIds) != null ? t : [],
+        );
+      e == null ||
+        (n = e.managedSiteLinksLocalState) == null ||
+        n.forEach(function (e) {
+          e.site_link_id != null && o.add(e.site_link_id);
+        });
+      var a = p(e),
+        i = ((r = a == null ? void 0 : a.size) != null ? r : 0) > 0;
+      return {
+        siteLinks: a,
+        managedSiteLinksLocalState: null,
+        visibleManagedLinkIds: Array.from(o),
+        siteExtension: {
+          enrollStatus: i ? "OPT_IN" : "OPT_OUT",
+          enrollActionType: "MANUAL",
+          userModifiedEnrollStatus: !0,
+        },
+        siteLinksDataConsented: {
+          enrollStatus: i ? "OPT_IN" : "OPT_OUT",
+          enrollActionType: "MANUAL",
+        },
+      };
+    }
+    function g(e, t, n) {
+      return e !== "OPT_OUT" && (t > 0 || n === "OPT_IN");
+    }
+    function h(e) {
+      var t = e == null ? void 0 : e.values().next().value;
+      return (
+        (t == null ? void 0 : t.is_defaulting_eligible) === !0 &&
+        (t == null ? void 0 : t.site_link_url_recommender_type) != null
+      );
+    }
+    function y(e) {
+      var t = e == null ? void 0 : e.values().next().value;
+      return (
+        (t == null ? void 0 : t.is_defaulting_eligible) === !0 &&
+        r("gkx")("6334")
+      );
+    }
+    function C(e) {
+      return h(e) || y(e);
+    }
+    ((l.filterManualSiteLinks = e),
+      (l.appendManualSiteLink = s),
+      (l.buildDeletedSiteLinkStatePatch = u),
+      (l.withoutDeletedManagedSiteLinks = c),
+      (l.isSiteLinkManual = d),
+      (l.getDefaultSalesChannel = m),
+      (l.hasManagedLinksToApply = _),
+      (l.getManagedLinksApplyState = f),
+      (l.isSEDataConsented = g),
+      (l.shouldV2DefaultOn = h),
+      (l.shouldMLDefaultOn = y),
+      (l.shouldDefaultOn = C));
+  },
+  98,
+);

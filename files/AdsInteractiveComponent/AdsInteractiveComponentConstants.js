@@ -1,0 +1,91 @@
+__d(
+  "AdsInteractiveComponentConstants",
+  ["fbt", "AdCampaignDestination", "AdsAPIObjectives", "immutable"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f = "1001530549444",
+      g = "1001547657418",
+      h = (m = r("immutable")).Map(
+        ((e = {}),
+        (e.question_text = "Poll Question"),
+        (e.option_a_text = "option 1"),
+        (e.option_b_text = "option 2"),
+        (e.theme_color = "FF6F9FFB"),
+        e),
+      ),
+      y = m.Map(
+        ((u = {}),
+        (u.question_text = "Poll Question"),
+        (u.option_a_text = "option 1"),
+        (u.option_b_text = "option 2"),
+        (u.link_display = "http://displaylink.com"),
+        u),
+      ),
+      C = m.Map(
+        ((c = {}),
+        (c.question_text = D().toString()),
+        (c.option_a_text = x(!0).toString()),
+        (c.option_b_text = x(!1).toString()),
+        (c.theme_color = "FF6F9FFB"),
+        c),
+      ),
+      b = m.Map(
+        ((d = {}),
+        (d.x = 0.5),
+        (d.y = 0.5),
+        (d.width = 0.65),
+        (d.height = 1),
+        (d.rotation = 0),
+        d),
+      ),
+      v = "POLL",
+      S = "CTA_STICKER",
+      R = "PRODUCT_TAG",
+      L = { value: { link: "", link_format: "VIDEO_LPP" }, type: "LEARN_MORE" },
+      E = m.List([
+        { platform: "facebook", position: "feed" },
+        { platform: "facebook", position: "story" },
+      ]),
+      k = m.List([
+        (p = r("AdsAPIObjectives")).APP_INSTALLS,
+        p.BRAND_AWARENESS,
+        p.CONVERSIONS,
+        p.LINK_CLICKS,
+        p.REACH,
+      ]),
+      I = m.List([
+        (_ = r("AdCampaignDestination")).APP,
+        _.MESSENGER,
+        _.WHATSAPP,
+      ]),
+      T = m.List([_.WHATSAPP]);
+    function D() {
+      return s._(/*BTDS*/ "Which would you choose?");
+    }
+    function x(e) {
+      return e ? s._(/*BTDS*/ "Choice 1") : s._(/*BTDS*/ "Choice 2");
+    }
+    ((l.WATCH_AND_BROWSE_VIDEO_ID = f),
+      (l.WATCH_AND_INSTALL_VIDEO_ID = g),
+      (l.DEFAULT_POLL_SPEC = h),
+      (l.DEFAULT_POLL_SPEC_WITH_DISPLAY_LINK = y),
+      (l.DEFAULT_POLL_SPEC_PANEL_V2 = C),
+      (l.DEFAULT_POLL_POSITION_SPEC = b),
+      (l.INTERACTIVE_COMPONENT_POLL_TYPE = v),
+      (l.INTERACTIVE_CTA_STICKER = S),
+      (l.SHOPPING_PRODUCT_TAG = R),
+      (l.DEFAULT_CTA_DATA = L),
+      (l.SUPPORTED_PLACEMENTS = E),
+      (l.SUPPORTED_OBJECTIVES = k),
+      (l.UNSUPPORTED_DESTINATION_FOR_LINK_CLICKS = I),
+      (l.UNSUPPORTED_DESTINATION_FOR_CONVERSIONS = T));
+  },
+  226,
+);

@@ -1,1 +1,119 @@
-__d("AdsALChannel",["ALChannel","EventListener","ExecutionEnvironment","cancelIdleCallback","hyperionChannel","hyperionTimedTrigger","qex","requestIdleCallback"],(function(t,n,r,o,a,i,l){"use strict";var e,s=(function(e){function t(){return e.apply(this,arguments)||this}return babelHelpers.inheritsLoose(t,e),t})(o("hyperionChannel").Channel),u=new s;r("ALChannel").pipe(u);var c=new s,d=-1,m=6,p=4,_=[],f=null,g=null,h=!1,y=null;function C(){g=r("requestIdleCallback")(function(e){g=null;var t=0;h=!0;try{do{var n=_.shift();if(n==null)break;n(),t++}while(_.length>0&&t<p&&e.timeRemaining()>m)}finally{h=!1,v()}})}function b(){g!=null&&(r("cancelIdleCallback")(g),g=null);var e=_;_=[],h=!0;try{e.forEach(function(e){return e()})}finally{h=!1}}function v(){if(!(f!=null||g!=null||_.length===0)){var e=r("qex")._("2206")===!0;if(L(e),e){C();return}f=new(o("hyperionTimedTrigger")).TimedTrigger(function(){f=null,b()},d,!0)}}function S(){if(f!=null){f.run();return}b()}u.pipe(c,function(e){if(h){e();return}_.push(e),v()}),u.addListener("al_ui_event_capture",function(e){if(e.event==="click"){var t;if(e.element!=null&&e.element.nodeName==="A"&&(t=e.element.getAttribute("href")),t==null){var n,r=(n=e.domEvent)==null?void 0:n.target;r instanceof HTMLElement&&r.nodeName==="A"&&(t=r.getAttribute("href"))}t!=null&&(e.metadata.target_url=t,S())}});function R(){S(),h=!0}function L(t){!(e||(e=r("ExecutionEnvironment"))).canUseDOM||y!=null||(t?y=r("EventListener").listen(window,"beforeunload",R):y=r("EventListener").listen(window,"beforeUnload",R))}l.AdsALChannel=u,l.AdsALAsyncChannel=c}),98);
+__d(
+  "AdsALChannel",
+  [
+    "ALChannel",
+    "EventListener",
+    "ExecutionEnvironment",
+    "cancelIdleCallback",
+    "hyperionChannel",
+    "hyperionTimedTrigger",
+    "qex",
+    "requestIdleCallback",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = (function (e) {
+        function t() {
+          return e.apply(this, arguments) || this;
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(o("hyperionChannel").Channel),
+      u = new s();
+    r("ALChannel").pipe(u);
+    var c = new s(),
+      d = -1,
+      m = 6,
+      p = [],
+      _ = null,
+      f = null,
+      g = !1,
+      h = null;
+    function y() {
+      f = r("requestIdleCallback")(function (e) {
+        ((f = null), (g = !0));
+        try {
+          for (; p.length > 0 && e.timeRemaining() > m; ) {
+            var t = p.shift();
+            if (t == null) break;
+            t();
+          }
+        } finally {
+          ((g = !1), b());
+        }
+      });
+    }
+    function C() {
+      f != null && (r("cancelIdleCallback")(f), (f = null));
+      var e = p;
+      ((p = []), (g = !0));
+      try {
+        e.forEach(function (e) {
+          return e();
+        });
+      } finally {
+        g = !1;
+      }
+    }
+    function b() {
+      if (!(_ != null || f != null || p.length === 0)) {
+        var e = r("qex")._("2206") === !0;
+        if ((R(e), e)) {
+          y();
+          return;
+        }
+        _ = new (o("hyperionTimedTrigger").TimedTrigger)(
+          function () {
+            ((_ = null), C());
+          },
+          d,
+          !0,
+        );
+      }
+    }
+    function v() {
+      if (_ != null) {
+        _.run();
+        return;
+      }
+      C();
+    }
+    (u.pipe(c, function (e) {
+      if (g) {
+        e();
+        return;
+      }
+      (p.push(e), b());
+    }),
+      u.addListener("al_ui_event_capture", function (e) {
+        if (e.event === "click") {
+          var t;
+          if (
+            (e.element != null &&
+              e.element.nodeName === "A" &&
+              (t = e.element.getAttribute("href")),
+            t == null)
+          ) {
+            var n,
+              r = (n = e.domEvent) == null ? void 0 : n.target;
+            r instanceof HTMLElement &&
+              r.nodeName === "A" &&
+              (t = r.getAttribute("href"));
+          }
+          t != null && ((e.metadata.target_url = t), v());
+        }
+      }));
+    function S() {
+      (v(), (g = !0));
+    }
+    function R(t) {
+      !(e || (e = r("ExecutionEnvironment"))).canUseDOM ||
+        h != null ||
+        (t
+          ? (h = r("EventListener").listen(window, "beforeunload", S))
+          : (h = r("EventListener").listen(window, "beforeUnload", S)));
+    }
+    ((l.AdsALChannel = u), (l.AdsALAsyncChannel = c));
+  },
+  98,
+);

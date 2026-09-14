@@ -1,0 +1,281 @@
+__d(
+  "ShopsAdsInstagramAccountsStoreSourceServerLoadedQuery.graphql",
+  ["CliientAdAccount-override-shops-ads-instagram-accounts"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        t = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "username",
+          storageKey: null,
+        },
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "name",
+          storageKey: null,
+        },
+        o = {
+          alias: null,
+          args: null,
+          concreteType: "Image",
+          kind: "LinkedField",
+          name: "profile_picture",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "uri",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        };
+      return {
+        fragment: {
+          argumentDefinitions: [],
+          kind: "Fragment",
+          metadata: null,
+          name: "ShopsAdsInstagramAccountsStoreSourceServerLoadedQuery",
+          selections: [
+            {
+              kind: "ClientExtension",
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "AdAccount",
+                  kind: "LinkedField",
+                  name: "loaded_ad_accounts",
+                  plural: !0,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      fragment: {
+                        args: null,
+                        kind: "FragmentSpread",
+                        name: "CliientAdAccountOverrideShopsAdsInstagramAccountsResolverFragment",
+                      },
+                      kind: "RelayResolver",
+                      name: "shops_ads_instagram_accounts",
+                      resolverModule: n(
+                        "CliientAdAccount-override-shops-ads-instagram-accounts",
+                      ).shops_ads_instagram_accounts,
+                      path: "loaded_ad_accounts.shops_ads_instagram_accounts",
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+            },
+          ],
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: [],
+          kind: "Operation",
+          name: "ShopsAdsInstagramAccountsStoreSourceServerLoadedQuery",
+          selections: [
+            {
+              kind: "ClientExtension",
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "AdAccount",
+                  kind: "LinkedField",
+                  name: "loaded_ad_accounts",
+                  plural: !0,
+                  selections: [
+                    {
+                      name: "shops_ads_instagram_accounts",
+                      args: null,
+                      fragment: {
+                        kind: "InlineFragment",
+                        selections: [
+                          {
+                            alias: null,
+                            args: null,
+                            concreteType: "InstagramUserV2",
+                            kind: "LinkedField",
+                            name: "instagram_accounts",
+                            plural: !0,
+                            selections: [
+                              e,
+                              t,
+                              {
+                                alias: null,
+                                args: null,
+                                kind: "ScalarField",
+                                name: "profile_pic",
+                                storageKey: null,
+                              },
+                              {
+                                alias: null,
+                                args: null,
+                                concreteType: "MiniShopStorefront",
+                                kind: "LinkedField",
+                                name: "mini_shop_storefront",
+                                plural: !1,
+                                selections: [
+                                  e,
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    kind: "ScalarField",
+                                    name: "title",
+                                    storageKey: null,
+                                  },
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    kind: "ScalarField",
+                                    name: "shop_status",
+                                    storageKey: null,
+                                  },
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    kind: "ScalarField",
+                                    name: "shop_product_count",
+                                    storageKey: null,
+                                  },
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    concreteType: "CommerceMerchantSettings",
+                                    kind: "LinkedField",
+                                    name: "commerce_merchant_settings",
+                                    plural: !1,
+                                    selections: [
+                                      e,
+                                      {
+                                        alias: null,
+                                        args: null,
+                                        kind: "ScalarField",
+                                        name: "shop_ads_capabilities",
+                                        storageKey: null,
+                                      },
+                                      {
+                                        alias: null,
+                                        args: null,
+                                        concreteType: "ProductCatalog",
+                                        kind: "LinkedField",
+                                        name: "shop_catalog",
+                                        plural: !1,
+                                        selections: [e, r],
+                                        storageKey: null,
+                                      },
+                                      {
+                                        alias: null,
+                                        args: null,
+                                        kind: "ScalarField",
+                                        name: "display_name",
+                                        storageKey: null,
+                                      },
+                                      {
+                                        alias: null,
+                                        args: null,
+                                        kind: "ScalarField",
+                                        name: "onsite_checkout_enabled_countries",
+                                        storageKey: null,
+                                      },
+                                      {
+                                        alias: null,
+                                        args: null,
+                                        kind: "ScalarField",
+                                        name: "onsite_checkout_enabled_for_shops_ads_supported_countries",
+                                        storageKey: null,
+                                      },
+                                    ],
+                                    storageKey: null,
+                                  },
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    concreteType: "Page",
+                                    kind: "LinkedField",
+                                    name: "page",
+                                    plural: !1,
+                                    selections: [e, r, o],
+                                    storageKey: null,
+                                  },
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    concreteType: "InstagramUserV2",
+                                    kind: "LinkedField",
+                                    name: "ig_user",
+                                    plural: !1,
+                                    selections: [
+                                      e,
+                                      t,
+                                      {
+                                        alias: null,
+                                        args: null,
+                                        kind: "ScalarField",
+                                        name: "legacy_instagram_user_id",
+                                        storageKey: null,
+                                      },
+                                      o,
+                                    ],
+                                    storageKey: null,
+                                  },
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    kind: "ScalarField",
+                                    name: "workspace_id",
+                                    storageKey: null,
+                                  },
+                                ],
+                                storageKey: null,
+                              },
+                            ],
+                            storageKey: null,
+                          },
+                        ],
+                        type: "AdAccount",
+                        abstractKey: null,
+                      },
+                      kind: "RelayResolver",
+                      storageKey: null,
+                      isOutputType: !0,
+                    },
+                    e,
+                  ],
+                  storageKey: null,
+                },
+              ],
+            },
+          ],
+        },
+        params: {
+          cacheID: "2d227128b220c7152bed5c458dc539e3",
+          id: null,
+          metadata: {},
+          name: "ShopsAdsInstagramAccountsStoreSourceServerLoadedQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

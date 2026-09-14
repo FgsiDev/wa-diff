@@ -112,21 +112,22 @@ __d(
             return C(e);
           }));
     }
-    function C(e) {
+    function C(e, t) {
       if (e != null) {
-        var t = o("MWInteractionTracingKey").keyToId(e),
-          n = d.get(t);
-        if (n == null) {
-          u.event("complete").warn('missing trace: "%s"', t);
+        var n = o("MWInteractionTracingKey").keyToId(e),
+          a = d.get(n);
+        if (a == null) {
+          u.event("complete").warn('missing trace: "%s"', n);
           return;
         }
-        r("setTimeout")(function () {
-          var e = r("InteractionTracing").getPendingInteractionById(n);
-          (e == null || e.forceCompleteTrace(),
-            d.delete(t),
-            m.delete(t),
-            p.delete(t));
-        }, 200);
+        (S(a, t == null ? void 0 : t.annotations),
+          r("setTimeout")(function () {
+            var e = r("InteractionTracing").getPendingInteractionById(a);
+            (e == null || e.forceCompleteTrace(),
+              d.delete(n),
+              m.delete(n),
+              p.delete(n));
+          }, 15e3));
       }
     }
     function b(e, t) {

@@ -1,1 +1,180 @@
-__d("AdsDeliveryMidFlightCommonConstants",["fbt","AdsAutoApplyTransparencyExperimentUtils","AdsEditorCampaignSectionTitles","AdsLearnMore.react","createIntlPercentFbtFormatter","react"],(function(t,n,r,o,a,i,l,s){"use strict";var e,u=e||(e=o("react")),c=r("createIntlPercentFbtFormatter")(0,!1),d=48,m=140,p=200,_=function(t){return s._(/*BTDS*/"_j{\"*\":\"{number} ad sets changed\",\"_1\":\"1 ad set changed\"}",[s._plural(t,"number")])},f=s._(/*BTDS*/"Create"),g=s._(/*BTDS*/"Finish setup"),h=s._(/*BTDS*/"Off\/On"),y=s._(/*BTDS*/"Potential outcome"),C=s._(/*BTDS*/"Delivery recommendations and their potential outcome are based on your current and past performance and factors like budget, bid, and audience. They don't consider seasonality or future changes to other ad sets. Actual performance depends on many factors including market dynamics, so potential outcomes are provided to give you an idea of possible performance but aren't guaranteed."),b=s._(/*BTDS*/"This percentage is based on a machine learning model of data from real advertisers who took this recommendation. These advertisers have the same optimization for ad delivery. The model considers performance over 17 days."),v=s._(/*BTDS*/"This percentage is based on a machine learning model of data from real advertisers who took this recommendation. These advertisers have the same optimization for ad delivery. The model considers performance over 28 days."),S=s._(/*BTDS*/"This percentage is based on a machine learning model of data from real advertisers who took this recommendation. The model considers performance over 28 days."),R=s._(/*BTDS*/"Actual performance depends on many factors including market dynamics. This percentage is provided to give you an idea of possible performance, but isn't guaranteed."),L=s._(/*BTDS*/"How it's calculated"),E=s._(/*BTDS*/"How it's calculated"),k=s._(/*BTDS*/"Current:"),I=s._(/*BTDS*/"Optimized Delivery"),T=s._(/*BTDS*/"Optimized delivery"),D=s._(/*BTDS*/"Return to Account Overview"),x=s._(/*BTDS*/"Return to view charts"),$=function(t,n){var e=Math.ceil(n*100);return s._(/*BTDS*/"{liftEstimationPercentage} more {objective}",[s._param("liftEstimationPercentage",c(Number(e))),s._param("objective",t)])},P="269269737396981",N=s._(/*BTDS*/"Current budget"),M=s._(/*BTDS*/"Current budget"),w=s._(/*BTDS*/"New budget"),A=s._(/*BTDS*/"Extend by"),F=s._(/*BTDS*/"If you extend the duration of your daily budget\/ad set beyond its end date, we'll maintain the same average daily spend for the extended duration. For lifetime budgets, we\u2019ll automatically add as much budget as needed to achieve similar daily results over the extended duration, based on the number of days you select."),O=s._(/*BTDS*/"Potential outcome"),B=s._(/*BTDS*/"Additional budget"),W=s._(/*BTDS*/"Ends"),q=s._(/*BTDS*/"Save to draft"),U=s._(/*BTDS*/"Publish"),V=s._(/*BTDS*/"Continue"),H=s._(/*BTDS*/"Using campaign budget"),G=s._(/*BTDS*/"Hide recommendation"),z=s._(/*BTDS*/"Show recommendation"),j=s._(/*BTDS*/"\u2014"),K=s._(/*BTDS*/"Apply now"),Q=o("AdsAutoApplyTransparencyExperimentUtils").shouldShowAutoApplyRename()?s._(/*BTDS*/"Set up auto-apply"):s._(/*BTDS*/"Set up automatic adjustments"),X=o("AdsAutoApplyTransparencyExperimentUtils").shouldShowAutoApplyRename()?s._(/*BTDS*/"Enable auto-apply"):s._(/*BTDS*/"Enable automatic adjustments"),Y=s._(/*BTDS*/"See more"),J=s._(/*BTDS*/"\u2026"),Z=s._(/*BTDS*/"See less"),ee=s._(/*BTDS*/"Preview"),te=s._(/*BTDS*/"Get started"),ne=s._(/*BTDS*/"Duplicate ad set"),re="162567804385118",oe="138838180128488",ae=function(){return s._(/*BTDS*/"This metric is {estimated} and {in development} .",[s._param("estimated",u.jsx(r("AdsLearnMore.react"),{cmsID:oe,isStandalone:!1,label:s._(/*BTDS*/"estimated")})),s._param("in development",u.jsx(r("AdsLearnMore.react"),{cmsID:re,isStandalone:!1,label:s._(/*BTDS*/"in development")}))])},ie=function(t){return s._(/*BTDS*/"_j{\"*\":\"Duplicate ad sets\",\"_1\":\"Duplicate ad set\"}",[s._plural(t)])};l.DELIVERY_STATUS_COLUMN_LABEL=o("AdsEditorCampaignSectionTitles").DELIVERY,l.ROW_HEIGHT=d,l.SHORT_CELL_WIDTH=m,l.MEDIUM_CELL_WIDTH=p,l.getCampaignEditedFooterLabel=_,l.PRECREATE_CTA_LABEL=f,l.PRECREATE_CTA_DRAFT_LABEL=g,l.OFF_ON_TOGGLE=h,l.INCENTIVE_POTENTIAL_OUTCOME_HEADER=y,l.INCENTIVE_TOOLTIP=C,l.INCENTIVE_TOOLTIP_PERSONALIZED_EXPLANATION=b,l.INCENTIVE_TOOLTIP_PERSONALIZED_EXPLANATION_28_DAYS=v,l.INCENTIVE_TOOLTIP_PERSONALIZED_EXPLANATION_28_DAYS_SGCC=S,l.INCENTIVE_TOOLTIP_PERSONALIZED_EXPLANATION_QUALIFICATIONS=R,l.INCENTIVE_TOOLTIP_TITLE_WITH_LIFT_ESTIMATION=L,l.INCENTIVE_TOOLTIP_PERSONALIZED_TITLE_WITH_LIFT_ESTIMATION=E,l.INCENTIVE_CURRENT_LABEL=k,l.INCENTIVE_OPTIMIZED_DELIVERY=I,l.INCENTIVE_OPTMIZED_DELIVERY_SENTENCE_CASE=T,l.RETURN_TO_ACCOUNT_OVERVIEW=D,l.RETURN_TO_VIEW_CHARTS=x,l.getCustomExpectedOutcomeWithLiftEstimationSentenceCase=$,l.LEARNING_LIMITED_LEARN_MORE_ID=P,l.CURRENT_BUDGET_COLUMN_LABEL=N,l.CURRENT_BUDGET_COLUMN_LABEL_SENTENCE_CASE=M,l.NEW_BUDGET_COLUMN_LABEL=w,l.EXTEND_BY_COLUMN_LABEL=A,l.EXTEND_BY_COLUMN_TOOLTIP_CONTENT=F,l.POTENTIAL_OUTCOME_COLUMN_LABEL=O,l.ADDITIONAL_BUDGET_COLUMN_LABEL=B,l.ENDS_COLUMN_LABEL=W,l.SAVE_AS_DRAFT_BUTTON_LABEL=q,l.PUBLISH_BUTTON_LABEL=U,l.GUIDED_WORKFLOW_CONTINUE_BUTTON_FBT=V,l.CBO_BUDGET_CELL=H,l.HIDE_RECOMMENDATION=G,l.SHOW_RECOMMENDATION=z,l.COLUMN_DOES_NOT_APPLY=j,l.APPLY_NOW=K,l.ENABLE_AUTOMATIC_ADJUSTMENT=Q,l.ENABLE_AUTOMATIC_ADJUSTMENTS=X,l.SEE_MORE=Y,l.ELLIPSIS=J,l.SEE_LESS=Z,l.PREVIEW=ee,l.GET_STARTED=te,l.DUPLICATE_L2=ne,l.IN_DEVELOPMENT_CMS_ID=re,l.getSYDGuidanceCardLiftEstimateTooltipParagraph=ae,l.getDuplicateL2ButtonLabel=ie}),226);
+__d(
+  "AdsDeliveryMidFlightCommonConstants",
+  [
+    "fbt",
+    "AdsAutoApplyTransparencyExperimentUtils",
+    "AdsEditorCampaignSectionTitles",
+    "AdsLearnMore.react",
+    "createIntlPercentFbtFormatter",
+    "react",
+  ],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e,
+      u = e || (e = o("react")),
+      c = r("createIntlPercentFbtFormatter")(0, !1),
+      d = 48,
+      m = 140,
+      p = 200,
+      _ = function (t) {
+        return s._(
+          /*BTDS*/ '_j{"*":"{number} ad sets changed","_1":"1 ad set changed"}',
+          [s._plural(t, "number")],
+        );
+      },
+      f = s._(/*BTDS*/ "Create"),
+      g = s._(/*BTDS*/ "Finish setup"),
+      h = s._(/*BTDS*/ "Off\/On"),
+      y = s._(/*BTDS*/ "Potential outcome"),
+      C = s._(
+        /*BTDS*/ "Delivery recommendations and their potential outcome are based on your current and past performance and factors like budget, bid, and audience. They don't consider seasonality or future changes to other ad sets. Actual performance depends on many factors including market dynamics, so potential outcomes are provided to give you an idea of possible performance but aren't guaranteed.",
+      ),
+      b = s._(
+        /*BTDS*/ "This percentage is based on a machine learning model of data from real advertisers who took this recommendation. These advertisers have the same optimization for ad delivery. The model considers performance over 17 days.",
+      ),
+      v = s._(
+        /*BTDS*/ "This percentage is based on a machine learning model of data from real advertisers who took this recommendation. These advertisers have the same optimization for ad delivery. The model considers performance over 28 days.",
+      ),
+      S = s._(
+        /*BTDS*/ "This percentage is based on a machine learning model of data from real advertisers who took this recommendation. The model considers performance over 28 days.",
+      ),
+      R = s._(
+        /*BTDS*/ "Actual performance depends on many factors including market dynamics. This percentage is provided to give you an idea of possible performance, but isn't guaranteed.",
+      ),
+      L = s._(/*BTDS*/ "How it's calculated"),
+      E = s._(/*BTDS*/ "How it's calculated"),
+      k = s._(/*BTDS*/ "Current:"),
+      I = s._(/*BTDS*/ "Optimized Delivery"),
+      T = s._(/*BTDS*/ "Optimized delivery"),
+      D = s._(/*BTDS*/ "Return to Account Overview"),
+      x = s._(/*BTDS*/ "Return to view charts"),
+      $ = function (t, n) {
+        var e = Math.ceil(n * 100);
+        return s._(/*BTDS*/ "{liftEstimationPercentage} more {objective}", [
+          s._param("liftEstimationPercentage", c(Number(e))),
+          s._param("objective", t),
+        ]);
+      },
+      P = "269269737396981",
+      N = s._(/*BTDS*/ "Current budget"),
+      M = s._(/*BTDS*/ "Current budget"),
+      w = s._(/*BTDS*/ "New budget"),
+      A = s._(/*BTDS*/ "Extend by"),
+      F = s._(
+        /*BTDS*/ "If you extend the duration of your daily budget\/ad set beyond its end date, we'll maintain the same average daily spend for the extended duration. For lifetime budgets, we\u2019ll automatically add as much budget as needed to achieve similar daily results over the extended duration, based on the number of days you select.",
+      ),
+      O = s._(/*BTDS*/ "Potential outcome"),
+      B = s._(/*BTDS*/ "Additional budget"),
+      W = s._(/*BTDS*/ "Ends"),
+      q = s._(/*BTDS*/ "Save to draft"),
+      U = s._(/*BTDS*/ "Publish"),
+      V = s._(/*BTDS*/ "Continue"),
+      H = s._(/*BTDS*/ "Using campaign budget"),
+      G = s._(/*BTDS*/ "Hide recommendation"),
+      z = s._(/*BTDS*/ "Show recommendation"),
+      j = s._(/*BTDS*/ "\u2014"),
+      K = s._(/*BTDS*/ "Apply now"),
+      Q = o(
+        "AdsAutoApplyTransparencyExperimentUtils",
+      ).shouldShowAutoApplyRename()
+        ? s._(/*BTDS*/ "Set up auto-apply")
+        : s._(/*BTDS*/ "Set up automatic adjustments"),
+      X = o(
+        "AdsAutoApplyTransparencyExperimentUtils",
+      ).shouldShowAutoApplyRename()
+        ? s._(/*BTDS*/ "Enable auto-apply")
+        : s._(/*BTDS*/ "Enable automatic adjustments"),
+      Y = s._(/*BTDS*/ "See more"),
+      J = s._(/*BTDS*/ "\u2026"),
+      Z = s._(/*BTDS*/ "See less"),
+      ee = s._(/*BTDS*/ "Preview"),
+      te = s._(/*BTDS*/ "Duplicate"),
+      ne = s._(/*BTDS*/ "Get started"),
+      re = s._(/*BTDS*/ "Duplicate ad set"),
+      oe = "162567804385118",
+      ae = "138838180128488",
+      ie = function () {
+        return s._(
+          /*BTDS*/ "This metric is {estimated} and {in development} .",
+          [
+            s._param(
+              "estimated",
+              u.jsx(r("AdsLearnMore.react"), {
+                cmsID: ae,
+                isStandalone: !1,
+                label: s._(/*BTDS*/ "estimated"),
+              }),
+            ),
+            s._param(
+              "in development",
+              u.jsx(r("AdsLearnMore.react"), {
+                cmsID: oe,
+                isStandalone: !1,
+                label: s._(/*BTDS*/ "in development"),
+              }),
+            ),
+          ],
+        );
+      },
+      le = function (t) {
+        return s._(
+          /*BTDS*/ '_j{"*":"Duplicate ad sets","_1":"Duplicate ad set"}',
+          [s._plural(t)],
+        );
+      };
+    ((l.DELIVERY_STATUS_COLUMN_LABEL = o(
+      "AdsEditorCampaignSectionTitles",
+    ).DELIVERY),
+      (l.ROW_HEIGHT = d),
+      (l.SHORT_CELL_WIDTH = m),
+      (l.MEDIUM_CELL_WIDTH = p),
+      (l.getCampaignEditedFooterLabel = _),
+      (l.PRECREATE_CTA_LABEL = f),
+      (l.PRECREATE_CTA_DRAFT_LABEL = g),
+      (l.OFF_ON_TOGGLE = h),
+      (l.INCENTIVE_POTENTIAL_OUTCOME_HEADER = y),
+      (l.INCENTIVE_TOOLTIP = C),
+      (l.INCENTIVE_TOOLTIP_PERSONALIZED_EXPLANATION = b),
+      (l.INCENTIVE_TOOLTIP_PERSONALIZED_EXPLANATION_28_DAYS = v),
+      (l.INCENTIVE_TOOLTIP_PERSONALIZED_EXPLANATION_28_DAYS_SGCC = S),
+      (l.INCENTIVE_TOOLTIP_PERSONALIZED_EXPLANATION_QUALIFICATIONS = R),
+      (l.INCENTIVE_TOOLTIP_TITLE_WITH_LIFT_ESTIMATION = L),
+      (l.INCENTIVE_TOOLTIP_PERSONALIZED_TITLE_WITH_LIFT_ESTIMATION = E),
+      (l.INCENTIVE_CURRENT_LABEL = k),
+      (l.INCENTIVE_OPTIMIZED_DELIVERY = I),
+      (l.INCENTIVE_OPTMIZED_DELIVERY_SENTENCE_CASE = T),
+      (l.RETURN_TO_ACCOUNT_OVERVIEW = D),
+      (l.RETURN_TO_VIEW_CHARTS = x),
+      (l.getCustomExpectedOutcomeWithLiftEstimationSentenceCase = $),
+      (l.LEARNING_LIMITED_LEARN_MORE_ID = P),
+      (l.CURRENT_BUDGET_COLUMN_LABEL = N),
+      (l.CURRENT_BUDGET_COLUMN_LABEL_SENTENCE_CASE = M),
+      (l.NEW_BUDGET_COLUMN_LABEL = w),
+      (l.EXTEND_BY_COLUMN_LABEL = A),
+      (l.EXTEND_BY_COLUMN_TOOLTIP_CONTENT = F),
+      (l.POTENTIAL_OUTCOME_COLUMN_LABEL = O),
+      (l.ADDITIONAL_BUDGET_COLUMN_LABEL = B),
+      (l.ENDS_COLUMN_LABEL = W),
+      (l.SAVE_AS_DRAFT_BUTTON_LABEL = q),
+      (l.PUBLISH_BUTTON_LABEL = U),
+      (l.GUIDED_WORKFLOW_CONTINUE_BUTTON_FBT = V),
+      (l.CBO_BUDGET_CELL = H),
+      (l.HIDE_RECOMMENDATION = G),
+      (l.SHOW_RECOMMENDATION = z),
+      (l.COLUMN_DOES_NOT_APPLY = j),
+      (l.APPLY_NOW = K),
+      (l.ENABLE_AUTOMATIC_ADJUSTMENT = Q),
+      (l.ENABLE_AUTOMATIC_ADJUSTMENTS = X),
+      (l.SEE_MORE = Y),
+      (l.ELLIPSIS = J),
+      (l.SEE_LESS = Z),
+      (l.PREVIEW = ee),
+      (l.DUPLICATE = te),
+      (l.GET_STARTED = ne),
+      (l.DUPLICATE_L2 = re),
+      (l.IN_DEVELOPMENT_CMS_ID = oe),
+      (l.getSYDGuidanceCardLiftEstimateTooltipParagraph = ie),
+      (l.getDuplicateL2ButtonLabel = le));
+  },
+  226,
+);

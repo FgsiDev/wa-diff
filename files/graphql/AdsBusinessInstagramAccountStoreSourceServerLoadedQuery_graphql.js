@@ -1,0 +1,245 @@
+__d(
+  "AdsBusinessInstagramAccountStoreSourceServerLoadedQuery.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "business_id" },
+        ],
+        t = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        n = [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "threads_user_id",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "threads_user_profile_pic",
+            storageKey: null,
+          },
+        ],
+        r = {
+          alias: null,
+          args: [
+            {
+              kind: "Variable",
+              name: "business_id",
+              variableName: "business_id",
+            },
+          ],
+          concreteType: "InstagramUserV2",
+          kind: "LinkedField",
+          name: "instagram_accounts",
+          plural: !0,
+          selections: [
+            t,
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "has_profile_pic",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "legacy_instagram_user_id",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "is_authorized_for_political",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "is_professional_account",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "is_private",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "is_published",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "profile_picture_url",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "username",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "is_shopping_onsite_checkout_enabled",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "shopping_review_status",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "is_ctd_leads_targeting_eligible",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "is_ctd_purchase_targeting_eligible",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "eimu_id",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "has_create_ads_access",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "is_shopless_ig_account",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              concreteType: "XFBInstagramConnectedThreadsUserResponse",
+              kind: "LinkedField",
+              name: "instagram_connected_threads_user",
+              plural: !1,
+              selections: n,
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              concreteType: "XFBInstagramBackedThreadsUserResponse",
+              kind: "LinkedField",
+              name: "instagram_backed_threads_user",
+              plural: !1,
+              selections: n,
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "instagram_account_type",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        };
+      return {
+        fragment: {
+          argumentDefinitions: e,
+          kind: "Fragment",
+          metadata: null,
+          name: "AdsBusinessInstagramAccountStoreSourceServerLoadedQuery",
+          selections: [
+            {
+              kind: "ClientExtension",
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "AdAccount",
+                  kind: "LinkedField",
+                  name: "loaded_ad_accounts",
+                  plural: !0,
+                  selections: [r],
+                  storageKey: null,
+                },
+              ],
+            },
+          ],
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: e,
+          kind: "Operation",
+          name: "AdsBusinessInstagramAccountStoreSourceServerLoadedQuery",
+          selections: [
+            {
+              kind: "ClientExtension",
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "AdAccount",
+                  kind: "LinkedField",
+                  name: "loaded_ad_accounts",
+                  plural: !0,
+                  selections: [r, t],
+                  storageKey: null,
+                },
+              ],
+            },
+          ],
+        },
+        params: {
+          cacheID: "5c7bd71778495472d0f2485befbdd843",
+          id: null,
+          metadata: {},
+          name: "AdsBusinessInstagramAccountStoreSourceServerLoadedQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

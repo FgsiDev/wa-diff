@@ -1,0 +1,129 @@
+__d(
+  "AdsDraftDraftPublishDataAction",
+  [
+    "AdsBlendedAdsPublishReducerPlugin",
+    "AdsBlendedAdsStatusTrackerDataProvider",
+    "AdsDraftDraftPublishDataReducerPlugin",
+    "AdsDraftDraftPublishReducerPlugin",
+    "AdsDraftPublishAdsDraftDraftPublishDataReducerPlugin",
+    "AdsDraftPublishDataProvider",
+    "AdsDraftPublishProvider",
+    "AdsDraftPublishReducerPlugins",
+    "AdsDraftPublishingManagerProvider",
+    "AdsDraftPublishingManagerPublishInitReducerPlugin",
+    "AdsExperimentsInitLightweightTestCreationOnPublishReducerPlugin",
+    "AdsExperimentsLightweightTestCreationProvider",
+    "AdsPECreationUIProvider",
+    "AdsPELazyDialogDataProvider",
+    "AdsPEOnCloseDialogReducerPlugin",
+    "AdsPEReminderDialogProvider",
+    "AdsPreviewConsistencyLoggerPlugin",
+    "AdsPromoAdsStickySettingOnPublishLoggerPlugin",
+    "AdsReachFrequencyCreationFlowProvider",
+    "AdsReachFrequencyRevampCreationFlowReducerPlugins",
+    "AdsToastCardDataProvider",
+    "AdsVideoToastCardsDraftPublishReducerPlugin",
+    "Laminar",
+    "ifRequired_FOR_LAMINAR_CODEGEN",
+  ],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("Laminar").__createAction(
+      function () {
+        return [
+          n("Laminar").__createReducer(
+            n("AdsBlendedAdsPublishReducerPlugin"),
+            n("AdsBlendedAdsStatusTrackerDataProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDraftDraftPublishDataReducerPlugin"),
+            n("AdsPECreationUIProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDraftDraftPublishReducerPlugin"),
+            n("AdsPELazyDialogDataProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDraftPublishAdsDraftDraftPublishDataReducerPlugin"),
+            n("AdsDraftPublishProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDraftPublishReducerPlugins").PublishRequestedReducerPlugin,
+            n("AdsDraftPublishDataProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsDraftPublishingManagerPublishInitReducerPlugin"),
+            n("AdsDraftPublishingManagerProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n(
+              "AdsExperimentsInitLightweightTestCreationOnPublishReducerPlugin",
+            ),
+            n("AdsExperimentsLightweightTestCreationProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsPEOnCloseDialogReducerPlugin"),
+            n("AdsPEReminderDialogProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsReachFrequencyRevampCreationFlowReducerPlugins")
+              .adsDraftDraftPublishFlow,
+            n("AdsReachFrequencyCreationFlowProvider"),
+            {},
+            "",
+          ),
+          n("Laminar").__createReducer(
+            n("AdsVideoToastCardsDraftPublishReducerPlugin"),
+            n("AdsToastCardDataProvider"),
+            {},
+            "",
+          ),
+        ];
+      },
+      function () {
+        return [
+          n("ifRequired_FOR_LAMINAR_CODEGEN")(
+            "AdsMgmtStartPublishAnalyticsEventLoggerPlugin",
+            function (e) {
+              return n("Laminar").__createLogger(
+                "AdsMgmtStartPublishAnalyticsEventLoggerPlugin",
+                e,
+                {},
+                ["AdsMgmtRegistry"],
+              );
+            },
+          ),
+          n("Laminar").__createLogger(
+            "AdsPreviewConsistencyLoggerPlugin",
+            n("AdsPreviewConsistencyLoggerPlugin"),
+            {},
+          ),
+          n("Laminar").__createLogger(
+            "AdsPromoAdsStickySettingOnPublishLoggerPlugin",
+            n("AdsPromoAdsStickySettingOnPublishLoggerPlugin"),
+            {},
+          ),
+        ];
+      },
+      "AdsDraft.DRAFT.PUBLISH",
+    );
+    a.exports = e;
+  },
+  null,
+);

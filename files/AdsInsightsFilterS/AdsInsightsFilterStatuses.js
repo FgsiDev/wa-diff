@@ -1,0 +1,52 @@
+__d(
+  "AdsInsightsFilterStatuses",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      all_statuses: [
+        "active",
+        "archived",
+        "completed",
+        "inactive",
+        "limited",
+        "not_delivering",
+        "not_published",
+        "pending_review",
+        "permanently_deleted",
+        "recently_completed",
+        "recently_rejected",
+        "rejected",
+        "scheduled",
+      ],
+      all_statuses_no_deleted: [
+        "active",
+        "archived",
+        "completed",
+        "inactive",
+        "limited",
+        "not_delivering",
+        "not_published",
+        "pending_review",
+        "recently_completed",
+        "recently_rejected",
+        "rejected",
+        "scheduled",
+      ],
+      all_statuses_no_deleted_archived: [
+        "active",
+        "completed",
+        "inactive",
+        "limited",
+        "not_delivering",
+        "not_published",
+        "pending_review",
+        "recently_completed",
+        "recently_rejected",
+        "rejected",
+        "scheduled",
+      ],
+    });
+    i.default = e;
+  },
+  66,
+);

@@ -1,0 +1,18 @@
+__d(
+  "AdsCampaignAutoFixUpdateStatusDataAction",
+  ["Laminar"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("Laminar").__createAction(
+      function () {
+        return [];
+      },
+      function () {
+        return [];
+      },
+      "CAMPAIGN.AUTO_FIX.UPDATE_STATUS",
+    );
+    a.exports = e;
+  },
+  null,
+);

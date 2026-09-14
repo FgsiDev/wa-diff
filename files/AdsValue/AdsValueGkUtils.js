@@ -1,0 +1,140 @@
+__d(
+  "AdsValueGkUtils",
+  [
+    "AdsValueAdjustmentRuleGoalCardUtils",
+    "AdsValueAdjustmentRulePersonaAPIConstants",
+    "ValueRulesModalEntryPoint",
+    "gkx",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    function e(e) {
+      return (e === void 0 && (e = !1), !0);
+    }
+    function s() {
+      return r("gkx")("7824");
+    }
+    function u() {
+      return r("gkx")("1457");
+    }
+    function c(e) {
+      return (
+        e === void 0 && (e = !1),
+        e || u()
+          ? r("AdsValueAdjustmentRulePersonaAPIConstants")
+              .MAX_VAR_COLLECTION_PER_ACCOUNT_FOR_API
+          : r("AdsValueAdjustmentRulePersonaAPIConstants")
+              .MAX_VAR_COLLECTION_PER_ACCOUNT
+      );
+    }
+    function d() {
+      return r("gkx")("14490");
+    }
+    function m() {
+      return r("gkx")("16208");
+    }
+    function p() {
+      return m() || r("gkx")("14761");
+    }
+    function _() {
+      return m() || r("gkx")("16289");
+    }
+    function f() {
+      return m() || p() || _();
+    }
+    function g() {
+      return r("gkx")("19004");
+    }
+    function h() {
+      return r("gkx")("26266");
+    }
+    function y() {
+      return r("gkx")("23756");
+    }
+    function C() {
+      return r("gkx")("8381");
+    }
+    function b() {
+      return r("gkx")("10346");
+    }
+    function v() {
+      return r("gkx")("13551");
+    }
+    function S() {
+      return r("gkx")("4616");
+    }
+    function R() {
+      return r("gkx")("23126") ? !0 : r("gkx")("15609");
+    }
+    function L() {
+      return !0;
+    }
+    function E() {
+      return r("gkx")("23126");
+    }
+    function k(e, t) {
+      return (e ===
+        o("ValueRulesModalEntryPoint").ValueRulesModalEntryPoint.L2_NCA_GOAL ||
+        e ===
+          o("ValueRulesModalEntryPoint").ValueRulesModalEntryPoint
+            .L2_BROAD_GOAL) &&
+        (E() ||
+          (t != null
+            ? t
+            : o(
+                "AdsValueAdjustmentRuleGoalCardUtils",
+              ).isGoalCardVARBehaviorEnabled(e)))
+        ? !0
+        : e ===
+            o("ValueRulesModalEntryPoint").ValueRulesModalEntryPoint
+              .L2_PLACEMENT ||
+            e ===
+              o("ValueRulesModalEntryPoint").ValueRulesModalEntryPoint
+                .L2_CONVERSION_LOCATION ||
+            e ===
+              o("ValueRulesModalEntryPoint").ValueRulesModalEntryPoint
+                .L2_AUDIENCE;
+    }
+    function I() {
+      return r("gkx")("4785");
+    }
+    function T() {
+      return r("gkx")("4804");
+    }
+    function D() {
+      return r("gkx")("22029");
+    }
+    function x() {
+      return r("gkx")("10808");
+    }
+    function $() {
+      return m() || D() || x();
+    }
+    ((l.isAccountEligibleForVAR = e),
+      (l.isOmniVAREligible = s),
+      (l.areEnhancementsForBidMultipliersEnabled = u),
+      (l.getMaxNumRuleSets = c),
+      (l.isRemoveDMAEnabled = d),
+      (l.isPVARH2_2026Enabled = m),
+      (l.isHeuristicDefaultWeightsEnabled = p),
+      (l.isPVARPersonalizedWeightsEnabled = _),
+      (l.isPVARSuggestedWeightsEnabled = f),
+      (l.isAudienceLabelEnabledForBeta = g),
+      (l.isAudienceLabelEnabledForGA = h),
+      (l.isVAREligibleForVOAutobid = y),
+      (l.isBidMultipliersGuidedMigrationToolEnabled = C),
+      (l.isAdsValueRulesAttachDetachHistoryEnabled = b),
+      (l.isAdsValueRulesWithMinRoasEnabled = v),
+      (l.isSubRegionalGeoAreasEnabled = S),
+      (l.isAdsValueRulesUsabilityRocksEnabled = R),
+      (l.isAdsValueRulesFederatedEnabled3B = L),
+      (l.isAdsValueRulesNCAVARFederatedEnabled3B = E),
+      (l.isFederatedVAREntryPoint = k),
+      (l.isAdsValueRulesBidPresetTiersEnabled = I),
+      (l.isAdsValueRulesAudienceModalEnabled = T),
+      (l.isPVARExpansionFlatListEnabled = D),
+      (l.isPVARExpansionAccordionEnabled = x),
+      (l.isPVARExpansionEnabled = $));
+  },
+  98,
+);

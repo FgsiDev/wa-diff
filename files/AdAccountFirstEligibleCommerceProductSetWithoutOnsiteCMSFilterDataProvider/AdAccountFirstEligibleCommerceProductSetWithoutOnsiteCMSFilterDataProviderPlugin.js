@@ -1,0 +1,21 @@
+__d(
+  "AdAccountFirstEligibleCommerceProductSetWithoutOnsiteCMSFilterDataProviderPlugin",
+  ["isProductSetRelayStoreOptInEnabled", "loadObjectMapProvider"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = {
+        initialState: r(
+          "loadObjectMapProvider",
+        ).withSingleKeyLoader_USE_SPARINGLY(function (e) {
+          return o(
+            "isProductSetRelayStoreOptInEnabled",
+          ).AdAccountFirstEligibleCommerceProductSetWithoutOnsiteCMSFilterDataProviderPluginDefault(
+            e,
+          );
+        }),
+      },
+      s = e;
+    l.default = s;
+  },
+  98,
+);

@@ -1,0 +1,18 @@
+__d(
+  "adsUEditorGetShouldEnableAPlusCEnhanceCTAInfoLabelSignalSegmentFastTrackGetValue",
+  ["AdsAPlusCFastTrackV2Utils"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    function e() {
+      return !(
+        o("AdsAPlusCFastTrackV2Utils").isAccountSensitiveForFastTrackV2() ||
+        o(
+          "AdsAPlusCFastTrackV2Utils",
+        ).isAccountOnEnhanceCTAFastTrackV2Blocklist()
+      );
+    }
+    l.adsUEditorGetShouldEnableAPlusCEnhanceCTAInfoLabelSignalSegmentFastTrackGetValue =
+      e;
+  },
+  98,
+);

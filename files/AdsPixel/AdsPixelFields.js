@@ -1,0 +1,45 @@
+__d(
+  "AdsPixelFields",
+  ["GraphAPIFieldUtils"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = {
+        AUTOMATIC_MATCHING_FIELDS: "automatic_matching_fields",
+        CODE: "code",
+        CREATION_TIME: "creation_time",
+        ENABLE_AUTOMATIC_EVENTS: "enable_automatic_events",
+        HAS_BAPI_DOMAINS: "has_bapi_domains",
+        IS_CREATED_BY_BUSINESS: "is_created_by_business",
+        IS_UNAVAILABLE: "is_unavailable",
+        LAST_FIRED_TIME: "last_fired_time",
+        NAME: "name",
+        OWNER_AD_ACCOUNT: "owner_ad_account",
+        OWNER_BUSINESS: "owner_business",
+        SHARED_AGENCIES: "shared_agencies",
+      },
+      s = ["external_event_source"],
+      u = ["account_id", "name"],
+      c = ["id", "name"],
+      d = [
+        e.AUTOMATIC_MATCHING_FIELDS,
+        e.CODE,
+        e.CREATION_TIME,
+        e.ENABLE_AUTOMATIC_EVENTS,
+        e.HAS_BAPI_DOMAINS,
+        e.LAST_FIRED_TIME,
+        e.IS_CREATED_BY_BUSINESS,
+        e.IS_UNAVAILABLE,
+        e.NAME,
+        e.OWNER_BUSINESS,
+        o("GraphAPIFieldUtils").getFieldWithSubfields(e.OWNER_AD_ACCOUNT, u),
+        e.SHARED_AGENCIES,
+      ],
+      m = ["aggregation", "timestamp", "utc_timestamp", "data"];
+    ((l.AUDIENCE_FIELDS = s),
+      (l.ACCOUNT_FIELDS = u),
+      (l.PIXEL_AUDIENCE_FIELDS = c),
+      (l.PIXEL_FIELDS = d),
+      (l.PIXEL_STATS_FIELDS = m));
+  },
+  98,
+);

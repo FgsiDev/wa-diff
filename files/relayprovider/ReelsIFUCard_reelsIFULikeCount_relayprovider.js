@@ -1,0 +1,15 @@
+__d(
+  "ReelsIFUCard_reelsIFULikeCount.relayprovider",
+  ["qex"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = {
+      get: function () {
+        var e;
+        return (e = r("qex")._("5620")) != null ? e : !1;
+      },
+    };
+    l.default = e;
+  },
+  98,
+);

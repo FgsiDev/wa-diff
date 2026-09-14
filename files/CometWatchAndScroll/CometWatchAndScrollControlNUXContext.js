@@ -1,0 +1,16 @@
+__d(
+  "CometWatchAndScrollControlNUXContext",
+  ["react"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = e || (e = o("react")),
+      u = {
+        isVideoPlayerWatchAndScrollControlNUXVisible: !1,
+        setIsVideoPlayerWatchAndScrollControlNUXVisible: null,
+      },
+      c = s.createContext(u);
+    l.default = c;
+  },
+  98,
+);

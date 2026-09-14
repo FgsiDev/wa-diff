@@ -1,0 +1,152 @@
+__d(
+  "AdsUEditorAdgroupMessageMarketingFbt",
+  ["fbt", "react"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e,
+      u = e || (e = o("react")),
+      c = s._(/*BTDS*/ "Format"),
+      d = s._(/*BTDS*/ "Choose how you'd like to structure your message"),
+      m = s._(/*BTDS*/ "Single card"),
+      p = s._(/*BTDS*/ "One card with a header, body, footer and buttons"),
+      _ = s._(/*BTDS*/ "Carousel"),
+      f = s._(/*BTDS*/ "2 or more horizontally scrollable images or videos"),
+      g = s._(
+        /*BTDS*/ "Carousel is not supported when using a catalog for messages.",
+      ),
+      h = s._(
+        /*BTDS*/ "Carousel is not supported when using an existing ad for messages.",
+      ),
+      y = s._(/*BTDS*/ "Enable greeting message"),
+      C = s._(/*BTDS*/ "Offer"),
+      b = s._(
+        /*BTDS*/ "Add offer information to your message including a discount code or expiration date.",
+      ),
+      v = s._(/*BTDS*/ "Offer setup"),
+      S = s._(/*BTDS*/ "Enable offers"),
+      R = s._(/*BTDS*/ "Include an offer code"),
+      L = s._(
+        /*BTDS*/ "We'll make it easy for your customers to copy your offer code",
+      ),
+      E = s._(/*BTDS*/ "Offer Headline"),
+      k = s._(/*BTDS*/ "Add an offer code"),
+      I = s._(/*BTDS*/ "Include an expiration date"),
+      T = s._(/*BTDS*/ "We'll let customers know when the offer ends"),
+      D = s._(/*BTDS*/ "Offer end"),
+      x = s._(/*BTDS*/ "Check for personalized offer code"),
+      $ = s._(
+        /*BTDS*/ "If the list you select in Audience > Subscriber sources includes personalized offer codes, we'll apply them. Otherwise, we'll apply the offer code entered above.",
+      ),
+      P = s._(
+        /*BTDS*/ "Your campaign is scheduled to start after this expiration date. This offer will already be expired when the messages are sent.",
+      ),
+      N = s._(
+        /*BTDS*/ "Your campaign is scheduled to end after this expiration date. Some of your offers might already be expired when the messages are sent.",
+      ),
+      M = s._(/*BTDS*/ "WhatsApp"),
+      w = s._(/*BTDS*/ "Business Chat"),
+      A = {
+        greeting: s._(/*BTDS*/ "Add a greeting"),
+        body: s._(/*BTDS*/ "Add some additional details"),
+        header: s._(/*BTDS*/ "Add a headline"),
+        button: s._(/*BTDS*/ "Button"),
+      },
+      F = s._(/*BTDS*/ "Message preview"),
+      O = s._(/*BTDS*/ "Enter the text or additional details of your message"),
+      B = s._(/*BTDS*/ "Enter a short CTA"),
+      W = s._(
+        /*BTDS*/ "The selected subscriber lists do not contain personalized offer codes.",
+      ),
+      q = s._(
+        /*BTDS*/ "To use an offer code, you need to include this button.",
+      ),
+      U = s._(/*BTDS*/ "To use an offer, you need to include this button."),
+      V = s._(/*BTDS*/ "Add at least 1 button"),
+      H = s._(/*BTDS*/ "You added the maximum number of buttons"),
+      G = s._(/*BTDS*/ "You added the maximum number of visit website buttons"),
+      z = s._(
+        /*BTDS*/ "You added the maximum number of call phone number buttons",
+      ),
+      j = s._(/*BTDS*/ "You added the maximum number of mobile app buttons"),
+      K = s._(/*BTDS*/ "You added the maximum number of quick reply buttons"),
+      Q = s._(
+        /*BTDS*/ "You added the maximum number of pre-configured response buttons",
+      ),
+      X = s._(
+        /*BTDS*/ "Add at least one website or phone button before adding a quick reply button",
+      ),
+      Y = s._(
+        /*BTDS*/ "Your customers expect marketing messages to feel personal and relevant. You can make your message feel more personal by adding the {=m1} variable.",
+        [
+          s._implicitParam(
+            "=m1",
+            u.jsx("strong", { children: s._(/*BTDS*/ "first name") }),
+          ),
+        ],
+      ),
+      J = s._(/*BTDS*/ "Catalog setup"),
+      Z = s._(/*BTDS*/ "Catalog item suggestions"),
+      ee = s._(
+        /*BTDS*/ "We'll select relevant items from your catalog to use in your marketing message.",
+      ),
+      te = s._(
+        /*BTDS*/ "First names are missing for some subscribers in the lists you selected. When you add a first name to the text field, these subscribers will receive a blank in place of the first name.",
+      ),
+      ne = s._(/*BTDS*/ "Update subscriber list(s)"),
+      re = s._(/*BTDS*/ "Android app link");
+    ((l.FORMAT_SECTION_TITLE = c),
+      (l.FORMAT_SECTION_DESCRIPTION = d),
+      (l.FORMAT_SECTION_SINGLE_CARD_LABEL = m),
+      (l.FORMAT_SECTION_SINGLE_CARD_DESCRIPTION = p),
+      (l.FORMAT_SECTION_CAROUSEL_LABEL = _),
+      (l.FORMAT_SECTION_CAROUSEL_DESCRIPTION = f),
+      (l.FORMAT_SECTION_CAROUSEL_DISABLED_FOR_CATALOG_MESSAGE = g),
+      (l.FORMAT_SECTION_CAROUSEL_DISABLED_FOR_EXISTING_AD_MESSAGE = h),
+      (l.GREETING_SECTION_ENABLE_GREETING_MESSAGE = y),
+      (l.OFFER_SECTION_TITLE = C),
+      (l.OFFER_SECTION_DESCRIPTION = b),
+      (l.OFFER_SECTION_ACCORDION_TITLE = v),
+      (l.OFFER_SECTION_ENABLE_OFFERS = S),
+      (l.OFFER_SECTION_ENABLE_OFFER_CODE = R),
+      (l.OFFER_SECTION_ENABLE_OFFERS_DESCRIPTION = L),
+      (l.OFFER_HEADLINE_LABEL = E),
+      (l.OFFER_SECTION_OFFER_CODE_INPUT = k),
+      (l.OFFER_SECTION_ENABLE_EXPIRATION_DATE = I),
+      (l.OFFER_SECTION_ENABLE_EXPIRATION_DATE_DESCRIPTION = T),
+      (l.OFFER_SECTION_EXPIRATION_DATE_PICKER_LABEL = D),
+      (l.OFFER_SECTION_PERSONALIZED_OFFER_CODE_CHECKBOX_LABEL = x),
+      (l.OFFER_SECTION_PERSONALIZED_OFFER_CODE_CHECKBOX_DESCRIPTION = $),
+      (l.OFFER_SECTION_EXPIRATION_DATE_TIME_BEFORE_CAMPAIGN_START_DATE_TIME =
+        P),
+      (l.OFFER_SECTION_EXPIRATION_DATE_TIME_BEFORE_CAMPAIGN_EXPIRATION_DATE_TIME =
+        N),
+      (l.PREVIEW_SECTION_TITLE_WHATSAPP = M),
+      (l.PREVIEW_SECTION_TITLE_DESCRIPTION_MESSENGER = w),
+      (l.PREVIEW_DEFAULT_TEXT_MESSENGER = A),
+      (l.PREVIEW_SECTION_TITLE_MESSAGE_PREVIEW = F),
+      (l.PREVIEW_SECTION_MESSAGE_BODY_PLACEHOLDER = O),
+      (l.PREVIEW_SECTION_MESSAGE_BUTTON_PLACEHOLDER = B),
+      (l.OFFER_SECTION_PERSONALIZED_OFFER_CODE_SELECTION_DISABLED_REASON = W),
+      (l.BUTTON_SECTION_REMOVE_COUPON_BUTTON_DISABLED_FOR_OFFERS = q),
+      (l.BUTTON_SECTION_REMOVE_URL_BUTTON_DISABLED_FOR_OFFERS = U),
+      (l.BUTTON_SECTION_AT_LEAST_ONE_BUTTON_PRESENT = V),
+      (l.BUTTON_SECTION_ADD_BUTTON_MAXIMUM_BUTTON_COUNT_TOOLTIP = H),
+      (l.BUTTON_SECTION_ADD_BUTTON_MAXIMUM_URL_BUTTON_COUNT_TOOLTIP = G),
+      (l.BUTTON_SECTION_ADD_BUTTON_MAXIMUM_PHONE_BUTTON_COUNT_TOOLTIP = z),
+      (l.BUTTON_SECTION_ADD_BUTTON_MAXIMUM_APP_COUNT_TOOLTIP = j),
+      (l.BUTTON_SECTION_ADD_BUTTON_MAXIMUM_QUICK_REPLY_CUSTOM_PAYLOAD_BUTTON_COUNT_TOOLTIP =
+        K),
+      (l.BUTTON_SECTION_ADD_BUTTON_MAXIMUM_QUICK_REPLY_BUTTON_COUNT_TOOLTIP =
+        Q),
+      (l.BUTTON_SECTION_ADD_BUTTON_QUICK_REPLY_BUTTON_WITHOUT_CTA_BUTTONS_TOOLTIP =
+        X),
+      (l.EXISTING_AD_CONVERSION_NOTICE = Y),
+      (l.CATALOG_SETUP_SECTION_ACCORDION_TITLE = J),
+      (l.CATALOG_SETUP_ENABLE_DYNAMIC_PRODUCT_MESSAGING = Z),
+      (l.CATALOG_SETUP_ENABLE_DYNAMIC_PRODUCT_MESSAGING_DESCRIPTION = ee),
+      (l.EMPTY_SUBSCRIBER_FIRST_NAME_NOTICE = te),
+      (l.EMPTY_SUBSCRIBER_FIRST_NAME_NOTICE_CTA = ne),
+      (l.COMMON_CAMPAIGN_ANDROID_DEEP_LINK_INPUT_LABEL = re));
+  },
+  226,
+);

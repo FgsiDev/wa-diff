@@ -1,0 +1,19 @@
+__d(
+  "XBusinessPartnershipAdsHubContentPageControllerRouteBuilder",
+  ["jsRouteBuilder"],
+  function (t, n, r, o, a, i, l) {
+    var e = r("jsRouteBuilder")(
+        "/partnership_ads_hub/ad_content/",
+        Object.freeze({
+          only_recommended_content: !1,
+          should_select_default_asset: !0,
+          content_statuses_initialized: !1,
+          demo_mode: !1,
+        }),
+        void 0,
+      ),
+      s = e;
+    l.default = s;
+  },
+  98,
+);

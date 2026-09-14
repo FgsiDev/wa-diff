@@ -1,0 +1,266 @@
+__d(
+  "AdsPromoAdsEmailCaptureSettingStoreSourceServerQuery.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = { defaultValue: null, kind: "LocalArgument", name: "account_id" },
+        t = { defaultValue: null, kind: "LocalArgument", name: "catalog_id" },
+        n = { defaultValue: null, kind: "LocalArgument", name: "page_id" },
+        r = { defaultValue: null, kind: "LocalArgument", name: "pixel_id" },
+        o = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "product_set_id",
+        },
+        a = {
+          defaultValue: !1,
+          kind: "LocalArgument",
+          name: "shouldSkipServerEmailCaptureOffer",
+        },
+        i = [
+          {
+            condition: "shouldSkipServerEmailCaptureOffer",
+            kind: "Condition",
+            passingValue: !1,
+            selections: [
+              {
+                alias: null,
+                args: [
+                  {
+                    kind: "Variable",
+                    name: "account_id",
+                    variableName: "account_id",
+                  },
+                  {
+                    kind: "Variable",
+                    name: "catalog_id",
+                    variableName: "catalog_id",
+                  },
+                  {
+                    kind: "Variable",
+                    name: "page_id",
+                    variableName: "page_id",
+                  },
+                  {
+                    kind: "Variable",
+                    name: "pixel_id",
+                    variableName: "pixel_id",
+                  },
+                  {
+                    kind: "Variable",
+                    name: "product_set_id",
+                    variableName: "product_set_id",
+                  },
+                ],
+                concreteType: "XFBPromoAdsEmailCaptureSettings",
+                kind: "LinkedField",
+                name: "xfb_promo_ads_email_capture_config_by_page",
+                plural: !1,
+                selections: [
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "is_unique_code_offer",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "cm_setting_url",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "leads_center_url",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "page_linked_cms_id",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "is_email_capture_opted_in",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "is_offer_eligible_for_default_opt_in",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "is_shop_email_capture_opted_in",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "is_seller_has_privacy_policy",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "has_email_capture_offer_synced",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "seller_privacy_policy_uri",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "shopify_domain_uri",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "email_offer_generic_code",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "email_offer_type",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "email_offer_percentage_off",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    concreteType: "CurrencyAmount",
+                    kind: "LinkedField",
+                    name: "email_offer_amount_off",
+                    plural: !1,
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "amount",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "formatted_amount",
+                        storageKey: null,
+                      },
+                    ],
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "active_email_offer_ads_count",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "has_seller_provided_promo_code",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "is_recommended_offer",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "is_offer_inactive_with_low_quality",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "merchant_domain_id",
+                    storageKey: null,
+                  },
+                  {
+                    kind: "ClientExtension",
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "is_offer_manually_created_or_updated",
+                        storageKey: null,
+                      },
+                    ],
+                  },
+                ],
+                storageKey: null,
+              },
+            ],
+          },
+        ];
+      return {
+        fragment: {
+          argumentDefinitions: [e, t, n, r, o, a],
+          kind: "Fragment",
+          metadata: null,
+          name: "AdsPromoAdsEmailCaptureSettingStoreSourceServerQuery",
+          selections: i,
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: [n, e, r, t, o, a],
+          kind: "Operation",
+          name: "AdsPromoAdsEmailCaptureSettingStoreSourceServerQuery",
+          selections: i,
+        },
+        params: {
+          id: "27928529410149216",
+          metadata: {},
+          name: "AdsPromoAdsEmailCaptureSettingStoreSourceServerQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

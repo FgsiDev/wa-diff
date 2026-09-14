@@ -1,0 +1,215 @@
+__d(
+  "AdsMgmtFlowSearchAndFilterMR2026H1GatingUtils",
+  [
+    "$InternalEnum",
+    "AMUsabilityHBTCatchAllUtils",
+    "ARXUsabilityHoldoutUtils",
+    "AdsAIUtils",
+    "gkx",
+    "justknobx",
+    "qex",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = n("$InternalEnum").Mirrored([
+      "MOVE_DRAFTS",
+      "MOVE_AND_FILTER_DRAFTS",
+      "CONTROL",
+    ]);
+    function s() {
+      var t;
+      if (!o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests())
+        return o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout()
+          ? e.MOVE_AND_FILTER_DRAFTS
+          : e.CONTROL;
+      var n = (t = r("qex")._("5110")) != null ? t : !0;
+      return n ? e.MOVE_AND_FILTER_DRAFTS : e.CONTROL;
+    }
+    function u() {
+      var t;
+      if (!o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests())
+        return o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout()
+          ? e.MOVE_AND_FILTER_DRAFTS
+          : e.CONTROL;
+      var n = (t = r("qex")._("5111")) != null ? t : !0;
+      return n ? e.MOVE_AND_FILTER_DRAFTS : e.CONTROL;
+    }
+    function c() {
+      return r("gkx")("15591");
+    }
+    function d() {
+      var e;
+      return p()
+        ? !0
+        : o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests()
+          ? (e = r("qex")._("5110")) != null
+            ? e
+            : !0
+          : !!o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout();
+    }
+    function m() {
+      var e;
+      return p()
+        ? !0
+        : o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests()
+          ? (e = r("qex")._("5111")) != null
+            ? e
+            : !0
+          : !!o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout();
+    }
+    function p() {
+      return r("gkx")("13852");
+    }
+    function _() {
+      var e;
+      return r("gkx")("6116") ||
+        (!o(
+          "ARXUsabilityHoldoutUtils",
+        ).isAccountIn2026H1UsabilityHBTHoldout() &&
+          o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout())
+        ? !0
+        : (e = r("qex")._("3114")) != null
+          ? e
+          : !0;
+    }
+    function f() {
+      var e;
+      return r("gkx")("6116") ||
+        (!o(
+          "ARXUsabilityHoldoutUtils",
+        ).isAccountIn2026H1UsabilityHBTHoldout() &&
+          o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout())
+        ? !0
+        : (e = r("qex")._("3155")) != null
+          ? e
+          : !0;
+    }
+    function g(e) {
+      return (
+        e === void 0 && (e = !0),
+        o("AdsAIUtils").getIsAdsAIBetaM2AvailableOnCurrentSurface(
+          "PERFORMANCE_SUMMARY_WIDGET",
+          e,
+        )
+      );
+    }
+    function h() {
+      return g();
+    }
+    function y() {
+      return g(!1);
+    }
+    function C() {
+      var e;
+      return k()
+        ? !0
+        : o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests()
+          ? (e = r("qex")._("1236")) != null
+            ? e
+            : !0
+          : !!o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout();
+    }
+    function b() {
+      var e;
+      return k()
+        ? !0
+        : o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests()
+          ? (e = r("qex")._("358")) != null
+            ? e
+            : !0
+          : !!o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout();
+    }
+    function v() {
+      var e;
+      return k()
+        ? !0
+        : o(
+              "ARXUsabilityHoldoutUtils",
+            ).isAccountIn2026H1UsabilityHBTHoldout() &&
+            !r("justknobx")._("2016")
+          ? (S(),
+            o(
+              "AMUsabilityHBTCatchAllUtils",
+            ).isAccountInUsabilityH1HBTCatchAllTest())
+          : o("ARXUsabilityHoldoutUtils").isAccountIn2026H1UsabilityHBTHoldout()
+            ? !1
+            : (e = r("qex")._("2676")) != null
+              ? e
+              : !1;
+    }
+    function S() {
+      r("gkx")("3132");
+    }
+    function R() {
+      var e;
+      return E()
+        ? !0
+        : o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests()
+          ? (e = r("qex")._("5110")) != null
+            ? e
+            : !0
+          : !!o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout();
+    }
+    function L() {
+      var e;
+      return E()
+        ? !0
+        : o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests()
+          ? (e = r("qex")._("5111")) != null
+            ? e
+            : !0
+          : !!o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout();
+    }
+    function E() {
+      return r("gkx")("19458");
+    }
+    function k() {
+      return r("gkx")("16571");
+    }
+    function I() {
+      var e;
+      return D()
+        ? !0
+        : o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests()
+          ? (e = r("qex")._("5110")) != null
+            ? e
+            : !0
+          : !!o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout();
+    }
+    function T() {
+      var e;
+      return D()
+        ? !0
+        : o("ARXUsabilityHoldoutUtils").shouldAccountSeeFlow11_2Pretests()
+          ? (e = r("qex")._("5111")) != null
+            ? e
+            : !0
+          : !!o("ARXUsabilityHoldoutUtils").isAccountInFlow11_2Holdout();
+    }
+    function D() {
+      return r("gkx")("8457");
+    }
+    ((l.AdsInsightsDraftBehaviorVariant = e),
+      (l.getDraftBehaviorVariantForAccount = s),
+      (l.getDraftBehaviorVariantForAccountWithoutExposure = u),
+      (l.getIsAccountInDraftAgeSplit = c),
+      (l.getIsAccountInCurrencyHybridInput = d),
+      (l.getIsAccountInCurrencyHybridInputWithoutExposure = m),
+      (l.getIsAccountInCurrencyHybridInputDogfooding = p),
+      (l.getIsAccountInFuzzySearch = _),
+      (l.getIsAccountInFuzzySearchWithoutExposure = f),
+      (l.getIsAccountEligibleForAIInsightsExcludesRestrictedAccounts = g),
+      (l.getIsAccountInAIPerformanceSummaryWithExposure = h),
+      (l.getIsAccountInAIPerformanceSummaryWithoutExposure = y),
+      (l.getIsAccountInMetricTaxonomyInFilterMenuExperiment = C),
+      (l.getIsAccountInMetricTaxonomyInFilterMenuExperimentWithoutExposure = b),
+      (l.getIsAccountInFixAdsReportingMetricFilter = v),
+      (l.getIsAccountInFixBrokenFilters = R),
+      (l.getIsAccountInFixBrokenFiltersWithoutExposure = L),
+      (l.isAccountInAMDMediumRockDogfooding = k),
+      (l.getIsAccountInRemoveAutomaticAdditionalFilters = I),
+      (l.getIsAccountInRemoveAutomaticAdditionalFiltersWithoutExposure = T),
+      (l.getIsAccountInRemoveAutomaticAdditionalFiltersDogfooding = D));
+  },
+  98,
+);

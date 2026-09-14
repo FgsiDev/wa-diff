@@ -1,0 +1,51 @@
+__d(
+  "AdsInsightsColumnChangeSource",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = {
+        AUTOSUGGEST: "autosuggest",
+        COLUMN_HEADER_DROPDOWN: "column_header_dropdown",
+        COLUMN_HEADER_DROPDOWN_POPULAR_COLUMNS:
+          "column_header_dropdown_popular_columns",
+        COLUMN_HEADER_DROPDOWN_QUICK_COLUMNS:
+          "column_header_dropdown_quick_columns",
+        COLUMN_SELECTOR: "column_selector",
+        MAIBA_GENAI: "maiba_genai",
+        MONITOR_AGENT: "monitor_agent",
+        QUICK_VIEW: "quick_view",
+        SECONDARY_SORT_MODAL: "secondary_sort_modal",
+        SHOPS_ADS_REPLACEMENT_TIP: "shops_ads_replacement_tip",
+        SUGGEST_MENU: "suggest_menu",
+        SUGGESTIONS: "suggestions",
+        USER: "user",
+      },
+      l = e.AUTOSUGGEST,
+      s = e.COLUMN_HEADER_DROPDOWN,
+      u = e.COLUMN_HEADER_DROPDOWN_POPULAR_COLUMNS,
+      c = e.COLUMN_HEADER_DROPDOWN_QUICK_COLUMNS,
+      d = e.COLUMN_SELECTOR,
+      m = e.MAIBA_GENAI,
+      p = e.MONITOR_AGENT,
+      _ = e.QUICK_VIEW,
+      f = e.SECONDARY_SORT_MODAL,
+      g = e.SHOPS_ADS_REPLACEMENT_TIP,
+      h = e.SUGGEST_MENU,
+      y = e.SUGGESTIONS,
+      C = e.USER;
+    ((i.AUTOSUGGEST = l),
+      (i.COLUMN_HEADER_DROPDOWN = s),
+      (i.COLUMN_HEADER_DROPDOWN_POPULAR_COLUMNS = u),
+      (i.COLUMN_HEADER_DROPDOWN_QUICK_COLUMNS = c),
+      (i.COLUMN_SELECTOR = d),
+      (i.MAIBA_GENAI = m),
+      (i.MONITOR_AGENT = p),
+      (i.QUICK_VIEW = _),
+      (i.SECONDARY_SORT_MODAL = f),
+      (i.SHOPS_ADS_REPLACEMENT_TIP = g),
+      (i.SUGGEST_MENU = h),
+      (i.SUGGESTIONS = y),
+      (i.USER = C));
+  },
+  66,
+);

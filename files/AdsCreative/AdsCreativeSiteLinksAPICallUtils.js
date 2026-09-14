@@ -1,1 +1,402 @@
-__d("AdsCreativeSiteLinksAPICallUtils",["AdsAPICampaignRecordUtils","AdsGraphAPI","AdsInterfacesLogger","AdsMetadataConnectedSourcesUtils","AdsMgmtPreloadingUtils","AsyncDataPreloader","SEFunnelLogger","asyncToGeneratorRuntime","cr:37829","getErrorSafe","immutable","isValidURL"],(function(t,n,r,o,a,i,l){"use strict";var e=new(r("AsyncDataPreloader"))({id:"AdsCreativeManagementSiteLinksPreloader"}),s={defaultOnType:null,defaultOnURL:null};function u(e){return o("AdsGraphAPI").get(i.id).adaccount(e.account_id).get({fields:[m(e.url,void 0,e.promoted_object,e.targeting_countries,e.page_id,e.adgroup_id,e.ad_image_hash)],limit:20}).then(function(t){return p(t.site_links_live_crawl,e.caller,e.adgroup_id,e.account_id,e.url)}).catch(function(t){var n=r("getErrorSafe")(t);return o("SEFunnelLogger").logL1SiteLinksAPIFail({ad_account_id:e.account_id,adgroup_id:e.adgroup_id},{caller:e.caller,error_message:n==null?void 0:n.message,source_url:e.url}),f(n,e.caller),p(null,e.caller,e.adgroup_id,e.account_id,e.url)})}function c(e,t,n,o,a){var i,l=t!=null&&!r("isValidURL")(t),s=(i=e.creative)==null||(i=i.creative_sourcing_spec)==null?void 0:i.site_links_spec,u=s==null||(s==null?void 0:s.size)===0;if(l||u){var c;r("AdsInterfacesLogger").logOnce({data:(c={},c.message=JSON.stringify({sourceUrl:t,newSourceUrl:o}),c.adgroup_id=n,c.caller=a,c.source=l?"fix":"update",c),eventName:"ads_connected_sources_fix_source_url"})}return(l||u)&&t!==o&&o!=null&&o!==""}function d(e,t,a,l,s,u,c,d,_){return o("AdsGraphAPI").get(i.id).adaccount(a).get({fields:[m(t,null,s,c,d,l,_)],limit:20}).then(function(s){var c=s.site_links_live_crawl,d=p(c,u,l,a,t);if(l!=null){var m=o("AdsMetadataConnectedSourcesUtils").getSiteLinksDefaultOnType(d),_=o("AdsAPICampaignRecordUtils").getOptimizationGoal(e);m!=null&&n("cr:37829").dispatch({adgroupIDs:[l],siteLinksSpec:d!=null?d:r("immutable").List(),defaultOnType:m,defaultOnURL:t,optimizationGoal:_},{line:"221",module:"AdsCreativeSiteLinksAPICallUtils.js",moduleID:i.id})}return d}).catch(function(e){var n=r("getErrorSafe")(e);return o("SEFunnelLogger").logL1SiteLinksAPIFail({ad_account_id:a,adgroup_id:l},{caller:u,error_message:n==null?void 0:n.message,source_url:t}),f(n,u),p(null,u,l,a,t)})}function m(e,t,n,r,o,a,i){return i===void 0&&(i=null),"site_links_live_crawl"+(e!=null&&e!==""?".source_url("+e+")":"")+(t!=null?".site_link_recommendation_type("+t+")":"")+(n!=null?".promoted_object_spec("+JSON.stringify(n)+")":"")+(r!=null&&r.length>0?".targeting_countries("+r.join(",")+")":"")+(o!=null?".page_id("+o+")":"")+(a!=null?".adgroup_id("+a+")":"")+(i!=null?".ad_image_hash("+i+")":"")}function p(e,t,n,a,i){a===void 0&&(a=null),i===void 0&&(i=null);var l=e==null?r("immutable").List():r("immutable").List(e);if(e!=null){var s,u=l.first();o("SEFunnelLogger").logL1SiteLinksAPISuccess({ad_account_id:a,adgroup_id:n},{caller:t,is_defaulting_eligible:(u==null?void 0:u.is_defaulting_eligible)===!0,recommendation_type:(s=u==null?void 0:u.site_link_recommendation_type)!=null?s:null,site_links_count:l.size,source_url:i})}return _(l.size>0?l:null,t,n),l}function _(e,t,n){var o,a,i;r("AdsInterfacesLogger").logOnce({data:(i={},i.message=JSON.stringify({siteLinks:Array.from((o=e==null?void 0:e.values())!=null?o:[]),count:(a=e==null?void 0:e.size)!=null?a:0}),i.caller=t,i.adgroup_id=n,i),eventName:"ads_connected_sources_results_loaded"})}function f(e,t){var n;r("AdsInterfacesLogger").log({data:(n={},n.message=JSON.stringify({errorMessage:e.message,errorCode:e.number,errorType:e.stack}),n.caller=t,n),eventName:"ads_connected_sources_results_loaded"})}function g(e,t,n,o){var a;n===void 0&&(n="CONNECTED_SOURCE"),r("AdsInterfacesLogger").log({data:(a={},a.message=JSON.stringify({siteLinks:o}),a.optimization_goal=null,a.action_type=t,a.adgroup_id=e,a.caller=n,a.subsequent_data=null,a),eventName:"ads_connected_sources_add_site_links_by_default"})}function h(e){return y.apply(this,arguments)}function y(){return y=n("asyncToGeneratorRuntime").asyncToGenerator(function*(e){function t(){return a.apply(this,arguments)}function a(){return a=n("asyncToGeneratorRuntime").asyncToGenerator(function*(){var t=yield o("AdsGraphAPI").get(i.id).adaccount(e.account_id).get({fields:[b(e.page_id,e.promoted_object,e.source_url,e.targeting_countries,e.adgroup_id)],limit:20}),n=t==null?void 0:t.domain_and_site_links,r=n==null?void 0:n.site_links_spec,a=n==null?void 0:n.source_url,l=p(r,e.caller,e.adgroup_id,e.account_id,a!=null?a:e.source_url);return{source_url:a,site_links_spec:l}}),a.apply(this,arguments)}try{return yield t()}catch(t){var l=r("getErrorSafe")(t);return o("SEFunnelLogger").logL1SiteLinksAPIFail({ad_account_id:e.account_id,adgroup_id:e.adgroup_id},{caller:e.caller,error_message:l==null?void 0:l.message,source_url:e.source_url}),f(l,e.caller),{source_url:null,site_links_spec:null}}}),y.apply(this,arguments)}function C(e,t,a,l,s,u,c){return o("AdsGraphAPI").get(i.id).adaccount(a).get({fields:[b(c,s,t,null,l)],limit:20}).then(function(s){var c=s==null?void 0:s.domain_and_site_links,d=c==null?void 0:c.site_links_spec,m=c==null?void 0:c.source_url,_=p(d,u,l,a,m!=null?m:t);if(l!=null){var f=o("AdsMetadataConnectedSourcesUtils").getSiteLinksDefaultOnType(_),g=o("AdsAPICampaignRecordUtils").getOptimizationGoal(e);f!=null&&n("cr:37829").dispatch({adgroupIDs:[l],siteLinksSpec:_!=null?_:r("immutable").List(),defaultOnType:f,defaultOnURL:m,sourceURL:m,optimizationGoal:g},{line:"447",module:"AdsCreativeSiteLinksAPICallUtils.js",moduleID:i.id})}return{source_url:m,site_links_spec:_}}).catch(function(e){var n=r("getErrorSafe")(e);return o("SEFunnelLogger").logL1SiteLinksAPIFail({ad_account_id:a,adgroup_id:l},{caller:u,error_message:n==null?void 0:n.message,source_url:t}),f(n,u),{source_url:null,site_links_spec:null}})}function b(e,t,n,r,o){var a="domain_and_site_links"+(e!=null?".page_id("+e+")":"")+(t!=null?".promoted_object_spec("+JSON.stringify(t)+")":"")+(n!=null?".source_url("+n+")":"")+(r!=null&&r.length>0?".targeting_countries("+r.join(",")+")":"")+(o!=null?".adgroup_id("+o+")":"");return a}function v(t){var n=["link_id","link_title","link_url","link_image_url","link_image_hash","link_domain","link_type","link_hash"];return o("AdsGraphAPI").get(i.id).adaccount(t.account_id).edge("management_site_links").preloadedBy(e,o("AdsMgmtPreloadingUtils").defaultConfig).get({fields:n.join(","),limit:55}).then(function(e){return S(r("immutable").List(e.data),null),e.data}).catch(function(e){return S(r("immutable").List(),e),r("immutable").List()})}function S(e,t){var n;r("AdsInterfacesLogger").log({data:(n={},n.error_name=t==null?void 0:t.message,n.error_code=t==null?void 0:t.number,n.error_data=t==null?void 0:t.stack,n.message=JSON.stringify(e),n),eventName:"ads_connected_sources_management_site_links_response"})}l.defaultSiteLinkNoticeData=s,l.loadSiteLinks=u,l.shouldFixInvalidSourceUrl=c,l.loadSiteLinksWithMutation=d,l.createSiteLinkItemsFromResponse=p,l.logSiteLikeItemsResult=_,l.logSiteLinkSpecDefaultOn=g,l.loadDomainAndSiteLinks=h,l.loadDomainAndSiteLinksWithMutation=C,l.getDomainAndSiteLinkRequestField=b,l.loadManagementSiteLinks=v}),98);
+__d(
+  "AdsCreativeSiteLinksAPICallUtils",
+  [
+    "AdsAPICampaignRecordUtils",
+    "AdsGraphAPI",
+    "AdsInterfacesLogger",
+    "AdsMetadataConnectedSourcesUtils",
+    "AdsMgmtPreloadingUtils",
+    "AsyncDataPreloader",
+    "SEFunnelLogger",
+    "asyncToGeneratorRuntime",
+    "cr:37829",
+    "getErrorSafe",
+    "immutable",
+    "isValidURL",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = new (r("AsyncDataPreloader"))({
+        id: "AdsCreativeManagementSiteLinksPreloader",
+      }),
+      s = { defaultOnType: null, defaultOnURL: null };
+    function u(e) {
+      return o("AdsGraphAPI")
+        .get(i.id)
+        .adaccount(e.account_id)
+        .get({
+          fields: [
+            m(
+              e.url,
+              void 0,
+              e.promoted_object,
+              e.targeting_countries,
+              e.page_id,
+              e.adgroup_id,
+              e.ad_image_hash,
+            ),
+          ],
+          limit: 20,
+        })
+        .then(function (t) {
+          return p(
+            t.site_links_live_crawl,
+            e.caller,
+            e.adgroup_id,
+            e.account_id,
+            e.url,
+          );
+        })
+        .catch(function (t) {
+          var n = r("getErrorSafe")(t);
+          return (
+            o("SEFunnelLogger").logL1SiteLinksAPIFail(
+              { ad_account_id: e.account_id, adgroup_id: e.adgroup_id },
+              {
+                caller: e.caller,
+                error_message: n == null ? void 0 : n.message,
+                source_url: e.url,
+              },
+            ),
+            f(n, e.caller),
+            p(null, e.caller, e.adgroup_id, e.account_id, e.url)
+          );
+        });
+    }
+    function c(e, t, n, o, a) {
+      var i,
+        l = t != null && !r("isValidURL")(t),
+        s =
+          (i = e.creative) == null || (i = i.creative_sourcing_spec) == null
+            ? void 0
+            : i.site_links_spec,
+        u = s == null || (s == null ? void 0 : s.size) === 0;
+      if (l || u) {
+        var c;
+        r("AdsInterfacesLogger").logOnce({
+          data:
+            ((c = {}),
+            (c.message = JSON.stringify({ sourceUrl: t, newSourceUrl: o })),
+            (c.adgroup_id = n),
+            (c.caller = a),
+            (c.source = l ? "fix" : "update"),
+            c),
+          eventName: "ads_connected_sources_fix_source_url",
+        });
+      }
+      return (l || u) && t !== o && o != null && o !== "";
+    }
+    function d(e, t, a, l, s, u, c, d, _) {
+      return o("AdsGraphAPI")
+        .get(i.id)
+        .adaccount(a)
+        .get({ fields: [m(t, null, s, c, d, l, _)], limit: 20 })
+        .then(function (s) {
+          var c = s.site_links_live_crawl,
+            d = p(c, u, l, a, t);
+          if (l != null) {
+            var m = o(
+                "AdsMetadataConnectedSourcesUtils",
+              ).getSiteLinksDefaultOnType(d),
+              _ = o("AdsAPICampaignRecordUtils").getOptimizationGoal(e);
+            m != null &&
+              n("cr:37829").dispatch(
+                {
+                  adgroupIDs: [l],
+                  siteLinksSpec: d != null ? d : r("immutable").List(),
+                  defaultOnType: m,
+                  defaultOnURL: t,
+                  optimizationGoal: _,
+                },
+                {
+                  line: "221",
+                  module: "AdsCreativeSiteLinksAPICallUtils.js",
+                  moduleID: i.id,
+                },
+              );
+          }
+          return d;
+        })
+        .catch(function (e) {
+          var n = r("getErrorSafe")(e);
+          return (
+            o("SEFunnelLogger").logL1SiteLinksAPIFail(
+              { ad_account_id: a, adgroup_id: l },
+              {
+                caller: u,
+                error_message: n == null ? void 0 : n.message,
+                source_url: t,
+              },
+            ),
+            f(n, u),
+            p(null, u, l, a, t)
+          );
+        });
+    }
+    function m(e, t, n, r, o, a, i) {
+      return (
+        i === void 0 && (i = null),
+        "site_links_live_crawl" +
+          (e != null && e !== "" ? ".source_url(" + e + ")" : "") +
+          (t != null ? ".site_link_recommendation_type(" + t + ")" : "") +
+          (n != null
+            ? ".promoted_object_spec(" + JSON.stringify(n) + ")"
+            : "") +
+          (r != null && r.length > 0
+            ? ".targeting_countries(" + r.join(",") + ")"
+            : "") +
+          (o != null ? ".page_id(" + o + ")" : "") +
+          (a != null ? ".adgroup_id(" + a + ")" : "") +
+          (i != null ? ".ad_image_hash(" + i + ")" : "")
+      );
+    }
+    function p(e, t, n, a, i) {
+      (a === void 0 && (a = null), i === void 0 && (i = null));
+      var l = e == null ? r("immutable").List() : r("immutable").List(e);
+      if (e != null) {
+        var s,
+          u = l.first();
+        o("SEFunnelLogger").logL1SiteLinksAPISuccess(
+          { ad_account_id: a, adgroup_id: n },
+          {
+            caller: t,
+            is_defaulting_eligible:
+              (u == null ? void 0 : u.is_defaulting_eligible) === !0,
+            recommendation_type:
+              (s = u == null ? void 0 : u.site_link_recommendation_type) != null
+                ? s
+                : null,
+            site_links_count: l.size,
+            source_url: i,
+          },
+        );
+      }
+      return (_(l.size > 0 ? l : null, t, n), l);
+    }
+    function _(e, t, n) {
+      var o, a, i;
+      r("AdsInterfacesLogger").logOnce({
+        data:
+          ((i = {}),
+          (i.message = JSON.stringify({
+            siteLinks: Array.from(
+              (o = e == null ? void 0 : e.values()) != null ? o : [],
+            ),
+            count: (a = e == null ? void 0 : e.size) != null ? a : 0,
+          })),
+          (i.caller = t),
+          (i.adgroup_id = n),
+          i),
+        eventName: "ads_connected_sources_results_loaded",
+      });
+    }
+    function f(e, t, n) {
+      var o;
+      (n === void 0 && (n = !1),
+        r("AdsInterfacesLogger").log({
+          data:
+            ((o = {}),
+            (o.message = JSON.stringify({
+              errorMessage: e.message,
+              errorCode: e.number,
+              errorType: e.stack,
+              is_gql_fetch: n,
+            })),
+            (o.caller = t),
+            o),
+          eventName: "ads_connected_sources_results_loaded",
+        }));
+    }
+    function g(e, t, n, o) {
+      var a;
+      (n === void 0 && (n = "CONNECTED_SOURCE"),
+        r("AdsInterfacesLogger").log({
+          data:
+            ((a = {}),
+            (a.message = JSON.stringify({ siteLinks: o })),
+            (a.optimization_goal = null),
+            (a.action_type = t),
+            (a.adgroup_id = e),
+            (a.caller = n),
+            (a.subsequent_data = null),
+            a),
+          eventName: "ads_connected_sources_add_site_links_by_default",
+        }));
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          function t() {
+            return a.apply(this, arguments);
+          }
+          function a() {
+            return (
+              (a = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var t = yield o("AdsGraphAPI")
+                    .get(i.id)
+                    .adaccount(e.account_id)
+                    .get({
+                      fields: [
+                        b(
+                          e.page_id,
+                          e.promoted_object,
+                          e.source_url,
+                          e.targeting_countries,
+                          e.adgroup_id,
+                        ),
+                      ],
+                      limit: 20,
+                    }),
+                  n = t == null ? void 0 : t.domain_and_site_links,
+                  r = n == null ? void 0 : n.site_links_spec,
+                  a = n == null ? void 0 : n.source_url,
+                  l = p(
+                    r,
+                    e.caller,
+                    e.adgroup_id,
+                    e.account_id,
+                    a != null ? a : e.source_url,
+                  );
+                return { source_url: a, site_links_spec: l };
+              })),
+              a.apply(this, arguments)
+            );
+          }
+          try {
+            return yield t();
+          } catch (t) {
+            var l = r("getErrorSafe")(t);
+            return (
+              o("SEFunnelLogger").logL1SiteLinksAPIFail(
+                { ad_account_id: e.account_id, adgroup_id: e.adgroup_id },
+                {
+                  caller: e.caller,
+                  error_message: l == null ? void 0 : l.message,
+                  source_url: e.source_url,
+                },
+              ),
+              f(l, e.caller),
+              { source_url: null, site_links_spec: null }
+            );
+          }
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t, a, l, s, u, c) {
+      return o("AdsGraphAPI")
+        .get(i.id)
+        .adaccount(a)
+        .get({ fields: [b(c, s, t, null, l)], limit: 20 })
+        .then(function (s) {
+          var c = s == null ? void 0 : s.domain_and_site_links,
+            d = c == null ? void 0 : c.site_links_spec,
+            m = c == null ? void 0 : c.source_url,
+            _ = p(d, u, l, a, m != null ? m : t);
+          if (l != null) {
+            var f = o(
+                "AdsMetadataConnectedSourcesUtils",
+              ).getSiteLinksDefaultOnType(_),
+              g = o("AdsAPICampaignRecordUtils").getOptimizationGoal(e);
+            f != null &&
+              n("cr:37829").dispatch(
+                {
+                  adgroupIDs: [l],
+                  siteLinksSpec: _ != null ? _ : r("immutable").List(),
+                  defaultOnType: f,
+                  defaultOnURL: m,
+                  sourceURL: m,
+                  optimizationGoal: g,
+                },
+                {
+                  line: "452",
+                  module: "AdsCreativeSiteLinksAPICallUtils.js",
+                  moduleID: i.id,
+                },
+              );
+          }
+          return { source_url: m, site_links_spec: _ };
+        })
+        .catch(function (e) {
+          var n = r("getErrorSafe")(e);
+          return (
+            o("SEFunnelLogger").logL1SiteLinksAPIFail(
+              { ad_account_id: a, adgroup_id: l },
+              {
+                caller: u,
+                error_message: n == null ? void 0 : n.message,
+                source_url: t,
+              },
+            ),
+            f(n, u),
+            { source_url: null, site_links_spec: null }
+          );
+        });
+    }
+    function b(e, t, n, r, o) {
+      var a =
+        "domain_and_site_links" +
+        (e != null ? ".page_id(" + e + ")" : "") +
+        (t != null ? ".promoted_object_spec(" + JSON.stringify(t) + ")" : "") +
+        (n != null ? ".source_url(" + n + ")" : "") +
+        (r != null && r.length > 0
+          ? ".targeting_countries(" + r.join(",") + ")"
+          : "") +
+        (o != null ? ".adgroup_id(" + o + ")" : "");
+      return a;
+    }
+    function v(t) {
+      var n = [
+        "link_id",
+        "link_title",
+        "link_url",
+        "link_image_url",
+        "link_image_hash",
+        "link_domain",
+        "link_type",
+        "link_hash",
+      ];
+      return o("AdsGraphAPI")
+        .get(i.id)
+        .adaccount(t.account_id)
+        .edge("management_site_links")
+        .preloadedBy(e, o("AdsMgmtPreloadingUtils").defaultConfig)
+        .get({ fields: n.join(","), limit: 55 })
+        .then(function (e) {
+          return (S(r("immutable").List(e.data), null), e.data);
+        })
+        .catch(function (e) {
+          return (S(r("immutable").List(), e), r("immutable").List());
+        });
+    }
+    function S(e, t) {
+      var n;
+      r("AdsInterfacesLogger").log({
+        data:
+          ((n = {}),
+          (n.error_name = t == null ? void 0 : t.message),
+          (n.error_code = t == null ? void 0 : t.number),
+          (n.error_data = t == null ? void 0 : t.stack),
+          (n.message = JSON.stringify(e)),
+          n),
+        eventName: "ads_connected_sources_management_site_links_response",
+      });
+    }
+    ((l.defaultSiteLinkNoticeData = s),
+      (l.loadSiteLinks = u),
+      (l.shouldFixInvalidSourceUrl = c),
+      (l.loadSiteLinksWithMutation = d),
+      (l.createSiteLinkItemsFromResponse = p),
+      (l.logSiteLikeItemsResult = _),
+      (l.logSiteLikeErrorResponse = f),
+      (l.logSiteLinkSpecDefaultOn = g),
+      (l.loadDomainAndSiteLinks = h),
+      (l.loadDomainAndSiteLinksWithMutation = C),
+      (l.getDomainAndSiteLinkRequestField = b),
+      (l.loadManagementSiteLinks = v));
+  },
+  98,
+);

@@ -1,0 +1,9 @@
+__d(
+  "AdsUEditorAdgroupDynamicAdsImageMediaDataActionFlux",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    a.exports = { actionType: "ADS_ADGROUP_EDITOR_DYNAMIC_ADS_IMAGE_MEDIA" };
+  },
+  null,
+);

@@ -1,0 +1,14 @@
+__d(
+  "AdsEngagementHubEnabled.relayprovider",
+  ["gkx"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = {
+      get: function () {
+        return r("gkx")("22004");
+      },
+    };
+    l.default = e;
+  },
+  98,
+);

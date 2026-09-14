@@ -1,0 +1,40 @@
+__d(
+  "AdsAdgroupBulkEditColumnKeys",
+  ["keyMirror"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = r("keyMirror")({
+        ADGROUP_ADVANTAGE_CREATIVE: null,
+        ADGROUP_CREATIVE_BADGE: null,
+        ADGROUP_CREATIVE_REWARDS: null,
+        ADGROUP_CREATIVE_TESTIMONIAL: null,
+        ADGROUP_INSTAGRAM_ACCOUNT: null,
+        ADGROUP_LINK_DESCRIPTION: null,
+        ADGROUP_MEDIA: null,
+        ADGROUP_MULTI_ADVERTISER_ADS: null,
+        ADGROUP_NAME: null,
+        ADGROUP_PAC_MEDIA: null,
+        ADGROUP_PAGE: null,
+        ADGROUP_PAGE_AND_ACCOUNTS: null,
+        ADGROUP_PLACEMENTS: null,
+        ADGROUP_PRODUCT_BROWSING_OPT_IN: null,
+        ADGROUP_SCHEDULE_END: null,
+        ADGROUP_SCHEDULE_START: null,
+        ADGROUP_SHOP: null,
+        ADGROUP_SHOPS_ADS_OPT_IN: null,
+        ADGROUP_URL_TAGS: null,
+        ADGROUP_WEBSITE_URL: null,
+        CALL_TO_ACTION: null,
+        DISPLAY_URL: null,
+        HEADLINE: null,
+        MESSAGE: null,
+        MARKETING_MESSAGES: null,
+        ADGROUP_METADATA_OPT_IN: null,
+        ADGROUP_APP_STORE_DETAILS: null,
+        RELATED_MEDIA: null,
+      }),
+      s = e;
+    l.default = s;
+  },
+  98,
+);

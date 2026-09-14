@@ -1,0 +1,11 @@
+__d(
+  "AdsUEditorAdgroupDeselectMessagingAppsLinkTypeDataActionFlux",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    a.exports = {
+      actionType: "ADS_ADGROUP_EDITOR_DESELECT_MESSAGING_APPS_LINK_TYPE",
+    };
+  },
+  null,
+);

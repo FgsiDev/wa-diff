@@ -1,0 +1,50 @@
+__d(
+  "AdsAdgroupDraftFragmentsRegistry",
+  [
+    "AdsAdgroupDraftFragmentEnablePageActorReducerPlugin",
+    "AdsAdgroupDraftFragmentInstantPublishNameFieldReducerPlugin",
+    "AdsAdgroupDraftFragmentLiveStatusChangeReducerPlugin",
+    "AdsAdgroupDraftFragmentReplaceInReducerPlugin",
+    "AdsAdgroupDraftFragmentSetAppIDReducerPlugin",
+    "AdsAdgroupDraftFragmentSetCollectionCoverMediaReducerPlugin",
+    "AdsAdgroupDraftFragmentSetFragmentStatusReducerPlugin",
+    "AdsAdgroupDraftFragmentsBulkEditApplyChangesReducerPlugin",
+    "AdsAdgroupDraftFragmentsCopyCompletedReducerPlugin",
+    "AdsAdgroupDraftFragmentsDataProvider",
+    "AdsAdgroupDraftFragmentsDeleteAdObjectsReducerPlugin",
+    "AdsAdgroupDraftFragmentsInstagramAccountPageCreatePageBackedSuccessReducerPlugin",
+    "AdsAdgroupRevertAdObjectsReducerPlugin",
+    "AdsAdgroupRevertSelectedAdObjectsReducerPlugin",
+    "AdsAdgroupSetDraftTestReducerPlugin",
+    "AdsDataAtom",
+    "AdsExperimentsCancelDraftABTestAdgroupReducerPlugin",
+    "AdsInstagramAccountBackedCtdSetIabpAndInstagramDataReducerPlugin",
+  ],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e;
+    ((e || (e = n("AdsDataAtom"))).loadRegistry(
+      "AdsAdgroupDraftFragmentsRegistry",
+    ),
+      n("AdsAdgroupDraftFragmentEnablePageActorReducerPlugin"),
+      n("AdsAdgroupDraftFragmentInstantPublishNameFieldReducerPlugin"),
+      n("AdsAdgroupDraftFragmentLiveStatusChangeReducerPlugin"),
+      n("AdsAdgroupDraftFragmentReplaceInReducerPlugin"),
+      n("AdsAdgroupDraftFragmentSetAppIDReducerPlugin"),
+      n("AdsAdgroupDraftFragmentSetCollectionCoverMediaReducerPlugin"),
+      n("AdsAdgroupDraftFragmentSetFragmentStatusReducerPlugin"),
+      n("AdsAdgroupDraftFragmentsBulkEditApplyChangesReducerPlugin"),
+      n("AdsAdgroupDraftFragmentsCopyCompletedReducerPlugin"),
+      n("AdsAdgroupDraftFragmentsDataProvider"),
+      n("AdsAdgroupDraftFragmentsDeleteAdObjectsReducerPlugin"),
+      n(
+        "AdsAdgroupDraftFragmentsInstagramAccountPageCreatePageBackedSuccessReducerPlugin",
+      ),
+      n("AdsAdgroupRevertAdObjectsReducerPlugin"),
+      n("AdsAdgroupRevertSelectedAdObjectsReducerPlugin"),
+      n("AdsAdgroupSetDraftTestReducerPlugin"),
+      n("AdsExperimentsCancelDraftABTestAdgroupReducerPlugin"),
+      n("AdsInstagramAccountBackedCtdSetIabpAndInstagramDataReducerPlugin"));
+  },
+  null,
+);

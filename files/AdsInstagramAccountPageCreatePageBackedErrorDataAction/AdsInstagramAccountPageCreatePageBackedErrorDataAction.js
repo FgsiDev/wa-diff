@@ -1,0 +1,18 @@
+__d(
+  "AdsInstagramAccountPageCreatePageBackedErrorDataAction",
+  ["Laminar"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("Laminar").__createAction(
+      function () {
+        return [];
+      },
+      function () {
+        return [];
+      },
+      "AdsInstagramAccounts.PAGE.CREATE_PAGE_BACKED_ERROR",
+    );
+    a.exports = e;
+  },
+  null,
+);

@@ -1,0 +1,18 @@
+__d(
+  "AdsMessagingDismissMessageDataAction",
+  ["Laminar"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("Laminar").__createAction(
+      function () {
+        return [];
+      },
+      function () {
+        return [];
+      },
+      "DISMISS_MESSAGE",
+    );
+    a.exports = e;
+  },
+  null,
+);

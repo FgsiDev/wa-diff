@@ -1,0 +1,34 @@
+__d(
+  "AdsCrepeMessageAcqCTDAudienceExpansionPackageConfigPlugin",
+  [
+    "AdsCrepeSBSMessageAcqAllSettingsConstants",
+    "AdsPECrepePackages",
+    "adsCreateSelectorWithValue",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = {
+        type: "crepePackageConfig",
+        key: "messageAcqCTDAudienceExpansionPackageConfig",
+        config: {
+          editorModifications: { useDeprecatedStyles: !0 },
+          visibility: {
+            adgroupVisibility: { keysToAdd: ["sbsMessageTemplateComponent"] },
+          },
+          content: {
+            presetSettings: o("AdsCrepeSBSMessageAcqAllSettingsConstants")
+              .SBS_MESSAGE_ACQ_CREATION_PACKAGE_CAMPAIGN_SETTINGS,
+          },
+        },
+        package_id:
+          o("AdsPECrepePackages")
+            .MESSAGE_ACQUISITION_CTD_AUDIENCE_EXPANSION_PACKAGE_ID,
+        visibilitySelector: function () {
+          return r("adsCreateSelectorWithValue")(!0);
+        },
+      },
+      s = e;
+    l.default = s;
+  },
+  98,
+);

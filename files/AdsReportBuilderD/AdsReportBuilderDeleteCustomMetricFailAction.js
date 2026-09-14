@@ -1,0 +1,29 @@
+__d(
+  "AdsReportBuilderDeleteCustomMetricFailAction",
+  [
+    "AdsReportBuilderCustomMetricsDialogProvider",
+    "AdsReportBuilderMutateFailCustomMetricReducerPlugin",
+    "Laminar",
+  ],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("Laminar").__createAction(
+      function () {
+        return [
+          n("Laminar").__createReducer(
+            n("AdsReportBuilderMutateFailCustomMetricReducerPlugin"),
+            n("AdsReportBuilderCustomMetricsDialogProvider"),
+            {},
+            "",
+          ),
+        ];
+      },
+      function () {
+        return [];
+      },
+      "PowerEditor.REPORT_BUILDER.DELETE_CUSTOM_METRIC_FAIL",
+    );
+    a.exports = e;
+  },
+  null,
+);

@@ -1,0 +1,41 @@
+__d(
+  "ProductCatalogGraphAPIParams",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      fields: [
+        "business",
+        "capabilities",
+        "capability_features",
+        "catalog_segment_type",
+        "catalog_segment_filter",
+        "catalog_segments.limit(200).summary(total_count)",
+        "commerce_merchant_settings{merchant_page,merchant_status,id,payment_provider,terms,application_id,shop_ads_capabilities}",
+        "creator_user",
+        "da_spend_28d",
+        "da_pe_spend_28d",
+        "has_issues",
+        "creation_source",
+        "name",
+        "feed_count",
+        "page{name,id,link}",
+        "vertical",
+        "catalog_item_type",
+        "store_catalog_settings.fields(page)",
+        "user_tasks.fields(business,tasks)",
+        "external_event_sources.summary(true).limit(0)",
+        "has_external_event_source_associated_skip_privacy",
+        "latest_impression_time",
+        "suggested_conversion_event",
+        "source_app",
+        "parent_catalog_id",
+        "catalog_duplicate_data",
+        "smart_pixel_settings.fields(id,is_update_enabled,default_currency)",
+        "external_merchant_settings{id}",
+        "website_onboarding_settings{status,quality_band}",
+      ],
+    });
+    i.default = e;
+  },
+  66,
+);

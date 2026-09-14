@@ -1,0 +1,153 @@
+__d(
+  "AdsModeBasedBiddingStrings",
+  [
+    "fbt",
+    "AdsAPIBidStrategies",
+    "AdsBulkValueUtils",
+    "AdsLearnMore.react",
+    "AdsVolumeROASUtils",
+    "react",
+  ],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e,
+      u = e || (e = o("react"));
+    function c() {
+      return s._(/*BTDS*/ "Capture more results");
+    }
+    c.displayName = c.name + " [from " + i.id + "]";
+    function d() {
+      return s._(
+        /*BTDS*/ "Your cost per result may go 20\u0025 above your goal to capture results you'd otherwise miss when competition rises.",
+      );
+    }
+    d.displayName = d.name + " [from " + i.id + "]";
+    function m() {
+      return s._(/*BTDS*/ "Flex your cost per result goal for more results");
+    }
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p() {
+      return s._(
+        /*BTDS*/ "When delivery opportunities change, Meta can use your cost per result goal more flexibly to help get more results and improve spending stability.",
+      );
+    }
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _() {
+      return s._(/*BTDS*/ "About goal flexibility");
+    }
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e) {
+      return s._(
+        /*BTDS*/ "Your average cost per result will be around {formatted cost cap value}.",
+        [s._param("formatted cost cap value", e)],
+      );
+    }
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(e) {
+      return s._(
+        /*BTDS*/ "Your average ROAS will be around {formatted ROAS value}.",
+        [s._param("formatted ROAS value", e)],
+      );
+    }
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
+      return e === r("AdsAPIBidStrategies").LOWEST_COST_WITH_MIN_ROAS
+        ? s._(
+            /*BTDS*/ "Priority can't be updated after a campaign is published. You can still edit your ROAS goal.",
+          )
+        : s._(
+            /*BTDS*/ "Priority can't be updated after a campaign is published. You can still edit your cost per result goal amount.",
+          );
+    }
+    function y(e) {
+      if (o("AdsBulkValueUtils").isMixedValue(e)) return R();
+      var t = o("AdsBulkValueUtils").getUniformValue(e);
+      return t == null || t === "NONE"
+        ? null
+        : t === "VOLUME_FOCUSED"
+          ? s._(/*BTDS*/ "Capture more results")
+          : t === "BALANCED"
+            ? s._(/*BTDS*/ "Prioritize balance")
+            : t === "COST_FOCUSED"
+              ? s._(/*BTDS*/ "Prioritize cost control")
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      t,
+                  );
+                })();
+    }
+    function C(e, t) {
+      return t == null
+        ? e
+        : s._(/*BTDS*/ "{value} ({bidding mode label})", [
+            s._param("value", e),
+            s._param("bidding mode label", t),
+          ]);
+    }
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e, t) {
+      return t == null
+        ? e
+        : s._(/*BTDS*/ "{bid strategy}: {value}", [
+            s._param("bid strategy", t),
+            s._param("value", e),
+          ]);
+    }
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v() {
+      var e = u.jsx("strong", {
+          children: s._(/*BTDS*/ "Cost per result goal"),
+        }),
+        t = u.jsx("strong", { children: s._(/*BTDS*/ "ROAS goal") }),
+        n = u.jsx(r("AdsLearnMore.react"), {
+          cmsID: "1619591734742116",
+          isStandalone: !0,
+          label: s._(/*BTDS*/ "About bid strategies"),
+        });
+      if (o("AdsVolumeROASUtils").isVolumeROASEnabled()) {
+        var a = u.jsx("strong", { children: s._(/*BTDS*/ "Highest volume") });
+        return s._(
+          /*BTDS*/ "Aim for the most conversions within your budget with {highest volume}, or target a specific cost or return with {cost per result goal} or {roas goal}. {learn more link}",
+          [
+            s._param("highest volume", a),
+            s._param("cost per result goal", e),
+            s._param("roas goal", t),
+            s._param("learn more link", n),
+          ],
+        );
+      }
+      return s._(
+        /*BTDS*/ "Choose {cost per result goal} to control spend per conversion, {roas goal} to target return on ad spend. Leave blank to maximize conversion volume. {learn more link}",
+        [
+          s._param("cost per result goal", e),
+          s._param("roas goal", t),
+          s._param("learn more link", n),
+        ],
+      );
+    }
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S() {
+      return s._(/*BTDS*/ "Bidding goals");
+    }
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R() {
+      return s._(/*BTDS*/ "Mixed priorities");
+    }
+    ((R.displayName = R.name + " [from " + i.id + "]"),
+      (l.getGoalFlexibilityCheckboxLabel = c),
+      (l.getGoalFlexibilityCheckboxDescription = d),
+      (l.getGoalFlexibilityEducationHeading = m),
+      (l.getGoalFlexibilityEducationBody = p),
+      (l.getGoalFlexibilityLearnMoreLabel = _),
+      (l.getCostCapModeExpectationMessage = f),
+      (l.getROASModeExpectationMessage = g),
+      (l.getLockedAfterPublishTooltipText = h),
+      (l.getModePGDLabel = y),
+      (l.formatWithModeLabel = C),
+      (l.formatWithBidStrategyPrefix = b),
+      (l.getBiddingGoalsHelpText = v),
+      (l.getBiddingGoalsLabel = S));
+  },
+  226,
+);

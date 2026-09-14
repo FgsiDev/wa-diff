@@ -1,0 +1,65 @@
+__d(
+  "AdsCreativeGenAITypes",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = (e = n("$InternalEnum"))({
+        INITIAL_GEN: "intial_gen",
+        RE_EDIT: "re_edit",
+        REVIEW_ASSET: "review_asset",
+        REVIEW_ASSET_FROM_CREATIVE_FATIGUE:
+          "review_asset_from_creative_fatigue",
+        REVIEW_ASSET_FROM_AB_TEST: "review_asset_from_ab_test",
+      }),
+      u = e({
+        AWARENESS_CARD: "awareness_card",
+        A_PLUS_C: "a_plus_c",
+        MEDIA_PICKER: "media_picker",
+        GEN_AI_MVP_RECOMMENDATION: "gen_ai_mvp_recommendation",
+        SUCCESS_TOAST: "success_toast",
+      }),
+      c = e.Mirrored(["SELECT_HERO_ASSET", "CUSTOMIZE_MEDIA_VARIATIONS"]),
+      d = e.Mirrored(["SAVE", "CANCEL"]),
+      m = e.Mirrored([
+        "HERO",
+        "NON_HERO",
+        "HERO_AND_NON_HERO",
+        "FORMAT_AUTOMATION_V2I",
+      ]),
+      p = e({ PAC: "pac", NON_PAC: "non_pac" }),
+      _ = e.Mirrored(["NONE", "LOADING", "SUCCESS", "ERROR", "SEEN_TOAST"]),
+      f = e.Mirrored(["OPT_IN", "OPT_OUT"]),
+      g = e.Mirrored([
+        "LOADING",
+        "LOADED",
+        "ERROR",
+        "DEFAULT",
+        "OVERLAY_LOADING",
+      ]),
+      h = e.Mirrored([
+        "PREGENERATION",
+        "FORK",
+        "REGENERATION",
+        "OVERLAY",
+        "ASSET_SPEC",
+        "RADIO_BUTTON",
+        "VARIANT_LEVEL",
+      ]),
+      y = e.Mirrored(["DRAG_N_DROP_EDIT", "FLUX_EDIT", "VARIANT_EDIT"]),
+      C = e.Mirrored(["CREATIVE_SETUP", "IMAGE_GEN"]);
+    ((l.GenAIOpenModalActionType = s),
+      (l.GenAIModalEntryPointType = u),
+      (l.GenAIModalStep = c),
+      (l.GenAIModalAction = d),
+      (l.GenAIAssetGenerationPath = m),
+      (l.GenAIBaseAssetSetup = p),
+      (l.GenAIMediaPickerGenerationStatus = _),
+      (l.GenAISelectStatus = f),
+      (l.GenAIAssetGenerationStatus = g),
+      (l.GenAIImageGenSource = h),
+      (l.GenAINestedPanel = y),
+      (l.GenAIAdsIntentCaller = C));
+  },
+  98,
+);

@@ -1,0 +1,11 @@
+__d(
+  "AdsUEditorCampaignSetBoostedProductSetIDDataActionFlux",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    a.exports = {
+      actionType: "ADS_CAMPAIGN_EDITOR_SET_BOOSTED_PRODUCT_SET_ID",
+    };
+  },
+  null,
+);
