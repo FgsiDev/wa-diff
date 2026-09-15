@@ -80,7 +80,10 @@ __d(
       D = I.getParentMsgKey,
       x = (s = n("cr:37441")) != null ? s : {},
       $ = x.isUnifiedInfraEnabledForType;
-    function P(e, t, n) {
+    function P(e) {
+      var t = e.info,
+        n = e.plaintext,
+        r = e.quarantineExtractedText;
       return {
         deviceSent: null,
         senderKey: null,
@@ -89,12 +92,12 @@ __d(
         renderableMsgs: [
           babelHelpers.extends(
             {},
-            o("WAWebMsgProcessingApiUtils").generateBaseMsg(e),
+            o("WAWebMsgProcessingApiUtils").generateBaseMsg(t),
             {
               type: o("WAWebMsgType").MSG_TYPE.QUARANTINED,
               kind: o("WAWebMsgType").MsgKind.QuarantinedMessage,
-              quarantineOriginalProtobuf: t.slice().buffer,
-              quarantineExtractedText: n,
+              quarantineOriginalProtobuf: n.slice().buffer,
+              quarantineExtractedText: r,
             },
           ),
         ],
@@ -277,11 +280,13 @@ __d(
                     isOffline: c.offline != null,
                     protobufBytes: D,
                   })
-                : P(
-                    c,
-                    D,
-                    o("WAWebQuarantineActionUtils").maybeGetQuarantineText(Z),
-                  );
+                : P({
+                    info: c,
+                    plaintext: D,
+                    quarantineExtractedText: o(
+                      "WAWebQuarantineActionUtils",
+                    ).maybeGetQuarantineText(Z),
+                  });
             if (ee.renderableMsgs == null)
               o("WALogger").ERROR(
                 b ||
@@ -387,11 +392,13 @@ __d(
                     isOffline: c.offline != null,
                     protobufBytes: D,
                   })
-                : P(
-                    c,
-                    D,
-                    o("WAWebQuarantineActionUtils").maybeGetQuarantineText(se),
-                  );
+                : P({
+                    info: c,
+                    plaintext: D,
+                    quarantineExtractedText: o(
+                      "WAWebQuarantineActionUtils",
+                    ).maybeGetQuarantineText(se),
+                  });
           if (
             o("WAWebCurrentUser").isEmployee() &&
             o("WAWebABProps").getABPropConfigValue(

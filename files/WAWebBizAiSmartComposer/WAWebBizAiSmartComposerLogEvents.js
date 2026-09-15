@@ -25,22 +25,22 @@ __d(
         success: "success",
       };
     function d(e) {
-      y(
+      v(
         "smart_composer",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_chat_ai_eligible: e, variant: u },
       );
     }
     function m() {
-      y(
+      v(
         "mode_switching_bottom_sheet",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { variant: u },
       );
     }
-    function p() {
-      y(
-        "standard",
+    function p(e) {
+      v(
+        e,
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_companion: !0 },
         o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -60,7 +60,7 @@ __d(
           (l.error_code = o(
             "WAWebBizAiSmartComposerErrorMapping",
           ).getSuggestedReplyErrorWireValue(r)),
-        y(
+        v(
           "suggested_reply_card_dismissed",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
             .DISMISS,
@@ -68,31 +68,57 @@ __d(
         ));
     }
     function f(e) {
-      y(
+      v(
         "suggested_reply_metering_gql_response",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         { success: e },
       );
     }
     function g(e, t, n) {
-      y(
+      v(
         "suggested_reply_card_view",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { card_state: "success", is_from_cache: t, trigger: e, card_type: n },
       );
     }
     function h(e) {
+      v(
+        "suggested_reply_requested",
+        o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
+        { trigger: e },
+      );
+    }
+    function y(e, t) {
+      var n = { trigger: e };
+      (t != null &&
+        (n.error_code = o(
+          "WAWebBizAiSmartComposerErrorMapping",
+        ).getSuggestedReplyErrorWireValue(t)),
+        v(
+          "suggested_reply_received",
+          o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
+          n,
+        ));
+    }
+    function C(e, t) {
+      v(
+        "suggested_reply_card_tapped",
+        o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        { card_type: t, trigger: e },
+      );
+    }
+    function b(e) {
       var t = e.from,
         n = e.success,
         r = e.to,
         a = e.trigger;
-      y(
+      v(
         "mode_switch_requested",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         { from: s[t], success: n, to: s[r], trigger: a, variant: u },
       );
     }
-    function y(t, n, a, i) {
+    function v(t, n, a, i) {
       i === void 0 &&
         (i = o("WAWebWamEnumSurfaceType").SURFACE_TYPE.SMB_SMART_COMPOSER);
       try {
@@ -124,7 +150,10 @@ __d(
       (l.logDismissSuggestionCard = _),
       (l.logMeteringResponse = f),
       (l.logViewSuggestionCard = g),
-      (l.logModeSwitchRequested = h));
+      (l.logSuggestionRequested = h),
+      (l.logSuggestionReceived = y),
+      (l.logTapSuggestionCard = C),
+      (l.logModeSwitchRequested = b));
   },
   98,
 );

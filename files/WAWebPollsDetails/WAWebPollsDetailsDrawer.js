@@ -260,7 +260,7 @@ __d(
                       testid: "poll-details-option-" + t.localId,
                       isCorrectOption: o(
                         "WAWebPollOptionsRenderUtils",
-                      ).getIsCorrectOption(c, t),
+                      ).getIsCorrectOption(c.correctOptionIndex, t),
                       hideVoterNames: T === !0,
                     },
                     t.localId,

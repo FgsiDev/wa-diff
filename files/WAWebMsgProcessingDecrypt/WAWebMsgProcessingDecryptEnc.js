@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAWebBackendJobs.flow",
     "WAWebBotMessageSecret",
+    "WAWebBotUtils",
     "WAWebMsgProcessingApiUtils",
     "WAWebOrphanBotMsgError",
     "WAWebSignal",
@@ -104,9 +105,11 @@ __d(
             a = r.targetId;
           if (a == null) return !1;
           var i = (t = r.targetChatJid) != null ? t : n.chat;
-          return o(
-            "WAWebWasaRootSecretWriter",
-          ).maybeRecoverWasaRootSecretFromStore(i, a);
+          return o("WAWebBotUtils").isHatchBot(i)
+            ? o(
+                "WAWebWasaRootSecretWriter",
+              ).maybeRecoverWasaRootSecretFromStore(i, a)
+            : !1;
         })),
         m.apply(this, arguments)
       );

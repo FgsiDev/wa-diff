@@ -114,6 +114,9 @@ __d(
       PAUSE_CLICK: "pause_click",
       PAUSE_ERROR: "pause_error",
       PAUSE_SUCCESS: "pause_success",
+      PAUSE_CLICK_L1: "pause_click_l1",
+      PAUSE_ERROR_L1: "pause_error_l1",
+      PAUSE_SUCCESS_L1: "pause_success_l1",
       PAUSE_CONSOLIDATED_CAMPAIGN_ADGROUP_ERROR:
         "pause_consolidated_campaign_adgroup_error",
       PAUSE_CONSOLIDATED_CAMPAIGN_ADGROUP_SUCCESS:
@@ -808,6 +811,8 @@ __d(
         "unused_budget_reallocation_upsell_flow_entry",
       UNUSED_BUDGET_REALLOCATION_UPSELL_SHEET_DISAPPEAR:
         "unused_budget_reallocation_upsell_sheet_disappear",
+      UNUSED_BUDGET_REALLOCATION_UPSELL_SUPPRESSED:
+        "unused_budget_reallocation_upsell_suppressed",
       UPDATED_ASL_NOTICE_IMPRESSION: "updated_asl_notice_impression",
       UPDATED_ASL_RESET_CLICK: "updated_asl_reset_click",
       UPDATED_ASL_INCREASE_CLICK: "updated_asl_increase_click",

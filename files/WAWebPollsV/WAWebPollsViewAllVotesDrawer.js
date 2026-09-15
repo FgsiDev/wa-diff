@@ -211,7 +211,7 @@ __d(
                 testid: "poll-details-option-" + C.localId,
                 isCorrectOption: o(
                   "WAWebPollOptionsRenderUtils",
-                ).getIsCorrectOption(i, C),
+                ).getIsCorrectOption(i.correctOptionIndex, C),
                 hideVoterNames:
                   o("WAWebMsgGetters").getPollHideVoterNames(i) === !0,
               }),

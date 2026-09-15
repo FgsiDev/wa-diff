@@ -1,1 +1,610 @@
-__d("WebBloksNavigationManagerV2",["WebBloksErrors","WebBloksNavigationCounter","WebBloksSSRUtils","WebBloksScreen","WebBloksUtils"],(function(t,n,r,o,a,i,l){"use strict";var e=Date.now().toString(36)+Math.random().toString(36).substring(2),s=(function(){function t(e,t,n,r){var a=this;if(this.screenChangeListener=new(o("WebBloksUtils")).EventEmitter,this.screenStacks=[],this.modals=[],this.screensCache=new Map,this.navigationDirection="forward",this.pendingCloses=[],this.pendingOpen=null,this.$1=!1,this.$2=null,this.$3=null,this.currentScreenPointer={stackIndex:-1,screenIndex:-1,isModal:!1,modalIndex:-1},this.$4=function(e){var t=e.state;a.$5(t)},this.$10=function(){document.visibilityState==="hidden"&&a.pendingCloses.length>0&&a.pendingCloses.map(function(){var e;return(e=a.pendingCloses.pop())==null?void 0:e()})},this.objectSet=e,this.disableHistoryStack=o("WebBloksSSRUtils").canUseDOM?t:!0,this.enableCometRouter=n,r){var i;this.$1=!0,o("WebBloksSSRUtils").canUseDOM&&(i=window.history)!=null&&i.scrollRestoration&&(window.history.scrollRestoration="manual")}}var n=t.prototype;return n.setScreenController=function(t){var e=t==null?void 0:t.controllerName;if(e!=null){var n;(n=this.objectSet.environment.controllerNavigationLogger)==null||n.setCurrentController(e)}},n.$5=function(n){if(n.isWebBloks){this.navigationDirection=this.$6(babelHelpers.extends({},n.screenPointer));var t=this.getCurrentModalOrScreen();this.$7(t)||this.$8(t),t==null||t.onExit(this.navigationDirection),t==null||t.dismiss();var r=this.screensCache.get(n.screenId);if((n.sessionId!==e||r==null)&&window.location.reload(),this.setScreenController(r),this.currentScreenPointer=babelHelpers.extends({},n.screenPointer),this.notifyChanged(),this.$7(this.getCurrentScreen())||this.$9(),this.pendingCloses.length>0){var a=this.pendingCloses.pop();a&&a()}if(this.pendingOpen&&this.pendingCloses.length===0){var i=this.pendingOpen;this.pendingOpen=null,i()}n.pageTitle!=null&&o("WebBloksSSRUtils").canUseDOM&&(document.title=n.pageTitle)}},n.open=function(t,n,r){var e=this;r===void 0&&(r=!1),this.$11("open",function(){e.$12(t,n,r)})},n.$12=function(t,n,r){r===void 0&&(r=!1),this.$1&&this.$8(this.$3);var e=this.getCurrentModalOrScreen();if(e==null||e.onExit("forward"),this.navigationDirection="forward",t.options.isModal===!0){var a=this.currentScreenPointer,i=a.modalIndex,l=a.stackIndex,s=this.$13(t,l);this.modals.splice(i+1),this.modals.push(s),this.$14({isModal:!0,modalIndex:this.modals.length-1}),this.$15(t,r),this.notifyChanged();return}r!==!0&&o("WebBloksNavigationCounter").incrementWebBloksNavigationCount(t);var u=this.getModalCount();if(u>0){e==null||e.clearDismissCallback(),this.close("close"),this.open(t,n,r);return}if(n===!0){var c=this.$16();c!=null?this.$17(t,c):this.$18(t)}else this.$18(t);this.$15(t,r),this.notifyChanged(),this.$7(t)||this.$19()},n.close=function(t,n,r){var e=this;this.$11("close",function(){e.$20(t,n,r)})},n.$20=function(t,n,r){var e=this.currentScreenPointer.isModal,a=this.$16();if(a==null)throw new(o("WebBloksErrors")).WebBloksError("Tried closing a screen when there are no modals or stacks");this.navigationDirection="back";var i=0;switch(t){case"close":if(e)this.$21("modal"),i=this.getModalCount(),this.$22();else{this.$21("screen");var l=this.currentScreenPointer.screenIndex;i=l+1,this.$23()}break;case"pop":{e?(this.$21("modal"),this.$14({modalIndex:this.currentScreenPointer.modalIndex-1})):(this.$21("screen"),this.$14({screenIndex:this.currentScreenPointer.screenIndex-1})),i=1;break}case"pop_to_screen":{this.$21("screen");for(var s=this.currentScreenPointer.screenIndex,u=!1;!u&&s>=0;){var c=this.screensCache.get(a[s]),d=c==null?void 0:c.screenId;d!==n?(s--,i++):(u=!0,r===!0&&(s--,i++))}if(!u)throw new(o("WebBloksErrors")).WebBloksError("Tried popping to a screenId that does not exist in the current stack");this.$14({screenIndex:s});break}case"close_all":{e?(this.$21("modal"),i=this.getModalCount()+this.getScreenCount()):(this.$21("screen"),i=this.getScreenCount()),this.$24();break}}!e&&(t==="pop"||t==="pop_to_screen")&&this.currentScreenPointer.screenIndex===-1&&this.$23(),e&&t==="pop"&&this.currentScreenPointer.modalIndex===-1&&this.$22(),this.$25(i),this.notifyChanged()},n.getVisibleScreens=function(){var e=[],t=!1,n=this.getCurrentScreen();n!=null&&(e.push(n),n.getIsOverlay()!==!0&&(t=!0));for(var r=this.currentScreenPointer.stackIndex-1;r>-1&&!t;){var o=this.screenStacks[r],a=o[o.length-1],i=this.screensCache.get(a);i!=null&&(e.push(i),i.getIsOverlay()!==!0&&(t=!0)),r--}return{screens:e.reverse(),modal:this.getCurrentModal()}},n.notifyChanged=function(){if(this.$1){var e=this.getCurrentScreen();e!=null&&e.getIsOverlay()!==!0&&(this.$3=e)}this.screenChangeListener.emit(this.getVisibleScreens())},n.destroy=function(){this.$26(),this.$3=null,window.removeEventListener("popstate",this.$4),window.removeEventListener("visibilitychange",this.$10),this.$24(),this.enableCometRouter||(this.screensCache.forEach(function(e){return e.destroy()}),this.screensCache.clear())},n.refresh=function(){var e,t=(e=this.screenStacks[this.currentScreenPointer.stackIndex])==null?void 0:e[this.currentScreenPointer.screenIndex],n=this.screensCache.get(t);if(n!=null){var r=n.appId,a=n.options,i=n.params,l=n.uri,s=l!=null?o("WebBloksScreen").WebBloksScreen.fromURI(n.objectSet,l,r,i,a):r!=null?o("WebBloksScreen").WebBloksScreen.fromAppId(n.objectSet,r,i,a):null;if(s){this.push(s,!0);return}}},n.replaceState=function(t){if(!this.disableHistoryStack){var e=history.state;e.uri!==t&&window.history.replaceState(e,null,t)}},n.replaceStateAndSyncUri=function(t){if(!this.disableHistoryStack){var e=history.state;(e==null?void 0:e.uri)!==t&&window.history.replaceState(babelHelpers.extends({},e!=null?e:{},{uri:t}),null,t)}},n.replacePageTitle=function(t){if(!this.disableHistoryStack){var e=history.state;e.pageTitle!==t&&o("WebBloksSSRUtils").canUseDOM&&(document.title=t)}},n.attachNavigationListeners=function(){this.disableHistoryStack||this.enableCometRouter||(window.addEventListener("popstate",this.$4),window.addEventListener("visibilitychange",this.$10))},n.attachAndTriggerPopStateHandler=function(){this.disableHistoryStack||(window.addEventListener("popstate",this.$4),window.addEventListener("visibilitychange",this.$10),this.$5(window.history.state))},n.push=function(t,n){this.open(t,!0,n)},n.pop=function(){this.close("pop")},n.popAllModals=function(){this.getModalCount()>0&&this.close("close")},n.getModalCount=function(){return this.currentScreenPointer.isModal?this.currentScreenPointer.modalIndex+1:0},n.getScreenCount=function(t){t===void 0&&(t=!1);var e=this.currentScreenPointer,n=e.screenIndex,r=e.stackIndex;if(r<0)return 0;var o=n+1;if(t)return o;var a=this.screenStacks.slice(0,r).reduce(function(e,t){return e+t.length},0);return o+a},n.getCurrentScreen=function(){var e=this.currentScreenPointer,t=e.screenIndex,n=e.stackIndex;if(n<0||t<0)return null;var r=this.screenStacks[n];if(r==null)return null;var o=r[t];return this.screensCache.get(o)},n.getCurrentModal=function(){var e=this.currentScreenPointer,t=e.isModal,n=e.modalIndex;if(!t||n<0)return null;var r=this.modals[n];return this.screensCache.get(r)},n.getCurrentModalOrScreen=function(){var e;return(e=this.getCurrentModal())!=null?e:this.getCurrentScreen()},n.getNavigationDirection=function(){return this.navigationDirection},n.$16=function(){if(this.currentScreenPointer.isModal===!0)return this.modals;var e=this.currentScreenPointer.stackIndex;return e!=null?this.screenStacks[e]:null},n.$17=function(t,n){var e=this.currentScreenPointer,r=e.screenIndex,o=e.stackIndex,a=n.splice(r+1);this.$27(a);var i=this.screenStacks.splice(o+1);for(var l of i)this.$27(l);var s=this.modals.splice(0);this.$27(s),n.push(this.$13(t,o)),this.$14({screenIndex:r+1})},n.$18=function(t){var e=this.currentScreenPointer,n=e.screenIndex,r=e.stackIndex,o=this.screenStacks[r];if(o!=null){var a=o.splice(n+1);this.$27(a)}var i=this.screenStacks.splice(r+1);for(var l of i)this.$27(l);var s=this.modals.splice(0);this.$27(s),this.screenStacks.push([this.$13(t,r+1)]),this.$14({stackIndex:r+1,screenIndex:0,isModal:!1})},n.$27=function(t){for(var e of t){var n=this.screensCache.get(e);n!=null&&n.destroy(),this.screensCache.delete(e)}},n.$21=function(t){if(this.disableHistoryStack){var e;if(t==="screen"?e=this.getCurrentScreen():e=this.getCurrentModal(),e==null)throw new(o("WebBloksErrors")).WebBloksError("Unexpected null "+t+" while executing onExit callback");e.onExit("back"),e.dismiss()}},n.$6=function(t){var e=this.currentScreenPointer,n=babelHelpers.extends({},e,t);return e.isModal&&!n.isModal?"back":!e.isModal&&n.isModal?"forward":e.isModal&&n.isModal?n.modalIndex>e.modalIndex?"forward":"back":n.stackIndex!==e.stackIndex?n.stackIndex>e.stackIndex?"forward":"back":n.screenIndex>e.screenIndex?"forward":"back"},n.$14=function(t){var e=this.$6(t);e==="back"&&!this.disableHistoryStack||(this.currentScreenPointer=babelHelpers.extends({},this.currentScreenPointer,t))},n.$22=function(){this.$14({isModal:!1,modalIndex:-1})},n.$23=function(){var e=this.currentScreenPointer.stackIndex;e===0?this.$14({stackIndex:-1,screenIndex:-1,isModal:!1,modalIndex:-1}):this.$14({stackIndex:e-1,screenIndex:this.screenStacks[e-1].length-1})},n.$24=function(){this.$14({stackIndex:-1,screenIndex:-1,isModal:!1,modalIndex:-1})},n.$7=function(t){var e;return!this.$1||t==null?!0:((e=t.options)==null?void 0:e.isModal)===!0||t.getIsOverlay()===!0},n.$8=function(t){!o("WebBloksSSRUtils").canUseDOM||!this.$1||t!=null&&(t.savedScrollY=window.scrollY)},n.$26=function(){this.$2!=null&&(window.cancelAnimationFrame(this.$2),this.$2=null)},n.$9=function(){var e=this;!this.$1||!o("WebBloksSSRUtils").canUseDOM||(this.$26(),this.$2=window.requestAnimationFrame(function(){e.$2=null,e.$28()}))},n.$19=function(){var e=this;if(!(!this.$1||!o("WebBloksSSRUtils").canUseDOM)){var t=this.getCurrentScreen();t!=null&&(t.savedScrollY=0),this.$26(),this.$2=window.requestAnimationFrame(function(){e.$2=null,e.$29()})}},n.$28=function(){var e;if(!(!o("WebBloksSSRUtils").canUseDOM||this.$7(this.getCurrentScreen()))){var t=this.getCurrentScreen();this.$30((e=t==null?void 0:t.savedScrollY)!=null?e:0)}},n.$29=function(){var e=this.getCurrentScreen();!o("WebBloksSSRUtils").canUseDOM||this.$7(e)||this.$30(0)},n.$30=function(t){window.scrollTo(0,Math.max(t,1))},n.$15=function(n,r){var t;if(!this.disableHistoryStack){var a=n.uri!=null?n.uri:"#",i=null;o("WebBloksSSRUtils").canUseDOM&&(i=document.title);var l={uri:a,pageTitle:i,screenId:this.$13(n,this.currentScreenPointer.stackIndex),appId:n.appId,isWebBloks:!0,sessionId:e,screenPointer:babelHelpers.extends({},this.currentScreenPointer),key:(t=window.history.state)==null?void 0:t.key};r?window.history.replaceState(l,null,a):window.history.pushState(l,null,a)}},n.$25=function(t){this.disableHistoryStack||window.history.go(-t)},n.$13=function(t,n){var e=t.options.isModal===!0?"modal":"stack_"+n,r=e+":"+t.screenId;return t.screenIdWithStackIndex=r,this.screensCache.has(r)||this.screensCache.set(r,t),r},n.$11=function(t,n){if(this.disableHistoryStack){n();return}if(t==="open"){this.pendingCloses.length?this.pendingOpen=n:n();return}if(t==="close"){this.pendingOpen=null,this.pendingCloses.length>0?this.pendingCloses.push(n):(this.pendingCloses.push(null),n());return}},t})();l.NavigationManagerV2=s}),98);
+__d(
+  "WebBloksNavigationManagerV2",
+  [
+    "WebBloksErrors",
+    "WebBloksNavigationCounter",
+    "WebBloksSSRUtils",
+    "WebBloksScreen",
+    "WebBloksUtils",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = Date.now().toString(36) + Math.random().toString(36).substring(2),
+      s = (function () {
+        function t(e, t, n, r) {
+          var a = this;
+          if (
+            ((this.screenChangeListener = new (o(
+              "WebBloksUtils",
+            ).EventEmitter)()),
+            (this.screenStacks = []),
+            (this.modals = []),
+            (this.screensCache = new Map()),
+            (this.navigationDirection = "forward"),
+            (this.pendingCloses = []),
+            (this.pendingOpen = null),
+            (this.$1 = !1),
+            (this.$2 = null),
+            (this.$3 = null),
+            (this.currentScreenPointer = {
+              stackIndex: -1,
+              screenIndex: -1,
+              isModal: !1,
+              modalIndex: -1,
+            }),
+            (this.$4 = function (e) {
+              var t = e.state;
+              a.$5(t);
+            }),
+            (this.$10 = function () {
+              document.visibilityState === "hidden" &&
+                a.pendingCloses.length > 0 &&
+                a.pendingCloses.map(function () {
+                  var e;
+                  return (e = a.pendingCloses.pop()) == null ? void 0 : e();
+                });
+            }),
+            (this.objectSet = e),
+            (this.disableHistoryStack = o("WebBloksSSRUtils").canUseDOM
+              ? t
+              : !0),
+            (this.enableCometRouter = n),
+            r)
+          ) {
+            var i;
+            ((this.$1 = !0),
+              o("WebBloksSSRUtils").canUseDOM &&
+                (i = window.history) != null &&
+                i.scrollRestoration &&
+                (window.history.scrollRestoration = "manual"));
+          }
+        }
+        var n = t.prototype;
+        return (
+          (n.setScreenController = function (t) {
+            var e = t == null ? void 0 : t.controllerName;
+            if (e != null) {
+              var n;
+              (n = this.objectSet.environment.controllerNavigationLogger) ==
+                null || n.setCurrentController(e);
+            }
+          }),
+          (n.$5 = function (n) {
+            if (n.isWebBloks) {
+              this.navigationDirection = this.$6(
+                babelHelpers.extends({}, n.screenPointer),
+              );
+              var t = this.getCurrentModalOrScreen();
+              (this.$7(t) || this.$8(t),
+                t == null || t.onExit(this.navigationDirection),
+                t == null || t.dismiss());
+              var r = this.screensCache.get(n.screenId);
+              if (
+                ((n.sessionId !== e || r == null) && window.location.reload(),
+                this.setScreenController(r),
+                (this.currentScreenPointer = babelHelpers.extends(
+                  {},
+                  n.screenPointer,
+                )),
+                this.notifyChanged(),
+                this.$7(this.getCurrentScreen()) || this.$9(),
+                this.pendingCloses.length > 0)
+              ) {
+                var a = this.pendingCloses.pop();
+                a && a();
+              }
+              if (this.pendingOpen && this.pendingCloses.length === 0) {
+                var i = this.pendingOpen;
+                ((this.pendingOpen = null), i());
+              }
+              n.pageTitle != null &&
+                o("WebBloksSSRUtils").canUseDOM &&
+                (document.title = n.pageTitle);
+            }
+          }),
+          (n.open = function (t, n, r) {
+            var e = this;
+            (r === void 0 && (r = !1),
+              this.$11("open", function () {
+                e.$12(t, n, r);
+              }));
+          }),
+          (n.$12 = function (t, n, r) {
+            (r === void 0 && (r = !1), this.$1 && this.$8(this.$3));
+            var e = this.getCurrentModalOrScreen();
+            if (
+              (e == null || e.onExit("forward"),
+              (this.navigationDirection = "forward"),
+              t.options.isModal === !0)
+            ) {
+              var a = this.currentScreenPointer,
+                i = a.modalIndex,
+                l = a.stackIndex,
+                s = this.$13(t, l);
+              (this.modals.splice(i + 1),
+                this.modals.push(s),
+                this.$14({ isModal: !0, modalIndex: this.modals.length - 1 }),
+                this.$15(t, r),
+                this.notifyChanged());
+              return;
+            }
+            r !== !0 &&
+              o("WebBloksNavigationCounter").incrementWebBloksNavigationCount(
+                t,
+              );
+            var u = this.getModalCount();
+            if (u > 0) {
+              (e == null || e.clearDismissCallback(),
+                this.close("close"),
+                this.open(t, n, r));
+              return;
+            }
+            if (n === !0) {
+              var c = this.$16();
+              c != null ? this.$17(t, c) : this.$18(t);
+            } else this.$18(t);
+            (this.$15(t, r), this.notifyChanged(), this.$7(t) || this.$19());
+          }),
+          (n.close = function (t, n, r) {
+            var e = this;
+            this.$11("close", function () {
+              e.$20(t, n, r);
+            });
+          }),
+          (n.$20 = function (t, n, r) {
+            var e = this.currentScreenPointer.isModal,
+              a = this.$16();
+            if (a == null)
+              throw new (o("WebBloksErrors").WebBloksError)(
+                "Tried closing a screen when there are no modals or stacks",
+              );
+            this.navigationDirection = "back";
+            var i = 0;
+            switch (t) {
+              case "close":
+                if (e)
+                  (this.$21("modal"), (i = this.getModalCount()), this.$22());
+                else {
+                  this.$21("screen");
+                  var l = this.currentScreenPointer.screenIndex;
+                  ((i = l + 1), this.$23());
+                }
+                break;
+              case "pop": {
+                (e
+                  ? (this.$21("modal"),
+                    this.$14({
+                      modalIndex: this.currentScreenPointer.modalIndex - 1,
+                    }))
+                  : (this.$21("screen"),
+                    this.$14({
+                      screenIndex: this.currentScreenPointer.screenIndex - 1,
+                    })),
+                  (i = 1));
+                break;
+              }
+              case "pop_to_screen": {
+                this.$21("screen");
+                for (
+                  var s = this.currentScreenPointer.screenIndex, u = !1;
+                  !u && s >= 0;
+                ) {
+                  var c = this.screensCache.get(a[s]),
+                    d = c == null ? void 0 : c.screenId;
+                  d !== n ? (s--, i++) : ((u = !0), r === !0 && (s--, i++));
+                }
+                if (!u)
+                  throw new (o("WebBloksErrors").WebBloksError)(
+                    "Tried popping to a screenId that does not exist in the current stack",
+                  );
+                this.$14({ screenIndex: s });
+                break;
+              }
+              case "close_all": {
+                (e
+                  ? (this.$21("modal"),
+                    (i = this.getModalCount() + this.getScreenCount()))
+                  : (this.$21("screen"), (i = this.getScreenCount())),
+                  this.$24());
+                break;
+              }
+            }
+            (!e &&
+              (t === "pop" || t === "pop_to_screen") &&
+              this.currentScreenPointer.screenIndex === -1 &&
+              this.$23(),
+              e &&
+                t === "pop" &&
+                this.currentScreenPointer.modalIndex === -1 &&
+                this.$22(),
+              this.$25(i),
+              this.notifyChanged());
+          }),
+          (n.getVisibleScreens = function () {
+            var e = [],
+              t = !1,
+              n = this.getCurrentScreen();
+            n != null && (e.push(n), n.getIsOverlay() !== !0 && (t = !0));
+            for (
+              var r = this.currentScreenPointer.stackIndex - 1;
+              r > -1 && !t;
+            ) {
+              var o = this.screenStacks[r],
+                a = o[o.length - 1],
+                i = this.screensCache.get(a);
+              (i != null && (e.push(i), i.getIsOverlay() !== !0 && (t = !0)),
+                r--);
+            }
+            return { screens: e.reverse(), modal: this.getCurrentModal() };
+          }),
+          (n.notifyChanged = function () {
+            if (this.$1) {
+              var e = this.getCurrentScreen();
+              e != null && e.getIsOverlay() !== !0 && (this.$3 = e);
+            }
+            this.screenChangeListener.emit(this.getVisibleScreens());
+          }),
+          (n.destroy = function () {
+            (this.$26(),
+              (this.$3 = null),
+              window.removeEventListener("popstate", this.$4),
+              window.removeEventListener("visibilitychange", this.$10),
+              this.$24(),
+              this.enableCometRouter ||
+                (this.screensCache.forEach(function (e) {
+                  return e.destroy();
+                }),
+                this.screensCache.clear()));
+          }),
+          (n.refresh = function () {
+            var e,
+              t =
+                (e = this.screenStacks[this.currentScreenPointer.stackIndex]) ==
+                null
+                  ? void 0
+                  : e[this.currentScreenPointer.screenIndex],
+              n = this.screensCache.get(t);
+            if (n != null) {
+              var r = n.appId,
+                a = n.options,
+                i = n.params,
+                l = n.uri,
+                s =
+                  l != null
+                    ? o("WebBloksScreen").WebBloksScreen.fromURI(
+                        n.objectSet,
+                        l,
+                        r,
+                        i,
+                        a,
+                      )
+                    : r != null
+                      ? o("WebBloksScreen").WebBloksScreen.fromAppId(
+                          n.objectSet,
+                          r,
+                          i,
+                          a,
+                        )
+                      : null;
+              if (s) {
+                this.push(s, !0);
+                return;
+              }
+            }
+          }),
+          (n.replaceState = function (t) {
+            if (!this.disableHistoryStack) {
+              var e = history.state;
+              e.uri !== t && window.history.replaceState(e, "", t);
+            }
+          }),
+          (n.replaceStateAndSyncUri = function (t) {
+            if (!this.disableHistoryStack) {
+              var e = history.state;
+              (e == null ? void 0 : e.uri) !== t &&
+                window.history.replaceState(
+                  babelHelpers.extends({}, e != null ? e : {}, { uri: t }),
+                  null,
+                  t,
+                );
+            }
+          }),
+          (n.replacePageTitle = function (t) {
+            if (!this.disableHistoryStack) {
+              var e = history.state;
+              e.pageTitle !== t &&
+                o("WebBloksSSRUtils").canUseDOM &&
+                (document.title = t);
+            }
+          }),
+          (n.attachNavigationListeners = function () {
+            this.disableHistoryStack ||
+              this.enableCometRouter ||
+              (window.addEventListener("popstate", this.$4),
+              window.addEventListener("visibilitychange", this.$10));
+          }),
+          (n.attachAndTriggerPopStateHandler = function () {
+            this.disableHistoryStack ||
+              (window.addEventListener("popstate", this.$4),
+              window.addEventListener("visibilitychange", this.$10),
+              this.$5(window.history.state));
+          }),
+          (n.push = function (t, n) {
+            this.open(t, !0, n);
+          }),
+          (n.pop = function () {
+            this.close("pop");
+          }),
+          (n.popAllModals = function () {
+            this.getModalCount() > 0 && this.close("close");
+          }),
+          (n.getModalCount = function () {
+            return this.currentScreenPointer.isModal
+              ? this.currentScreenPointer.modalIndex + 1
+              : 0;
+          }),
+          (n.getScreenCount = function (t) {
+            t === void 0 && (t = !1);
+            var e = this.currentScreenPointer,
+              n = e.screenIndex,
+              r = e.stackIndex;
+            if (r < 0) return 0;
+            var o = n + 1;
+            if (t) return o;
+            var a = this.screenStacks.slice(0, r).reduce(function (e, t) {
+              return e + t.length;
+            }, 0);
+            return o + a;
+          }),
+          (n.getCurrentScreen = function () {
+            var e = this.currentScreenPointer,
+              t = e.screenIndex,
+              n = e.stackIndex;
+            if (n < 0 || t < 0) return null;
+            var r = this.screenStacks[n];
+            if (r == null) return null;
+            var o = r[t];
+            return this.screensCache.get(o);
+          }),
+          (n.getCurrentModal = function () {
+            var e = this.currentScreenPointer,
+              t = e.isModal,
+              n = e.modalIndex;
+            if (!t || n < 0) return null;
+            var r = this.modals[n];
+            return this.screensCache.get(r);
+          }),
+          (n.getCurrentModalOrScreen = function () {
+            var e;
+            return (e = this.getCurrentModal()) != null
+              ? e
+              : this.getCurrentScreen();
+          }),
+          (n.getNavigationDirection = function () {
+            return this.navigationDirection;
+          }),
+          (n.$16 = function () {
+            if (this.currentScreenPointer.isModal === !0) return this.modals;
+            var e = this.currentScreenPointer.stackIndex;
+            return e != null ? this.screenStacks[e] : null;
+          }),
+          (n.$17 = function (t, n) {
+            var e = this.currentScreenPointer,
+              r = e.screenIndex,
+              o = e.stackIndex,
+              a = n.splice(r + 1);
+            this.$27(a);
+            var i = this.screenStacks.splice(o + 1);
+            for (var l of i) this.$27(l);
+            var s = this.modals.splice(0);
+            (this.$27(s),
+              n.push(this.$13(t, o)),
+              this.$14({ screenIndex: r + 1 }));
+          }),
+          (n.$18 = function (t) {
+            var e = this.currentScreenPointer,
+              n = e.screenIndex,
+              r = e.stackIndex,
+              o = this.screenStacks[r];
+            if (o != null) {
+              var a = o.splice(n + 1);
+              this.$27(a);
+            }
+            var i = this.screenStacks.splice(r + 1);
+            for (var l of i) this.$27(l);
+            var s = this.modals.splice(0);
+            (this.$27(s),
+              this.screenStacks.push([this.$13(t, r + 1)]),
+              this.$14({ stackIndex: r + 1, screenIndex: 0, isModal: !1 }));
+          }),
+          (n.$27 = function (t) {
+            for (var e of t) {
+              var n = this.screensCache.get(e);
+              (n != null && n.destroy(), this.screensCache.delete(e));
+            }
+          }),
+          (n.$21 = function (t) {
+            if (this.disableHistoryStack) {
+              var e;
+              if (
+                (t === "screen"
+                  ? (e = this.getCurrentScreen())
+                  : (e = this.getCurrentModal()),
+                e == null)
+              )
+                throw new (o("WebBloksErrors").WebBloksError)(
+                  "Unexpected null " + t + " while executing onExit callback",
+                );
+              (e.onExit("back"), e.dismiss());
+            }
+          }),
+          (n.$6 = function (t) {
+            var e = this.currentScreenPointer,
+              n = babelHelpers.extends({}, e, t);
+            return e.isModal && !n.isModal
+              ? "back"
+              : !e.isModal && n.isModal
+                ? "forward"
+                : e.isModal && n.isModal
+                  ? n.modalIndex > e.modalIndex
+                    ? "forward"
+                    : "back"
+                  : n.stackIndex !== e.stackIndex
+                    ? n.stackIndex > e.stackIndex
+                      ? "forward"
+                      : "back"
+                    : n.screenIndex > e.screenIndex
+                      ? "forward"
+                      : "back";
+          }),
+          (n.$14 = function (t) {
+            var e = this.$6(t);
+            (e === "back" && !this.disableHistoryStack) ||
+              (this.currentScreenPointer = babelHelpers.extends(
+                {},
+                this.currentScreenPointer,
+                t,
+              ));
+          }),
+          (n.$22 = function () {
+            this.$14({ isModal: !1, modalIndex: -1 });
+          }),
+          (n.$23 = function () {
+            var e = this.currentScreenPointer.stackIndex;
+            e === 0
+              ? this.$14({
+                  stackIndex: -1,
+                  screenIndex: -1,
+                  isModal: !1,
+                  modalIndex: -1,
+                })
+              : this.$14({
+                  stackIndex: e - 1,
+                  screenIndex: this.screenStacks[e - 1].length - 1,
+                });
+          }),
+          (n.$24 = function () {
+            this.$14({
+              stackIndex: -1,
+              screenIndex: -1,
+              isModal: !1,
+              modalIndex: -1,
+            });
+          }),
+          (n.$7 = function (t) {
+            var e;
+            return !this.$1 || t == null
+              ? !0
+              : ((e = t.options) == null ? void 0 : e.isModal) === !0 ||
+                  t.getIsOverlay() === !0;
+          }),
+          (n.$8 = function (t) {
+            !o("WebBloksSSRUtils").canUseDOM ||
+              !this.$1 ||
+              (t != null && (t.savedScrollY = window.scrollY));
+          }),
+          (n.$26 = function () {
+            this.$2 != null &&
+              (window.cancelAnimationFrame(this.$2), (this.$2 = null));
+          }),
+          (n.$9 = function () {
+            var e = this;
+            !this.$1 ||
+              !o("WebBloksSSRUtils").canUseDOM ||
+              (this.$26(),
+              (this.$2 = window.requestAnimationFrame(function () {
+                ((e.$2 = null), e.$28());
+              })));
+          }),
+          (n.$19 = function () {
+            var e = this;
+            if (!(!this.$1 || !o("WebBloksSSRUtils").canUseDOM)) {
+              var t = this.getCurrentScreen();
+              (t != null && (t.savedScrollY = 0),
+                this.$26(),
+                (this.$2 = window.requestAnimationFrame(function () {
+                  ((e.$2 = null), e.$29());
+                })));
+            }
+          }),
+          (n.$28 = function () {
+            var e;
+            if (
+              !(
+                !o("WebBloksSSRUtils").canUseDOM ||
+                this.$7(this.getCurrentScreen())
+              )
+            ) {
+              var t = this.getCurrentScreen();
+              this.$30(
+                (e = t == null ? void 0 : t.savedScrollY) != null ? e : 0,
+              );
+            }
+          }),
+          (n.$29 = function () {
+            var e = this.getCurrentScreen();
+            !o("WebBloksSSRUtils").canUseDOM || this.$7(e) || this.$30(0);
+          }),
+          (n.$30 = function (t) {
+            window.scrollTo(0, Math.max(t, 1));
+          }),
+          (n.$15 = function (n, r) {
+            var t;
+            if (!this.disableHistoryStack) {
+              var a = n.uri != null ? n.uri : "#",
+                i = null;
+              o("WebBloksSSRUtils").canUseDOM && (i = document.title);
+              var l = {
+                uri: a,
+                pageTitle: i,
+                screenId: this.$13(n, this.currentScreenPointer.stackIndex),
+                appId: n.appId,
+                isWebBloks: !0,
+                sessionId: e,
+                screenPointer: babelHelpers.extends(
+                  {},
+                  this.currentScreenPointer,
+                ),
+                key: (t = window.history.state) == null ? void 0 : t.key,
+              };
+              r
+                ? window.history.replaceState(l, null, a)
+                : window.history.pushState(l, null, a);
+            }
+          }),
+          (n.$25 = function (t) {
+            this.disableHistoryStack || window.history.go(-t);
+          }),
+          (n.$13 = function (t, n) {
+            var e = t.options.isModal === !0 ? "modal" : "stack_" + n,
+              r = e + ":" + t.screenId;
+            return (
+              (t.screenIdWithStackIndex = r),
+              this.screensCache.has(r) || this.screensCache.set(r, t),
+              r
+            );
+          }),
+          (n.$11 = function (t, n) {
+            if (this.disableHistoryStack) {
+              n();
+              return;
+            }
+            if (t === "open") {
+              this.pendingCloses.length ? (this.pendingOpen = n) : n();
+              return;
+            }
+            if (t === "close") {
+              ((this.pendingOpen = null),
+                this.pendingCloses.length > 0
+                  ? this.pendingCloses.push(n)
+                  : (this.pendingCloses.push(null), n()));
+              return;
+            }
+          }),
+          t
+        );
+      })();
+    l.NavigationManagerV2 = s;
+  },
+  98,
+);

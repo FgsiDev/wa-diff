@@ -156,9 +156,7 @@ __d(
                 : null;
     }
     function y(e, t) {
-      return e.correctOptionIndex == null
-        ? null
-        : t.localId === e.correctOptionIndex;
+      return e == null ? null : t.localId === e;
     }
     ((l.formatOptions = d),
       (l.isEmptyAfterTrimming = m),
