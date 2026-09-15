@@ -183,7 +183,10 @@ __d(
                     e.navigationManager.push(l));
                 }
               };
-            r > 0 ? window.setTimeout(i, r) : i();
+            if (r > 0) {
+              if (!o("WebBloksSSRUtils").canUseDOM) return;
+              window.setTimeout(i, r);
+            } else i();
           }
         }),
         (t.getComponentForName = function (t) {
