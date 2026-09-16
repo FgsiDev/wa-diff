@@ -51,12 +51,15 @@ __d(
           }),
           (a.$11 = function (t) {
             var e,
-              n = t.event === "closed" || t.event === "error";
+              n = t.event === "closed" || t.event === "error",
+              r = this.$8.get(t.connectionId);
             (n && this.$12(t.connectionId, t.attemptId),
-              !(t.event === "open" && this.$13(t)) &&
-                ((n &&
-                  (this.$14(t.connectionId, t.attemptId),
-                  t.event === "error" && this.$15(t))) ||
+              !(t.event === "open" && (this.$13(t) || r !== t.attemptId)) &&
+                ((!n && t.event !== "open" && r !== t.attemptId) ||
+                  (n &&
+                    (this.$14(t.connectionId, t.attemptId),
+                    r !== t.attemptId ||
+                      (t.event === "error" && this.$15(t)))) ||
                   (e = this.$9) == null ||
                   e.call(this, {
                     connectionId: t.connectionId,

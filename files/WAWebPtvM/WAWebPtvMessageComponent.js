@@ -22,7 +22,6 @@ __d(
     "WAWebMessagePosition",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
-    "WAWebMutedIcon.react",
     "WAWebPttFindSequentialMsg",
     "WAWebPttGetDurationFromMediaOrProtobuf",
     "WAWebPtvDownloadState.react",
@@ -30,6 +29,7 @@ __d(
     "WAWebStateUtils",
     "WAWebUnstyledButton.react",
     "WAWebVideo.react",
+    "WDSIconIcVolumeOff.react",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "bx",
@@ -351,14 +351,25 @@ __d(
       var pe = r("useWAWebIntersection")({ root: null, threshold: 0 }),
         _e = pe[0],
         fe = pe[1].isIntersecting,
-        ge = r("useWAWebPrevious")(fe);
-      (!fe &&
-        ge === !0 &&
-        (self.setTimeout(function () {
-          var e;
-          (e = v.current) == null || e.pause("product_initiated");
-        }, 100),
-        (ce.current = 0)),
+        ge = f(null);
+      (_(
+        function () {
+          var e = ge.current;
+          if (((ge.current = fe), !fe && e === !0)) {
+            var t = self.setTimeout(function () {
+              var e;
+              (e = v.current) == null || e.pause("product_initiated");
+            }, 100);
+            return (
+              (ce.current = 0),
+              function () {
+                self.clearTimeout(t);
+              }
+            );
+          }
+        },
+        [fe],
+      ),
         _(
           function () {
             if (ee && ne === !1) {
@@ -603,7 +614,9 @@ __d(
                             className:
                               "x10l6tqk x1wa3icf xh8yej3 x1awj2ng x1pg5gke x1xlr1w8 xhtitgo",
                             children: [
-                              d.jsx(o("WAWebMutedIcon.react").MutedIcon, {
+                              d.jsx(r("WDSIconIcVolumeOff.react"), {
+                                height: 10,
+                                testid: "muted",
                                 width: 10,
                                 xstyle: [
                                   x.muteIcon,

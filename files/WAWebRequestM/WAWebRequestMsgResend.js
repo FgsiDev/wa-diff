@@ -1,90 +1,110 @@
 __d(
   "WAWebRequestMsgResend",
   [
+    "QPLFlow",
     "WAWebJobsMigrationGating",
     "WAWebLazyPersistedQueue",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebPersistedQueueQpl",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
-              var a = yield o(
-                "WAWebLazyPersistedQueue",
-              ).whenPersistedQueuesReady();
-              return a.runUserMsgResendQueued({
-                ackTime: n,
-                excludeList: t,
-                msgRecord: e,
-                resend: r,
-              });
-            }
-            var i = yield o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .accessors.maybeCreateJob(
-                o("WAWebPersistedJobDefinitions").jobSerializers.resendUserMsg(
-                  e,
-                  t,
-                  n,
-                ),
-              );
-            (yield r(),
-              yield o("WAWebPersistedJobManagerWorkerCompatible")
-                .getJobManager()
-                .accessors.deletePersistedJob(i.id));
+    function e(e) {
+      var t = e.ackTime,
+        r = e.excludeList,
+        a = e.msgRecord,
+        i = e.resend,
+        l = o("WAWebJobsMigrationGating").isPersistedQueuesEnabled(),
+        s = o("QPLFlow").startQPLFlow(
+          o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
+          {
+            annotations: {
+              bool: { isPQ: l },
+              string: { operationType: "resendUserMsg" },
+            },
+            timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
           },
-        )),
-        s.apply(this, arguments)
-      );
+        );
+      return l
+        ? o("QPLFlow").endWith(
+            s,
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
+                "WAWebLazyPersistedQueue",
+              ).whenPersistedQueuesReady(s);
+              yield e.runUserMsgResendQueued({
+                ackTime: t,
+                excludeList: r,
+                msgRecord: a,
+                resend: i,
+              });
+            }),
+          )
+        : o("QPLFlow").endWith(
+            s,
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o("WAWebPersistedJobManagerWorkerCompatible")
+                .getJobManager()
+                .accessors.maybeCreateJob(
+                  o(
+                    "WAWebPersistedJobDefinitions",
+                  ).jobSerializers.resendUserMsg(a, r, t),
+                );
+              (yield i(),
+                yield o("WAWebPersistedJobManagerWorkerCompatible")
+                  .getJobManager()
+                  .accessors.deletePersistedJob(e.id));
+            }),
+          );
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function s(e, t) {
+      var r = o("WAWebJobsMigrationGating").isPersistedQueuesEnabled(),
+        a = o("QPLFlow").startQPLFlow(
+          o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
+          {
+            annotations: {
+              bool: { isPQ: r },
+              string: { operationType: "resendGroupMsg" },
+            },
+            timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
+          },
+        );
+      return r
+        ? o("QPLFlow").endWith(
+            a,
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var n = yield o(
+                "WAWebLazyPersistedQueue",
+              ).whenPersistedQueuesReady(a);
+              yield n.runGroupMsgResendQueued(e, t);
+            }),
+          )
+        : o("QPLFlow").endWith(
+            a,
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var n = e.ackTime,
+                r = e.groupData,
+                a = e.isDirect,
+                i = e.msgRecord,
+                l = e.oldList,
+                s = e.phash,
+                u = e.serverAddressingMode,
+                c = yield o("WAWebPersistedJobManagerWorkerCompatible")
+                  .getJobManager()
+                  .accessors.maybeCreateJob(
+                    o(
+                      "WAWebPersistedJobDefinitions",
+                    ).jobSerializers.resendGroupMsg(i, r, a, l, s, n, u),
+                  );
+              (yield t(),
+                yield o("WAWebPersistedJobManagerWorkerCompatible")
+                  .getJobManager()
+                  .accessors.deletePersistedJob(c.id));
+            }),
+          );
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
-            var n = yield o(
-              "WAWebLazyPersistedQueue",
-            ).whenPersistedQueuesReady();
-            return n.runGroupMsgResendQueued(e, t);
-          }
-          var r = e.ackTime,
-            a = e.groupData,
-            i = e.isDirect,
-            l = e.msgRecord,
-            s = e.oldList,
-            u = e.phash,
-            c = e.serverAddressingMode,
-            d = yield o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .accessors.maybeCreateJob(
-                o("WAWebPersistedJobDefinitions").jobSerializers.resendGroupMsg(
-                  l,
-                  a,
-                  i,
-                  s,
-                  u,
-                  r,
-                  c,
-                ),
-              );
-          (yield t(),
-            yield o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .accessors.deletePersistedJob(d.id));
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    ((l.runUserMsgResendRecorded = e), (l.runGroupMsgResendRecorded = u));
+    ((l.runUserMsgResendRecorded = e), (l.runGroupMsgResendRecorded = s));
   },
   98,
 );

@@ -341,6 +341,7 @@ __d(
           !1
         );
       ((le = !0),
+        o("WAWebVoipWebTransportCallSummary").recordWtFallbackTriggered(),
         t == null || t(),
         o("WAWebCoreActionsODS").logCallWebtransportFallbackToSctpTriggered(),
         o("WALogger").LOG(
@@ -455,6 +456,12 @@ __d(
     function Fe(e) {
       var t = Q.get(e.connectionId);
       if (t != null) {
+        if (e.event === "first_relay_datagram_sent") {
+          X.has(e.connectionId) &&
+            e.relayGeneration === Y &&
+            o("WAWebVoipWebTransportCallSummary").recordWtRelayTrafficSent();
+          return;
+        }
         if (e.event === "first_datagram") {
           X.has(e.connectionId) &&
             e.relayGeneration === Y &&
@@ -1168,18 +1175,19 @@ __d(
         });
       return "total=" + String(e.length) + ";" + (n.join("|") || "none");
     }
-    function dt() {
-      o("WALogger").LOG(
-        D ||
-          (D = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: [WebTransportConnectionManager] Closing all connections",
-          ])),
-      );
-      for (var e of Array.from(Q.keys())) Qe(e);
-      var t = o(
+    function dt(e) {
+      (e === void 0 && (e = !0),
+        o("WALogger").LOG(
+          D ||
+            (D = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [WebTransportConnectionManager] Closing all connections",
+            ])),
+        ));
+      for (var t of Array.from(Q.keys())) Qe(t);
+      var n = o(
         "WAWebVoipWebTransportDataChannelThreadManager",
       ).stopWebTransportDataChannelWorker();
-      (t.finally(function () {
+      (n.finally(function () {
         for (var e of Q) {
           var t = e[0],
             n = e[1];
@@ -1193,7 +1201,7 @@ __d(
         J.clear(),
         ve(),
         ee && (Se(), (re = !1), (le = !1), (se = !1), (ue = null)),
-        o("WAWebVoipWebTransportCallSummary").markWtCallSummaryClosed(),
+        e && o("WAWebVoipWebTransportCallSummary").markWtCallSummaryClosed(),
         o("WAWebVoipTsLogger").cleanup(),
         (ee = !1));
     }

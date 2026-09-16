@@ -15,8 +15,16 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "b1c2b89cc435ff132e768fea7cc1edf7447e152eeac53034a8ccbeebf1f8dcdb",
+      c = "40e4c29c987f4ae666295401676a522e972bcaf28b44295fd7e089511582cb86",
       d = {
+        "40e4c29c987f4ae666295401676a522e972bcaf28b44295fd7e089511582cb86":
+          function () {
+            return r("bx")("91317");
+          },
+        e41f41af8defe8727365f595a3a307e340cfaf53709a19336a494d6e3cc7ff94:
+          function () {
+            return r("bx")("91315");
+          },
         b1c2b89cc435ff132e768fea7cc1edf7447e152eeac53034a8ccbeebf1f8dcdb:
           function () {
             return r("bx")("34041");
@@ -58,7 +66,7 @@ __d(
             return r("bx")("90671");
           },
       },
-      m = d.b1c2b89cc435ff132e768fea7cc1edf7447e152eeac53034a8ccbeebf1f8dcdb,
+      m = d["40e4c29c987f4ae666295401676a522e972bcaf28b44295fd7e089511582cb86"],
       p = null,
       _ = null;
     try {
@@ -67,6 +75,14 @@ __d(
       p = e;
     }
     var f = {
+        "40e4c29c987f4ae666295401676a522e972bcaf28b44295fd7e089511582cb86":
+          function () {
+            return r("bx")("91316");
+          },
+        e41f41af8defe8727365f595a3a307e340cfaf53709a19336a494d6e3cc7ff94:
+          function () {
+            return r("bx")("91314");
+          },
         b1c2b89cc435ff132e768fea7cc1edf7447e152eeac53034a8ccbeebf1f8dcdb:
           function () {
             return r("bx")("20874");
@@ -123,20 +139,12 @@ __d(
           function () {
             return r("bx")("90619");
           },
-        "5af2b9755d98041ff47c2e1c78f9f7c870fb42bd1b99558e67c3c7b53f444c00":
-          function () {
-            return r("bx")("24838");
-          },
-        "1588ee378d0538beef5d2e88f45458ed6b67301656731b638d4aee29e89d7d79":
-          function () {
-            return r("bx")("24833");
-          },
       },
-      g = f.b1c2b89cc435ff132e768fea7cc1edf7447e152eeac53034a8ccbeebf1f8dcdb,
+      g = f["40e4c29c987f4ae666295401676a522e972bcaf28b44295fd7e089511582cb86"],
       h = null,
       y;
     try {
-      y = r("bx").getURL(g(), { cacheBreaker: "1789450953661" });
+      y = r("bx").getURL(g(), { cacheBreaker: "1789537921515" });
     } catch (e) {
       h = e;
     }
@@ -175,7 +183,7 @@ __d(
         var v = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/b1c2b89cc435ff132e768fea7cc1edf7447e152eeac53034a8ccbeebf1f8dcdb/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/40e4c29c987f4ae666295401676a522e972bcaf28b44295fd7e089511582cb86/wa_voip_shared.wasm",
           ),
           h != null)
         )
@@ -900,10 +908,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Xe = {
-          1363567: function () {
+          1363695: function () {
             return Date.now();
           },
-          1363590: function (t, n) {
+          1363718: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -3739,7 +3747,11 @@ __d(
                               expectedBuildSha: t.expectedBuildSha,
                               source: t.source,
                             }
-                          : { kind: "pinned_load_failed", error: t.error },
+                          : {
+                              kind: "pinned_load_failed",
+                              error: t.error,
+                              workerID: o.workerID,
+                            },
                       );
                     else
                       try {
@@ -7879,8 +7891,8 @@ __d(
           yl = (v.___get_exception_message = Ne("__get_exception_message")),
           Cl = Ne("__cxa_can_catch"),
           bl = Ne("__cxa_is_pointer_type"),
-          vl = (v.___start_em_js = 1357580),
-          Sl = (v.___stop_em_js = 1363567);
+          vl = (v.___start_em_js = 1357708),
+          Sl = (v.___stop_em_js = 1363695);
         function Rl(e, t, n, r) {
           var o = _l();
           try {
@@ -9880,7 +9892,8 @@ __d(
           define([], function () {
             return C;
           }),
-      (C.PINNED_WORKER_GLUE_BX_ERROR = p));
+      (C.PINNED_WORKER_GLUE_BX_ERROR = p),
+      (C.PINNED_WORKER_GLUE_URL = _));
   },
   34,
 );

@@ -14,9 +14,9 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = "b1c2b89cc435ff132e768fea7cc1edf7447e152eeac53034a8ccbeebf1f8dcdb",
+      c = "40e4c29c987f4ae666295401676a522e972bcaf28b44295fd7e089511582cb86",
       d = null,
-      m = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1789450953661" }),
+      m = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1789537921515" }),
       p = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -769,10 +769,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var Qe = {
-            1363567: function () {
+            1363695: function () {
               return Date.now();
             },
-            1363590: function (t, n) {
+            1363718: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -3634,7 +3634,11 @@ __d(
                                 expectedBuildSha: t.expectedBuildSha,
                                 source: t.source,
                               }
-                            : { kind: "pinned_load_failed", error: t.error },
+                            : {
+                                kind: "pinned_load_failed",
+                                error: t.error,
+                                workerID: o.workerID,
+                              },
                         );
                       else
                         try {
@@ -7820,8 +7824,8 @@ __d(
             hl = (b.___get_exception_message = Pe("__get_exception_message")),
             yl = Pe("__cxa_can_catch"),
             Cl = Pe("__cxa_is_pointer_type"),
-            bl = (b.___start_em_js = 1357580),
-            vl = (b.___stop_em_js = 1363567);
+            bl = (b.___start_em_js = 1357708),
+            vl = (b.___stop_em_js = 1363695);
           function Sl(e, t, n, r) {
             var o = pl();
             try {
