@@ -12,34 +12,42 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = {
+      s,
+      u = {
         ai_agent: "AI_AGENT",
         manual: "MANUAL",
         suggestions: "SUGGESTIONS",
       },
-      u = "TWO_LINE",
-      c = {
+      c = "TWO_LINE",
+      d = {
         error: "error",
         loading: "loading",
         quota_handoff: "handoff",
         success: "success",
+      },
+      m = {
+        appear: (s = o("WAWebWamEnumSmbUserActionTypeEnum"))
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        dismiss: s.SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+        sent: s.SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        transition: s.SMB_USER_ACTION_TYPE_ENUM.VIEW,
       };
-    function d(e) {
-      v(
+    function p(e) {
+      E(
         "smart_composer",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        { is_chat_ai_eligible: e, variant: u },
+        { is_chat_ai_eligible: e, variant: c },
       );
     }
-    function m() {
-      v(
+    function _() {
+      E(
         "mode_switching_bottom_sheet",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        { variant: u },
+        { variant: c },
       );
     }
-    function p(e) {
-      v(
+    function f(e) {
+      E(
         e,
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { is_companion: !0 },
@@ -47,78 +55,113 @@ __d(
           .GEN_AI_AGENT_SMART_COMPOSER_HANDOFF_CARD,
       );
     }
-    function _(e) {
+    function g(e) {
       var t = e.cardStatus,
         n = e.cardType,
         r = e.errorCode,
         a = e.reason,
         i = e.trigger,
-        l = { card_state: c[t], dismissed: a };
+        l = { card_state: d[t], dismissed: a };
       (n != null && (l.card_type = n),
         i != null && (l.trigger = i),
         r != null &&
           (l.error_code = o(
             "WAWebBizAiSmartComposerErrorMapping",
           ).getSuggestedReplyErrorWireValue(r)),
-        v(
+        E(
           "suggested_reply_card_dismissed",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
             .DISMISS,
           l,
         ));
     }
-    function f(e) {
-      v(
+    function h(e) {
+      var t = e.action,
+        n = e.cardStatus,
+        r = e.cardType,
+        a = e.dismissReason,
+        i = e.editDistanceRatio,
+        l = e.errorCode,
+        s = e.funnelId,
+        u = { action: t, card_state: n, funnel_id: s };
+      (r != null && (u.card_type = r),
+        a != null && (u.dismiss_reason = a),
+        l != null &&
+          (u.error_code = o(
+            "WAWebBizAiSmartComposerErrorMapping",
+          ).getSuggestedReplyErrorWireValue(l)),
+        i != null && (u.edit_distance_ratio = i),
+        E("suggested_reply_card_funnel", m[t], u));
+    }
+    function y(e) {
+      E(
         "suggested_reply_metering_gql_response",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         { success: e },
       );
     }
-    function g(e, t, n) {
-      v(
+    function C(e, t, n) {
+      E(
         "suggested_reply_card_view",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         { card_state: "success", is_from_cache: t, trigger: e, card_type: n },
       );
     }
-    function h(e) {
-      v(
+    function b(e) {
+      E(
         "suggested_reply_requested",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
         { trigger: e },
       );
     }
-    function y(e, t) {
+    function v(e, t) {
       var n = { trigger: e };
       (t != null &&
         (n.error_code = o(
           "WAWebBizAiSmartComposerErrorMapping",
         ).getSuggestedReplyErrorWireValue(t)),
-        v(
+        E(
           "suggested_reply_received",
           o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.API,
           n,
         ));
     }
-    function C(e, t) {
-      v(
+    function S(e, t, n) {
+      var r = {
+        card_type: t,
+        suggestion_word_count: n.suggestionWordCount,
+        trigger: e,
+        was_edited: n.wasEdited,
+      };
+      (n.editDistance != null && (r.edit_distance = n.editDistance),
+        n.editDistanceRatio != null &&
+          (r.edit_distance_ratio = n.editDistanceRatio),
+        E(
+          "suggested_reply_send",
+          o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
+            .CLICK,
+          r,
+        ));
+    }
+    function R(e, t) {
+      E(
         "suggested_reply_card_tapped",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         { card_type: t, trigger: e },
       );
     }
-    function b(e) {
+    function L(e) {
       var t = e.from,
         n = e.success,
         r = e.to,
         a = e.trigger;
-      v(
+      E(
         "mode_switch_requested",
         o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        { from: s[t], success: n, to: s[r], trigger: a, variant: u },
+        { from: u[t], success: n, to: u[r], trigger: a, variant: c },
       );
     }
-    function v(t, n, a, i) {
+    function E(t, n, a, i) {
       i === void 0 &&
         (i = o("WAWebWamEnumSurfaceType").SURFACE_TYPE.SMB_SMART_COMPOSER);
       try {
@@ -144,16 +187,18 @@ __d(
           .sendLogs("biz-ai-smart-composer-wam-fail");
       }
     }
-    ((l.logViewSmartComposer = d),
-      (l.logViewModeSwitchingSheet = m),
-      (l.logViewHandoffCard = p),
-      (l.logDismissSuggestionCard = _),
-      (l.logMeteringResponse = f),
-      (l.logViewSuggestionCard = g),
-      (l.logSuggestionRequested = h),
-      (l.logSuggestionReceived = y),
-      (l.logTapSuggestionCard = C),
-      (l.logModeSwitchRequested = b));
+    ((l.logViewSmartComposer = p),
+      (l.logViewModeSwitchingSheet = _),
+      (l.logViewHandoffCard = f),
+      (l.logDismissSuggestionCard = g),
+      (l.logSuggestionCardFunnel = h),
+      (l.logMeteringResponse = y),
+      (l.logViewSuggestionCard = C),
+      (l.logSuggestionRequested = b),
+      (l.logSuggestionReceived = v),
+      (l.logSendSuggestion = S),
+      (l.logTapSuggestionCard = R),
+      (l.logModeSwitchRequested = L));
   },
   98,
 );

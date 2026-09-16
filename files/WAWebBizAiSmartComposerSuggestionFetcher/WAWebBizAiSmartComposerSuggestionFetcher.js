@@ -189,17 +189,20 @@ __d(
           { ok: !1, code: r }
         );
       }
-      var a = n.bot_response_id;
-      if (a == null || a === "") return { ok: !1, code: "INVALID_RESPONSE" };
-      var i = {
+      var a = n.bot_response_id,
+        i = n.type;
+      if (a == null || a === "" || i == null)
+        return { ok: !1, code: "INVALID_RESPONSE" };
+      var l = {
         botResponseId: a,
-        text: (t = n.text) != null ? t : null,
         product: R(n.product),
+        suggestionType: i,
+        text: (t = n.text) != null ? t : null,
       };
       return (
         o(
           "WAWebBizAiSmartComposerSuggestionStateMachine",
-        ).getSuggestionInsertText(i) === "" &&
+        ).getSuggestionInsertText(l) === "" &&
           o("WALogger")
             .LOG(
               c ||
@@ -208,7 +211,7 @@ __d(
                 ])),
             )
             .sendLogs("biz-ai-smart-composer-suggestion-empty"),
-        { ok: !0, suggestion: i }
+        { ok: !0, suggestion: l }
       );
     }
     function R(e) {

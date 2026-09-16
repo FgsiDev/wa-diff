@@ -267,17 +267,25 @@ __d(
     }
     function f(e, t) {
       if (t == null) return e;
-      var n = babelHelpers.extends({}, e);
+      var n = {};
       for (var r of Object.entries(t)) {
         var o = r[0],
-          a = r[1],
-          i = n[a],
-          l = n[o];
-        i == null && l != null
-          ? (n[a] = l)
-          : l == null && i != null && (n[o] = i);
+          a = r[1];
+        n[a] = o;
       }
-      return n;
+      var i = {};
+      for (var l of Object.entries(e)) {
+        var s = l[0],
+          u = l[1];
+        {
+          var c,
+            d,
+            m = (c = n[s]) != null ? c : s,
+            p = (d = t[m]) != null ? d : s;
+          ((i[m] = u), (i[p] = u));
+        }
+      }
+      return i;
     }
     function g(e, t) {
       if (!t || t.size === 0) return e;

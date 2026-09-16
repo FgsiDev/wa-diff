@@ -138,12 +138,12 @@ __d(
           (o(
             "WAWebVerifyProtobufMsgObjectKeys",
           ).verifyProtobufMessageObjectKeys(x),
-            o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret(
-              x,
-              o("WAWebMessageSecretLocationUtils").MessageSecretCheckContext
-                .Receiver,
-              c.externalId,
-            ));
+            o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret({
+              context: o("WAWebMessageSecretLocationUtils")
+                .MessageSecretCheckContext.Receiver,
+              proto: x,
+              stanzaId: c.externalId,
+            }));
           var $ = null,
             N =
               (t = x.deviceSentMessage) == null || (t = t.message) == null
@@ -202,12 +202,12 @@ __d(
                 ).verifyProtobufMessageObjectKeys(x),
                 o(
                   "WAWebMessageSecretLocationUtils",
-                ).verifyTopLevelMessageSecret(
-                  x,
-                  o("WAWebMessageSecretLocationUtils").MessageSecretCheckContext
-                    .Receiver,
-                  c.externalId,
-                )),
+                ).verifyTopLevelMessageSecret({
+                  context: o("WAWebMessageSecretLocationUtils")
+                    .MessageSecretCheckContext.Receiver,
+                  proto: x,
+                  stanzaId: c.externalId,
+                })),
               ($ = K.scheduledMsgViewMode),
               K.isRevealPending)
             ) {

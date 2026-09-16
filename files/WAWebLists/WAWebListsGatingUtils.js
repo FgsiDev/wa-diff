@@ -1,1 +1,33 @@
-__d("WAWebListsGatingUtils",["WAWebABProps","WAWebMobilePlatforms"],(function(t,n,r,o,a,i,l){function e(){return o("WAWebMobilePlatforms").isSMB()?!0:o("WAWebABProps").getABPropConfigValue("wa_web_lists_m1_enabled")}function s(){return o("WAWebMobilePlatforms").isSMB()&&o("WAWebABProps").getABPropConfigValue("lists_chat_list_row_pill_enabled")}function u(){return o("WAWebMobilePlatforms").isSMB()?o("WAWebABProps").getABPropConfigValue("lists_smb_web_m2_enabled"):e()&&o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled")}function c(){return o("WAWebMobilePlatforms").isSMB()?!0:u()}l.isListsEnabled=e,l.isListsChatListRowPillEnabled=s,l.isListsM2Enabled=u,l.isLabelReorderEnabled=c}),98);
+__d(
+  "WAWebListsGatingUtils",
+  ["WAWebABProps", "WAWebMobilePlatforms"],
+  function (t, n, r, o, a, i, l) {
+    function e() {
+      return o("WAWebMobilePlatforms").isSMB()
+        ? !0
+        : o("WAWebABProps").getABPropConfigValue("wa_web_lists_m1_enabled");
+    }
+    function s() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "lists_chat_list_row_pill_enabled",
+        )
+      );
+    }
+    function u() {
+      return o("WAWebMobilePlatforms").isSMB()
+        ? o("WAWebABProps").getABPropConfigValue("lists_smb_web_m2_enabled2")
+        : e() &&
+            o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled");
+    }
+    function c() {
+      return o("WAWebMobilePlatforms").isSMB() ? !0 : u();
+    }
+    ((l.isListsEnabled = e),
+      (l.isListsChatListRowPillEnabled = s),
+      (l.isListsM2Enabled = u),
+      (l.isLabelReorderEnabled = c));
+  },
+  98,
+);

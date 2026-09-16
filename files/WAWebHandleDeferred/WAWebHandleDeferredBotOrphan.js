@@ -33,6 +33,8 @@ __d(
           "bot reply deferred: waiting for the message it replies to",
         "placeholder-target-row":
           "bot reply deferred: the message it replies to has not decrypted yet",
+        "wasa-root-secret-missing":
+          "bot reply deferred: no Hatch key here and syncd had none to restore",
       };
     function _(e) {
       return f.apply(this, arguments);
