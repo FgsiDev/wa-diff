@@ -81,10 +81,13 @@ __d(
           durationText: r == null ? void 0 : r.toString(),
           fieldLabels: t.fields
             .filter(function (e) {
-              return e.enabled && e.label !== "";
+              return e.enabled;
             })
             .map(function (e) {
               return e.label;
+            })
+            .filter(function (e) {
+              return e !== "";
             }),
           locationTexts: t.locationTypes.map(function (t) {
             return e(t).toString();

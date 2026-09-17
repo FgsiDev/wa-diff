@@ -44,7 +44,6 @@ __d(
     "useWAWebModelValues",
     "useWAWebMsgDownloadMedia",
     "useWAWebMsgValues",
-    "useWAWebPrevious",
     "useWAWebSendViewCount",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -255,7 +254,7 @@ __d(
       var Z = g(!1),
         ee = Z[0],
         te = Z[1],
-        ne = r("useWAWebPrevious")(ee),
+        ne = f(null),
         re = f(null),
         oe = g(!1),
         ae = oe[0],
@@ -372,17 +371,18 @@ __d(
       ),
         _(
           function () {
-            if (ee && ne === !1) {
-              var e = v.current;
-              (e &&
-                (e.seek(0),
-                e.play(),
+            var e = ne.current;
+            if (((ne.current = ee), ee && e === !1)) {
+              var t = v.current;
+              (t &&
+                (t.seek(0),
+                t.play(),
                 o("WAWebMarkPlayedMsgAction").canMarkPlayed(c.unsafe()) &&
                   o("WAWebMarkPlayedMsgAction").markPlayed(c.unsafe())),
                 (ce.current = 0));
             }
           },
-          [ee, c, ne],
+          [ee, c],
         ));
       var he = r("useWAWebEventTargetValue")(
           b ? null : R,
