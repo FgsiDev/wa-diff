@@ -1730,6 +1730,8 @@ __d(
       BULK_BOOST_SECTION_IMPRESSION: "bulk_boost_section_impression",
       BULK_BOOST_ADD_BUTTON_CLICK: "bulk_boost_add_button_click",
       BULK_BOOST_BOTTOM_SHEET_CLOSE: "bulk_boost_bottom_sheet_close",
+      BULK_BOOST_LISTING_SELECTION_CHANGED:
+        "bulk_boost_listing_selection_changed",
       PROACTIVE_CHAT_DEFAULT_OPTIN_ELIGIBILITY_CHECK_SUCCESS:
         "proactive_chat_default_optin_eligibility_check_success",
       PROACTIVE_CHAT_DEFAULT_OPTIN_ELIGIBILITY_CHECK_FAIL:
