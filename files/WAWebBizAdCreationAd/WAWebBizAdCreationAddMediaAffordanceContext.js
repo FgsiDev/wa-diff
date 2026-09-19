@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationAddMediaAffordanceContext",
-  ["react", "react-compiler-runtime"],
+  ["WAWebNoop", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -13,9 +13,15 @@ __d(
       _ = u.useRef,
       f = u.useState,
       g = {
+        getFocusTarget: function () {
+          return null;
+        },
         isAddMediaBusy: !1,
         isCreativeCtaVisible: null,
         openMediaPicker: function () {},
+        registerFocusTarget: function () {
+          return r("WAWebNoop");
+        },
         registerOpenMediaPicker: function () {},
         scrollRootElement: null,
         updateAddMediaBusy: function () {},
@@ -23,7 +29,7 @@ __d(
       },
       h = c(g);
     function y(e) {
-      var t = o("react-compiler-runtime").c(11),
+      var t = o("react-compiler-runtime").c(14),
         n = e.children,
         r = e.scrollRootElement,
         a = r === void 0 ? null : r,
@@ -67,31 +73,59 @@ __d(
         : (R = t[3]);
       var L = R,
         E;
-      t[4] !== d || t[5] !== l || t[6] !== a
-        ? ((E = {
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = { addMore: null, nullState: null }), (t[4] = E))
+        : (E = t[4]);
+      var k = _(E),
+        I;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = function (t, n) {
+            return (
+              (k.current[t] = n),
+              function () {
+                k.current[t] === n && (k.current[t] = null);
+              }
+            );
+          }),
+          (t[5] = I))
+        : (I = t[5]);
+      var T = I,
+        D;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = function (t) {
+            return k.current[t];
+          }),
+          (t[6] = D))
+        : (D = t[6]);
+      var x = D,
+        $;
+      t[7] !== d || t[8] !== l || t[9] !== a
+        ? (($ = {
+            getFocusTarget: x,
             isAddMediaBusy: d,
             isCreativeCtaVisible: l,
             openMediaPicker: L,
+            registerFocusTarget: T,
             registerOpenMediaPicker: S,
             scrollRootElement: a,
             updateAddMediaBusy: b,
             updateCreativeCtaVisible: y,
           }),
-          (t[4] = d),
-          (t[5] = l),
-          (t[6] = a),
-          (t[7] = E))
-        : (E = t[7]);
-      var k = E,
-        I;
+          (t[7] = d),
+          (t[8] = l),
+          (t[9] = a),
+          (t[10] = $))
+        : ($ = t[10]);
+      var P = $,
+        N;
       return (
-        t[8] !== n || t[9] !== k
-          ? ((I = s.jsx(h.Provider, { value: k, children: n })),
-            (t[8] = n),
-            (t[9] = k),
-            (t[10] = I))
-          : (I = t[10]),
-        I
+        t[11] !== n || t[12] !== P
+          ? ((N = s.jsx(h.Provider, { value: P, children: n })),
+            (t[11] = n),
+            (t[12] = P),
+            (t[13] = N))
+          : (N = t[13]),
+        N
       );
     }
     function C() {
