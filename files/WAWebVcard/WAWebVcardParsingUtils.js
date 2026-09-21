@@ -51,7 +51,8 @@ __d(
     function _(e) {
       var t = {};
       return (
-        e &&
+        e == null ||
+          e === "" ||
           e.split(";").forEach(function (e) {
             var n = e.split(/=/);
             if (n.length === 1) {
@@ -67,7 +68,7 @@ __d(
       );
     }
     function f(e) {
-      if (e)
+      if (!(e == null || e === ""))
         return e
           .replace(/^_\$!<([^>]*)>!\$_$/, "$1")
           .replace(/\\,/, ",")

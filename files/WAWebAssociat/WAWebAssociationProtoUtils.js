@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebAssociationProcessor",
+    "WAWebDualUploadsAssociationTypes",
     "WAWebE2EProtoUtils",
     "WAWebLidMigrationUtils",
     "WAWebMessageAssociation.flow",
@@ -24,34 +25,28 @@ __d(
       s,
       u,
       c,
-      d = [
-        o("WAWebMessageAssociation.flow").MessageAssociationType
-          .HD_IMAGE_DUAL_UPLOAD,
-        o("WAWebMessageAssociation.flow").MessageAssociationType
-          .HD_VIDEO_DUAL_UPLOAD,
-        o("WAWebMessageAssociation.flow").MessageAssociationType
-          .HEVC_VIDEO_DUAL_UPLOAD,
-      ],
-      m = new Set([
+      d = new Set([
         o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType
           .STICKER_ANNOTATION,
         o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType
           .POLL_ADD_OPTION,
       ]);
-    function p(e) {
+    function m(e) {
       var t = o("WAWebMessageAssociation.flow").MessageAssociationType.cast(
           o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType.getName(
             e,
           ),
         ),
         n = r("justknobx")._("4912");
-      return t != null && d.includes(t) && !n
+      return t != null &&
+        o("WAWebDualUploadsAssociationTypes").isDualUploadAssociationType(t) &&
+        !n
         ? o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN
         : t != null
           ? t
           : o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN;
     }
-    function _(e) {
+    function p(e) {
       switch (e) {
         case o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
@@ -77,7 +72,7 @@ __d(
             .MEDIA_POLL;
       }
     }
-    function f(e) {
+    function _(e) {
       switch (e) {
         case o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
@@ -99,16 +94,16 @@ __d(
           return !1;
       }
     }
-    function g(e, t) {
+    function f(e, t) {
       if (!(e == null || t == null))
         return {
           messageAssociation: {
-            associationType: _(e),
+            associationType: p(e),
             parentMessageKey: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(t),
           },
         };
     }
-    function h(e) {
+    function g(e) {
       var t = e.baseMessage,
         n = e.msgContext,
         a = e.parentMessageKey,
@@ -120,13 +115,13 @@ __d(
             t,
           );
     }
-    function y(e, t, n) {
-      var a = h({
+    function h(e, t, n) {
+      var a = g({
           baseMessage: t,
           msgContext: n,
           parentMessageKey: e.parentMessageKey,
         }),
-        i = p(e.associationType),
+        i = m(e.associationType),
         l = o(
           "WAWebAssociationProcessor",
         ).getAssociationProcessorByAssociationType(i);
@@ -147,11 +142,11 @@ __d(
         viewMode: l.viewMode,
       };
     }
-    function C(t, n, a, i) {
+    function y(t, n, a, i) {
       var l = n == null ? void 0 : n.messageAssociation;
       if (l != null) {
         if (a === "history_quoted" || a === "quoted") return null;
-        var d = l.parentMessageKey,
+        var m = l.parentMessageKey,
           p = l.associationType;
         if (
           p ===
@@ -159,7 +154,7 @@ __d(
             .STATUS_NOTIFICATION
         )
           return null;
-        if (d == null)
+        if (m == null)
           throw new (o(
             "WAWebMessageAssociationValidation",
           ).MessageAssociationValidationError)(
@@ -177,10 +172,10 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        if (a === "history") return { associationType: p, parentMessageKey: d };
+        if (a === "history") return { associationType: p, parentMessageKey: m };
         var _ = o(
           "WAWebE2EProtoUtils",
-        ).translateRegularMessageKeyToLocalReference(d, t);
+        ).translateRegularMessageKeyToLocalReference(m, t);
         if (_ == null)
           throw new (o(
             "WAWebMessageAssociationValidation",
@@ -206,7 +201,7 @@ __d(
               t.id.participant,
             ),
           );
-        if (!f && !m.has(p)) {
+        if (!f && !d.has(p)) {
           var g,
             h,
             y,
@@ -267,7 +262,7 @@ __d(
                 ? b
                 : "null",
             q = (S = M == null ? void 0 : M.toLogString()) != null ? S : "null",
-            U = (R = d.participant) != null ? R : "null",
+            U = (R = m.participant) != null ? R : "null",
             V = (L = t.type) != null ? L : "null",
             H = (E = t.subtype) != null ? E : "null",
             G =
@@ -341,16 +336,16 @@ __d(
             )
           );
         }
-        return { associationType: p, parentMessageKey: d };
+        return { associationType: p, parentMessageKey: m };
       }
       return null;
     }
-    ((l.convertAssociationTypeFromProtoToClientSupportedAssociationType = p),
-      (l.convertAssociationTypeFromClientToProtoSupportedAssociationType = _),
-      (l.shouldWrapAssociatedChildForType = f),
-      (l.getValidatedOutgoingMessageAssociationContextInfo = g),
-      (l.getValidatedAssociationFieldsFromProto = y),
-      (l.validateMessageAssociationInMessageContextInfo = C));
+    ((l.convertAssociationTypeFromProtoToClientSupportedAssociationType = m),
+      (l.convertAssociationTypeFromClientToProtoSupportedAssociationType = p),
+      (l.shouldWrapAssociatedChildForType = _),
+      (l.getValidatedOutgoingMessageAssociationContextInfo = f),
+      (l.getValidatedAssociationFieldsFromProto = h),
+      (l.validateMessageAssociationInMessageContextInfo = y));
   },
   98,
 );
