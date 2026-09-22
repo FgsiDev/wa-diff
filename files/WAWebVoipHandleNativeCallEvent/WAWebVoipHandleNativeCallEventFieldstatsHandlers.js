@@ -256,6 +256,7 @@ __d(
             r = o("WAWebVoipCallRatingStore").setPendingFieldstatsJsonStr(
               e,
               o("WAWebCallRandomIdStore").getCurrentCallRandomId(),
+              o("WAWebVoipLobbyEntryPointStore").getCurrentLobbyEntryPoint(),
             );
           (n != null && G.set(r, n), _e(r));
           var a = J(e);
@@ -275,7 +276,8 @@ __d(
             u = l.stats.fieldStatsRowType,
             c = l.isLastFieldStatsReport;
           if (c) {
-            (o("WAWebCoreActionsODS").logCallFieldstatsFinalReceived(),
+            (o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
+              o("WAWebCoreActionsODS").logCallFieldstatsFinalReceived(),
               a || de(r),
               l.eventType ===
                 o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call &&
@@ -301,14 +303,13 @@ __d(
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call &&
             m.callTermReason === w &&
             delete m.callTermReason;
-          var p = typeof m.callId == "string" ? m.callId : null,
-            _ = o("WAWebVoipLobbyEntryPointStore").getLobbyEntryPointForCall(p);
+          var p = r.lobbyEntryPoint;
           if (
-            (_ != null && (m.lobbyEntryPoint = _),
+            (p != null && (m.lobbyEntryPoint = p),
             o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled())
           ) {
-            var f = r.callRandomId;
-            f != null && (m.callRandomId = f);
+            var _ = r.callRandomId;
+            _ != null && (m.callRandomId = _);
           }
           if (
             l.eventType ===
@@ -316,17 +317,17 @@ __d(
           ) {
             o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled() &&
               (delete m.micPermission, delete m.cameraPermission);
-            var g = yield o("WAWebBackendApi").frontendSendAndReceive(
+            var f = yield o("WAWebBackendApi").frontendSendAndReceive(
               "getUnifiedSessionId",
             );
-            g != null && (m.unifiedSessionId = g);
+            f != null && (m.unifiedSessionId = f);
           }
-          var C =
+          var g =
             l.eventType ===
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call
               ? new (o("WAWebCallWamEvent").CallWamEvent)(m)
               : le(m);
-          C.commit();
+          g.commit();
         })),
         re.apply(this, arguments)
       );
@@ -597,9 +598,7 @@ __d(
                 g,
               ));
             var h = typeof c.callId == "string" ? c.callId : null,
-              y = o("WAWebVoipLobbyEntryPointStore").getLobbyEntryPointForCall(
-                h,
-              );
+              y = e.lobbyEntryPoint;
             if (
               (y != null &&
                 ((c.lobbyEntryPoint = y),
