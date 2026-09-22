@@ -53,7 +53,14 @@ __d(
         };
     }
     function c(e) {
-      if (o("WAWebBotBaseGating").isBotEnabled()) return d(e);
+      var t;
+      if (
+        o("WAWebBotBaseGating").isBotEnabled() ||
+        ((t = e.id) == null || (t = t.remote) == null
+          ? void 0
+          : t.isSupportAgentBot()) === !0
+      )
+        return d(e);
       if (e.botGroupParticipant != null) return _(e);
     }
     function d(t) {

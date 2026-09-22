@@ -161,6 +161,9 @@ __d(
               t,
             );
           }),
+          (t.dataSharingClicked = function (t) {
+            o("WAWebBBHomeLogs").dataSharingClicked(this.$1, t);
+          }),
           (t.homeAudiencesTabClicked = function (t) {
             o("WAWebBBHomeLogs").homeAudiencesTabClicked(this.$1, t);
           }),

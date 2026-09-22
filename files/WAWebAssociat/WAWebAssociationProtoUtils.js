@@ -50,14 +50,16 @@ __d(
       switch (e) {
         case o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
-          .HD_IMAGE_DUAL_UPLOAD:
-        case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HD_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HEVC_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION:
           throw r("err")("Invalid outgoing association type");
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .HD_IMAGE_DUAL_UPLOAD:
+          return o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType
+            .HD_IMAGE_DUAL_UPLOAD;
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .MEDIA_ALBUM:
           return o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType
@@ -76,14 +78,15 @@ __d(
       switch (e) {
         case o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
-          .HD_IMAGE_DUAL_UPLOAD:
-        case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HD_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HEVC_VIDEO_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .POLL_ADD_OPTION:
           return !1;
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .HD_IMAGE_DUAL_UPLOAD:
+          return !0;
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .MEDIA_POLL:
           return !1;

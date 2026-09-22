@@ -141,21 +141,27 @@ __d(
       if (!(p != null && _ != null)) {
         var e = null;
         try {
+          var t;
           if (((e = E()), e == null)) return;
-          ((p = e.contentWindow.String),
-            (_ = e.contentWindow.Function.prototype.call),
+          var n = e.contentWindow;
+          p = n == null ? void 0 : n.String;
+          var o = e.contentWindow;
+          ((_ =
+            o == null || (t = o.Function) == null || (t = t.prototype) == null
+              ? void 0
+              : t.call),
             (f = e.contentWindow.JSON.parse),
             (g = e.contentWindow.Function.prototype.toString));
-          var t = e.contentWindow.Object.getOwnPropertyDescriptor,
-            n = e.contentWindow.XMLHttpRequest.prototype,
-            o = t(n, "response"),
-            a = t(n, "responseText");
-          (o != null && o.get && (h = o.get),
-            a != null && a.get && (y = a.get));
+          var a = e.contentWindow.Object.getOwnPropertyDescriptor,
+            i = e.contentWindow.XMLHttpRequest.prototype,
+            l = a(i, "response"),
+            s = a(i, "responseText");
+          (l != null && l.get && (h = l.get),
+            s != null && s.get && (y = s.get));
           try {
-            var i,
-              l = e.contentWindow;
-            C = F(l == null || (i = l.JSON) == null ? void 0 : i.parse(m));
+            var u,
+              c = e.contentWindow;
+            C = F(c == null || (u = c.JSON) == null ? void 0 : u.parse(m));
           } catch (e) {
             C = !0;
           }

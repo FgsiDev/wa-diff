@@ -65,6 +65,7 @@ __d(
         CONVERSATION_HEADER_MENU: "conversation_header_menu",
         CREATE_AUDIENCE_BUTTON: "create_audience_button",
         CREATE_BROADCAST_BUTTON: "create_broadcast_button",
+        DATA_SHARING: "data_sharing",
         DELETE_ALL_ERROR_CONTACTS: "delete_all_error_contacts",
         DELETE_AUDIENCE_BUTTON: "delete_audience_button",
         DELETE_BROADCAST_BUTTON: "delete_broadcast_button",

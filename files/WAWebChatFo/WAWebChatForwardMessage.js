@@ -308,6 +308,7 @@ __d(
         l = new Set([
           "buttons",
           "caption",
+          "pairedMediaType",
           "broadcast",
           "ephemeralDuration",
           "ephemeralSettingTimestamp",
