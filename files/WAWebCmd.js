@@ -1054,6 +1054,9 @@ __d(
           (i.onNotificationPermissionChange = function () {
             this.trigger("on_notification_permission_change");
           }),
+          (i.onNotificationTestVerified = function () {
+            this.trigger("on_notification_test_verified");
+          }),
           (i.onBrigadingStateChangeFromBridge = function (t) {
             this.trigger("on_brigading_state_change_from_bridge", t);
           }),

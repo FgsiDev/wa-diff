@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebABPropsSaga",
     "WAWebBotMessageSecret",
-    "WAWebCoexV2BotWid",
     "WAWebCommsAckParser",
     "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoGenerator",
@@ -55,16 +54,53 @@ __d(
           )
             return m(t);
           var p,
-            f = "message";
-          if (l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) {
-            var g = yield o(
-              "WAWebSendCoexV2RetryMsgJob",
-            ).buildCoexV2RetryStanza(n, i, a);
-            if (g == null) return;
-            p = g;
-          } else {
-            var h = yield _(t);
-            ((p = h.stanza), (f = h.statusStanzaClass));
+            f = "message",
+            g,
+            h = o("WAWebSendCoexV2RetryMsgJob").getCoexV2RetryDispatch({
+              msgRecord: n,
+              recipient: a,
+              retryCount: i,
+              to: l,
+            });
+          e: {
+            var y = h;
+            if (
+              ((typeof y == "object" && y !== null) ||
+                typeof y == "function") &&
+              y.kind === "applicable" &&
+              "result" in y
+            ) {
+              var C = y.result;
+              if (((g = yield C), g == null)) return;
+              break e;
+            }
+            if (
+              ((typeof y == "object" && y !== null) ||
+                typeof y == "function") &&
+              y.kind === "fallback" &&
+              "result" in y
+            ) {
+              var b = y.result;
+              g = yield b;
+              break e;
+            }
+            if (
+              ((typeof y == "object" && y !== null) ||
+                typeof y == "function") &&
+              y.kind === "not_applicable"
+            ) {
+              g = null;
+              break e;
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                y,
+            );
+          }
+          if (g != null) p = g;
+          else {
+            var v = yield _(t);
+            ((p = v.stanza), (f = v.statusStanzaClass));
           }
           o("WALogger")
             .LOG(
@@ -78,13 +114,13 @@ __d(
               l.toString(),
             )
             .tags("messaging");
-          var y = l.isStatus() ? null : r,
-            C = l;
+          var S = l.isStatus() ? null : r,
+            R = l;
           return (
             l.isBot() &&
               a != null &&
               !(a != null && a.isBot()) &&
-              ((y = l), a != null || s(0, 75958), (C = a)),
+              ((S = l), a != null || s(0, 75958), (R = a)),
             o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndWaitForAck(
@@ -92,8 +128,8 @@ __d(
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: c,
                 class: l.isStatus() ? f : "message",
-                from: C,
-                participant: y,
+                from: R,
+                participant: S,
               }),
             )
           );
