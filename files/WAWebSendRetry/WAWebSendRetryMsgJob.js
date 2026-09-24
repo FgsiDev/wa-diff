@@ -28,10 +28,11 @@ __d(
           var n = t.msgRecord,
             r = t.participant,
             a = t.recipient,
-            i = t.retryCount,
-            l = t.to,
-            c = n.data.id.id,
-            d = r || l;
+            i = t.retryContext,
+            l = t.retryCount,
+            c = t.to,
+            d = n.data.id.id,
+            p = r || c;
           if (
             (o("WALogger")
               .LOG(
@@ -43,64 +44,65 @@ __d(
                     ", count: ",
                     "",
                   ])),
-                c,
-                l.toString(),
-                d.toString(),
-                i,
+                d,
+                c.toString(),
+                p.toString(),
+                l,
               )
               .tags("messaging"),
-            l.isStatus() &&
+            c.isStatus() &&
               o("WAWebStatusGatingUtils").isStatusPublishViaSmaxEnabled())
           )
             return m(t);
-          var p,
-            f = "message",
-            g,
-            h = o("WAWebSendCoexV2RetryMsgJob").getCoexV2RetryDispatch({
+          var f,
+            g = "message",
+            h,
+            y = o("WAWebSendCoexV2RetryMsgJob").getCoexV2RetryDispatch({
               msgRecord: n,
               recipient: a,
-              retryCount: i,
-              to: l,
+              retryContext: i,
+              retryCount: l,
+              to: c,
             });
           e: {
-            var y = h;
+            var C = y;
             if (
-              ((typeof y == "object" && y !== null) ||
-                typeof y == "function") &&
-              y.kind === "applicable" &&
-              "result" in y
+              ((typeof C == "object" && C !== null) ||
+                typeof C == "function") &&
+              C.kind === "applicable" &&
+              "result" in C
             ) {
-              var C = y.result;
-              if (((g = yield C), g == null)) return;
+              var b = C.result;
+              if (((h = yield b), h == null)) return;
               break e;
             }
             if (
-              ((typeof y == "object" && y !== null) ||
-                typeof y == "function") &&
-              y.kind === "fallback" &&
-              "result" in y
+              ((typeof C == "object" && C !== null) ||
+                typeof C == "function") &&
+              C.kind === "fallback" &&
+              "result" in C
             ) {
-              var b = y.result;
-              g = yield b;
+              var v = C.result;
+              h = yield v;
               break e;
             }
             if (
-              ((typeof y == "object" && y !== null) ||
-                typeof y == "function") &&
-              y.kind === "not_applicable"
+              ((typeof C == "object" && C !== null) ||
+                typeof C == "function") &&
+              C.kind === "not_applicable"
             ) {
-              g = null;
+              h = null;
               break e;
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                y,
+                C,
             );
           }
-          if (g != null) p = g;
+          if (h != null) f = h;
           else {
-            var v = yield _(t);
-            ((p = v.stanza), (f = v.statusStanzaClass));
+            var S = yield _(t);
+            ((f = S.stanza), (g = S.statusStanzaClass));
           }
           o("WALogger")
             .LOG(
@@ -110,26 +112,26 @@ __d(
                   " to ",
                   "",
                 ])),
-              c,
-              l.toString(),
+              d,
+              c.toString(),
             )
             .tags("messaging");
-          var S = l.isStatus() ? null : r,
-            R = l;
+          var R = c.isStatus() ? null : r,
+            L = c;
           return (
-            l.isBot() &&
+            c.isBot() &&
               a != null &&
               !(a != null && a.isBot()) &&
-              ((S = l), a != null || s(0, 75958), (R = a)),
+              ((R = c), a != null || s(0, 75958), (L = a)),
             o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndWaitForAck(
-              p,
+              f,
               o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: c,
-                class: l.isStatus() ? f : "message",
-                from: R,
-                participant: S,
+                id: d,
+                class: c.isStatus() ? g : "message",
+                from: L,
+                participant: R,
               }),
             )
           );

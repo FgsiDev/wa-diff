@@ -196,7 +196,8 @@ __d(
           }),
           (a.setGlobalCallNotifications = function (t) {
             ((d = t),
-              o("WAWebUserPrefsNotifications").setGlobalCallNotifications(t));
+              o("WAWebUserPrefsNotifications").setGlobalCallNotifications(t),
+              this.trigger("change:callNotifications", d));
           }),
           (a.getGlobalOfflineNotifications = function () {
             return _;

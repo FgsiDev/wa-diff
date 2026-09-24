@@ -66,11 +66,12 @@ __d(
           (i.muteChatMultiselect = function (t, n, r) {
             this.trigger("mute_chat_multiselect", t, n, r);
           }),
-          (i.muteChatWithDuration = function (t, n) {
+          (i.muteChatWithDuration = function (t, n, r) {
             this.trigger(
               "mute_chat_with_duration",
               o("WAWebStateUtils").unproxy(t),
               n,
+              r,
             );
           }),
           (i.muteChatFromEntryPoint = function (t, n, r, a) {
