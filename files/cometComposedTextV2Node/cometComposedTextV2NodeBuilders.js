@@ -47,13 +47,15 @@ __d(
         r("CometComposedTextV2BlockQuoteNodeRenderer.react"),
       );
     }
-    function c(e, t, n, a, i, l) {
+    function c(e, t, n, a, i, l, s, u) {
       return (
         n === void 0 && (n = !0),
         new (o(
           "CometComposedTextV2CitationNode.react",
         ).CometComposedTextV2CitationNode)(
           {
+            citationGroupIndex: u,
+            citationGroupSources: s,
             faviconUrl: l,
             isInline: n,
             key: r("cometComposedTextV2NodeKey")(),
@@ -214,11 +216,16 @@ __d(
         r("CometComposedTextV2MathNodeRenderer.react"),
       );
     }
-    function L(e, t) {
+    function L(e, t, n) {
       return new (o(
         "CometComposedTextV2ContentViewerNode.react",
       ).CometComposedTextV2ContentViewerNode)(
-        { content: t, contentType: e, key: r("cometComposedTextV2NodeKey")() },
+        {
+          content: t,
+          contentCount: n,
+          contentType: e,
+          key: r("cometComposedTextV2NodeKey")(),
+        },
         r("CometComposedTextV2ContentViewerNodeRenderer.react"),
       );
     }

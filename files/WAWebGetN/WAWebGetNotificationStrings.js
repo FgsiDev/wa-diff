@@ -554,50 +554,49 @@ __d(
           amount: e.paymentAmount1000,
           currency: e.paymentCurrency,
         }),
-        i = r("WAWebWidToFormattedNameOrNumber")(
-          o("WAWebMsgGetters").getSender(e),
-        ),
-        l = r("WAWebWidToFormattedNameOrNumber")(e.paymentMessageReceiverJid),
-        u = o("WAWebContactCollection").ContactCollection.get(
+        i = o("WAWebMsgGetters").getSender(e),
+        l = i != null ? r("WAWebWidToFormattedNameOrNumber")(i) : "",
+        u = r("WAWebWidToFormattedNameOrNumber")(e.paymentMessageReceiverJid),
+        c = o("WAWebContactCollection").ContactCollection.get(
           e.paymentMessageReceiverJid,
         ),
-        c = u != null && o("WAWebContactGetters").getIsMe(u),
-        d = e.paymentAmount1000 / 1e3;
+        d = c != null && o("WAWebContactGetters").getIsMe(c),
+        m = e.paymentAmount1000 / 1e3;
       return (
         e.subtype === "send"
           ? o("WAWebMsgGetters").getIsGroupMsg(e)
-            ? (n = c
+            ? (n = d
                 ? s._(/*BTDS*/ '_j{"*":"{senderName} sent {amount} to you"}', [
-                    s._param("amount", a, [0, d]),
-                    s._param("senderName", i),
+                    s._param("amount", a, [0, m]),
+                    s._param("senderName", l),
                   ])
                 : s._(
                     /*BTDS*/ '_j{"*":"{senderName} sent {amount} to {receiverName}"}',
                     [
-                      s._param("amount", a, [0, d]),
-                      s._param("senderName", i),
-                      s._param("receiverName", l),
+                      s._param("amount", a, [0, m]),
+                      s._param("senderName", l),
+                      s._param("receiverName", u),
                     ],
                   ))
             : (n = s._(/*BTDS*/ '_j{"*":"Sent {amount} to you"}', [
-                s._param("amount", a, [0, d]),
+                s._param("amount", a, [0, m]),
               ]))
           : o("WAWebMsgGetters").getIsGroupMsg(e)
-            ? (n = c
+            ? (n = d
                 ? s._(
                     /*BTDS*/ '_j{"*":"{senderName} requested {amount} from you"}',
-                    [s._param("amount", a, [0, d]), s._param("senderName", i)],
+                    [s._param("amount", a, [0, m]), s._param("senderName", l)],
                   )
                 : s._(
                     /*BTDS*/ '_j{"*":"{senderName} requested {amount} from {receiverName}"}',
                     [
-                      s._param("amount", a, [0, d]),
-                      s._param("senderName", i),
-                      s._param("receiverName", l),
+                      s._param("amount", a, [0, m]),
+                      s._param("senderName", l),
+                      s._param("receiverName", u),
                     ],
                   ))
             : (n = s._(/*BTDS*/ '_j{"*":"Requested {amount} from you"}', [
-                s._param("amount", a, [0, d]),
+                s._param("amount", a, [0, m]),
               ])),
         n
       );

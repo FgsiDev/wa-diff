@@ -48,7 +48,10 @@ __d(
           ((m.author == null ||
             !o("WAWebUserPrefsMeUser").isMeAccount(m.author)) &&
             new (o("WAWebGroupJoinCWamEvent").GroupJoinCWamEvent)().commit(),
-            p && f && o("WAWebHandlePushnameUpdate").updatePushname(p, f, d),
+            p &&
+              f != null &&
+              f !== "" &&
+              o("WAWebHandlePushnameUpdate").updatePushname(p, f, d),
             yield (c || (c = n("Promise"))).all([
               o("WAWebGroupDatabaseJob").updateGroupMetadataTableJob([r]),
               o("WAWebGroupParticipantsJob").updateParticipantsJob({
