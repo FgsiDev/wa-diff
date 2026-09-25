@@ -13,6 +13,7 @@ __d(
     "WAWebChatGetters",
     "WAWebChatModelDerivedMethods",
     "WAWebChatUnreadConstants",
+    "WAWebCommonMsgSubtypeTypes",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebGetters",
@@ -235,12 +236,7 @@ __d(
             r = e[2],
             a = e[3];
           return n
-            ? t.user === "chat" ||
-              o(
-                "WAWebBizBroadcastDeviceCapabilityCommon",
-              ).isBizBroadcastProEntrypointEnabledForStatus(
-                r != null ? r : null,
-              )
+            ? t.user === "chat" || r
               ? !0
               : o(
                     "WAWebBizBroadcastDeviceCapabilityCommon",
@@ -249,7 +245,7 @@ __d(
                 : !1
             : !1;
         },
-        [s.getId, s.getIsBroadcast, s.getBBProStatus, F],
+        [s.getId, s.getIsBroadcast, s.getBBProEntrypointEnabled, F],
       ),
       he = d(
         function (e) {
@@ -342,6 +338,25 @@ __d(
       ),
       Ce = d(
         function (e) {
+          for (var t = e[0], n = e[1], r = t.length - 1; r >= 0; r--) {
+            var a = t.at(r);
+            if (a != null) {
+              if (
+                a.subtype ===
+                o("WAWebCommonMsgSubtypeTypes").MsgSubtype
+                  .ScheduledMessageCreated
+              )
+                return a;
+              if (o("WAWebChatModelDerivedMethods").isPreviewMessage(a))
+                return null;
+            }
+          }
+          return null;
+        },
+        [P, M],
+      ),
+      be = d(
+        function (e) {
           var t = e[0],
             n = e[1],
             a = e[2],
@@ -376,7 +391,7 @@ __d(
         },
         [P, M, w, s.getEndOfHistoryTransferType],
       ),
-      be = d(
+      ve = d(
         function (e) {
           var t = e[0];
           return o(
@@ -385,7 +400,7 @@ __d(
         },
         [P, M],
       ),
-      ve = d(
+      Se = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -404,7 +419,7 @@ __d(
           s.getChangeNumberNewJid,
         ],
       ),
-      Se = d(
+      Re = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -466,10 +481,11 @@ __d(
       (l.getShouldBroadcastAppearInList = ge),
       (l.getShouldAppearInList = he),
       (l.getPreviewMessage = ye),
-      (l.getShareableHistoryInfo = Ce),
-      (l.getLatestJoinTimeByParticipant = be),
-      (l.getShowChangeNumberNotification = ve),
-      (l.getDerivedLastAddOnPreview = Se));
+      (l.getLastScheduledCreatedMsg = Ce),
+      (l.getShareableHistoryInfo = be),
+      (l.getLatestJoinTimeByParticipant = ve),
+      (l.getShowChangeNumberNotification = Se),
+      (l.getDerivedLastAddOnPreview = Re));
   },
   98,
 );

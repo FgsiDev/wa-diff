@@ -52,6 +52,7 @@ __d(
                   });
                 }),
               ),
+              n.length === 0 && this.trigger("emptied_by_refresh"),
               this.localeChangeListener == null &&
                 o("WAWebQuickPromotionGating").qpGraphQLEnabled() &&
                 (this.localeChangeListener = r("WAWebL10N").on(

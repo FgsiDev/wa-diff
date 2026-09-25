@@ -1,7 +1,7 @@
 __d(
   "WAWebVoipActionAddParticipantFromChat",
   [
-    "WAWebCallUserJourneyInCallAction",
+    "WAWebCallUserJourneyChatThreadAction",
     "WAWebCallUserJourneyLogger",
     "WAWebVoipStartCall",
     "WAWebWamEnumSubSurface",
@@ -15,7 +15,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WAWebCallUserJourneyInCallAction").logInCallAction(
+          (o("WAWebCallUserJourneyChatThreadAction").logChatThreadCallAction(
             o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
               .TAP_CONFIRM_ADD_PARTICIPANT_FROM_CHAT,
             o("WAWebWamEnumSubSurface").SUB_SURFACE.CHAT_HEADER,

@@ -107,7 +107,7 @@ __d(
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
           ) {
             var v,
-              S = e;
+              S = _;
             f =
               o(
                 "WAWebBizFormatInteractiveMsg",
@@ -124,7 +124,7 @@ __d(
               r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
           ) {
             var L,
-              E = e;
+              E = _;
             f =
               o("WAWebBizFormatInteractiveMsg").formatPaymentInfoMessagePreview(
                 E,
@@ -138,7 +138,7 @@ __d(
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
           ) {
             var k,
-              I = e;
+              I = _;
             f =
               o("WAWebBizFormatInteractiveMsg").formatOrderStatusMessagePreview(
                 I,
@@ -163,7 +163,7 @@ __d(
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
           ) {
             var T,
-              D = e,
+              D = _,
               x = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC3  " : "";
             f =
               x +
@@ -176,7 +176,7 @@ __d(
             r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
           ) {
             var $,
-              P = e;
+              P = _;
             f =
               o("WAWebFormatNfmText").formatNFMTextPreview(P) ||
               (($ = e.caption) != null ? $ : "");

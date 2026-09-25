@@ -99,7 +99,7 @@ __d(
                 l(r("err")("fetch error: unexpected status " + c.status));
                 return;
               }
-              i(S());
+              i(R());
             }
           }),
             (c.onerror = function () {
@@ -121,11 +121,12 @@ __d(
             var v = C.get(b);
             v != null && c.setRequestHeader(b, v);
           }
-          (p
+          p
             ? c.overrideMimeType("text/plain; charset=x-user-defined")
-            : (c.responseType = "arraybuffer"),
-            c.send(a.body || null));
-          function S() {
+            : (c.responseType = "arraybuffer");
+          var S = a.body;
+          c.send(S != null && S !== "" ? S : null);
+          function R() {
             var t = new (r("WAWebPonyfillsHeaders"))(
               r("WAWebHttpParseHeaders")(c.getAllResponseHeaders()),
             );
@@ -136,7 +137,7 @@ __d(
                 status: c.status,
                 url: c.responseURL,
               },
-              R(),
+              L(),
               {
                 blob: function () {
                   return (e || (e = n("Promise"))).resolve(
@@ -145,12 +146,12 @@ __d(
                     }),
                   );
                 },
-                clone: S,
+                clone: R,
                 headers: t,
               },
             );
           }
-          function R() {
+          function L() {
             return p
               ? {
                   text: function () {
@@ -169,12 +170,12 @@ __d(
                 }
               : {
                   text: function () {
-                    return L();
+                    return E();
                   },
                   json: (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
-                        var e = yield L();
+                        var e = yield E();
                         return JSON.parse(e);
                       },
                     );
@@ -188,7 +189,7 @@ __d(
                   },
                 };
           }
-          function L() {
+          function E() {
             return (e || (e = n("Promise"))).resolve(
               String.fromCharCode.apply(
                 String,
