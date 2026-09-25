@@ -517,7 +517,7 @@ __d(
             (e.newsletterAdminInviteInfo = o("WAWebBaseModel").prop()),
             (e.newsletterFollowerInviteInfo = o("WAWebBaseModel").prop()),
             (e.reportingTokenInfo = o("WAWebBaseModel").prop()),
-            (e.reportingTokenContent = o("WAWebBaseModel").prop()),
+            (e.reportingTokenContentInfo = o("WAWebBaseModel").prop()),
             (e.plainProtobufBytes = o("WAWebBaseModel").session()),
             (e.preMatChat = o("WAWebBaseModel").session()),
             (e.senderWithDevice = o("WAWebBaseModel").session()),
@@ -560,6 +560,7 @@ __d(
             (e.placeholderCreatedWhenAccountIsHosted =
               o("WAWebBaseModel").prop(!1)),
             (e.limitSharing = o("WAWebBaseModel").prop()),
+            (e.acp2Setting = o("WAWebBaseModel").prop()),
             (e.galaxyFlowWAMMessageId = o("WAWebBaseModel").prop()),
             (e.galaxyFlowQPLMessageId = o("WAWebBaseModel").prop()),
             (e.galaxyFlowDisabled = o("WAWebBaseModel").prop()),

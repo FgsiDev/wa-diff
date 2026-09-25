@@ -12,6 +12,8 @@ __d(
     "WAWebChatConstants",
     "WAWebDBMessageRange",
     "WAWebDBQueryAndRemoveMessageHistory",
+    "WAWebDBReportingTokenUtils",
+    "WAWebLimitSharingModelUtils",
     "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
     "WAWebMessageRangeUtils",
     "WAWebMsgKey",
@@ -292,7 +294,11 @@ __d(
                           .COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY,
                     }),
                   a.length > 0 &&
-                    (o("WAWebBackendApi").frontendFireAndForget(
+                    (o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(
+                      a,
+                      { removeWholeRow: !0 },
+                    ),
+                    o("WAWebBackendApi").frontendFireAndForget(
                       "deleteModelsForLastAddOnPreview",
                       { messagesIds: a },
                     ),
@@ -308,6 +314,7 @@ __d(
                       "WAWebChatConstants",
                     ).ConversationEndOfHistoryTransferModelPropType.COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY),
                   i.deleteMessages(a),
+                  o("WAWebLimitSharingModelUtils").createAcp2MsgOnChatClear(e),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "deleteAiThreadsForChat",
                     { chatId: e.toString() },
@@ -504,7 +511,7 @@ __d(
                     return (
                       delete y.id,
                       yield o("WAWebMessageRangeUtils").lockForMessageRangeSync(
-                        ["message-association", "chat"],
+                        ["message-association", "chat", "reporting-info"],
                         [y],
                         n("asyncToGeneratorRuntime").asyncToGenerator(
                           function* () {

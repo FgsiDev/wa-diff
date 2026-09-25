@@ -251,6 +251,7 @@ __d(
             (e.isSmartComposerHandoffCardDismissed =
               o("WAWebBaseModel").session(!1)),
             (e.limitSharing = o("WAWebBaseModel").prop()),
+            (e.acp2Setting = o("WAWebBaseModel").prop()),
             (e.mmSignalSharingExpirationWindow = o("WAWebBaseModel").prop()),
             (e.isSenderNewAccount = o("WAWebBaseModel").prop()),
             (e.isSenderSuspicious = o("WAWebBaseModel").prop()),

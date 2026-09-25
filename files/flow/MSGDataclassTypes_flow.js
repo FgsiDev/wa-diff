@@ -564,6 +564,7 @@ __d(
         Destination: "DESTINATION",
         DestinationDomain: "DESTINATION_DOMAIN",
         Entity: "ENTITY",
+        Recipient: "RECIPIENT",
       }),
       vt = e({
         BrowserAction: "BROWSER_ACTION",
