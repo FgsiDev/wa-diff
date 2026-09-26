@@ -6,6 +6,7 @@ __d(
     "FBLogger",
     "SprinkleConfig",
     "XPrivacySandboxTopicsAPIReportingControllerRouteBuilder",
+    "getErrorSafe",
     "gkx",
     "gpsTopicsConstants",
     "isTopicsAPIEnabledForReporting",
@@ -49,7 +50,7 @@ __d(
             },
           )
           .catch(function (e) {
-            var t = e == null ? "Unknown" : e.message,
+            var t = e == null ? "Unknown" : r("getErrorSafe")(e).message,
               n =
                 r("gpsTopicsConstants").MESSAGE_PREFIX +
                 " reportTopicsThroughRouter issue: " +

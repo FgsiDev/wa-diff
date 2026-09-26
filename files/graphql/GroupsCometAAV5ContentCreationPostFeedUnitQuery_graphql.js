@@ -12,6 +12,7 @@ __d(
     "IsWorkUser.relayprovider",
     "TestPilotShouldIncludeDemoAdUseCase.relayprovider",
     "FBReels_deprecate_short_form_video_context_gk.relayprovider",
+    "CometUFI_dedicated_comment_routable_dialog_gk.relayprovider",
     "FBReels_enable_view_dubbed_audio_type_gk.relayprovider",
     "CometFeedShareMedia_shouldPrefetchShareImage.relayprovider",
     "CometImmersivePhotoCanUserDisable3DMotion.relayprovider",
@@ -23,8 +24,6 @@ __d(
     "CometUFIShareActionMigration.relayprovider",
     "CometUFISingleLineUFI.relayprovider",
     "relay_provider_comet_ufi_ssr_seo_defer.relayprovider",
-    "CometUFI_dedicated_comment_routable_dialog_gk.relayprovider",
-    "ReelsIFUCard_reelsIFULikeCount.relayprovider",
     "FBReelsIFUTileContent_reelsIFUPlayOnHover.relayprovider",
     "GroupsCometGYSJFeedItemHeight.relayprovider",
     "StoriesShouldEnablePhotosensitiveContentWarning.relayprovider",
@@ -261,6 +260,11 @@ __d(
             {
               defaultValue: null,
               kind: "LocalArgument",
+              name: "__relay_internal__pv__CometUFI_dedicated_comment_routable_dialog_gkrelayprovider",
+            },
+            {
+              defaultValue: null,
+              kind: "LocalArgument",
               name: "__relay_internal__pv__FBReels_enable_view_dubbed_audio_type_gkrelayprovider",
             },
             {
@@ -312,16 +316,6 @@ __d(
               defaultValue: null,
               kind: "LocalArgument",
               name: "__relay_internal__pv__relay_provider_comet_ufi_ssr_seo_deferrelayprovider",
-            },
-            {
-              defaultValue: null,
-              kind: "LocalArgument",
-              name: "__relay_internal__pv__CometUFI_dedicated_comment_routable_dialog_gkrelayprovider",
-            },
-            {
-              defaultValue: null,
-              kind: "LocalArgument",
-              name: "__relay_internal__pv__ReelsIFUCard_reelsIFULikeCountrelayprovider",
             },
             {
               defaultValue: null,
@@ -757,6 +751,8 @@ __d(
               n("TestPilotShouldIncludeDemoAdUseCase.relayprovider"),
             __relay_internal__pv__FBReels_deprecate_short_form_video_context_gkrelayprovider:
               n("FBReels_deprecate_short_form_video_context_gk.relayprovider"),
+            __relay_internal__pv__CometUFI_dedicated_comment_routable_dialog_gkrelayprovider:
+              n("CometUFI_dedicated_comment_routable_dialog_gk.relayprovider"),
             __relay_internal__pv__FBReels_enable_view_dubbed_audio_type_gkrelayprovider:
               n("FBReels_enable_view_dubbed_audio_type_gk.relayprovider"),
             __relay_internal__pv__CometFeedShareMedia_shouldPrefetchShareImagerelayprovider:
@@ -783,10 +779,6 @@ __d(
             ),
             __relay_internal__pv__relay_provider_comet_ufi_ssr_seo_deferrelayprovider:
               n("relay_provider_comet_ufi_ssr_seo_defer.relayprovider"),
-            __relay_internal__pv__CometUFI_dedicated_comment_routable_dialog_gkrelayprovider:
-              n("CometUFI_dedicated_comment_routable_dialog_gk.relayprovider"),
-            __relay_internal__pv__ReelsIFUCard_reelsIFULikeCountrelayprovider:
-              n("ReelsIFUCard_reelsIFULikeCount.relayprovider"),
             __relay_internal__pv__FBReelsIFUTileContent_reelsIFUPlayOnHoverrelayprovider:
               n("FBReelsIFUTileContent_reelsIFUPlayOnHover.relayprovider"),
             __relay_internal__pv__GroupsCometGYSJFeedItemHeightrelayprovider: n(

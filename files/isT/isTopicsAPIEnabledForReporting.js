@@ -1,25 +1,29 @@
 __d(
   "isTopicsAPIEnabledForReporting",
-  ["FBLogger", "gpsTopicsConstants", "justknobx"],
+  ["ExecutionEnvironment", "FBLogger", "gpsTopicsConstants", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      if (navigator.userAgent.indexOf("Chrome") < 0) {
+    var e;
+    function s() {
+      if (
+        (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+        navigator.userAgent.indexOf("Chrome") < 0
+      ) {
         if (r("justknobx")._("4782")) {
-          var e =
+          var t =
             r("gpsTopicsConstants").MESSAGE_PREFIX +
             " user-agent topic reporting check failed for agent: " +
             navigator.userAgent;
           r("FBLogger")(
             r("gpsTopicsConstants").LOGGING_PROJECT_NAME,
             r("gpsTopicsConstants").LOGGING_EVENT_NAME,
-          ).debug(e);
+          ).debug(t);
         }
         return !1;
       }
       return !1;
     }
-    l.default = e;
+    l.default = s;
   },
   98,
 );

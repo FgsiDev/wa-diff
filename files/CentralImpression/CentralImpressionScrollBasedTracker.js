@@ -20,14 +20,26 @@ __d(
           ).THROTTLE_TIMEOUT),
           (this.takeSnapshot = r("CometThrottle")(function () {
             if (!(i.$3 == null || i.$8 === !0)) {
-              var e = r("calcNextImpressionSnapshotRecord")(i.$3, i.$2, i.$7);
-              i.$9(e);
+              var e = i.$7,
+                t = e.isCometHiddenSubtree,
+                n = e.viewportMargin,
+                o = r("calcNextImpressionSnapshotRecord")(i.$3, i.$2, {
+                  isCometHiddenSubtree: t,
+                  viewportMargin: n,
+                });
+              i.$9(o);
             }
           }, this.THROTTLE_TIMEOUT)),
           (this.takeSnapshotWithDoubleRaf = r("CometThrottle")(function () {
             if (!(i.$3 == null || i.$8 === !0)) {
-              var e = r("calcNextImpressionSnapshotRecord")(i.$3, i.$2, i.$7);
-              i.$9(e);
+              var e = i.$7,
+                t = e.isCometHiddenSubtree,
+                n = e.viewportMargin,
+                o = r("calcNextImpressionSnapshotRecord")(i.$3, i.$2, {
+                  isCometHiddenSubtree: t,
+                  viewportMargin: n,
+                });
+              i.$9(o);
             }
           }, this.THROTTLE_TIMEOUT)),
           (this.$5 = n),

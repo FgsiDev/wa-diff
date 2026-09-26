@@ -15,21 +15,28 @@ __d(
           derivation_settings: { fb_vpvs_direct_derivation: !0 },
           object_id: t.video_id,
           payload: {
-            vpv: {
-              fb_reels_metadata: {
-                client_viewstate_position: t.client_page_position,
-                creator_id: t.creator_id,
-                fb_shorts_viewer: !0,
-                fb_shorts_viewer_referral_source: t.referral_source,
-                player_origin: t.player_origin,
-                player_suborigin: t.player_suborigin,
-                reels_session_id: t.viewer_session_id,
-                video_chaining_depth_level: t.client_page_position,
-                video_chaining_parent_video_id: t.parent_video_id,
-                video_id: t.video_id,
+            vpv: babelHelpers.extends(
+              {
+                fb_reels_metadata: {
+                  client_viewstate_position: t.client_page_position,
+                  consumption_language: t.consumption_language,
+                  creator_id: t.creator_id,
+                  fb_shorts_viewer: !0,
+                  fb_shorts_viewer_referral_source: t.referral_source,
+                  feed_ranking_type: t.feed_ranking_type,
+                  player_origin: t.player_origin,
+                  player_suborigin: t.player_suborigin,
+                  reels_session_id: t.viewer_session_id,
+                  video_chaining_depth_level: t.client_page_position,
+                  video_chaining_parent_video_id: t.parent_video_id,
+                  video_id: t.video_id,
+                },
+                nav_chain: t.nav_attribution_id_v2,
               },
-              nav_chain: t.nav_attribution_id_v2,
-            },
+              t.tracking != null && t.tracking !== ""
+                ? { tracking: [t.tracking] }
+                : null,
+            ),
           },
         };
       }

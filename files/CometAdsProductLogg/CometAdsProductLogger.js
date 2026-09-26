@@ -9,8 +9,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "SPONSORED",
-      s = "comet.home";
-    function u(t) {
+      s = "comet.home",
+      u = -1;
+    function c(t) {
       var n = t.adId,
         o = t.csp,
         a = t.cts,
@@ -18,13 +19,13 @@ __d(
         l = t.getFeedUnitStatusList,
         s = t.hba,
         u = t.isv,
-        d = t.minGapRule,
+        c = t.minGapRule,
         m = t.minGapType,
         p = t.sessionKey,
         _ = t.tracking,
         f = t.vp;
       m !== e ||
-        d == null ||
+        c == null ||
         n == null ||
         (r("CometAdsProductLoggingFalcoEvent").logImmediately(function () {
           return {
@@ -34,14 +35,14 @@ __d(
             event: "impression",
             hba: s,
             isv: u,
-            min_gap_shape: { min_gap_rule: d.toString(), min_gap_type: m },
+            min_gap_shape: { min_gap_rule: c.toString(), min_gap_type: m },
             session_key: p,
             timestamp: a,
             tracking: _,
             vp: f,
           };
         }),
-        c({
+        d({
           adId: n,
           csp: o,
           cts: a,
@@ -49,14 +50,14 @@ __d(
           getFeedUnitStatusList: l,
           hba: s,
           isv: u,
-          minGapRule: d,
+          minGapRule: c,
           minGapType: m,
           sessionKey: p,
           tracking: _,
           vp: f,
         }));
     }
-    function c(e) {
+    function d(e) {
       var t = e.adId,
         n = e.csp,
         a = e.cts,
@@ -107,7 +108,41 @@ __d(
         }
       }
     }
-    function d(e) {
+    function m(t) {
+      var n = t.adId,
+        a = t.adRequestId,
+        i = t.dedupKey,
+        l = t.feedSessionID,
+        c = t.minGapFromTop,
+        d = t.slotLossReason,
+        m = t.slotOutcome,
+        p = t.slotPosition,
+        _ = t.sponsoredAvailable;
+      l !== u &&
+        r("CometAdsProductLoggingFalcoEvent").log(function () {
+          return {
+            ad_id: n,
+            ad_request_id: a != null ? String(a) : null,
+            csp: String(p),
+            dedup_key: i,
+            endpoint: s,
+            event: "slot_attempt",
+            hba: null,
+            isv: null,
+            min_gap_from_top: String(c),
+            min_gap_shape: { min_gap_rule: null, min_gap_type: e },
+            session_key: o("WebSession").getId(),
+            slot_loss_reason: d,
+            slot_outcome: m,
+            sponsored_available: String(_),
+            surface_session_id: String(l),
+            timestamp: null,
+            tracking: null,
+            vp: null,
+          };
+        });
+    }
+    function p(e) {
       var t = e.endPoint,
         n = t === void 0 ? s : t,
         a = e.minGapRule,
@@ -134,9 +169,11 @@ __d(
         };
       });
     }
-    ((l.logCometAdsProductGapRule = u),
-      (l.logCometAdsProductGapRuleExtremeExperience = c),
-      (l.logCometFeedHighestPositionAd = d));
+    ((l.NO_FEED_SESSION = u),
+      (l.logCometAdsProductGapRule = c),
+      (l.logCometAdsProductGapRuleExtremeExperience = d),
+      (l.logCometAdsSlotAttempt = m),
+      (l.logCometFeedHighestPositionAd = p));
   },
   98,
 );

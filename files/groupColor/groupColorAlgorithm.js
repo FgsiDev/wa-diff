@@ -73,11 +73,9 @@ __d(
             default:
             case e.LIGHT: {
               var l = o("groupColorLAB").groupColorLAB(r.lab);
-              return (
-                l.withLightness(30),
-                (l = l.toRGBa()),
-                o("groupColorRGB").rgbToHex(l[0], l[1], l[2], !0)
-              );
+              l.withLightness(30);
+              var s = l.toRGBa();
+              return o("groupColorRGB").rgbToHex(s[0], s[1], s[2], !0);
             }
           }
         };

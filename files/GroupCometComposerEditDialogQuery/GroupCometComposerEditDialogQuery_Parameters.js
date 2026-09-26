@@ -5,6 +5,7 @@ __d(
     "CometImmersivePhotoCanUserDisable3DMotion.relayprovider",
     "CometUFICommentActionLinksRewriteEnabled.relayprovider",
     "CometUFICommentAvatarStickerAnimatedImage.relayprovider",
+    "CometUFI_dedicated_comment_routable_dialog_gk.relayprovider",
     "FBReelsMediaFooter_comet_enable_reels_ads_gk.relayprovider",
     "FBReels_deprecate_short_form_video_context_gk.relayprovider",
     "FBReels_enable_view_dubbed_audio_type_gk.relayprovider",
@@ -46,6 +47,8 @@ __d(
           __relay_internal__pv__IsWorkUserrelayprovider: n(
             "IsWorkUser.relayprovider",
           ),
+          __relay_internal__pv__CometUFI_dedicated_comment_routable_dialog_gkrelayprovider:
+            n("CometUFI_dedicated_comment_routable_dialog_gk.relayprovider"),
           __relay_internal__pv__TestPilotShouldIncludeDemoAdUseCaserelayprovider:
             n("TestPilotShouldIncludeDemoAdUseCase.relayprovider"),
           __relay_internal__pv__FBReels_enable_view_dubbed_audio_type_gkrelayprovider:

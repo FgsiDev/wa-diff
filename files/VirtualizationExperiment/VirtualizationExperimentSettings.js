@@ -214,8 +214,12 @@ __d(
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_PIN_CHILDREN_WITH_PLAYER;
     }
-    var re = I(ne);
-    function oe(e) {
+    var re = I(ne),
+      oe = r("qex")._("4749") === !0;
+    function ae() {
+      return oe;
+    }
+    function ie(e) {
       var t = new Map();
       return (
         e.split(",").forEach(function (e) {
@@ -235,12 +239,12 @@ __d(
         t
       );
     }
-    var ae = oe((g = r("qex")._("1851")) != null ? g : "");
-    function ie(e) {
+    var le = ie((g = r("qex")._("1851")) != null ? g : "");
+    function se(e) {
       var t;
-      if (ae.has(e)) {
+      if (le.has(e)) {
         var n;
-        return (n = ae.get(e)) != null
+        return (n = le.get(e)) != null
           ? n
           : o("VirtualizationExperimentConfig").DEFAULT_VIRTUALIZATION_STRATEGY;
       }
@@ -249,44 +253,44 @@ __d(
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_VIRTUALIZATION_STRATEGY;
     }
-    var le =
+    var ue =
       (h = r("qex")._("1271")) != null
         ? h
         : o("VirtualizationExperimentConfig")
             .DEFAULT_SKIP_SCROLL_ANCHORING_CHECK;
-    function se(e) {
+    function ce(e) {
       return k.has(e)
-        ? le != null
-          ? le
+        ? ue != null
+          ? ue
           : o("VirtualizationExperimentConfig")
               .DEFAULT_SKIP_SCROLL_ANCHORING_CHECK
         : (v && R) || S;
     }
-    var ue = I(se),
-      ce = I(ie),
-      de = function (t) {
+    var de = I(ce),
+      me = I(se),
+      pe = function (t) {
         var e = E(t);
         return (e == null ? void 0 : e.is_at_bottom_scroll_up) === !0 ||
           o("VirtualizationExperimentConfig").infiniteScrollUpSurfaces.has(t)
           ? !0
           : o("VirtualizationExperimentConfig").DEFAULT_AT_BOTTOM_SCROLL_UP;
       },
-      me =
+      _e =
         (y = r("qex")._("5027")) != null
           ? y
           : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
-    function pe(e) {
+    function fe(e) {
       var t;
       if (k.has(e))
-        return me != null
-          ? me
+        return _e != null
+          ? _e
           : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
       var n = E(e);
       return (t = n == null ? void 0 : n.text_searchable) != null
         ? t
         : o("VirtualizationExperimentConfig").DEFAULT_TEXT_SEARCHABLE;
     }
-    var _e = I(pe);
+    var ge = I(fe);
     ((l.isSurfaceEnabled = D),
       (l.getTopBottomMargin = N),
       (l.logQEExposureOnceWhenNecessary = A),
@@ -297,10 +301,11 @@ __d(
       (l.getEmaWeightCap = X),
       (l.isHidingDisabled = ee),
       (l.getPinChildrenWithPlayer = re),
-      (l.getSkipScrollAnchoringCheck = ue),
-      (l.getVirtualizationStrategy = ce),
-      (l.getIsInfiniteScrollUp = de),
-      (l.getTextSearchable = _e));
+      (l.getRereadPlayerFlagAtMargin = ae),
+      (l.getSkipScrollAnchoringCheck = de),
+      (l.getVirtualizationStrategy = me),
+      (l.getIsInfiniteScrollUp = pe),
+      (l.getTextSearchable = ge));
   },
   98,
 );

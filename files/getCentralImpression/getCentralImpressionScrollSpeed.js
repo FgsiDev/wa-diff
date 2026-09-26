@@ -12,7 +12,7 @@ __d(
         window,
         "scroll",
         function () {
-          (u && clearTimeout(u),
+          (u != null && clearTimeout(u),
             (u = setTimeout(function () {
               return e();
             }, 100)));

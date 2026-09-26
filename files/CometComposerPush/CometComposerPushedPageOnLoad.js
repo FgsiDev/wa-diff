@@ -15,6 +15,8 @@ __d(
       LOCATION_TAGGER: "location_tagger",
       LOOKING_FOR_PLAYERS: "looking_for_players",
       MARKETPLACE_JOBS: "marketplace_jobs",
+      MARKETPLACE_JOBS_FROM_DEFAULT_JOB_GROUP:
+        "marketplace_jobs_from_default_job_group",
       MARKETPLACE_JOBS_FROM_PUBLISHER_BAR:
         "marketplace_jobs_from_publisher_bar",
       MLE: "mle",
