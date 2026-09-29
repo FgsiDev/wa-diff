@@ -122,14 +122,16 @@ __d(
                   "voip: handleClickCallLink blocked \u2014 call links not enabled",
                 ])),
             ),
-              o("WAWebCallLinkAutoJoinConsent").reportAutoJoinRefusedByGate(l),
+              o(
+                "WAWebCallLinkAutoJoinConsent",
+              ).dropAutoJoinConsentRefusedByGate(l, m),
               $());
             return;
           }
           if (P(m)) {
             o(
               "WAWebCallLinkAutoJoinConsent",
-            ).reportAutoJoinRefusedByExistingCall(l);
+            ).dropAutoJoinConsentRefusedByExistingCall(l, m);
             return;
           }
           var E = o("WAWebCallLinkAutoJoinConsent").consumeAutoJoinConsent(
