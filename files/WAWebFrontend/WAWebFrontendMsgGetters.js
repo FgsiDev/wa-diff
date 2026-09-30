@@ -392,13 +392,22 @@ __d(
       q = m(
         function (e) {
           var t = e[0],
+            n = e[1],
+            r = e[2];
+          return !t && !n && !r;
+        },
+        [u.getIsForwarded, W, u.getIsReply],
+      ),
+      U = m(
+        function (e) {
+          var t = e[0],
             n = e[1];
           return t > 0 && !n;
         },
         [u.getNumTimesForwarded, W],
       ),
-      U = p("associationType"),
-      V = m(
+      V = p("associationType"),
+      H = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -442,14 +451,14 @@ __d(
           W,
           u.getIsGif,
           u.getQuotedMsg,
-          U,
+          V,
           u.getCtwaContext,
           u.getIsViewOnce,
           u.getIsQuestion,
           u.getQuestionReplyQuotedMessage,
         ],
       ),
-      H = m(
+      G = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -460,7 +469,7 @@ __d(
         },
         [u.getType, u.getSubtype],
       ),
-      G = m(
+      z = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -479,9 +488,9 @@ __d(
           }
           return a ? t : null;
         },
-        [w, u.getType, u.getIsViewOnce, H],
+        [w, u.getType, u.getIsViewOnce, G],
       ),
-      z = m(
+      j = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -527,7 +536,7 @@ __d(
           u.getHasOriginatedFromNewsletter,
         ],
       ),
-      j = m(
+      K = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -535,7 +544,7 @@ __d(
         },
         [w, u.getType],
       ),
-      K = m(
+      Q = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -543,7 +552,7 @@ __d(
         },
         [w, u.getType],
       ),
-      Q = m(
+      X = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -551,7 +560,7 @@ __d(
         },
         [w, u.getType],
       ),
-      X = m(
+      Y = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -559,7 +568,7 @@ __d(
         },
         [w, u.getType],
       ),
-      Y = m(
+      J = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -567,7 +576,7 @@ __d(
         },
         [w, u.getType],
       ),
-      J = m(
+      Z = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -575,7 +584,7 @@ __d(
         },
         [w, u.getType],
       ),
-      Z = m(
+      ee = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -583,7 +592,7 @@ __d(
         },
         [w, u.getType],
       ),
-      ee = m(
+      te = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -594,7 +603,7 @@ __d(
         },
         [w, u.getType],
       ),
-      te = m(
+      ne = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -604,7 +613,7 @@ __d(
         },
         [w, u.getType],
       ),
-      ne = m(
+      re = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -614,7 +623,7 @@ __d(
         },
         [w, u.getType],
       ),
-      re = m(
+      oe = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -622,7 +631,7 @@ __d(
         },
         [w, u.getType],
       ),
-      oe = m(
+      ae = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -630,7 +639,7 @@ __d(
         },
         [w, u.getType],
       ),
-      ae = m(
+      ie = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -638,7 +647,7 @@ __d(
         },
         [w, u.getType],
       ),
-      ie = m(
+      le = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -646,7 +655,7 @@ __d(
         },
         [w, u.getType],
       ),
-      le = m(
+      se = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -654,7 +663,7 @@ __d(
         },
         [w, u.getType],
       ),
-      se = m(
+      ue = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -663,7 +672,7 @@ __d(
         },
         [w, u.getType, u.getSubtype],
       ),
-      ue = m(
+      ce = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -674,7 +683,7 @@ __d(
         },
         [w, u.getType],
       ),
-      ce = m(
+      de = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -682,9 +691,9 @@ __d(
             o = e[3];
           return (n != null || r != null) && o ? (n != null ? n : r) : null;
         },
-        [u.getType, ue, Y, u.getIsViewOnce],
+        [u.getType, ce, J, u.getIsViewOnce],
       ),
-      de = m(
+      me = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -697,13 +706,13 @@ __d(
         },
         [w, u.getType, u.getWaveform, u.getIsOpus],
       ),
-      me = p("senderObj"),
-      pe = p("mediaData"),
-      _e = p("replyButtons"),
-      fe = p("pendingDeleteForMe", { default: !1 }),
-      ge = p("isFadingOut", { default: !1 }),
-      he = p("botPluginType"),
-      ye = m(
+      pe = p("senderObj"),
+      _e = p("mediaData"),
+      fe = p("replyButtons"),
+      ge = p("pendingDeleteForMe", { default: !1 }),
+      he = p("isFadingOut", { default: !1 }),
+      ye = p("botPluginType"),
+      Ce = m(
         function (e) {
           var t,
             n = e[0],
@@ -721,9 +730,9 @@ __d(
             ? n
             : null;
         },
-        [w, he, me],
+        [w, ye, pe],
       ),
-      Ce = m(
+      be = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -735,7 +744,7 @@ __d(
         },
         [w, u.getType, u.getRichResponse],
       ),
-      be = m(
+      ve = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -743,7 +752,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      ve = m(
+      Se = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -751,7 +760,7 @@ __d(
         },
         [u.getBody, u.getType],
       ),
-      Se = m(
+      Re = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -759,9 +768,9 @@ __d(
             a = r != null;
           return t === o("WAWebMsgType").MSG_TYPE.CHAT && (n || a);
         },
-        [u.getType, be, ve],
+        [u.getType, ve, Se],
       ),
-      Re = m(
+      Le = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -793,14 +802,14 @@ __d(
           u.getType,
           u.getCtwaContext,
           u.getQuotedMsg,
-          Se,
+          Re,
           u.getHasOriginatedFromNewsletter,
           u.getIsForwarded,
           u.getIsQuestion,
           u.getQuestionReplyQuotedMessage,
         ],
       ),
-      Le = m(
+      Ee = m(
         function (e) {
           var t = e[0];
           if (t != null) {
@@ -813,7 +822,7 @@ __d(
         },
         [u.getBody],
       ),
-      Ee = m(
+      ke = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -831,10 +840,10 @@ __d(
           u.getHasOriginatedFromNewsletter,
           u.getForwardedNewsletterMessageInfo,
           u.getId,
-          me,
+          pe,
         ],
       ),
-      ke = m(
+      Ie = m(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -842,7 +851,7 @@ __d(
         },
         [u.getIsNewsletterMsg, u.getSender],
       ),
-      Ie = m(
+      Te = m(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -851,7 +860,7 @@ __d(
             a;
           return (n && (a = o == null ? void 0 : o.contact), a != null ? a : r);
         },
-        [w, u.getIsNewsletterMsg, me],
+        [w, u.getIsNewsletterMsg, pe],
       );
     ((l.clearFrontendMsgGetterCacheFor = _),
       (l.getIsMms = f),
@@ -877,45 +886,46 @@ __d(
       (l.getAsBroadcastNotification = O),
       (l.getAsProduct = B),
       (l.getAsRevoked = W),
-      (l.getShouldShowForwarded = q),
-      (l.getAsAlbumAsset = V),
-      (l.getIsUrlMessage = H),
-      (l.getAsAutoDownloadableMedia = G),
-      (l.getAsGroupedSticker = z),
-      (l.getAsDoc = j),
-      (l.getAsImage = K),
-      (l.getAsVideo = Q),
-      (l.getAsAudio = X),
-      (l.getAsPtt = Y),
-      (l.getAsPtv = J),
-      (l.getAsPollCreation = Z),
-      (l.getAsPoll = ee),
-      (l.getAsEventCreation = te),
-      (l.getAsSharableEventInvite = ne),
-      (l.getAsAlbum = re),
-      (l.getAsStickerPack = oe),
-      (l.getAsCallLog = ae),
-      (l.getAsPollUpdate = ie),
-      (l.getAsMms = le),
-      (l.getAsUrl = se),
-      (l.getAsVisualMedia = ue),
-      (l.getAsViewOnce = ce),
-      (l.getAsPttLike = de),
-      (l.getSenderObj = me),
-      (l.getMediaData = pe),
-      (l.getReplyButtons = _e),
-      (l.getPendingDeleteForMe = fe),
-      (l.getIsFadingOut = ge),
-      (l.getAsBotPluginCarouselMsg = ye),
-      (l.getAsRichResponse = Ce),
-      (l.getIsAnimatedEmoji = be),
-      (l.getIsSingleEmoji = ve),
-      (l.getIsTransparentMsgEmoji = Se),
-      (l.getIsTransparentMsg = Re),
-      (l.getJSONAssetForAnimatedEmoji = Le),
-      (l.getMsgSenderId = Ee),
-      (l.getShouldDisplaySelf = ke),
-      (l.getSenderForReplyMsg = Ie));
+      (l.getIsMemberLabelEligible = q),
+      (l.getShouldShowForwarded = U),
+      (l.getAsAlbumAsset = H),
+      (l.getIsUrlMessage = G),
+      (l.getAsAutoDownloadableMedia = z),
+      (l.getAsGroupedSticker = j),
+      (l.getAsDoc = K),
+      (l.getAsImage = Q),
+      (l.getAsVideo = X),
+      (l.getAsAudio = Y),
+      (l.getAsPtt = J),
+      (l.getAsPtv = Z),
+      (l.getAsPollCreation = ee),
+      (l.getAsPoll = te),
+      (l.getAsEventCreation = ne),
+      (l.getAsSharableEventInvite = re),
+      (l.getAsAlbum = oe),
+      (l.getAsStickerPack = ae),
+      (l.getAsCallLog = ie),
+      (l.getAsPollUpdate = le),
+      (l.getAsMms = se),
+      (l.getAsUrl = ue),
+      (l.getAsVisualMedia = ce),
+      (l.getAsViewOnce = de),
+      (l.getAsPttLike = me),
+      (l.getSenderObj = pe),
+      (l.getMediaData = _e),
+      (l.getReplyButtons = fe),
+      (l.getPendingDeleteForMe = ge),
+      (l.getIsFadingOut = he),
+      (l.getAsBotPluginCarouselMsg = Ce),
+      (l.getAsRichResponse = be),
+      (l.getIsAnimatedEmoji = ve),
+      (l.getIsSingleEmoji = Se),
+      (l.getIsTransparentMsgEmoji = Re),
+      (l.getIsTransparentMsg = Le),
+      (l.getJSONAssetForAnimatedEmoji = Ee),
+      (l.getMsgSenderId = ke),
+      (l.getShouldDisplaySelf = Ie),
+      (l.getSenderForReplyMsg = Te));
   },
   98,
 );

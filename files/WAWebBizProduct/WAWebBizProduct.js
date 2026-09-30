@@ -236,7 +236,7 @@ __d(
                     }[!!r("WAWebL10N").isRTL() << 0],
                     {
                       children: u.jsx(o("WAWebMessageMeta.react").Meta, {
-                        msg: c,
+                        msgKey: c.id,
                       }),
                     },
                   ),

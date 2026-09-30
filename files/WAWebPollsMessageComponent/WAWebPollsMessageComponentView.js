@@ -626,16 +626,16 @@ __d(
           (t[60] = le))
         : (le = t[60]);
       var se;
-      t[61] !== n || t[62] !== d
+      t[61] !== n || t[62] !== d.id
         ? ((se = m.jsx(o("WAWebFlex.react").FlexRow, {
             justify: "end",
             children: m.jsx(o("WAWebMessageMeta.react").Meta, {
-              msg: d,
+              msgKey: d.id,
               associatedMessages: n,
             }),
           })),
           (t[61] = n),
-          (t[62] = d),
+          (t[62] = d.id),
           (t[63] = se))
         : (se = t[63]);
       var ue;

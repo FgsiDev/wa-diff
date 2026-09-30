@@ -188,6 +188,7 @@ __d(
       ai_hatch_upsell_in_agents_screen_variant: [37665, "int", 0, 0],
       ai_hatch_video_avatars_enabled: [31494, "bool", !1, !0],
       ai_hatch_video_upload_enabled: [27470, "bool", !1, !1],
+      ai_hatch_vm_auth_enabled: [37983, "bool", !1, !1],
       ai_home_bot_profile_sync_interval_sec: [11168, "int", 86400, 86400],
       ai_html_viewer_forward_action_enabled: [37885, "bool", !1, !1],
       ai_imagine_loading_indicator_enabled: [22795, "bool", !1, !1],
@@ -1799,6 +1800,7 @@ __d(
       mark_as_verified_enabled: [29343, "bool", !1, !1],
       max_group_size_for_long_ringtone: [4710, "int", 0, 0],
       max_num_participants_for_ss: [3694, "int", 8, 8],
+      max_number_of_recent_contacts_shared_with_device: [10978, "int", 30, 30],
       maximum_group_size_for_rcat: [2915, "int", 100, 100],
       may_have_messages_enabled: [25303, "bool", !1, !1],
       mc_enabled: [32843, "bool", !1, !1],
@@ -3344,6 +3346,7 @@ __d(
       wa_web_media_loader_button_uix_improvement: [33245, "bool", !1, !1],
       wa_web_media_upload_retry_retries_count: [27782, "int", 0, 0],
       wa_web_mention_search: [28455, "bool", !1, !1],
+      wa_web_meta_one_biz_ai_entry_point_enabled: [37987, "bool", !1, !1],
       wa_web_meta_one_biz_tools_entry_point_enabled: [37912, "bool", !1, !1],
       wa_web_meta_one_dev: [37481, "bool", !1, !1],
       wa_web_multi_ppl_typing_indicator_for_chatlist_groups_variant: [

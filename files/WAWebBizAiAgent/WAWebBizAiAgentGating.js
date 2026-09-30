@@ -131,28 +131,13 @@ __d(
       );
     }
     function $() {
-      var e =
-        o("WAWebABProps").getABPropConfigValue("wa_web_meta_one_dev") === !0;
-      return (
-        e ||
-        (o("WAWebABProps").getABPropConfigValue(
-          "biz_ai_meta_one_integration",
-        ) === !0 &&
-          o("WAWebABProps").getABPropConfigValue("wa_meta_one_enabled") ===
-            !0 &&
-          o("WAWebABProps").getABPropConfigValue(
-            "wa_meta_one_rollout_enabled",
-          ) === !0)
-      );
-    }
-    function P() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_appointments_enabled",
         ) === !0
       );
     }
-    function N() {
+    function P() {
       return (function (e) {
         return e === "EXPERIMENT"
           ? "EXPERIMENT"
@@ -189,9 +174,8 @@ __d(
       (l.isMaibaWASSSendingEnabled = T),
       (l.isGoogleDriveEnabled = D),
       (l.isIntegrationHubEnabled = x),
-      (l.isMetaOneIntegrationRolloutEnabled = $),
-      (l.isAppointmentsEnabled = P),
-      (l.getResponseSettingsV2TriState = N));
+      (l.isAppointmentsEnabled = $),
+      (l.getResponseSettingsV2TriState = P));
   },
   98,
 );

@@ -296,7 +296,7 @@ __d(
                         revokeSendDelay: R,
                       }).commit(),
                       o("WAWebDBProcessRevokeMsgs")
-                        .processRevokeMsgs([
+                        .processRevokeMsgsAndGetCleanupEligibleKeys([
                           {
                             revokeMsgKey: c.id,
                             newMsgKey: C,
@@ -308,37 +308,46 @@ __d(
                           },
                         ])
                         .then(
-                          n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* () {
-                              return (
-                                o(
-                                  "WAWebUpdateLastAddOnPreviewChatAction",
-                                ).deleteModelsForLastAddOnPreview([
-                                  c.id.toString(),
-                                ]),
-                                yield o(
-                                  "WAWebRequestDeleteAddOns",
-                                ).requestDeleteAddOns(
-                                  o("WAWebFrontendMsgGetters")
-                                    .getChat(c)
-                                    .id.toString(),
-                                  [c.id.toString()],
-                                ),
-                                g(s.data, {
-                                  msgKey: C,
-                                  subtype: b,
-                                  sender: f,
-                                  revokeTimestamp: S,
-                                  viewMode: $.viewMode,
-                                }),
-                                {
-                                  messageSendResult: o(
-                                    "WAWebSendMsgResultAction",
-                                  ).SendMsgResult.OK,
-                                }
-                              );
-                            },
-                          ),
+                          (function () {
+                            var e = n(
+                              "asyncToGeneratorRuntime",
+                            ).asyncToGenerator(function* (e) {
+                              return e.has(c.id.toString())
+                                ? (o(
+                                    "WAWebUpdateLastAddOnPreviewChatAction",
+                                  ).deleteModelsForLastAddOnPreview([
+                                    c.id.toString(),
+                                  ]),
+                                  yield o(
+                                    "WAWebRequestDeleteAddOns",
+                                  ).requestDeleteAddOns(
+                                    o("WAWebFrontendMsgGetters")
+                                      .getChat(c)
+                                      .id.toString(),
+                                    [c.id.toString()],
+                                  ),
+                                  g(s.data, {
+                                    msgKey: C,
+                                    subtype: b,
+                                    sender: f,
+                                    revokeTimestamp: S,
+                                    viewMode: $.viewMode,
+                                  }),
+                                  {
+                                    messageSendResult: o(
+                                      "WAWebSendMsgResultAction",
+                                    ).SendMsgResult.OK,
+                                  })
+                                : {
+                                    messageSendResult: o(
+                                      "WAWebSendMsgResultAction",
+                                    ).SendMsgResult.ERROR_UNKNOWN,
+                                  };
+                            });
+                            return function (t) {
+                              return e.apply(this, arguments);
+                            };
+                          })(),
                         ))
                     : (_ || (_ = n("Promise"))).resolve({
                         messageSendResult: o("WAWebSendMsgResultAction")

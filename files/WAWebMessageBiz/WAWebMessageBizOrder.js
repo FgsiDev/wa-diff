@@ -191,14 +191,16 @@ __d(
         ? ((I = { className: "x10l6tqk xtijo5x x1ey2m1c" }), (t[23] = I))
         : (I = t[23]);
       var T;
-      t[24] !== a
+      t[24] !== a.id
         ? ((T = u.jsx(
             "div",
             babelHelpers.extends({}, I, {
-              children: u.jsx(o("WAWebMessageMeta.react").Meta, { msg: a }),
+              children: u.jsx(o("WAWebMessageMeta.react").Meta, {
+                msgKey: a.id,
+              }),
             }),
           )),
-          (t[24] = a),
+          (t[24] = a.id),
           (t[25] = T))
         : (T = t[25]);
       var D = T,
