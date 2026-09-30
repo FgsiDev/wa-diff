@@ -205,7 +205,7 @@ __d(
               children: [
                 L != null
                   ? u.jsx(r("WAWebMessageSpacerText.react"), {
-                      msg: c.unsafe(),
+                      msgKey: c.id,
                       spacer: !1,
                       children: u.jsx(
                         o("WAWebEmojiText.react").EmojiText,

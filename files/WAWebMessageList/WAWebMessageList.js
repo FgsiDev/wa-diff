@@ -284,7 +284,7 @@ __d(
               y,
               C,
               c.jsxs(r("WAWebMessageSpacerText.react"), {
-                msg: i.unsafe(),
+                msgKey: i.id,
                 "data-id": i.id,
                 children: [b, v, R],
               }),

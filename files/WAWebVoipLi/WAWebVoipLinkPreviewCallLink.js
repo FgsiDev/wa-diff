@@ -6,9 +6,9 @@ __d(
     "WAWebCallCollection",
     "WAWebCallLinkAutoJoinConsent",
     "WAWebEnsureVoipInited",
+    "WAWebEventEmitter",
     "WAWebFrontendContactGetters",
     "WAWebPipController",
-    "WAWebTypedEventEmitter",
     "WAWebUserPrefsVoip",
     "WAWebVoipCallBlockedModals",
     "WAWebVoipCallLinkBundlePreloader",
@@ -41,7 +41,7 @@ __d(
       v,
       S = 22,
       R = { videoMuted: !1, audioMuted: !1 },
-      L = new (r("WAWebTypedEventEmitter"))();
+      L = new (r("WAWebEventEmitter"))();
     function E() {
       return R;
     }

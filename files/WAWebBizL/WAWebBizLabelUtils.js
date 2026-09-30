@@ -11,13 +11,14 @@ __d(
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebListItemParentType",
+    "WAWebSchemaLabel",
     "WAWebWidFactory",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
-      var t = g(e),
+      var t = h(e),
         n = e.id.toString();
       e.labels = o("WAWebContactManagerGating").contactManagerEnabled()
         ? c(n, t)
@@ -25,7 +26,7 @@ __d(
     }
     function c(e, t) {
       var n = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(e, t),
-        r = m(e);
+        r = p(e);
       if (r == null) return n;
       var a = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(
         r.toString(),
@@ -33,12 +34,69 @@ __d(
       );
       return a.length === 0 ? n : Array.from(new Set([].concat(n, a)));
     }
-    function d(e, t) {
-      var n = f(t),
+    function d(e) {
+      var t,
+        n = e.id.toString(),
+        r = new Set(
+          c(n, o("WAWebListItemParentType").LabelItemParentType.Chat),
+        ),
+        a = (t = p(n)) == null ? void 0 : t.toString();
+      for (var i of c(
+        n,
+        o("WAWebListItemParentType").LabelItemParentType.Contact,
+      )) {
+        var l,
+          s,
+          d = o("WAWebLabelCollection").LabelCollection.get(i);
+        if (
+          !(d == null || r.has(i)) &&
+          !(
+            d.type !== o("WAWebSchemaLabel").ListType.CUSTOM &&
+            d.type !== o("WAWebSchemaLabel").ListType.PREDEFINED &&
+            d.type !== o("WAWebSchemaLabel").ListType.LEAD
+          )
+        ) {
+          var m = d.labelItemCollection.get(
+              y(n, i, o("WAWebListItemParentType").LabelItemParentType.Contact),
+            ),
+            _ =
+              a != null
+                ? d.labelItemCollection.get(
+                    y(
+                      a,
+                      i,
+                      o("WAWebListItemParentType").LabelItemParentType.Contact,
+                    ),
+                  )
+                : null;
+          d.labelItemCollection.gadd({
+            id: y(n, i, o("WAWebListItemParentType").LabelItemParentType.Chat),
+            labelId: i,
+            parentId: n,
+            parentType: o("WAWebListItemParentType").LabelItemParentType.Chat,
+            detectedOutcomeOriginalLabelPredefinedId:
+              (l =
+                (s =
+                  m == null
+                    ? void 0
+                    : m.detectedOutcomeOriginalLabelPredefinedId) != null
+                  ? s
+                  : _ == null
+                    ? void 0
+                    : _.detectedOutcomeOriginalLabelPredefinedId) != null
+                ? l
+                : null,
+          });
+        }
+      }
+      u(e);
+    }
+    function m(e, t) {
+      var n = g(t),
         r = [],
         a = n.get(e);
       a != null && r.push(a);
-      var i = m(e);
+      var i = p(e);
       if (i == null) return r;
       var l =
         t === o("WAWebListItemParentType").LabelItemParentType.Chat && i.isLid()
@@ -46,7 +104,7 @@ __d(
           : n.get(i);
       return (l != null && l !== a && r.push(l), r);
     }
-    function m(t) {
+    function p(t) {
       var n;
       try {
         var r = o("WAWebWidFactory").createWid(t);
@@ -69,47 +127,51 @@ __d(
         ? o("WAWebApiContact").getPnIfLidIsLatestMapping(n)
         : o("WAWebApiContact").getCurrentLid(n);
     }
-    function p(e, t, n) {
+    function _(e, t, n) {
       t &&
         t.length > 0 &&
         t.forEach(function (t) {
-          var r = t,
-            a = null;
           if (
-            o("WAWebLabelCollection")
-              .LabelCollection.getServerAssignedLabelIdMap()
-              .has(r)
+            !o("WAWebLabelCollection").LabelCollection.isLegacyLeadListId(t)
           ) {
-            a = o("WAWebLabelCollection")
-              .LabelCollection.getServerAssignedLabelIdMap()
-              .get(r);
-            var i = y(a);
-            if (i == null) return;
-            r = i;
+            var r = t,
+              a = null;
+            if (
+              o("WAWebLabelCollection")
+                .LabelCollection.getServerAssignedLabelIdMap()
+                .has(r)
+            ) {
+              a = o("WAWebLabelCollection")
+                .LabelCollection.getServerAssignedLabelIdMap()
+                .get(r);
+              var i = C(a);
+              if (i == null) return;
+              r = i;
+            }
+            var l = o("WAWebLabelCollection").LabelCollection.gadd({ id: r });
+            (l.labelItemCollection.gadd({
+              id: y(e, r, n),
+              labelId: r,
+              parentId: e,
+              parentType: n,
+              detectedOutcomeOriginalLabelPredefinedId: a,
+            }),
+              n === o("WAWebListItemParentType").LabelItemParentType.Chat &&
+                l.labelItemCollection.gadd({
+                  id: y(
+                    e,
+                    r,
+                    o("WAWebListItemParentType").LabelItemParentType.Contact,
+                  ),
+                  labelId: r,
+                  parentId: e,
+                  parentType: o("WAWebListItemParentType").LabelItemParentType
+                    .Contact,
+                }));
           }
-          var l = o("WAWebLabelCollection").LabelCollection.gadd({ id: r });
-          (l.labelItemCollection.gadd({
-            id: h(e, r, n),
-            labelId: r,
-            parentId: e,
-            parentType: n,
-            detectedOutcomeOriginalLabelPredefinedId: a,
-          }),
-            n === o("WAWebListItemParentType").LabelItemParentType.Chat &&
-              l.labelItemCollection.gadd({
-                id: h(
-                  e,
-                  r,
-                  o("WAWebListItemParentType").LabelItemParentType.Contact,
-                ),
-                labelId: r,
-                parentId: e,
-                parentType: o("WAWebListItemParentType").LabelItemParentType
-                  .Contact,
-              }));
         });
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       var r = o("WAWebLabelCollection").LabelCollection.get(t),
         a = r == null ? void 0 : r.labelItemCollection;
       if (!a) {
@@ -124,18 +186,18 @@ __d(
         return;
       }
       var i = o("WAWebContactManagerGating").contactManagerEnabled()
-          ? m(e)
+          ? p(e)
           : null,
         l = i != null ? [e, i.toString()] : [e];
       l.forEach(function (e) {
-        (a.remove(h(e, t, n)),
+        (a.remove(y(e, t, n)),
           n === o("WAWebListItemParentType").LabelItemParentType.Chat &&
             a.remove(
-              h(e, t, o("WAWebListItemParentType").LabelItemParentType.Contact),
+              y(e, t, o("WAWebListItemParentType").LabelItemParentType.Contact),
             ));
       });
     }
-    function f(e) {
+    function g(e) {
       switch (e) {
         case o("WAWebListItemParentType").LabelItemParentType.Chat:
           return o("WAWebChatCollection").ChatCollection;
@@ -143,17 +205,17 @@ __d(
           return o("WAWebContactCollection").ContactCollection;
       }
     }
-    function g(e) {
+    function h(e) {
       if (e instanceof o("WAWebChatModel").Chat)
         return o("WAWebListItemParentType").LabelItemParentType.Chat;
       if (e instanceof r("WAWebContactModel"))
         return o("WAWebListItemParentType").LabelItemParentType.Contact;
       throw r("err")("getParentTypeFromModel: model is invalid");
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       return e + "_" + t + "_" + n;
     }
-    function y(e) {
+    function C(e) {
       if (e == null) return null;
       var t = null;
       switch (e) {
@@ -171,7 +233,7 @@ __d(
       });
       return n != null ? n.id : null;
     }
-    function C(e) {
+    function b(e) {
       var t,
         n =
           (t = o("WAWebLabelCollection").LabelCollection.get(e)) == null
@@ -200,14 +262,15 @@ __d(
     }
     ((l.initializeLabels = u),
       (l.getLabelsForModelAnyAddressingMode = c),
-      (l.getParentModelsAnyAddressingMode = d),
-      (l.addToLabelCollection = p),
-      (l.removeLabelFromCollection = _),
-      (l.getParentCollection = f),
-      (l.getParentTypeFromModel = g),
-      (l.createLabelItemId = h),
-      (l.mapDOLabelPredefinedIdToManualLabelId = y),
-      (l.mapManualLabelIdToDetectedOutcomeLabelId = C));
+      (l.projectContactLabelsToChat = d),
+      (l.getParentModelsAnyAddressingMode = m),
+      (l.addToLabelCollection = _),
+      (l.removeLabelFromCollection = f),
+      (l.getParentCollection = g),
+      (l.getParentTypeFromModel = h),
+      (l.createLabelItemId = y),
+      (l.mapDOLabelPredefinedIdToManualLabelId = C),
+      (l.mapManualLabelIdToDetectedOutcomeLabelId = b));
   },
   98,
 );
