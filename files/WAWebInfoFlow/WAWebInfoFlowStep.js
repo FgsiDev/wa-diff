@@ -6,6 +6,7 @@ __d(
       "GroupInfo",
       "BroadcastInfo",
       "ContactInfo",
+      "GroupAgentProfile",
       "NewsletterInfo",
       "NewsletterContactInfo",
       "NewsletterAdminProfile",

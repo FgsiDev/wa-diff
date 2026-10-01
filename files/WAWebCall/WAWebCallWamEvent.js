@@ -1919,6 +1919,7 @@ __d(
               recordNonSilenceFrameCountDuringMute: [1580, e.TYPES.INTEGER],
               redAudioBytesDecoded: [2393, e.TYPES.NUMBER],
               redAudioBytesSent: [2394, e.TYPES.NUMBER],
+              redPacketsDecoded: [3213, e.TYPES.INTEGER],
               redPacketsDiscarded: [2395, e.TYPES.INTEGER],
               redPacketsInserted: [2396, e.TYPES.INTEGER],
               redPacketsReceived: [2397, e.TYPES.INTEGER],

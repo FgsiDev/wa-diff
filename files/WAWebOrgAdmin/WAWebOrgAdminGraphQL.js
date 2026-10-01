@@ -901,7 +901,14 @@ __d(
       var n = [];
       for (var r of t) {
         if (r == null) return null;
-        var o = ze(r.id, r.name, r.member_tag, r.email_address, r.phone_number);
+        var o = ze(
+          r.id,
+          r.name,
+          r.member_tag,
+          r.email_address,
+          r.phone_number,
+          r.member_lid,
+        );
         if (o == null) return null;
         n.push(o);
       }
@@ -919,14 +926,22 @@ __d(
         totalCount: i != null ? i : l ? null : n.length,
       };
     }
-    function ze(e, t, n, r, o) {
+    function ze(e, t, n, r, o, a) {
       return typeof e != "string" ||
         typeof t != "string" ||
         (n != null && typeof n != "string") ||
         (r != null && typeof r != "string") ||
-        (o != null && typeof o != "string")
+        (o != null && typeof o != "string") ||
+        (a != null && typeof a != "string")
         ? null
-        : { emailAddress: r, id: e, memberTag: n, name: t, phoneNumber: o };
+        : {
+            emailAddress: r,
+            id: e,
+            memberLID: a,
+            memberTag: n,
+            name: t,
+            phoneNumber: o,
+          };
     }
     function je(e) {
       return (

@@ -25,7 +25,7 @@ __d(
     }
     function d(e) {
       var t = o("WAWebLeadStage").getLeadStageFromNumber(e);
-      return t == null || t === o("WAWebLeadStage").LeadStage.NONE
+      return t == null
         ? ""
         : o("WAWebLeadStageNames").getLeadStageName(t).toString();
     }
