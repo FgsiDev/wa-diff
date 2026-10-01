@@ -1226,7 +1226,12 @@ __d(
       }),
       rr = e({ Center: "CENTER", Left: "LEFT" }),
       or = e({ Default: "DEFAULT" }),
-      ar = e({ FinalScore: "FINAL_SCORE", Goal: "GOAL", RedCard: "RED_CARD" }),
+      ar = e({
+        FinalScore: "FINAL_SCORE",
+        Generic: "GENERIC",
+        Goal: "GOAL",
+        RedCard: "RED_CARD",
+      }),
       ir = e({
         None: "NONE",
         YoutubeShorts: "YOUTUBE_SHORTS",

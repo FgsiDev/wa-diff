@@ -108,7 +108,21 @@ __d(
     function $() {
       return s._(/*BTDS*/ "Audience deleted");
     }
-    (($.displayName = $.name + " [from " + i.id + "]"),
+    $.displayName = $.name + " [from " + i.id + "]";
+    function P() {
+      return s._(/*BTDS*/ "Processing your audience\u2026");
+    }
+    P.displayName = P.name + " [from " + i.id + "]";
+    function N() {
+      return s._(/*BTDS*/ "We'll update you when it's complete.");
+    }
+    N.displayName = N.name + " [from " + i.id + "]";
+    function M() {
+      return s._(
+        /*BTDS*/ "Your edits are processing. We'll update you when they're complete.",
+      );
+    }
+    ((M.displayName = M.name + " [from " + i.id + "]"),
       (l.getCreateAudienceButtonLabel = c),
       (l.getMarketingConsentCheckboxLabel = d),
       (l.getAddSelectedAudiencesButtonLabel = m),
@@ -130,7 +144,10 @@ __d(
       (l.getLoadingPaginationLabel = T),
       (l.getDeleteAudienceModalTitle = D),
       (l.getDeleteAudienceModalBody = x),
-      (l.getAudienceDeletedToastMessage = $));
+      (l.getAudienceDeletedToastMessage = $),
+      (l.getAudienceProcessingTitle = P),
+      (l.getAudienceProcessingSubtitle = N),
+      (l.getAudienceEditsProcessingMessage = M));
   },
   226,
 );

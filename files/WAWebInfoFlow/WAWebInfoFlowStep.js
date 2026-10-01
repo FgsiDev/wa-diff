@@ -27,6 +27,7 @@ __d(
       "Starred",
       "ChatTheme",
       "HatchConnectors",
+      "HatchSecureCredentials",
       "Kept",
       "ScheduledMessages",
       "GroupSettings",
