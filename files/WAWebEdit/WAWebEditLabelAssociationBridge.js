@@ -4,14 +4,12 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBackendApi",
-    "WAWebContactManagerGating",
+    "WAWebCustomerManagerGating",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDBLabelSublistDatabaseApi",
     "WAWebLabelJidSync",
     "WAWebLabelSublistSync",
     "WAWebLeadListConstants",
-    "WAWebListsGatingUtils",
-    "WAWebMobilePlatforms",
     "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
     "WAWebSchemaLabelSublist",
@@ -41,20 +39,11 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          if (
-            !(
-              o("WAWebMobilePlatforms").isSMB() ||
-              o("WAWebListsGatingUtils").isListsEnabled()
-            )
-          )
-            return (c || (c = n("Promise"))).reject(
-              r("err")("editLabelAssociation is not supported"),
-            );
           var i = yield r("WAWebLabelJidSync").createLabelAssociationMutations(
               t,
               a,
             ),
-            l = o("WAWebContactManagerGating").contactManagerEnabled()
+            l = o("WAWebCustomerManagerGating").customerManagerEnabled()
               ? yield _(t, a)
               : { sublistLocalRemoves: [], sublistMutations: [] },
             s = l.sublistLocalRemoves,

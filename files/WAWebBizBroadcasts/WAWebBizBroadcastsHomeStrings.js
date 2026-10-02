@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebBroadcastConsts",
     "WAWebFaqUrl",
+    "WAWebL10N",
     "WDSTextualLink.react",
     "react",
   ],
@@ -324,55 +325,62 @@ __d(
       ]);
     }
     Ee.displayName = Ee.name + " [from " + i.id + "]";
-    function ke() {
-      return s._(/*BTDS*/ "Broadcast name updated");
+    function ke(e) {
+      return r("WAWebL10N").n(e / 100, void 0, {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+        style: "percent",
+      });
     }
-    ke.displayName = ke.name + " [from " + i.id + "]";
     function Ie() {
-      return s._(/*BTDS*/ "Couldn't rename broadcast. Try again.");
+      return s._(/*BTDS*/ "Broadcast name updated");
     }
     Ie.displayName = Ie.name + " [from " + i.id + "]";
     function Te() {
-      return s._(/*BTDS*/ "Audience name updated");
+      return s._(/*BTDS*/ "Couldn't rename broadcast. Try again.");
     }
     Te.displayName = Te.name + " [from " + i.id + "]";
     function De() {
-      return s._(/*BTDS*/ "Couldn't rename audience. Try again.");
+      return s._(/*BTDS*/ "Audience name updated");
     }
     De.displayName = De.name + " [from " + i.id + "]";
     function xe() {
-      return s._(/*BTDS*/ "Audience info");
+      return s._(/*BTDS*/ "Couldn't rename audience. Try again.");
     }
     xe.displayName = xe.name + " [from " + i.id + "]";
     function $e() {
-      return s._(/*BTDS*/ "Delete audience");
+      return s._(/*BTDS*/ "Audience info");
     }
     $e.displayName = $e.name + " [from " + i.id + "]";
     function Pe() {
-      return s._(/*BTDS*/ "Delete");
+      return s._(/*BTDS*/ "Delete audience");
     }
     Pe.displayName = Pe.name + " [from " + i.id + "]";
     function Ne() {
-      return s._(/*BTDS*/ "Menu");
+      return s._(/*BTDS*/ "Delete");
     }
     Ne.displayName = Ne.name + " [from " + i.id + "]";
     function Me() {
-      return s._(/*BTDS*/ "Account settings");
+      return s._(/*BTDS*/ "Menu");
     }
     Me.displayName = Me.name + " [from " + i.id + "]";
     function we() {
-      return s._(/*BTDS*/ "Manage payments");
+      return s._(/*BTDS*/ "Account settings");
     }
     we.displayName = we.name + " [from " + i.id + "]";
     function Ae() {
-      return s._(/*BTDS*/ "Payments");
+      return s._(/*BTDS*/ "Manage payments");
     }
     Ae.displayName = Ae.name + " [from " + i.id + "]";
     function Fe() {
-      return s._(/*BTDS*/ "Performance explained");
+      return s._(/*BTDS*/ "Payments");
     }
     Fe.displayName = Fe.name + " [from " + i.id + "]";
     function Oe() {
+      return s._(/*BTDS*/ "Performance explained");
+    }
+    Oe.displayName = Oe.name + " [from " + i.id + "]";
+    function Be() {
       return s._(/*BTDS*/ "These metrics are {=m1}", [
         s._implicitParam(
           "=m1",
@@ -383,136 +391,132 @@ __d(
         ),
       ]);
     }
-    Oe.displayName = Oe.name + " [from " + i.id + "]";
-    function Be() {
-      return s._(/*BTDS*/ "Delivered");
-    }
     Be.displayName = Be.name + " [from " + i.id + "]";
     function We() {
+      return s._(/*BTDS*/ "Delivered");
+    }
+    We.displayName = We.name + " [from " + i.id + "]";
+    function qe() {
       return s._(
         /*BTDS*/ "The number of accounts that received this message. Some accounts may not have received it, for example if their device was out of service.",
       );
     }
-    We.displayName = We.name + " [from " + i.id + "]";
-    function qe() {
-      return s._(/*BTDS*/ "Read rate");
-    }
     qe.displayName = qe.name + " [from " + i.id + "]";
     function Ue() {
+      return s._(/*BTDS*/ "Read rate");
+    }
+    Ue.displayName = Ue.name + " [from " + i.id + "]";
+    function Ve() {
       return s._(
         /*BTDS*/ "The percentage of accounts that read this message. Read rate is the number of messages read divided by the number of messages delivered. Only includes accounts that have replied to your first message or have saved you as a contact. Doesn't include reads that happen when read receipts are off on either device.",
       );
     }
-    Ue.displayName = Ue.name + " [from " + i.id + "]";
-    function Ve() {
-      return s._(/*BTDS*/ "Reads");
-    }
     Ve.displayName = Ve.name + " [from " + i.id + "]";
     function He() {
+      return s._(/*BTDS*/ "Reads");
+    }
+    He.displayName = He.name + " [from " + i.id + "]";
+    function Ge() {
       return s._(
         /*BTDS*/ "The number of accounts that read this message. Only includes accounts that have replied to your first message or have saved you as a contact. Doesn't include reads that happen when read receipts are off on either device.",
       );
     }
-    He.displayName = He.name + " [from " + i.id + "]";
-    function Ge() {
-      return s._(/*BTDS*/ "Reply rate");
-    }
     Ge.displayName = Ge.name + " [from " + i.id + "]";
     function ze() {
+      return s._(/*BTDS*/ "Reply rate");
+    }
+    ze.displayName = ze.name + " [from " + i.id + "]";
+    function je() {
       return s._(
         /*BTDS*/ "The percentage of unique accounts that replied to this message. Reply rate is the number of replies divided by the number of accounts that received the message.",
       );
     }
-    ze.displayName = ze.name + " [from " + i.id + "]";
-    function je() {
-      return s._(/*BTDS*/ "Replies");
-    }
     je.displayName = je.name + " [from " + i.id + "]";
     function Ke() {
+      return s._(/*BTDS*/ "Replies");
+    }
+    Ke.displayName = Ke.name + " [from " + i.id + "]";
+    function Qe() {
       return s._(
         /*BTDS*/ "The number of unique accounts that replied to this message.",
       );
     }
-    Ke.displayName = Ke.name + " [from " + i.id + "]";
-    function Qe() {
-      return s._(/*BTDS*/ "Unique clicks");
-    }
     Qe.displayName = Qe.name + " [from " + i.id + "]";
     function Xe() {
+      return s._(/*BTDS*/ "Unique clicks");
+    }
+    Xe.displayName = Xe.name + " [from " + i.id + "]";
+    function Ye() {
       return s._(
         /*BTDS*/ "The number of taps or clicks on the button to visit your website.",
       );
     }
-    Xe.displayName = Xe.name + " [from " + i.id + "]";
-    function Ye() {
-      return s._(/*BTDS*/ "OK");
-    }
     Ye.displayName = Ye.name + " [from " + i.id + "]";
     function Je() {
+      return s._(/*BTDS*/ "OK");
+    }
+    Je.displayName = Je.name + " [from " + i.id + "]";
+    function Ze() {
       return s._(
         /*BTDS*/ "Insights update until broadcast delivery is complete.",
       );
     }
-    Je.displayName = Je.name + " [from " + i.id + "]";
-    function Ze(e) {
+    Ze.displayName = Ze.name + " [from " + i.id + "]";
+    function et(e) {
       return s._(/*BTDS*/ "Last synced {timestamp}.", [
         s._param("timestamp", e),
       ]);
     }
-    Ze.displayName = Ze.name + " [from " + i.id + "]";
-    function et() {
-      return s._(/*BTDS*/ "Refresh");
-    }
     et.displayName = et.name + " [from " + i.id + "]";
     function tt() {
-      return s._(/*BTDS*/ "Performance metrics updated");
+      return s._(/*BTDS*/ "Refresh");
     }
     tt.displayName = tt.name + " [from " + i.id + "]";
     function nt() {
-      return s._(/*BTDS*/ "Open WhatsApp on your phone to see latest insights");
+      return s._(/*BTDS*/ "Performance metrics updated");
     }
     nt.displayName = nt.name + " [from " + i.id + "]";
-    function rt(e, t) {
+    function rt() {
+      return s._(/*BTDS*/ "Open WhatsApp on your phone to see latest insights");
+    }
+    rt.displayName = rt.name + " [from " + i.id + "]";
+    function ot(e, t) {
       return s._(
         /*BTDS*/ '_j{"*":{"*":"{labelCount} lists linked \\u00b7 {recipientCount} recipients","_1":"{labelCount} lists linked \\u00b7 1 recipient"},"_1":{"*":"1 list linked \\u00b7 {recipientCount} recipients","_1":"1 list linked \\u00b7 1 recipient"}}',
         [s._plural(e, "labelCount"), s._plural(t, "recipientCount")],
       );
     }
-    rt.displayName = rt.name + " [from " + i.id + "]";
-    function ot() {
-      return s._(/*BTDS*/ "Edit recipients");
-    }
     ot.displayName = ot.name + " [from " + i.id + "]";
     function at() {
-      return s._(/*BTDS*/ "Use your phone to edit this audience.");
+      return s._(/*BTDS*/ "Edit recipients");
     }
     at.displayName = at.name + " [from " + i.id + "]";
     function it() {
+      return s._(/*BTDS*/ "Use your phone to edit this audience.");
+    }
+    it.displayName = it.name + " [from " + i.id + "]";
+    function lt() {
       return s._(
         /*BTDS*/ "Some people you selected may not be listed because the message couldn't be delivered to them.",
       );
     }
-    it.displayName = it.name + " [from " + i.id + "]";
-    function lt() {
-      return s._(/*BTDS*/ "Loading contact list...");
-    }
     lt.displayName = lt.name + " [from " + i.id + "]";
     function st() {
-      return s._(/*BTDS*/ "Couldn't load contact list. Try again later.");
+      return s._(/*BTDS*/ "Loading contact list...");
     }
     st.displayName = st.name + " [from " + i.id + "]";
     function ut() {
-      return s._(/*BTDS*/ "No delivery data available yet");
+      return s._(/*BTDS*/ "Couldn't load contact list. Try again later.");
     }
     ut.displayName = ut.name + " [from " + i.id + "]";
-    function ct(e) {
+    function ct() {
+      return s._(/*BTDS*/ "No delivery data available yet");
+    }
+    ct.displayName = ct.name + " [from " + i.id + "]";
+    function dt(e) {
       return s._(/*BTDS*/ '_j{"*":"{count} recipients","_1":"1 recipient"}', [
         s._plural(e, "count"),
       ]);
-    }
-    ct.displayName = ct.name + " [from " + i.id + "]";
-    function dt() {
-      return s._(/*BTDS*/ "Advanced settings");
     }
     dt.displayName = dt.name + " [from " + i.id + "]";
     function mt() {
@@ -520,95 +524,99 @@ __d(
     }
     mt.displayName = mt.name + " [from " + i.id + "]";
     function pt() {
-      return s._(/*BTDS*/ "Advanced tools");
+      return s._(/*BTDS*/ "Advanced settings");
     }
     pt.displayName = pt.name + " [from " + i.id + "]";
     function _t() {
-      return s._(/*BTDS*/ "Advanced tools on");
+      return s._(/*BTDS*/ "Advanced tools");
     }
     _t.displayName = _t.name + " [from " + i.id + "]";
-    function ft(e) {
+    function ft() {
+      return s._(/*BTDS*/ "Advanced tools on");
+    }
+    ft.displayName = ft.name + " [from " + i.id + "]";
+    function gt(e) {
       return s._(
         /*BTDS*/ '_j{"*":"Send up to {daily broadcast limit} broadcasts per day, get detailed performance insights and more."}',
         [s._param("daily broadcast limit", e, [0])],
       );
     }
-    ft.displayName = ft.name + " [from " + i.id + "]";
-    function gt() {
+    gt.displayName = gt.name + " [from " + i.id + "]";
+    function ht() {
       return s._(/*BTDS*/ "Advanced tools off");
     }
-    gt.displayName = gt.name + " [from " + i.id + "]";
-    function ht(e) {
+    ht.displayName = ht.name + " [from " + i.id + "]";
+    function yt(e) {
       return s._(
         /*BTDS*/ '_j{"*":"You can still send a broadcast to up to {recipient limit} recipients, charged per delivery."}',
         [s._param("recipient limit", e, [0])],
       );
     }
-    ht.displayName = ht.name + " [from " + i.id + "]";
-    function yt() {
-      return s._(/*BTDS*/ "Learn more");
-    }
     yt.displayName = yt.name + " [from " + i.id + "]";
     function Ct() {
-      return s._(/*BTDS*/ "Manage customer base");
+      return s._(/*BTDS*/ "Learn more");
     }
     Ct.displayName = Ct.name + " [from " + i.id + "]";
     function bt() {
-      return s._(/*BTDS*/ "Manage your customer base in advanced settings");
+      return s._(/*BTDS*/ "Manage customer base");
     }
     bt.displayName = bt.name + " [from " + i.id + "]";
     function vt() {
-      return s._(
-        /*BTDS*/ "Download subscribed recipients in advanced settings",
-      );
+      return s._(/*BTDS*/ "Manage your customer base in advanced settings");
     }
     vt.displayName = vt.name + " [from " + i.id + "]";
     function St() {
       return s._(
-        /*BTDS*/ "Remove recipients from data sharing in advanced settings",
+        /*BTDS*/ "Download subscribed recipients in advanced settings",
       );
     }
     St.displayName = St.name + " [from " + i.id + "]";
     function Rt() {
-      return s._(/*BTDS*/ "View");
+      return s._(
+        /*BTDS*/ "Remove recipients from data sharing in advanced settings",
+      );
     }
     Rt.displayName = Rt.name + " [from " + i.id + "]";
     function Lt() {
-      return s._(/*BTDS*/ "Customer base");
+      return s._(/*BTDS*/ "View");
     }
     Lt.displayName = Lt.name + " [from " + i.id + "]";
     function Et() {
-      return s._(/*BTDS*/ "Unsubscribe recipients");
+      return s._(/*BTDS*/ "Customer base");
     }
     Et.displayName = Et.name + " [from " + i.id + "]";
     function kt() {
-      return s._(/*BTDS*/ "Download subscribed recipients");
+      return s._(/*BTDS*/ "Unsubscribe recipients");
     }
     kt.displayName = kt.name + " [from " + i.id + "]";
     function It() {
-      return s._(/*BTDS*/ "Message limits");
+      return s._(/*BTDS*/ "Download subscribed recipients");
     }
     It.displayName = It.name + " [from " + i.id + "]";
-    function Tt(e) {
+    function Tt() {
+      return s._(/*BTDS*/ "Message limits");
+    }
+    Tt.displayName = Tt.name + " [from " + i.id + "]";
+    function Dt(e) {
       return s._(
         /*BTDS*/ '_j{"*":"{conversations} daily conversations","_1":"1 daily conversation"}',
         [s._plural(e, "conversations")],
       );
     }
-    Tt.displayName = Tt.name + " [from " + i.id + "]";
-    function Dt() {
-      return s._(/*BTDS*/ "Unlimited daily conversations");
-    }
     Dt.displayName = Dt.name + " [from " + i.id + "]";
     function xt() {
-      return s._(/*BTDS*/ "Message limit");
+      return s._(/*BTDS*/ "Unlimited daily conversations");
     }
     xt.displayName = xt.name + " [from " + i.id + "]";
     function $t() {
-      return s._(/*BTDS*/ "Daily conversations");
+      return s._(/*BTDS*/ "Message limit");
     }
     $t.displayName = $t.name + " [from " + i.id + "]";
-    function Pt(e, t) {
+    function Pt() {
+      return s._(/*BTDS*/ "Daily conversations");
+    }
+    Pt.displayName = Pt.name + " [from " + i.id + "]";
+    function Nt(e, t) {
       return s._(
         /*BTDS*/ '_j{"*":"{daily conversations sent} of {daily conversation limit} sent"}',
         [
@@ -617,32 +625,32 @@ __d(
         ],
       );
     }
-    Pt.displayName = Pt.name + " [from " + i.id + "]";
-    function Nt(e) {
+    Nt.displayName = Nt.name + " [from " + i.id + "]";
+    function Mt(e) {
       return s._(/*BTDS*/ "{daily conversations sent} of unlimited sent", [
         s._param("daily conversations sent", e),
       ]);
     }
-    Nt.displayName = Nt.name + " [from " + i.id + "]";
-    function Mt() {
-      return s._(/*BTDS*/ "Message limits aren't available right now.");
-    }
     Mt.displayName = Mt.name + " [from " + i.id + "]";
     function wt() {
-      return s._(/*BTDS*/ "Unlock your message limit");
+      return s._(/*BTDS*/ "Message limits aren't available right now.");
     }
     wt.displayName = wt.name + " [from " + i.id + "]";
     function At() {
+      return s._(/*BTDS*/ "Unlock your message limit");
+    }
+    At.displayName = At.name + " [from " + i.id + "]";
+    function Ft() {
       return s._(
         /*BTDS*/ "Complete these requirements to unlock your message limit.",
       );
     }
-    At.displayName = At.name + " [from " + i.id + "]";
-    function Ft() {
-      return s._(/*BTDS*/ "Switch to primary phone");
-    }
     Ft.displayName = Ft.name + " [from " + i.id + "]";
     function Ot() {
+      return s._(/*BTDS*/ "Switch to primary phone");
+    }
+    Ot.displayName = Ot.name + " [from " + i.id + "]";
+    function Bt() {
       return s._(/*BTDS*/ "Get verified on your primary phone. {=m2}", [
         s._implicitParam(
           "=m2",
@@ -653,16 +661,16 @@ __d(
         ),
       ]);
     }
-    Ot.displayName = Ot.name + " [from " + i.id + "]";
-    function Bt() {
-      return s._(/*BTDS*/ "Scan code with your camera");
-    }
     Bt.displayName = Bt.name + " [from " + i.id + "]";
     function Wt() {
-      return s._(/*BTDS*/ "Send high-quality messages");
+      return s._(/*BTDS*/ "Scan code with your camera");
     }
     Wt.displayName = Wt.name + " [from " + i.id + "]";
-    function qt(e, t, n, a) {
+    function qt() {
+      return s._(/*BTDS*/ "Send high-quality messages");
+    }
+    qt.displayName = qt.name + " [from " + i.id + "]";
+    function Ut(e, t, n, a) {
       if ((a === void 0 && (a = !1), a)) {
         var i;
         return (
@@ -692,7 +700,7 @@ __d(
         [s._plural(n, "days"), s._param("sent", e), s._param("target", t)],
       );
     }
-    ((qt.displayName = qt.name + " [from " + i.id + "]"),
+    ((Ut.displayName = Ut.name + " [from " + i.id + "]"),
       (l.getBroadcastColumnHeader = c),
       (l.getAudienceColumnHeader = d),
       (l.getStatusColumnHeader = m),
@@ -763,76 +771,77 @@ __d(
       (l.getBroadcastStopUnconfirmedToastMessage = Re),
       (l.getCancelButtonLabel = Le),
       (l.getPercentageLabel = Ee),
-      (l.getBroadcastRenamedToastMessage = ke),
-      (l.getBroadcastRenameFailedToastMessage = Ie),
-      (l.getAudienceRenamedToastMessage = Te),
-      (l.getAudienceRenameFailedToastMessage = De),
-      (l.getAudienceInfoPanelTitle = xe),
-      (l.getDeleteAudienceLabel = $e),
-      (l.getDeleteActionLabel = Pe),
-      (l.getMenuButtonTitle = Ne),
-      (l.getAccountSettingsLabel = Me),
-      (l.getManagePaymentsSectionLabel = we),
-      (l.getPaymentsLabel = Ae),
-      (l.getPerformanceExplainedTitle = Fe),
-      (l.getPerformanceExplainedDescription = Oe),
-      (l.getDeliveredMetricLabel = Be),
-      (l.getDeliveredMetricDescription = We),
-      (l.getReadRateMetricLabel = qe),
-      (l.getReadRateMetricDescription = Ue),
-      (l.getReadsMetricLabel = Ve),
-      (l.getReadsMetricDescription = He),
-      (l.getReplyRateMetricLabel = Ge),
-      (l.getReplyRateMetricDescription = ze),
-      (l.getRepliesMetricLabel = je),
-      (l.getRepliesMetricDescription = Ke),
-      (l.getUniqueClicksMetricLabel = Qe),
-      (l.getUniqueClicksMetricDescription = Xe),
-      (l.getOkButtonLabel = Ye),
-      (l.getInsightsUpdateExplainer = Je),
-      (l.getLastUpdatedLabel = Ze),
-      (l.getRefreshInsightsLabel = et),
-      (l.getPerformanceMetricsUpdatedToast = tt),
-      (l.getPrimaryOfflineInsightsToast = nt),
-      (l.getListsLinkedTitle = rt),
-      (l.getEditRecipientsLabel = ot),
-      (l.getEditAudienceOnPhoneLabel = at),
-      (l.getRecipientsDisclaimerLabel = it),
-      (l.getDeliveredToLoadingLabel = lt),
-      (l.getDeliveredToErrorLabel = st),
-      (l.getDeliveredToEmptyLabel = ut),
-      (l.getDeliveredToCountLabel = ct),
-      (l.getBroadcastSettingsLabel = dt),
-      (l.getBusinessBroadcastsSettingsTitle = mt),
-      (l.getAdvancedToolsLabel = pt),
-      (l.getAdvancedToolsOnLabel = _t),
-      (l.getAdvancedToolsOnDescription = ft),
-      (l.getAdvancedToolsOffLabel = gt),
-      (l.getAdvancedToolsOffDescription = ht),
-      (l.getAdvancedToolsLearnMoreLabel = yt),
-      (l.getManageCustomerBaseSectionLabel = Ct),
-      (l.getManageCustomerBaseReminderToast = bt),
-      (l.getDownloadSubscribedRecipientsReminderToast = vt),
-      (l.getRemoveFromDataSharingReminderToast = St),
-      (l.getReminderToastActionLabel = Rt),
-      (l.getCustomerBaseIdentityLabel = Lt),
-      (l.getUnsubscribeRecipientsLabel = Et),
-      (l.getDownloadSubscribedRecipientsLabel = kt),
-      (l.getMessageLimitsLabel = It),
-      (l.getMessageLimitsSublabel = Tt),
-      (l.getUnlimitedMessageLimitsSublabel = Dt),
-      (l.getMessageLimitPanelTitle = xt),
-      (l.getDailyConversationsLabel = $t),
-      (l.getDailyConversationsUsageLabel = Pt),
-      (l.getUnlimitedDailyConversationsUsageLabel = Nt),
-      (l.getMessageLimitsUnavailableLabel = Mt),
-      (l.getUnlockMessageLimitLabel = wt),
-      (l.getUnlockMessageLimitSublabel = At),
-      (l.getVerifyOnPhoneTitle = Ft),
-      (l.getVerifyOnPhoneSubtitle = Ot),
-      (l.getScanQrCodeCaption = Bt),
-      (l.getSendHighQualityMessagesLabel = Wt),
-      (l.getSendHighQualityMessagesProgressSublabel = qt));
+      (l.getBBProRatePercentageLabel = ke),
+      (l.getBroadcastRenamedToastMessage = Ie),
+      (l.getBroadcastRenameFailedToastMessage = Te),
+      (l.getAudienceRenamedToastMessage = De),
+      (l.getAudienceRenameFailedToastMessage = xe),
+      (l.getAudienceInfoPanelTitle = $e),
+      (l.getDeleteAudienceLabel = Pe),
+      (l.getDeleteActionLabel = Ne),
+      (l.getMenuButtonTitle = Me),
+      (l.getAccountSettingsLabel = we),
+      (l.getManagePaymentsSectionLabel = Ae),
+      (l.getPaymentsLabel = Fe),
+      (l.getPerformanceExplainedTitle = Oe),
+      (l.getPerformanceExplainedDescription = Be),
+      (l.getDeliveredMetricLabel = We),
+      (l.getDeliveredMetricDescription = qe),
+      (l.getReadRateMetricLabel = Ue),
+      (l.getReadRateMetricDescription = Ve),
+      (l.getReadsMetricLabel = He),
+      (l.getReadsMetricDescription = Ge),
+      (l.getReplyRateMetricLabel = ze),
+      (l.getReplyRateMetricDescription = je),
+      (l.getRepliesMetricLabel = Ke),
+      (l.getRepliesMetricDescription = Qe),
+      (l.getUniqueClicksMetricLabel = Xe),
+      (l.getUniqueClicksMetricDescription = Ye),
+      (l.getOkButtonLabel = Je),
+      (l.getInsightsUpdateExplainer = Ze),
+      (l.getLastUpdatedLabel = et),
+      (l.getRefreshInsightsLabel = tt),
+      (l.getPerformanceMetricsUpdatedToast = nt),
+      (l.getPrimaryOfflineInsightsToast = rt),
+      (l.getListsLinkedTitle = ot),
+      (l.getEditRecipientsLabel = at),
+      (l.getEditAudienceOnPhoneLabel = it),
+      (l.getRecipientsDisclaimerLabel = lt),
+      (l.getDeliveredToLoadingLabel = st),
+      (l.getDeliveredToErrorLabel = ut),
+      (l.getDeliveredToEmptyLabel = ct),
+      (l.getDeliveredToCountLabel = dt),
+      (l.getBroadcastSettingsLabel = mt),
+      (l.getBusinessBroadcastsSettingsTitle = pt),
+      (l.getAdvancedToolsLabel = _t),
+      (l.getAdvancedToolsOnLabel = ft),
+      (l.getAdvancedToolsOnDescription = gt),
+      (l.getAdvancedToolsOffLabel = ht),
+      (l.getAdvancedToolsOffDescription = yt),
+      (l.getAdvancedToolsLearnMoreLabel = Ct),
+      (l.getManageCustomerBaseSectionLabel = bt),
+      (l.getManageCustomerBaseReminderToast = vt),
+      (l.getDownloadSubscribedRecipientsReminderToast = St),
+      (l.getRemoveFromDataSharingReminderToast = Rt),
+      (l.getReminderToastActionLabel = Lt),
+      (l.getCustomerBaseIdentityLabel = Et),
+      (l.getUnsubscribeRecipientsLabel = kt),
+      (l.getDownloadSubscribedRecipientsLabel = It),
+      (l.getMessageLimitsLabel = Tt),
+      (l.getMessageLimitsSublabel = Dt),
+      (l.getUnlimitedMessageLimitsSublabel = xt),
+      (l.getMessageLimitPanelTitle = $t),
+      (l.getDailyConversationsLabel = Pt),
+      (l.getDailyConversationsUsageLabel = Nt),
+      (l.getUnlimitedDailyConversationsUsageLabel = Mt),
+      (l.getMessageLimitsUnavailableLabel = wt),
+      (l.getUnlockMessageLimitLabel = At),
+      (l.getUnlockMessageLimitSublabel = Ft),
+      (l.getVerifyOnPhoneTitle = Ot),
+      (l.getVerifyOnPhoneSubtitle = Bt),
+      (l.getScanQrCodeCaption = Wt),
+      (l.getSendHighQualityMessagesLabel = qt),
+      (l.getSendHighQualityMessagesProgressSublabel = Ut));
   },
   226,
 );
