@@ -166,6 +166,7 @@ __d(
               audShareStopRequestCount: [1811, e.TYPES.INTEGER],
               audShareStopSuccessCount: [1812, e.TYPES.INTEGER],
               audStreamMixPct: [1119, e.TYPES.NUMBER],
+              audioBelowSwbDurationMs: [3214, e.TYPES.TIMER],
               audioCalleeAcceptToDecodeT: [1565, e.TYPES.INTEGER],
               audioCallerAcceptReceivedToDecodeT: [2727, e.TYPES.TIMER],
               audioCallerOfferToDecodeT: [1566, e.TYPES.INTEGER],

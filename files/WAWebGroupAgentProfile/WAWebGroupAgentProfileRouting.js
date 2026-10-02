@@ -20,19 +20,37 @@ __d(
     function s(t, n, r) {
       var a;
       if (
-        (r === void 0 && (r = u(t)),
-        !c(t, n) ||
+        (r === void 0 && (r = m(t)),
+        !p(t, n) ||
           !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
       )
         return null;
-      var i = d(r);
-      return i != null && !p(t, i)
+      var i = _(r);
+      return i != null && !g(t, i)
         ? null
-        : _(t, i, (a = r) == null ? void 0 : a.creatorLid)
+        : h(t, i, (a = r) == null ? void 0 : a.creatorLid)
           ? e.OWNER_CARD
           : e.BASIC_CARD;
     }
-    function u(e) {
+    function u(e, t) {
+      var n = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
+      return (
+        (n == null ? void 0 : n.lastFetchedTimeMs) != null &&
+        n.isDeleted !== !0 &&
+        n.isDeprecated !== !0 &&
+        s(e, t) != null
+      );
+    }
+    function c(t, n, r) {
+      var o = s(t, n);
+      if (o == null) return null;
+      var a = o === e.OWNER_CARD;
+      return { info: a, message: a, remove: r };
+    }
+    function d(e) {
+      return e.info || e.message || e.remove;
+    }
+    function m(e) {
       var t = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       return t == null
         ? null
@@ -44,32 +62,32 @@ __d(
             product: t.product,
           };
     }
-    function c(e, t) {
+    function p(e, t) {
       return t == null
         ? !1
         : o("WAWebChatGetters").getIsGroup(t) &&
             e.isFbidBot() &&
             !o("WAWebBotStaticProfiles").isStaticProfile(e);
     }
-    function d(e) {
+    function _(e) {
       return e == null || e.lastFetchedTimeMs == null
         ? null
         : o("WAWebBotProduct").botProductFromServerValue(e.product);
     }
-    function m(e, t) {
+    function f(e, t) {
       return (
         t === o("WAWebBotProduct").BotProduct.MUSE ||
         (t === o("WAWebBotProduct").BotProduct.HATCH &&
           !e.equals(o("WAWebBotUtils").HATCH_BOT_FBID_WID))
       );
     }
-    function p(e, t) {
-      return t === o("WAWebBotProduct").BotProduct.THIRD_PARTY || m(e, t);
+    function g(e, t) {
+      return t === o("WAWebBotProduct").BotProduct.THIRD_PARTY || f(e, t);
     }
-    function _(e, t, n) {
+    function h(e, t, n) {
       var r = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       return (
-        m(e, t) &&
+        f(e, t) &&
         n != null &&
         r != null &&
         n === r.user &&
@@ -79,7 +97,10 @@ __d(
     }
     ((l.GroupAgentProfileDestination = e),
       (l.getGroupAgentProfileDestination = s),
-      (l.isMuseGroupAgentProfileProduct = m));
+      (l.isOpenGroupAiAgent = u),
+      (l.getGroupAgentParticipantActions = c),
+      (l.hasGroupAgentParticipantAction = d),
+      (l.isMuseGroupAgentProfileProduct = f));
   },
   98,
 );

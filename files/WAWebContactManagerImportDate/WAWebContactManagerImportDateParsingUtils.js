@@ -2,24 +2,31 @@ __d(
   "WAWebContactManagerImportDateParsingUtils",
   ["WATimeUtils", "WAWebCustomerProfileBirthday"],
   function (t, n, r, o, a, i, l) {
-    var e = 30;
-    function s(e, t) {
+    var e = 30,
+      s = Object.freeze({
+        iso: "YYYY-MM-DD",
+        monthFirst: "MM/DD/YYYY",
+        dayFirst: "DD-MM-YYYY",
+        birthdayMonthDay: "MM/DD",
+        birthdayIsoMonthDay: "--MM-DD",
+      });
+    function u(e, t) {
       var n = e == null ? void 0 : e.trim();
       if (n == null || n === "") return { type: "empty" };
-      var r = u(n, t);
+      var r = c(n, t);
       if (r == null) return { type: "invalid" };
       var a =
         t === "birthday"
           ? o("WAWebCustomerProfileBirthday").BIRTHDAY_SENTINEL_YEAR
           : r.year;
-      if (!m(a, r.monthIndex, r.day)) return { type: "invalid" };
-      var i = d(a, r.monthIndex, r.day),
+      if (!p(a, r.monthIndex, r.day)) return { type: "invalid" };
+      var i = m(a, r.monthIndex, r.day),
         l = Math.floor(i.getTime() / 1e3);
       return l < -o("WATimeUtils").MAX_INT || l > o("WATimeUtils").MAX_INT
         ? { type: "invalid" }
         : { type: "valid", value: o("WATimeUtils").castToUnixTime(l) };
     }
-    function u(e, t) {
+    function c(e, t) {
       var n,
         r =
           (n = /^\'?--(\d{2})-(\d{2})$/.exec(e)) != null
@@ -41,33 +48,34 @@ __d(
       var i = /^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/.exec(e);
       if (i != null)
         return {
-          year: c(i[3]),
+          year: d(i[3]),
           monthIndex: Number(i[1]) - 1,
           day: Number(i[2]),
         };
       var l = /^(\d{1,2})-(\d{1,2})-(\d{2}|\d{4})$/.exec(e);
       return l != null
-        ? { year: c(l[3]), monthIndex: Number(l[2]) - 1, day: Number(l[1]) }
+        ? { year: d(l[3]), monthIndex: Number(l[2]) - 1, day: Number(l[1]) }
         : null;
     }
-    function c(t) {
+    function d(t) {
       var n = Number(t);
       return t.length !== 2 ? n : n < e ? 2e3 + n : 1900 + n;
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       var r = new Date(0);
       return (r.setUTCFullYear(e, t, n), r.setUTCHours(0, 0, 0, 0), r);
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       if (e < 1 || t < 0 || t > 11 || n < 1 || n > 31) return !1;
-      var r = d(e, t, n);
+      var r = m(e, t, n);
       return (
         r.getUTCFullYear() === e &&
         r.getUTCMonth() === t &&
         r.getUTCDate() === n
       );
     }
-    l.parseContactManagerImportDate = s;
+    ((l.CONTACT_MANAGER_IMPORT_DATE_FORMATS = s),
+      (l.parseContactManagerImportDate = u));
   },
   98,
 );

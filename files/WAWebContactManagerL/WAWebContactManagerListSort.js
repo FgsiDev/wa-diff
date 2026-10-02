@@ -2,9 +2,9 @@ __d(
   "WAWebContactManagerListSort",
   [
     "WAWebBizLabelUtils",
-    "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebContactGetters",
+    "WAWebContactManagerChatResolver",
     "WAWebContactManagerContactName",
     "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebFrontendContactGetters",
@@ -90,9 +90,9 @@ __d(
                       ? g(t)
                       : e === "lastMessage"
                         ? (a =
-                            (i = o("WAWebChatCollection").ChatCollection.get(
-                              t.chatJid,
-                            )) == null
+                            (i = o(
+                              "WAWebContactManagerChatResolver",
+                            ).resolveContactManagerChat(t.chatJid)) == null
                               ? void 0
                               : i.t) != null
                           ? a

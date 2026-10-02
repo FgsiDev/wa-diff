@@ -2,10 +2,11 @@ __d(
   "WAWebContactManagerListViewColumns",
   [
     "fbt",
-    "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebContactManagerActionsCell.react",
+    "WAWebContactManagerChatResolver",
     "WAWebContactManagerCustomerCell.react",
+    "WAWebContactManagerDateFormatUtils",
     "WAWebContactManagerListCell.react",
     "WAWebContactManagerListViewColumnWidths",
     "WAWebContactManagerNotesCell.react",
@@ -93,7 +94,7 @@ __d(
         dragging: { opacity: "xti2d7y", $$css: !0 },
       };
     function y(e, t, n) {
-      return n == null || w.includes(e)
+      return n == null || N.includes(e)
         ? null
         : {
             draggable: !0,
@@ -111,7 +112,7 @@ __d(
             onDrop: function (r) {
               r.preventDefault();
               var t = r.dataTransfer.getData("text/plain"),
-                o = A.find(function (e) {
+                o = M.find(function (e) {
                   return e === t;
                 });
               o != null && o !== e && n(o, e);
@@ -826,32 +827,8 @@ __d(
         m
       );
     }
-    function N(e) {
-      if (e == null || e === 0) return "\u2014";
-      try {
-        return new Intl.DateTimeFormat(void 0, {
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        }).format(e * 1e3);
-      } catch (e) {
-        return "\u2014";
-      }
-    }
-    function M(e) {
-      if (e == null || e === 0) return "\u2014";
-      try {
-        return new Intl.DateTimeFormat(void 0, {
-          day: "numeric",
-          month: "short",
-          timeZone: "UTC",
-        }).format(e * 1e3);
-      } catch (e) {
-        return "\u2014";
-      }
-    }
-    var w = ["select", "customer", "actions"],
-      A = [
+    var N = ["select", "customer", "actions"],
+      M = [
         "customer",
         "phone",
         "username",
@@ -865,7 +842,7 @@ __d(
         "notes",
         "actions",
       ],
-      F = [
+      w = [
         "customer",
         "phone",
         "username",
@@ -877,13 +854,13 @@ __d(
         "lastMessage",
         "lastOrder",
       ],
-      O = A;
-    function B(e, t) {
+      A = M;
+    function F(e, t) {
       return e.filter(function (e) {
-        return !w.includes(e) && t.includes(e);
+        return !N.includes(e) && t.includes(e);
       });
     }
-    function W(e) {
+    function O(e) {
       return e === "select"
         ? "Select"
         : e === "customer"
@@ -917,10 +894,10 @@ __d(
                                     );
                                   })();
     }
-    function q(e) {
+    function B(e) {
       return e.isAllSelected ? !0 : e.isIndeterminate ? "indeterminate" : !1;
     }
-    function U(t) {
+    function W(t) {
       return {
         cell: function (a) {
           var n = o("WAWebContactCollection").ContactCollection.get(
@@ -978,7 +955,7 @@ __d(
                     return t.toggleAll();
                   },
                   testid: "customer_manager_select_all",
-                  value: q(t),
+                  value: B(t),
                 }),
               },
             ),
@@ -989,14 +966,14 @@ __d(
           .contactManagerColumnWidths.select,
       };
     }
-    function V(e, t, n, a, i, l, u, d) {
+    function q(e, t, n, a, i, l, u, d) {
       var m = u != null ? u : [],
         p = d != null ? d : r("WAWebNoop"),
         _ = function (t, r) {
           return a != null ? D(t, r, n, a, i, m, p) : void 0;
         },
         f = s._(/*BTDS*/ "Name"),
-        g = l != null ? U(l) : null;
+        g = l != null ? W(l) : null;
       return [].concat(g != null ? [g] : [], [
         {
           cell: function (t) {
@@ -1117,7 +1094,9 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: M(t.item.leadData.birthday),
+              children: o(
+                "WAWebContactManagerDateFormatUtils",
+              ).formatCustomerBirthday(t.item.leadData.birthday),
             });
           },
           header: s._(/*BTDS*/ "Birthday"),
@@ -1129,12 +1108,16 @@ __d(
         },
         {
           cell: function (t) {
-            var e = o("WAWebChatCollection").ChatCollection.get(t.item.chatJid);
+            var e = o(
+              "WAWebContactManagerChatResolver",
+            ).resolveContactManagerChat(t.item.chatJid);
             return c.jsx(r("WDSText.react"), {
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: N(e == null ? void 0 : e.t),
+              children: o(
+                "WAWebContactManagerDateFormatUtils",
+              ).formatCustomerDate(e == null ? void 0 : e.t),
             });
           },
           header: s._(/*BTDS*/ "Last message"),
@@ -1150,7 +1133,9 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: N(t.item.leadData.lastOrder),
+              children: o(
+                "WAWebContactManagerDateFormatUtils",
+              ).formatCustomerDateOnly(t.item.leadData.lastOrder),
             });
           },
           header: s._(/*BTDS*/ "Last order"),
@@ -1189,13 +1174,13 @@ __d(
     }
     ((l.ColumnReorderAnnouncer = v),
       (l.getSortDirectionLabel = E),
-      (l.ALWAYS_VISIBLE_COLUMNS = w),
-      (l.ALL_COLUMN_KEYS = A),
-      (l.SORTABLE_COLUMN_KEYS = F),
-      (l.DEFAULT_VISIBLE_COLUMNS = O),
-      (l.getOrderedReorderableColumnKeys = B),
-      (l.getColumnLabel = W),
-      (l.getContactManagerListColumns = V));
+      (l.ALWAYS_VISIBLE_COLUMNS = N),
+      (l.ALL_COLUMN_KEYS = M),
+      (l.SORTABLE_COLUMN_KEYS = w),
+      (l.DEFAULT_VISIBLE_COLUMNS = A),
+      (l.getOrderedReorderableColumnKeys = F),
+      (l.getColumnLabel = O),
+      (l.getContactManagerListColumns = q));
   },
   226,
 );

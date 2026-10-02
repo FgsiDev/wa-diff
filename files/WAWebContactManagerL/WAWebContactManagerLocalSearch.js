@@ -4,8 +4,16 @@ __d(
     "WAJids",
     "WALogger",
     "WAWebContactCollection",
+    "WAWebContactManagerChatJid",
+    "WAWebContactManagerChatResolver",
+    "WAWebContactManagerDateFormatUtils",
     "WAWebContactManagerProfileQueryPlan",
+    "WAWebCustomerContactResolver",
+    "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebL10NAccentFold",
+    "WAWebLabelCollection",
+    "WAWebLeadStage",
+    "WAWebLeadStageNames",
     "WAWebPhoneNumberSearch",
     "WAWebWid",
     "WAWebWidFactory",
@@ -17,7 +25,7 @@ __d(
       if (!o("WAWebContactManagerProfileQueryPlan").isSearchQueryActive(e))
         return null;
       var n = o("WAWebL10NAccentFold").accentFold(e.trim()),
-        r = o("WAWebPhoneNumberSearch").numberSearch(n),
+        r = o("WAWebPhoneNumberSearch").numberSearch(n) || null,
         a = [];
       for (var i of t != null ? t : []) {
         var l = o("WAWebContactCollection").ContactCollection.get(i);
@@ -25,7 +33,132 @@ __d(
       }
       return a;
     }
-    function u(t) {
+    function u(e, t, n) {
+      if (!o("WAWebContactManagerProfileQueryPlan").isSearchQueryActive(t))
+        return !0;
+      var r = o("WAWebL10NAccentFold").accentFold(t.trim()),
+        a = o("WAWebPhoneNumberSearch").numberSearch(r) || null,
+        i = o("WAWebContactManagerChatJid").toChatJidOrNull(String(e.chatJid)),
+        l =
+          i == null
+            ? null
+            : o("WAWebCustomerContactResolver").resolveCustomerContact(
+                o("WAWebWidFactory").createWid(String(i)),
+              );
+      return (l == null ? void 0 : l.searchMatchExact(r, a)) != null
+        ? !0
+        : c(e, l, n).some(function (e) {
+            return f(e, r, a);
+          }) || p(e, r, a);
+    }
+    function c(e, t, n) {
+      var r = [];
+      if (
+        (_(r, e.email),
+        _(r, e.address),
+        _(r, e.altPhoneNumbers),
+        _(r, n),
+        e.acquisitionSource != null)
+      ) {
+        var a = o(
+          "WAWebCustomerProfileAcquisitionSourceNames",
+        ).getProfileAcquisitionSourceLabel(e.acquisitionSource);
+        a != null && _(r, String(a));
+      }
+      return (d(r, e.leadStage), m(r, t, String(e.chatJid)), r);
+    }
+    function d(e, t) {
+      var n = o("WAWebLeadStage").getLeadStageFromNumber(t);
+      n != null && _(e, String(o("WAWebLeadStageNames").getLeadStageName(n)));
+    }
+    function m(e, t, n) {
+      var r,
+        a = new Set(
+          [].concat(
+            (r = t == null ? void 0 : t.labels) != null ? r : [],
+            o("WAWebCustomerContactResolver").resolveCustomerLabelIds(n),
+          ),
+        );
+      for (var i of a) {
+        var l;
+        _(
+          e,
+          (l = o("WAWebLabelCollection").LabelCollection.get(i)) == null
+            ? void 0
+            : l.name,
+        );
+      }
+    }
+    function p(e, t, n) {
+      var r;
+      if (/^[0-9]{1,7}$/.test(t)) return !1;
+      var a = n != null && n.length >= 8 ? n : null,
+        i = [].concat(
+          g(e.birthday, "birthday"),
+          g(e.lastOrder, "dateOnly"),
+          g(
+            (r = o("WAWebContactManagerChatResolver").resolveContactManagerChat(
+              e.chatJid,
+            )) == null
+              ? void 0
+              : r.t,
+            "instant",
+          ),
+        );
+      return i.some(function (e) {
+        return f(e, t, a);
+      })
+        ? !0
+        : []
+            .concat(
+              g(e.createdAt, "instant", !1),
+              g(e.modifiedAt, "instant", !1),
+            )
+            .some(function (e) {
+              return f(e, t, a);
+            });
+    }
+    function _(e, t) {
+      t != null && t !== "" && e.push(t);
+    }
+    function f(e, t, n) {
+      var r = o("WAWebL10NAccentFold").accentFold(e);
+      if (r.includes(t)) return !0;
+      if (n == null) return !1;
+      var a = r.replace(/[^0-9]/g, "");
+      return a !== "" && a.includes(n);
+    }
+    function g(e, t, n) {
+      if ((n === void 0 && (n = !0), e == null || e === 0)) return [];
+      var r = new Date(e * 1e3);
+      if (!Number.isFinite(r.getTime())) return [];
+      var a = h(r, t);
+      if (!n) return [a];
+      var i =
+        t === "birthday"
+          ? o("WAWebContactManagerDateFormatUtils").formatCustomerBirthday(e)
+          : t === "dateOnly"
+            ? o("WAWebContactManagerDateFormatUtils").formatCustomerDateOnly(e)
+            : t === "instant"
+              ? o("WAWebContactManagerDateFormatUtils").formatCustomerDate(e)
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      t,
+                  );
+                })();
+      return [a, i];
+    }
+    function h(e, t) {
+      var n = t !== "instant",
+        r = n ? e.getUTCMonth() + 1 : e.getMonth() + 1,
+        o = n ? e.getUTCDate() : e.getDate(),
+        a = String(r).padStart(2, "0") + "-" + String(o).padStart(2, "0");
+      if (t === "birthday") return a;
+      var i = n ? e.getUTCFullYear() : e.getFullYear();
+      return i + "-" + a;
+    }
+    function y(t) {
       if (t == null) return null;
       var n = [];
       for (var a of t)
@@ -49,7 +182,7 @@ __d(
         }
       return n;
     }
-    function c(e, t) {
+    function C(e, t) {
       var n = new Set();
       for (var r of t)
         for (var a of (i = e.get(r)) != null ? i : []) {
@@ -59,7 +192,7 @@ __d(
         }
       return n;
     }
-    function d(e) {
+    function b(e) {
       var t = new Map();
       for (var n of e) {
         var r = n[0],
@@ -72,9 +205,10 @@ __d(
       return t;
     }
     ((l.findMatchingContactIds = s),
-      (l.toCandidateLids = u),
-      (l.getLeadStageContactIds = c),
-      (l.getLeadStageByContactId = d));
+      (l.matchesCustomerSearchQuery = u),
+      (l.toCandidateLids = y),
+      (l.getLeadStageContactIds = C),
+      (l.getLeadStageByContactId = b));
   },
   98,
 );

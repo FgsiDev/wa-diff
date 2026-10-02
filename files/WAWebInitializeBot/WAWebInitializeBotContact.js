@@ -1,1 +1,72 @@
-__d("WAWebInitializeBotContact",["fbt","WAWebAIHatchIdentityStore","WAWebAIHatchIdentitySync","WAWebBotUtils","WAWebMetaAiRingAssetResolver","WAWebProfilePicThumbCollection"],(function(t,n,r,o,a,i,l,s){"use strict";function e(e){if(o("WAWebBotUtils").isHatchBot(e.id)){var t=o("WAWebAIHatchIdentityStore").getHatchInitialIdentity(),n=t.name,r=t.profileThumb;e.set({name:n}),r!==""&&o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.gadd(e.id).set({eurl:r,previewEurl:r,tag:"hat",stale:!1,timestamp:Date.now()}),o("WAWebAIHatchIdentitySync").syncHatchContactIdentity({contact:e,wid:e.id})}else if(o("WAWebBotUtils").isMetaAiBot(e.id)||o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e.id)){e.set({name:"Meta AI"});var a=o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.gadd(e.id).set({eurl:a,previewEurl:a,tag:"man",stale:!1,timestamp:Date.now()})}else if(o("WAWebBotUtils").isBusinessAssistantBot(e.id)){e.set({name:s._(/*BTDS*/"Business assistant").toString()});var i=o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.gadd(e.id).set({eurl:i,previewEurl:i,tag:"man",stale:!1,timestamp:Date.now()})}else{if(e.name)return;e.set({name:s._(/*BTDS*/"AI").toString()})}e.set({type:"out"})}l.initializeBotContact=e}),226);
+__d(
+  "WAWebInitializeBotContact",
+  [
+    "fbt",
+    "WAWebAIHatchIdentityStore",
+    "WAWebAIHatchIdentitySync",
+    "WAWebBotUtils",
+    "WAWebMetaAiRingAssetResolver",
+    "WAWebProfilePicThumbCollection",
+  ],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    function e() {
+      return s._(/*BTDS*/ "AI").toString();
+    }
+    function u(t) {
+      if (o("WAWebBotUtils").isHatchBot(t.id)) {
+        var n = o("WAWebAIHatchIdentityStore").getHatchInitialIdentity(),
+          r = n.name,
+          a = n.profileThumb;
+        (t.set({ name: r }),
+          a !== "" &&
+            o("WAWebProfilePicThumbCollection")
+              .ProfilePicThumbCollection.gadd(t.id)
+              .set({
+                eurl: a,
+                previewEurl: a,
+                tag: "hat",
+                stale: !1,
+                timestamp: Date.now(),
+              }),
+          o("WAWebAIHatchIdentitySync").syncHatchContactIdentity({
+            contact: t,
+            wid: t.id,
+          }));
+      } else if (
+        o("WAWebBotUtils").isMetaAiBot(t.id) ||
+        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t.id)
+      ) {
+        t.set({ name: "Meta AI" });
+        var i = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();
+        o("WAWebProfilePicThumbCollection")
+          .ProfilePicThumbCollection.gadd(t.id)
+          .set({
+            eurl: i,
+            previewEurl: i,
+            tag: "man",
+            stale: !1,
+            timestamp: Date.now(),
+          });
+      } else if (o("WAWebBotUtils").isBusinessAssistantBot(t.id)) {
+        t.set({ name: s._(/*BTDS*/ "Business assistant").toString() });
+        var l = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();
+        o("WAWebProfilePicThumbCollection")
+          .ProfilePicThumbCollection.gadd(t.id)
+          .set({
+            eurl: l,
+            previewEurl: l,
+            tag: "man",
+            stale: !1,
+            timestamp: Date.now(),
+          });
+      } else {
+        if (t.name) return;
+        t.set({ name: e() });
+      }
+      t.set({ type: "out" });
+    }
+    ((l.getBotPlaceholderName = e), (l.initializeBotContact = u));
+  },
+  226,
+);

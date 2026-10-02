@@ -3,7 +3,7 @@ __d(
   [
     "WAWebBizLabelUtils",
     "WAWebBoolFunc",
-    "WAWebChatCollection",
+    "WAWebContactManagerChatResolver",
     "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerDateRangeUtils",
     "WAWebContactManagerLastMessageRangeSecondsBounds",
@@ -147,8 +147,9 @@ __d(
       };
     function f(e) {
       var t;
-      return (t = o("WAWebChatCollection").ChatCollection.get(e.chatJid)) ==
-        null
+      return (t = o(
+        "WAWebContactManagerChatResolver",
+      ).resolveContactManagerChat(e.chatJid)) == null
         ? void 0
         : t.t;
     }

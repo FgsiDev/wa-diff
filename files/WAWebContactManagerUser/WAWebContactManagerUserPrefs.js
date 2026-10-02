@@ -15,12 +15,14 @@ __d(
       );
     function m(e) {
       if (!Array.isArray(e)) return null;
-      var t = e.filter(function (e) {
-        return typeof e == "string" && d.has(e);
-      });
-      if (t.length === 0) return null;
-      var n = t;
-      return n;
+      var t = e
+        .map(function (e) {
+          return typeof e == "string" ? d.get(e) : null;
+        })
+        .filter(function (e) {
+          return e != null;
+        });
+      return t.length === 0 ? null : t;
     }
     function p(e) {
       if (!Array.isArray(e)) return null;

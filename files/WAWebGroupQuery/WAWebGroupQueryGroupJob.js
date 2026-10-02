@@ -313,6 +313,8 @@ __d(
                     var t = e.id;
                     return t;
                   }),
+                  [],
+                  { sourceGroupWid: R.id },
                 )
                 .catch(function (e) {
                   o("WALogger")
