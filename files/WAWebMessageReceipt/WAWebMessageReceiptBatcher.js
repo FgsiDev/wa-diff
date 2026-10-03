@@ -213,17 +213,12 @@ __d(
                   var i = t + "," + u,
                     l = e.get(i);
                   if (l)
-                    (r !== h[o("WAWebAck").ACK.INACTIVE] && (l[r] = S(l[r], s)),
+                    (r !== o("WAWebAck").ACK_STRING.INACTIVE &&
+                      (l[r] = S(l[r], s)),
                       l.deviceDelivered.add(c));
                   else {
-                    var d;
-                    e.set(
-                      i,
-                      ((d = {}),
-                      (d[r] = s),
-                      (d.deviceDelivered = new Set([c])),
-                      d),
-                    );
+                    var d = { deviceDelivered: new Set([c]) };
+                    ((d[r] = s), e.set(i, d));
                   }
                 });
               }),

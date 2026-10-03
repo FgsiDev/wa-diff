@@ -966,24 +966,24 @@ __d(
           .customerManagerColumnWidths.select,
       };
     }
-    function q(e, t, n, a, i, l, u, d) {
-      var m = u != null ? u : [],
-        p = d != null ? d : r("WAWebNoop"),
-        _ = function (t, r) {
-          return a != null ? D(t, r, n, a, i, m, p) : void 0;
+    function q(e, t, n, a, i, l, u, d, m) {
+      var p = u != null ? u : [],
+        _ = d != null ? d : r("WAWebNoop"),
+        f = function (t, r) {
+          return a != null ? D(t, r, n, a, i, p, _) : void 0;
         },
-        f = s._(/*BTDS*/ "Name"),
-        g = l != null ? W(l) : null;
-      return [].concat(g != null ? [g] : [], [
+        g = s._(/*BTDS*/ "Name"),
+        h = l != null ? W(l) : null;
+      return [].concat(h != null ? [h] : [], [
         {
           cell: function (t) {
             return c.jsx(r("WAWebCustomerManagerCustomerCell.react"), {
               item: t.item.leadData,
             });
           },
-          header: f,
+          header: g,
           key: "customer",
-          renderHeader: _(f, "customer"),
+          renderHeader: f(g, "customer"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.customer,
@@ -994,7 +994,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Phone number"),
           key: "phone",
-          renderHeader: _(s._(/*BTDS*/ "Phone number"), "phone"),
+          renderHeader: f(s._(/*BTDS*/ "Phone number"), "phone"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.phone,
@@ -1005,7 +1005,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Username"),
           key: "username",
-          renderHeader: _(s._(/*BTDS*/ "Username"), "username"),
+          renderHeader: f(s._(/*BTDS*/ "Username"), "username"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.username,
@@ -1019,7 +1019,7 @@ __d(
           },
           header: s._(/*BTDS*/ "List"),
           key: "list",
-          renderHeader: _(s._(/*BTDS*/ "List"), "list"),
+          renderHeader: f(s._(/*BTDS*/ "List"), "list"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.list,
@@ -1049,7 +1049,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Source"),
           key: "acquisitionSource",
-          renderHeader: _(s._(/*BTDS*/ "Source"), "acquisitionSource"),
+          renderHeader: f(s._(/*BTDS*/ "Source"), "acquisitionSource"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.acquisitionSource,
@@ -1066,7 +1066,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Email"),
           key: "email",
-          renderHeader: _(s._(/*BTDS*/ "Email"), "email"),
+          renderHeader: f(s._(/*BTDS*/ "Email"), "email"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.email,
@@ -1083,7 +1083,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Address"),
           key: "address",
-          renderHeader: _(s._(/*BTDS*/ "Address"), "address"),
+          renderHeader: f(s._(/*BTDS*/ "Address"), "address"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.address,
@@ -1101,7 +1101,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Birthday"),
           key: "birthday",
-          renderHeader: _(s._(/*BTDS*/ "Birthday"), "birthday"),
+          renderHeader: f(s._(/*BTDS*/ "Birthday"), "birthday"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.birthday,
@@ -1122,7 +1122,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Last message"),
           key: "lastMessage",
-          renderHeader: _(s._(/*BTDS*/ "Last message"), "lastMessage"),
+          renderHeader: f(s._(/*BTDS*/ "Last message"), "lastMessage"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.lastMessage,
@@ -1140,7 +1140,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Last order"),
           key: "lastOrder",
-          renderHeader: _(s._(/*BTDS*/ "Last order"), "lastOrder"),
+          renderHeader: f(s._(/*BTDS*/ "Last order"), "lastOrder"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.lastOrder,
@@ -1153,16 +1153,17 @@ __d(
           },
           header: s._(/*BTDS*/ "Notes"),
           key: "notes",
-          renderHeader: x(s._(/*BTDS*/ "Notes"), "notes", i, m, p),
+          renderHeader: x(s._(/*BTDS*/ "Notes"), "notes", i, p, _),
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.notes,
         },
         {
           cell: function (o) {
             return c.jsx(r("WAWebCustomerManagerActionsCell.react"), {
-              chatJid: o.item.chatJid,
+              contact: o.item,
               onChatClick: e,
               onDeleteContact: t,
+              onHiddenChange: m,
             });
           },
           key: "actions",

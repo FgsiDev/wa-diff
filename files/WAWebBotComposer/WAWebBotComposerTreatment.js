@@ -4,21 +4,28 @@ __d(
     "WAWebBotComposerSupport",
     "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProductGating",
+    "WAWebMuseBotIdentity",
     "WAWebResolveBotProfile",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e.isBot()
-        ? o("WAWebBotComposerSupport").getBotComposerTreatment({
-            input: o("WAWebResolveBotProfile").resolveBotSupportInput(e),
+      if (!e.isBot())
+        return o("WAWebBotComposerSupport").BotComposerTreatment.COMPOSE;
+      var t = o("WAWebResolveBotProfile").resolveBotSupportInput(e);
+      return o("WAWebMuseBotIdentity").isMuseBotProfileProduct(
+        e,
+        t == null ? void 0 : t.product,
+      )
+        ? o("WAWebBotComposerSupport").BotComposerTreatment.DEPRECATED
+        : o("WAWebBotComposerSupport").getBotComposerTreatment({
+            input: t,
             isProductGateOn: function (t) {
               return o("WAWebBotProductGating").isBotProductGateOn(
                 t,
                 o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
               );
             },
-          })
-        : o("WAWebBotComposerSupport").BotComposerTreatment.COMPOSE;
+          });
     }
     function s(t) {
       return e(t) !== o("WAWebBotComposerSupport").BotComposerTreatment.COMPOSE;

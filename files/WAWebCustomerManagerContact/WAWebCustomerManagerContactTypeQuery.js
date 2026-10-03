@@ -1,42 +1,41 @@
 __d(
   "WAWebCustomerManagerContactTypeQuery",
-  ["Promise", "WAWebLidAwareContactsDB", "asyncToGeneratorRuntime"],
+  ["WAWebLidAwareContactsDB", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(t) {
-      return t === "all"
+    function e(e) {
+      return e === "all"
         ? r("WAWebLidAwareContactsDB").all()
-        : t === "saved_contacts"
-          ? u(d)
-          : t === "not_in_contacts"
-            ? u(function (e) {
-                return !d(e);
+        : e === "saved_contacts"
+          ? s(c)
+          : e === "not_in_contacts"
+            ? s(function (e) {
+                return !c(e);
               })
-            : t === "hidden"
-              ? (e || (e = n("Promise"))).resolve(null)
+            : e === "hidden"
+              ? r("WAWebLidAwareContactsDB").all()
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      t,
+                      e,
                   );
                 })();
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function c() {
+    function u() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (yield r("WAWebLidAwareContactsDB").all()).filter(e);
         })),
-        c.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function d(e) {
+    function c(e) {
       return e.isAddressBookContact === 1 || e.isUsernameContact === !0;
     }
-    ((l.fetchContactRowsForType = s), (l.isSavedContact = d));
+    ((l.fetchContactRowsForType = e), (l.isSavedContact = c));
   },
   98,
 );
