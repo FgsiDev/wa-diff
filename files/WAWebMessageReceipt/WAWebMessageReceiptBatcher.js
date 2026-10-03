@@ -264,7 +264,7 @@ __d(
                   l = yield o("WAWebModelStorageUtils")
                     .getStorage()
                     .lock(
-                      ["message-info", "message", "chat"],
+                      ["message-info", "message", "chat", "participant"],
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
                           var l = yield (f || (f = n("Promise"))).all([

@@ -4,12 +4,13 @@ __d(
     "WAWebBotComposerSupport",
     "WAWebBotPrimaryFeaturesFrontend",
     "WAWebBotProductGating",
+    "WAWebBotStaticProfiles",
     "WAWebMuseBotIdentity",
     "WAWebResolveBotProfile",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (!e.isBot())
+      if (!o("WAWebBotStaticProfiles").isBotSupportClassifiable(e))
         return o("WAWebBotComposerSupport").BotComposerTreatment.COMPOSE;
       var t = o("WAWebResolveBotProfile").resolveBotSupportInput(e);
       return o("WAWebMuseBotIdentity").isMuseBotProfileProduct(

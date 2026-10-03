@@ -2,7 +2,6 @@ __d(
   "WAWebSetContactManagerHiddenAction",
   [
     "WAWebContactManagerMetadataSync",
-    "WAWebCustomerManagerGating",
     "WAWebSchemaContactManagerMetadata",
     "asyncToGeneratorRuntime",
     "err",
@@ -15,7 +14,6 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
-            !o("WAWebCustomerManagerGating").customerManagerEnabled() ||
             !o(
               "WAWebSchemaContactManagerMetadata",
             ).canUseContactManagerMetadataTable()

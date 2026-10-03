@@ -1,6 +1,11 @@
 __d(
   "WAWebContactManagerContactIdentity",
-  ["WAJids", "WAWebContactsDbLidMigrationUtils", "WAWebWidFactory"],
+  [
+    "WAJids",
+    "WAWebContactsDbLidMigrationUtils",
+    "WAWebLidMigrationUtils",
+    "WAWebWidFactory",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o(
@@ -33,13 +38,16 @@ __d(
     }
     function u(e) {
       try {
-        var t = o("WAWebWidFactory").createUserWidOrThrow(e).toJid(),
-          n = o("WAJids").interpretAndValidateJid(t);
+        var t = o("WAWebWidFactory").createUserWidOrThrow(e),
+          n = o("WAJids").interpretAndValidateJid(t.toJid());
         if (n.jidType === "lidUser") return n.userJid;
+        var r = o("WAWebLidMigrationUtils").toUserLid(t);
+        if (r == null) return null;
+        var a = o("WAJids").interpretAndValidateJid(r.toJid());
+        return a.jidType === "lidUser" ? a.userJid : null;
       } catch (e) {
         return null;
       }
-      return null;
     }
     ((l.groupContactRowsByCanonicalId = e),
       (l.selectContactManagerMetadataJid = s),
