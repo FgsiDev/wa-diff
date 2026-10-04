@@ -14,12 +14,10 @@ __d(
     "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebDropdownItemSeparator.react",
-    "WAWebInfoRefreshedIcon.react",
-    "WAWebListsGatingUtils",
-    "WAWebMobilePlatforms",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWidToJid",
+    "WDSIconIcInfo.react",
     "WDSMenuItem.react",
     "react",
     "react-compiler-runtime",
@@ -76,15 +74,14 @@ __d(
                 o("WAWebCmd").Cmd.chatInfoDrawer(n);
               }));
         },
-        p = o("WAWebListsGatingUtils").isListsEnabled(),
-        _ = [
+        p = [
           s.jsx(c, { audienceId: d }, "logger"),
           s.jsx(
             r("WDSMenuItem.react"),
             {
               testid: "mi-broadcast-info",
               onPress: m,
-              Icon: o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon,
+              Icon: r("WDSIconIcInfo.react"),
               title: o(
                 "WAWebBizBroadcastsCreationStrings",
               ).getBroadcastAudienceInfoLabel(),
@@ -103,7 +100,7 @@ __d(
             "Pin",
           ),
         ],
-        f = function () {
+        _ = function () {
           o(
             "WAWebBusinessBroadcastUserJourneyLogger",
           ).BusinessBroadcastUserJourneyLogger.labelChatClicked(
@@ -112,8 +109,8 @@ __d(
             d,
           );
         },
-        g = function () {
-          (f(),
+        f = function () {
+          (_(),
             o(
               "WAWebChatContextMenuItemEditLabel.react",
             ).handleLabelMenuItemClick({
@@ -125,52 +122,35 @@ __d(
             }));
         };
       return (
-        o("WAWebMobilePlatforms").isSMB() &&
-          !p &&
-          _.push(
-            s.jsx(
-              o("WAWebChatContextMenuItemEditLabel.react")
-                .WAWebChatContextMenuItemEditLabel,
-              {
-                chat: n,
-                multiSelection: a,
-                onClickCallback: f,
-                onStartMultiSelect: i != null ? i : void 0,
-                searchQuery: l != null ? l : void 0,
-                selectableState: u,
-              },
-            ),
-          ),
-        p &&
-          _.push(
-            s.jsx(r("WAWebChatContextMenuItemEditList.react"), {
-              chat: n,
-              displayContext: "chat-list",
-              onSMBLabelMenuItemClick: g,
-            }),
-          ),
-        _.push(
+        p.push(
+          s.jsx(r("WAWebChatContextMenuItemEditList.react"), {
+            chat: n,
+            displayContext: "chat-list",
+            onSMBLabelMenuItemClick: f,
+          }),
+        ),
+        p.push(
           s.jsx(
             r("WAWebChatContextMenuItemMarkUnread.react"),
             { chat: n },
             "MarkUnread",
           ),
         ),
-        _.push(s.jsx(r("WAWebDropdownItemSeparator.react"), {})),
-        _.push(
+        p.push(s.jsx(r("WAWebDropdownItemSeparator.react"), {})),
+        p.push(
           s.jsx(
             r("WAWebChatContextMenuItemDelete.react"),
             { chat: n },
             "Delete",
           ),
         ),
-        _.push.apply(
-          _,
+        p.push.apply(
+          p,
           o("WAWebChatCellDebugMenuItems.react").getWAWebChatCellDebugMenuItems(
             n,
           ),
         ),
-        _
+        p
       );
     }
     l.getBroadcastChatListMenuItems = d;
