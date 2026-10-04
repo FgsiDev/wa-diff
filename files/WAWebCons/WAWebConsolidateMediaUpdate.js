@@ -78,7 +78,8 @@ __d(
           n,
         );
       if (u)
-        d &&
+        d != null &&
+          d !== "" &&
           d !== u.filehash &&
           (o("WALogger").LOG(
             s ||
@@ -88,7 +89,7 @@ __d(
                 " filehash",
               ])),
             n.id.toString(),
-            u.filehash ? "changed" : "added",
+            u.filehash != null && u.filehash !== "" ? "changed" : "added",
           ),
           o("WAWebMediaStorage").disassociateMediaFromMsg(u, n),
           (u = o("WAWebMediaStorage").getOrCreateMediaObject(d)),
