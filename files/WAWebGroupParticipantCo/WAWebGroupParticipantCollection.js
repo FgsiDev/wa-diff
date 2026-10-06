@@ -90,15 +90,15 @@ __d(
                       : l.name) != null
                   ? r
                   : "";
-            o("WAWebSendForNeededAddRequest").sendForNeededAddRequest(
-              {
+            o("WAWebSendForNeededAddRequest").sendForNeededAddRequest({
+              groupAddResponse: {
                 participants: e,
                 gid: o("WAWebWidFactory").asGroupWidOrThrow(a.parent.id),
               },
-              c,
-              u,
-              t,
-            );
+              groupDesc: u,
+              onFinish: t,
+              subject: c,
+            });
           }),
           a.listenTo(a, "change:contact.name", a.$ParticipantCollection$p_1),
           a.listenTo(
@@ -234,11 +234,10 @@ __d(
                   (t.isAdmin || t.isSuperAdmin)
                 )
               : this.iAmMember() &&
-                o(
-                  "WAWebGroupAgentProfileRouting",
-                ).getGroupAgentProfileDestination(t.id, this.getChat()) ===
-                  o("WAWebGroupAgentProfileRouting")
-                    .GroupAgentProfileDestination.OWNER_CARD;
+                o("WAWebGroupAgentProfileRouting").isViewerOwnMuseGroupAgent(
+                  t.id,
+                  this.getChat(),
+                );
         }),
         (n.canVerifyIdentity = function (t) {
           var e, n;

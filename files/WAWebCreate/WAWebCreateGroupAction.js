@@ -14,9 +14,12 @@ __d(
     "WAWebComposeBoxActions",
     "WAWebCoreActionsODS",
     "WAWebFindChatAction",
+    "WAWebGroupAddResultDialogs.react",
+    "WAWebGroupAgentConflictAddResult",
     "WAWebGroupCreateJob",
     "WAWebGroupCreateWamEvent",
     "WAWebGroupGatingUtils",
+    "WAWebGroupIncompatibleDeviceAddResult",
     "WAWebGroupModifyInfoJob",
     "WAWebGroupMutationParticipantUtils",
     "WAWebGroupQueryBridge",
@@ -439,11 +442,30 @@ __d(
                       I(u);
                     };
                   if (
-                    (a
-                      ? o(
-                          "WAWebSendForNeededAddRequest",
-                        ).sendForNeededAddRequest(e, f, void 0, c)
-                      : c(),
+                    (o(
+                      "WAWebGroupAddResultDialogs.react",
+                    ).runAfterAddResultDialogs(
+                      {
+                        agentConflictWids: o(
+                          "WAWebGroupAgentConflictAddResult",
+                        ).getAgentConflictRejectedWids(e.participants),
+                        hasIncompatibleDeviceRejection: o(
+                          "WAWebGroupIncompatibleDeviceAddResult",
+                        ).hasAgentIncompatibleDeviceRejection(e.participants),
+                      },
+                      function () {
+                        a
+                          ? o(
+                              "WAWebSendForNeededAddRequest",
+                            ).sendForNeededAddRequest({
+                              groupAddResponse: e,
+                              groupDesc: void 0,
+                              onFinish: c,
+                              subject: f,
+                            })
+                          : c();
+                      },
+                    ),
                     p == null &&
                       e.gid &&
                       o("WAWebFindChatAction")

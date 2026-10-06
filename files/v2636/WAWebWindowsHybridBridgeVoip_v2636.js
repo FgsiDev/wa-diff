@@ -14,16 +14,17 @@ __d(
       s = (function () {
         function t(t, n) {
           var a = this;
-          ((this.handleVoipReady = function () {
-            var e;
-            (o("WAWebBackendApi").frontendFireAndForget(
-              "addStartingLogoutListener",
-              function () {
-                return a.handleSignOut();
-              },
-            ),
-              (e = a.$3) == null || e.onVoipReady());
-          }),
+          ((this.reportWebAnr = null),
+            (this.handleVoipReady = function () {
+              var e;
+              (o("WAWebBackendApi").frontendFireAndForget(
+                "addStartingLogoutListener",
+                function () {
+                  return a.handleSignOut();
+                },
+              ),
+                (e = a.$3) == null || e.onVoipReady());
+            }),
             (this.sendSignalingXmpp = function (t) {
               var n,
                 r = t.callId,
@@ -268,17 +269,16 @@ __d(
                 },
               ));
           }),
-          (a.handleIncomingSignalingMessage = function (
-            t,
-            n,
-            a,
-            i,
-            l,
-            s,
-            u,
-            c,
-          ) {
-            var e = this;
+          (a.handleIncomingSignalingMessage = function (t) {
+            var e = this,
+              n = t.msgE,
+              a = t.msgOffline,
+              i = t.msgPlatform,
+              l = t.msgT,
+              s = t.msgVersion,
+              u = t.peerJid,
+              c = t.tcToken,
+              d = t.xmlNode;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.handle_incoming_signaling_message",
             ),
@@ -290,12 +290,12 @@ __d(
                 },
                 function () {
                   return e.$2.handleIncomingSignalingMessage(
-                    o("WAWebSerializeVoipWapNode").serializeVoipWapNode(t),
-                    n,
-                    a,
+                    o("WAWebSerializeVoipWapNode").serializeVoipWapNode(d),
                     i,
-                    l,
                     s,
+                    n,
+                    l,
+                    a,
                     u,
                     c ? o("WABase64").encodeB64(c) : null,
                   );

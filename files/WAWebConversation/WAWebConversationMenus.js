@@ -27,7 +27,6 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
     "WAWebLeaveCommunityModalUtilsLoadable",
-    "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
     "WAWebManageLabelFlowLoadable",
     "WAWebMobilePlatforms",
@@ -92,14 +91,7 @@ __d(
       );
     }
     function d(e, t) {
-      return (
-        t &&
-        e.groupMetadata != null &&
-        !e.groupMetadata.support &&
-        o("WAWebABProps").getABPropConfigValue(
-          "create_group_and_add_member_overflow",
-        )
-      );
+      return t && e.groupMetadata != null && !e.groupMetadata.support;
     }
     function m(e) {
       if (o("WAWebChatGroupUtils").shouldShowLeaveAndReportGroupModalForChat(e))
@@ -255,47 +247,43 @@ __d(
           (a[14] = M))
         : (M = a[14]);
       var w;
-      if (
-        (a[15] !== N || a[16] !== M
-          ? ((w = u.jsx(
-              r("WDSMenuItem.react"),
-              {
-                Icon: r("WDSIconIcInfo.react"),
-                title: N,
-                onPress: M,
-                testid: "menu-item-chat-info",
-              },
-              "info",
-            )),
-            (a[15] = N),
-            (a[16] = M),
-            (a[17] = w))
-          : (w = a[17]),
-        v.push(w),
-        o("WAWebABProps").getABPropConfigValue("wa_web_chat_search_entrypoint"))
-      ) {
-        var A;
-        a[18] === Symbol.for("react.memo_cache_sentinel")
-          ? ((A = s._(/*BTDS*/ "Search")), (a[18] = A))
-          : (A = a[18]);
-        var F = A,
-          O;
-        (a[19] !== p
-          ? ((O = u.jsx(
-              r("WDSMenuItem.react"),
-              {
-                Icon: r("WDSIconIcSearch.react"),
-                title: F,
-                onPress: p,
-                testid: "mi-search-chat",
-              },
-              "search",
-            )),
-            (a[19] = p),
-            (a[20] = O))
-          : (O = a[20]),
-          v.push(O));
-      }
+      (a[15] !== N || a[16] !== M
+        ? ((w = u.jsx(
+            r("WDSMenuItem.react"),
+            {
+              Icon: r("WDSIconIcInfo.react"),
+              title: N,
+              onPress: M,
+              testid: "menu-item-chat-info",
+            },
+            "info",
+          )),
+          (a[15] = N),
+          (a[16] = M),
+          (a[17] = w))
+        : (w = a[17]),
+        v.push(w));
+      var A;
+      a[18] === Symbol.for("react.memo_cache_sentinel")
+        ? ((A = s._(/*BTDS*/ "Search")), (a[18] = A))
+        : (A = a[18]);
+      var F = A,
+        O;
+      (a[19] !== p
+        ? ((O = u.jsx(
+            r("WDSMenuItem.react"),
+            {
+              Icon: r("WDSIconIcSearch.react"),
+              title: F,
+              onPress: p,
+              testid: "mi-search-chat",
+            },
+            "search",
+          )),
+          (a[19] = p),
+          (a[20] = O))
+        : (O = a[20]),
+        v.push(O));
       var B;
       a[21] === Symbol.for("react.memo_cache_sentinel")
         ? ((B = s._(/*BTDS*/ "Select messages")), (a[21] = B))
@@ -463,10 +451,7 @@ __d(
           : (Z = a[42]),
           v.push(Z));
       }
-      if (
-        i.canToggleFavorite() &&
-        o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()
-      ) {
+      if (o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()) {
         var ee, te;
         if (i.isFavorite) {
           var ne;
@@ -520,31 +505,29 @@ __d(
           : (ae = a[50]),
           v.push(ae));
       }
-      if (o("WAWebListsGatingUtils").isListsEnabled()) {
-        var ie;
-        a[51] !== i
-          ? ((ie = function () {
-              o(
-                "WAWebChatContextMenuItemEditLabel.react",
-              ).checkDataSharingOrHandleLabelAction(i);
-            }),
-            (a[51] = i),
-            (a[52] = ie))
-          : (ie = a[52]);
-        var le = ie,
-          se;
-        (a[53] !== i || a[54] !== le
-          ? ((se = u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
-              chat: i,
-              displayContext: "chat-header",
-              onSMBLabelMenuItemClick: le,
-            })),
-            (a[53] = i),
-            (a[54] = le),
-            (a[55] = se))
-          : (se = a[55]),
-          v.push(se));
-      }
+      var ie;
+      a[51] !== i
+        ? ((ie = function () {
+            o(
+              "WAWebChatContextMenuItemEditLabel.react",
+            ).checkDataSharingOrHandleLabelAction(i);
+          }),
+          (a[51] = i),
+          (a[52] = ie))
+        : (ie = a[52]);
+      var le = ie,
+        se;
+      (a[53] !== i || a[54] !== le
+        ? ((se = u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
+            chat: i,
+            displayContext: "chat-header",
+            onSMBLabelMenuItemClick: le,
+          })),
+          (a[53] = i),
+          (a[54] = le),
+          (a[55] = se))
+        : (se = a[55]),
+        v.push(se));
       var ue;
       a[56] === Symbol.for("react.memo_cache_sentinel")
         ? ((ue = s._(/*BTDS*/ "Copy selection")), (a[56] = ue))

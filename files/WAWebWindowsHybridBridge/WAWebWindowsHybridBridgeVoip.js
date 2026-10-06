@@ -268,17 +268,16 @@ __d(
                 },
               ));
           }),
-          (a.handleIncomingSignalingMessage = function (
-            t,
-            n,
-            a,
-            i,
-            l,
-            s,
-            u,
-            c,
-          ) {
-            var e = this;
+          (a.handleIncomingSignalingMessage = function (t) {
+            var e = this,
+              n = t.msgE,
+              a = t.msgOffline,
+              i = t.msgPlatform,
+              l = t.msgT,
+              s = t.msgVersion,
+              u = t.peerJid,
+              c = t.tcToken,
+              d = t.xmlNode;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.handle_incoming_signaling_message",
             ),
@@ -290,12 +289,12 @@ __d(
                 },
                 function () {
                   return e.$2.handleIncomingSignalingMessage(
-                    o("WAWebSerializeVoipWapNode").serializeVoipWapNode(t),
-                    n,
-                    a,
+                    o("WAWebSerializeVoipWapNode").serializeVoipWapNode(d),
                     i,
-                    l,
                     s,
+                    n,
+                    l,
+                    a,
                     u,
                     c ? o("WABase64").encodeB64(c) : null,
                   );
@@ -711,6 +710,17 @@ __d(
                   return (r = e.$1) == null
                     ? void 0
                     : r.simulateNativeAnr(t, n);
+                },
+              ));
+          }),
+          (a.reportWebAnr = function () {
+            var e = this;
+            (r("WAWebODS").incr("web.hybrid.bridge.voip.send.report_web_anr"),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                { bridge: "voip", method: "reportWebAnr", type: "async" },
+                function () {
+                  var t;
+                  return (t = e.$1) == null ? void 0 : t.reportWebAnr();
                 },
               ));
           }),
