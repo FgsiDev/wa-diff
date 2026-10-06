@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAParsableWapNode",
     "WATimeUtils",
+    "WAWap",
     "WAWebApiContact",
     "WAWebCoexV2GatingUtils",
     "WAWebCoexV2UsernameInfoUpdate",
@@ -53,9 +54,11 @@ __d(
           var i = a === void 0 ? {} : a,
             l = i.isGroupStatusStanza,
             v = l === void 0 ? !1 : l,
-            S = o("WAWebHandleMsgParser").incomingMsgParser.parse(t);
-          if (S.error) {
-            var E;
+            S = i.isStatusStanza,
+            E = S === void 0 ? !1 : S,
+            D = o("WAWebHandleMsgParser").incomingMsgParser.parse(t);
+          if (D.error) {
+            var x;
             (r("gkx")("26258")
               ? o("WALogger")
                   .WARN(
@@ -73,17 +76,17 @@ __d(
                         ", node: ",
                         "",
                       ])),
-                    S.error,
+                    D.error,
                     t.toString(),
                   )
                   .tags("messaging"),
               o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(t));
-            var T = o("WAWebHandleMsgParser").incomingMsgParserForAckOnly.parse(
+            var $ = o("WAWebHandleMsgParser").incomingMsgParserForAckOnly.parse(
               t,
             );
-            if (T.error)
+            if ($.error)
               return (
-                T.error instanceof o("WAParsableWapNode").XmppParsingFailure
+                $.error instanceof o("WAParsableWapNode").XmppParsingFailure
                   ? o("WALogger")
                       .WARN(
                         u ||
@@ -91,7 +94,7 @@ __d(
                             "failedParsingMessage: ",
                             "",
                           ])),
-                        T.error,
+                        $.error,
                       )
                       .tags("messaging")
                       .sendLogs("msg-stanza-parsing-failed-xmpp-no-ack", {
@@ -112,38 +115,39 @@ __d(
                   "WAWebPostIncomingMessageDropMetric",
                 ).postIncomingMessageDropInvalidStanza(t),
                 (R || (R = n("Promise"))).resolve(
-                  o("WAWebCreateNackFromStanza").createNackFromStanza(
+                  k(
                     t,
                     o("WAWebCreateNackFromStanza").NackReason.ParsingError,
+                    E,
                   ),
                 )
               );
-            var D = T.success,
-              x = D.externalId,
-              $ = D.msgInfo,
-              P = D.offline,
-              N = D.type,
-              M = o("WAWebCreateNackFromStanza").NackReason.ParsingError;
+            var P = $.success,
+              N = P.externalId,
+              M = P.msgInfo,
+              w = P.offline,
+              A = P.type,
+              F = o("WAWebCreateNackFromStanza").NackReason.ParsingError;
             return (
-              N == null
-                ? ((M = o("WAWebCreateNackFromStanza").NackReason
+              A == null
+                ? ((F = o("WAWebCreateNackFromStanza").NackReason
                     .UnrecognizedStanzaType),
                   o(
                     "WAWebPostIncomingMessageDropMetric",
                   ).postIncomingMessageDropUnknownMessageType(t))
-                : S.error instanceof
+                : D.error instanceof
                       o("WAParsableWapNode").XmppParsingFailure &&
-                    ((E = S.error) == null ? void 0 : E.reason) ===
+                    ((x = D.error) == null ? void 0 : x.reason) ===
                       "" +
                         o("WAWebCreateNackFromStanza").NackReason
                           .InvalidHostedCompanionStanza
-                  ? ((M = o("WAWebCreateNackFromStanza").NackReason
+                  ? ((F = o("WAWebCreateNackFromStanza").NackReason
                       .InvalidHostedCompanionStanza),
                     o(
                       "WAWebPostIncomingMessageDropMetric",
                     ).postIncomingMessageDropForCoexV2RelayOrHostedCompanion(
                       t,
-                      T.success.from,
+                      $.success.from,
                     ))
                   : o(
                       "WAWebPostIncomingMessageDropMetric",
@@ -151,12 +155,12 @@ __d(
               o(
                 "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
               ).maybeInsertDebugPlaceholder({
-                externalId: x,
-                nackReason: M,
-                msgInfo: $,
-                offline: P,
+                externalId: N,
+                nackReason: F,
+                msgInfo: M,
+                offline: w,
               }),
-              S.error instanceof o("WAParsableWapNode").XmppParsingFailure
+              D.error instanceof o("WAParsableWapNode").XmppParsingFailure
                 ? o("WALogger")
                     .WARN(
                       d ||
@@ -164,7 +168,7 @@ __d(
                           "failedParsingMessage: ",
                           "",
                         ])),
-                      S.error,
+                      D.error,
                     )
                     .tags("messaging")
                     .sendLogs("msg-stanza-parsing-failed-xmpp", {
@@ -179,43 +183,46 @@ __d(
                     )
                     .tags("messaging")
                     .sendLogs("msg-stanza-parsing-failed", { sampling: 0.01 }),
-              (R || (R = n("Promise"))).resolve(
-                o("WAWebCreateNackFromStanza").createNackFromStanza(t, M),
-              )
+              (R || (R = n("Promise"))).resolve(k(t, F, E))
             );
           }
-          var w = S.success;
-          (v && (w.msgMeta.isGroupStatus = !0),
+          var O = D.success;
+          (v && (O.msgMeta.isGroupStatus = !0),
+            E && (O.msgMeta.isStatusStanza = !0),
             o(
               "WAWebMaybePostOfflineCountTooHighMetric",
-            ).maybePostOfflineCountTooHigh(w),
-            w.dehydratedPaymentNode === "pay"
+            ).maybePostOfflineCountTooHigh(O),
+            O.dehydratedPaymentNode === "pay"
               ? o("WAWebPaymentsODS").logDehydratedPayNodeFutureproofed()
-              : w.dehydratedPaymentNode === "transaction" &&
+              : O.dehydratedPaymentNode === "transaction" &&
                 o("WAWebPaymentsODS").logDehydratedTransactionNodeSkipped());
-          var A = w.encs,
-            F = w.ghsReportingTokenInfos,
-            O = w.msgBotInfo,
-            B = w.msgInfo,
-            W = w.msgMeta;
-          ((B.clientReceivedTsMillis = o("WATimeUtils").unixTimeMs()),
-            B.offline != null &&
+          var B = O.encs,
+            W = O.ghsReportingTokenInfos,
+            q = O.msgBotInfo,
+            U = O.msgInfo,
+            V = O.msgMeta;
+          ((U.clientReceivedTsMillis = o("WATimeUtils").unixTimeMs()),
+            U.offline != null &&
               (o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.addOfflinePendingMessage(),
               o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete()));
-          var q = 1;
+          var H = 1;
           return (
             o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.isResumeFromRestartComplete() &&
-              delete w.msgInfo.offline,
-            n("cr:4122") != null && n("cr:4122").isNextMessagePostponed(t, L)
+              delete O.msgInfo.offline,
+            n("cr:4122") != null &&
+            n("cr:4122").isNextMessagePostponed(t, L, {
+              isGroupStatusStanza: v,
+              isStatusStanza: E,
+            })
               ? (o("WAWebHandleMsgSendReceipt").sendReceipt(
-                  w.msgInfo,
-                  w.msgMeta,
+                  O.msgInfo,
+                  O.msgMeta,
                   {
                     result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
                       .SUCCESS,
@@ -223,9 +230,9 @@ __d(
                 ),
                 null)
               : o("WAWebMessageQueue").onMessageQueue({
-                  chatWid: B.chat,
-                  isOffline: !!w.msgInfo.offline,
-                  msgCategory: B.category,
+                  chatWid: U.chat,
+                  isOffline: !!O.msgInfo.offline,
+                  msgCategory: U.category,
                   action: (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
@@ -239,34 +246,34 @@ __d(
                                 " offline=",
                                 "",
                               ])),
-                            B.chat.toLogString(),
-                            B.externalId,
-                            (e = B.offline) != null ? e : "",
+                            U.chat.toLogString(),
+                            U.externalId,
+                            (e = U.offline) != null ? e : "",
                           )
                           .tags("messaging"),
-                          (B.msgProcessStartTsMillis =
+                          (U.msgProcessStartTsMillis =
                             o("WATimeUtils").unixTimeMs()));
-                        var a = B.metaFrom;
+                        var a = U.metaFrom;
                         if (
                           a != null &&
                           o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(
-                            B.author,
+                            U.author,
                             a,
                           ) &&
                           !o("WAWebUserPrefsMeUser").isMeAccount(a)
                         ) {
-                          var i = yield I(t, B, a);
+                          var i = yield T(t, U, a);
                           if (i != null) return i.response;
                         }
                         var l = o(
                           "WAWebCoexV2UsernameInfoUpdate",
-                        ).maybeGetCoexV2UsernameInfoUpdatePlan(B, W);
+                        ).maybeGetCoexV2UsernameInfoUpdatePlan(U, V);
                         if (
                           (yield o(
                             "WAWebProcessMsgInfoForLid",
                           ).maybeProcessMsgInfoForLid({
-                            msgInfo: B,
-                            msgMeta: W,
+                            msgInfo: U,
+                            msgMeta: V,
                           }),
                           o(
                             "WAWebUsernameGatingUtils",
@@ -274,24 +281,24 @@ __d(
                         ) {
                           var s = [];
                           if (
-                            B.type ===
+                            U.type ===
                             o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP
                           ) {
                             var u = o(
                               "WAWebSetUsernameJob",
                             ).maybeCreateSetUsernameInfoJobArg({
                               userId: o("WAWebWidFactory").asUserWidOrThrow(
-                                B.author,
+                                U.author,
                               ),
-                              username: B.participantUsername,
+                              username: U.participantUsername,
                             });
                             u && s.push(u);
                           } else if (
-                            B.type ===
+                            U.type ===
                             o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                               .PEER_BROADCAST
                           )
-                            B.bclParticipants.forEach(function (e) {
+                            U.bclParticipants.forEach(function (e) {
                               var t,
                                 n = o(
                                   "WAWebSetUsernameJob",
@@ -306,15 +313,15 @@ __d(
                               n && s.push(n);
                             });
                           else if (
-                            B.type ===
+                            U.type ===
                             o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                               .OTHER_BROADCAST
                           ) {
                             var c,
                               d =
-                                B.participantLid ||
-                                ((c = B.participant) != null && c.isLid())
-                                  ? B.participant
+                                U.participantLid ||
+                                ((c = U.participant) != null && c.isLid())
+                                  ? U.participant
                                   : null,
                               m = d
                                 ? o(
@@ -322,80 +329,80 @@ __d(
                                   ).maybeCreateSetUsernameInfoJobArg({
                                     userId:
                                       o("WAWebWidFactory").asUserWidOrThrow(d),
-                                    username: B.participantUsername,
+                                    username: U.participantUsername,
                                   })
                                 : null;
                             m && s.push(m);
                           } else {
                             var S, R;
                             if (l == null) {
-                              var E = o("WAWebWidFactory").asUserWidOrThrow(
-                                B.author,
+                              var k = o("WAWebWidFactory").asUserWidOrThrow(
+                                U.author,
                               );
                               if (
-                                B.username == null &&
-                                B.senderPn != null &&
-                                E.isLid()
+                                U.username == null &&
+                                U.senderPn != null &&
+                                k.isLid()
                               ) {
-                                var T;
+                                var D;
                                 s.push({
-                                  userId: E,
+                                  userId: k,
                                   deleteUsername: !0,
                                   usernameCountryCode:
-                                    (T = B.senderCountryCode) != null
-                                      ? T
+                                    (D = U.senderCountryCode) != null
+                                      ? D
                                       : void 0,
                                 });
                               } else {
-                                var D = o(
+                                var x = o(
                                   "WAWebSetUsernameJob",
                                 ).maybeCreateSetUsernameInfoJobArg({
-                                  userId: E,
-                                  username: B.username,
-                                  usernameCountryCode: B.senderCountryCode,
+                                  userId: k,
+                                  username: U.username,
+                                  usernameCountryCode: U.senderCountryCode,
                                 });
-                                D && s.push(D);
+                                x && s.push(x);
                               }
-                              (B.peerRecipientLid
+                              (U.peerRecipientLid
                                 ? (R = o("WAWebWidFactory").asUserWidOrThrow(
-                                    B.peerRecipientLid,
+                                    U.peerRecipientLid,
                                   ))
-                                : B.chat.isLid() &&
+                                : U.chat.isLid() &&
                                   (R = o("WAWebWidFactory").asUserWidOrThrow(
-                                    B.chat,
+                                    U.chat,
                                   )),
-                                (S = B.peerRecipientUsername));
+                                (S = U.peerRecipientUsername));
                             } else {
-                              var x, $;
+                              var $, P;
                               (l.usernameInfoUpdate != null &&
                                 s.push(l.usernameInfoUpdate),
                                 (R =
-                                  (x = l.peerRecipientUsernameInfo) == null
-                                    ? void 0
-                                    : x.userId),
-                                (S =
                                   ($ = l.peerRecipientUsernameInfo) == null
                                     ? void 0
-                                    : $.username));
+                                    : $.userId),
+                                (S =
+                                  (P = l.peerRecipientUsernameInfo) == null
+                                    ? void 0
+                                    : P.username));
                             }
-                            var P = o(
+                            var N = o(
                               "WAWebSetUsernameJob",
                             ).maybeCreateSetUsernameInfoJobArg({
                               userId: R,
                               username: S,
                             });
-                            P && s.push(P);
+                            N && s.push(N);
                           }
                           if (s.length > 0)
                             try {
-                              var N = yield o(
+                              var M = yield o(
                                 "WAWebSetUsernameJob",
                               ).setUsernamesJob(s);
                               yield o(
                                 "WAWebInsertUsernameChangeSystemMsg",
                               ).maybeInsertUsernameChangeSystemMsgs(
                                 s,
-                                N,
+                                M,
                                 "handleMsg",
                               );
                             } catch (e) {
@@ -414,17 +421,17 @@ __d(
                                 );
                             }
                         }
-                        var M = o(
+                        var w = o(
                           "WAWebMsgProcessingApiUtils",
-                        ).messageInfoToKey(B);
+                        ).messageInfoToKey(U);
                         if (
-                          (F != null &&
-                            F.length > 0 &&
+                          (W != null &&
+                            W.length > 0 &&
                             (yield o(
                               "WAWebGroupHistoryReportingTokenDBUtils",
                             ).storeGroupHistoryReportingTokenInfos(
-                              M.toString(),
-                              F,
+                              w.toString(),
+                              W,
                               !1,
                             ),
                             o("WALogger")
@@ -435,19 +442,19 @@ __d(
                                     " reporting tokens for bundle ",
                                     "",
                                   ])),
-                                F.length,
-                                M.toString(),
+                                W.length,
+                                w.toString(),
                               )
                               .tags("messaging", "wa-ice", "group-history")),
-                          W.isUnavailable)
+                          V.isUnavailable)
                         ) {
                           (o(
                             "WAWebDBReportingTokenUtils",
                           ).maybeStoreReportingTag({
-                            msgKey: M,
-                            stanzaId: B.externalId,
-                            msgTs: B.ts,
-                            incomingMsgReportingTokenInfo: w.reportingTokenInfo,
+                            msgKey: w,
+                            stanzaId: U.externalId,
+                            msgTs: U.ts,
+                            incomingMsgReportingTokenInfo: O.reportingTokenInfo,
                           }),
                             o("WALogger")
                               .LOG(
@@ -456,35 +463,35 @@ __d(
                                     "handleMessage: msgId::",
                                     ", get fanout placeholder",
                                   ])),
-                                B.externalId,
+                                U.externalId,
                               )
                               .tags("messaging"));
-                          var U = o("WAWebHandleMsgTypes.flow").PlaceholderType
+                          var A = o("WAWebHandleMsgTypes.flow").PlaceholderType
                             .FANOUT;
                           return (
-                            O != null
-                              ? (U = o("WAWebHandleMsgTypes.flow")
+                            q != null
+                              ? (A = o("WAWebHandleMsgTypes.flow")
                                   .PlaceholderType.BOT_UNAVAILABLE_FANOUT)
-                              : W.isHostedMsgUnavailable === !0
-                                ? (U = o("WAWebHandleMsgTypes.flow")
+                              : V.isHostedMsgUnavailable === !0
+                                ? (A = o("WAWebHandleMsgTypes.flow")
                                     .PlaceholderType.HOSTED_UNAVAILABLE_FANOUT)
-                                : W.isViewOnceUnavailable === !0
-                                  ? (U = o("WAWebHandleMsgTypes.flow")
+                                : V.isViewOnceUnavailable === !0
+                                  ? (A = o("WAWebHandleMsgTypes.flow")
                                       .PlaceholderType
                                       .VIEW_ONCE_UNAVAILABLE_FANOUT)
-                                  : W.isAcpUnavailable === !0 &&
-                                    (U = o("WAWebHandleMsgTypes.flow")
+                                  : V.isAcpUnavailable === !0 &&
+                                    (A = o("WAWebHandleMsgTypes.flow")
                                       .PlaceholderType.ACP_UNAVAILABLE_FANOUT),
                             yield o(
                               "WAWebHandleMsgProcess",
                             ).processPlaceholderMsg({
                               type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
-                              msgMeta: W,
-                              msgInfo: B,
-                              placeholderType: U,
+                              msgMeta: V,
+                              msgInfo: U,
+                              placeholderType: A,
                             }),
                             o("WAWebHandleMsgSendReceipt")
-                              .sendReceipt(B, W, {
+                              .sendReceipt(U, V, {
                                 result: o("WAWebHandleMsgTypes.flow")
                                   .E2EProcessResult.BACKFILL,
                               })
@@ -512,6 +519,7 @@ __d(
                             ? void 0
                             : n("cr:4122").consumeSkipDecryptRequest(t, L, {
                                 isGroupStatusStanza: v,
+                                isStatusStanza: E,
                               })) === !0
                         )
                           return (
@@ -519,13 +527,13 @@ __d(
                               "WAWebHandleMsgProcess",
                             ).processPlaceholderMsg({
                               type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
-                              msgMeta: W,
-                              msgInfo: B,
+                              msgMeta: V,
+                              msgInfo: U,
                               placeholderType: o("WAWebHandleMsgTypes.flow")
                                 .PlaceholderType.E2E,
                             }),
                             o("WAWebHandleMsgSendReceipt")
-                              .sendReceipt(B, W, {
+                              .sendReceipt(U, V, {
                                 result: o("WAWebHandleMsgTypes.flow")
                                   .E2EProcessResult.BACKFILL,
                               })
@@ -547,25 +555,25 @@ __d(
                               }),
                             null
                           );
-                        var V = o("WAWebMsgProcessingApiUtils").getFrom(B),
-                          H = V.isStatus() || W.isGroupStatus === !0,
-                          G;
+                        var F = o("WAWebMsgProcessingApiUtils").getFrom(U),
+                          G = F.isStatus() || V.isGroupStatus === !0,
+                          z;
                         if (
-                          (H
-                            ? (G = o(
+                          (G
+                            ? (z = o(
                                 "WAWebStatusSessionGatingUtils",
                               ).shouldUseStatusSessionForIncomingMessage(
-                                W.metaSessionScope,
+                                V.metaSessionScope,
                               )
                                 ? o("WAWebSessionScope").SessionScope.STATUS
                                 : void 0)
-                            : A.some(function (e) {
+                            : B.some(function (e) {
                                 return e.sessionType === "pq";
                               }) &&
-                              (G = o("WAWebSessionScope").SessionScope.PQ),
-                          G != null)
+                              (z = o("WAWebSessionScope").SessionScope.PQ),
+                          z != null)
                         ) {
-                          var z;
+                          var j;
                           o("WALogger")
                             .LOG(
                               C ||
@@ -575,107 +583,107 @@ __d(
                                   " metaScope=",
                                   "",
                                 ])),
-                              String(W.isGroupStatus === !0),
-                              G,
-                              (z = W.metaSessionScope) != null ? z : "none",
+                              String(V.isGroupStatus === !0),
+                              z,
+                              (j = V.metaSessionScope) != null ? j : "none",
                             )
                             .tags("messaging");
                         }
-                        var j = yield o(
+                        var K = yield o(
                           "WAWebMsgProcessingDecryptApi",
                         ).decryptE2EPayload(
-                          w,
+                          O,
                           o("WAWebHandleMsgProcess")
                             .processDecryptedMessageProto,
-                          G,
+                          z,
                         );
-                        return j.result ===
+                        return K.result ===
                           o("WAWebHandleMsgTypes.flow").E2EProcessResult
                             .DEFERRED
                           ? (o(
                               "WAWebDBReportingTokenUtils",
                             ).maybeStoreReportingTag({
-                              msgKey: M,
-                              stanzaId: B.externalId,
-                              msgTs: B.ts,
+                              msgKey: w,
+                              stanzaId: U.externalId,
+                              msgTs: U.ts,
                               incomingMsgReportingTokenInfo:
-                                w.reportingTokenInfo,
+                                O.reportingTokenInfo,
                             }),
                             yield o(
                               "WAWebHandleDeferredBotOrphan",
                             ).handleDeferredBotOrphan({
-                              canNack: k(w),
-                              decryptResult: j,
-                              input: w,
+                              canNack: I(O),
+                              decryptResult: K,
+                              input: O,
                               node: t,
                             }),
                             null)
-                          : (B.offline != null &&
+                          : (U.offline != null &&
                               o(
                                 "WAWebOfflineHandler",
                               ).OfflineMessageHandler.processMessageDecryptResult(
-                                j.result,
+                                K.result,
                               ),
-                            j.result !==
+                            K.result !==
                               o("WAWebHandleMsgTypes.flow").E2EProcessResult
                                 .SUCCESS &&
                               o(
                                 "WAWebDBReportingTokenUtils",
                               ).maybeStoreReportingTag({
-                                msgKey: M,
-                                stanzaId: B.externalId,
-                                msgTs: B.ts,
+                                msgKey: w,
+                                stanzaId: U.externalId,
+                                msgTs: U.ts,
                                 incomingMsgReportingTokenInfo:
-                                  w.reportingTokenInfo,
+                                  O.reportingTokenInfo,
                               }),
-                            j.result ===
+                            K.result ===
                               o("WAWebHandleMsgTypes.flow").E2EProcessResult
-                                .SIGNAL_OLD_COUNTER_ERROR && k(w)
+                                .SIGNAL_OLD_COUNTER_ERROR && I(O)
                               ? o("WAWebGetMessageCache")
                                   .getMessageCache()
                                   .addMessages(
                                     [
                                       {
                                         duplicateMsgReceiptInfo: {
-                                          externalId: B.externalId,
+                                          externalId: U.externalId,
                                           from: o(
                                             "WAWebMsgProcessingApiUtils",
-                                          ).getFrom(B),
-                                          author: B.author,
-                                          msgInfo: B,
-                                          msgMeta: W,
-                                          enc: j.failedEnc || A[0],
-                                          hasHideFailEnc: A.some(function (e) {
+                                          ).getFrom(U),
+                                          author: U.author,
+                                          msgInfo: U,
+                                          msgMeta: V,
+                                          enc: K.failedEnc || B[0],
+                                          hasHideFailEnc: B.some(function (e) {
                                             return e.hideFail;
                                           }),
-                                          msgReceivedTimes: q,
+                                          msgReceivedTimes: H,
                                         },
                                       },
                                     ],
-                                    B.offline == null,
+                                    U.offline == null,
                                   )
-                              : B.offline == null ||
-                                  B.category ===
+                              : U.offline == null ||
+                                  U.category ===
                                     o("WAWebHandleMsgCommon").MSG_CATEGORY
                                       .peer ||
                                   o(
                                     "WAWebHandleMsgSendReceipt",
-                                  ).isCoexV2SenderReceiptMessage(B) ||
+                                  ).isCoexV2SenderReceiptMessage(U) ||
                                   o(
                                     "WAWebHandleMsgSendReceipt",
-                                  ).isCoexV2PeerDeliveryReceiptMessage(B) ||
-                                  W.type ===
+                                  ).isCoexV2PeerDeliveryReceiptMessage(U) ||
+                                  V.type ===
                                     o("WAWebHandleMsgCommon").STANZA_MSG_TYPES
                                       .medianotify ||
-                                  (j.result !==
+                                  (K.result !==
                                     o("WAWebHandleMsgTypes.flow")
                                       .E2EProcessResult.SUCCESS &&
-                                    j.result !==
+                                    K.result !==
                                       o("WAWebHandleMsgTypes.flow")
                                         .E2EProcessResult
                                         .SIGNAL_OLD_COUNTER_ERROR)
                                 ? o("WAWebHandleMsgSendReceipt")
-                                    .sendReceipt(B, W, j, { canNack: k(w) })
+                                    .sendReceipt(U, V, K, { canNack: I(O) })
                                     .catch(function (e) {
                                       o("WALogger")
                                         .ERROR(
@@ -696,11 +704,11 @@ __d(
                                       [
                                         {
                                           receiptInfo: {
-                                            externalId: B.externalId,
+                                            externalId: U.externalId,
                                             from: o(
                                               "WAWebMsgProcessingApiUtils",
-                                            ).getFrom(B),
-                                            author: B.author,
+                                            ).getFrom(U),
+                                            author: U.author,
                                           },
                                         },
                                       ],
@@ -720,7 +728,13 @@ __d(
         E.apply(this, arguments)
       );
     }
-    function k(e) {
+    function k(e, t, n) {
+      return o("WAWebCreateNackFromStanza").createNackFromStanza(
+        n ? new (o("WAWap").WapNode)("status", e.attrs, e.content) : e,
+        t,
+      );
+    }
+    function I(e) {
       var t = e.encs,
         n = e.msgMeta,
         r = t.some(function (e) {
@@ -734,12 +748,12 @@ __d(
             n.type === o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.medianotify ||
             n.type === o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.poll;
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    function T(e, t, n) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a;
           try {
             var i;
@@ -761,7 +775,7 @@ __d(
               o(
                 "WAWebPostIncomingMessageDropMetric",
               ).postIncomingMessageDropDBOperationFailed(e),
-              D(t.offline),
+              x(t.offline),
               {
                 response: o("WAWebCreateNackFromStanza").createNackFromStanza(
                   e,
@@ -785,7 +799,7 @@ __d(
                 e,
                 o("WAWebMsgProcessingApiUtils").getFrom(t),
               ),
-              D(t.offline),
+              x(t.offline),
               {
                 response: o("WAWebCreateNackFromStanza").createNackFromStanza(
                   e,
@@ -795,10 +809,10 @@ __d(
               })
             : null;
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
+    function x(e) {
       e != null &&
         o(
           "WAWebOfflineHandler",

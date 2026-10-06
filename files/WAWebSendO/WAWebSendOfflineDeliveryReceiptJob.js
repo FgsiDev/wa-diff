@@ -77,6 +77,8 @@ __d(
                   f,
                   o("WAWebCreateNackFromStanza").NackReason
                     .SignalErrorOldCounter,
+                  void 0,
+                  _.isStatusStanza === !0 ? "status" : void 0,
                 ));
           }
           return n;

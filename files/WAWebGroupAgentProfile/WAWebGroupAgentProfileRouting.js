@@ -6,7 +6,6 @@ __d(
     "WAWebBotProduct",
     "WAWebBotProfileCollection",
     "WAWebBotStaticProfiles",
-    "WAWebBotUtils",
     "WAWebChatGetters",
     "WAWebHatchFrontendGating",
     "WAWebUserPrefsMeUser",
@@ -95,11 +94,7 @@ __d(
         : o("WAWebBotProduct").botProductFromServerValue(e.product);
     }
     function C(e, t) {
-      return (
-        t === o("WAWebBotProduct").BotProduct.MUSE ||
-        (t === o("WAWebBotProduct").BotProduct.HATCH &&
-          !e.equals(o("WAWebBotUtils").HATCH_BOT_FBID_WID))
-      );
+      return o("WAWebBotProduct").isMuseAgentProduct(e, t);
     }
     function b(e, t) {
       return C(e, t);

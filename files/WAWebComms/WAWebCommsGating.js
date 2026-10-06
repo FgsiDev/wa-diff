@@ -1,1 +1,13 @@
-__d("WAWebCommsGating",["qex"],(function(t,n,r,o,a,i,l){function e(){var e=r("qex")._("5241");return e==="worker"||e==="worker_hrp"||e==="worker_hrp_bundle"}l.isCommsInWorker=e}),98);
+__d(
+  "WAWebCommsGating",
+  ["WAWebABProps"],
+  function (t, n, r, o, a, i, l) {
+    function e() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "waweb_comms_in_backend_worker",
+      );
+    }
+    l.isCommsInWorker = e;
+  },
+  98,
+);
