@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebFbtCommon",
+    "WAWebGroupAgentAddedRowProfile",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinSubtype",
     "WAWebGroupType",
@@ -96,6 +97,14 @@ __d(
         c = e.shareableHistoryInfo,
         d = e.subtype,
         p = e.templateParams;
+      if (
+        o("WAWebGroupAgentAddedRowProfile").getAddedGroupAgentProfile(
+          d,
+          u,
+          n,
+        ) != null
+      )
+        return null;
       if (
         o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(d)
       ) {

@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WAComms",
     "WALogger",
+    "WAWebABProps",
     "WAWebABPropsUpdateFromStorage",
     "WAWebApiContact",
     "WAWebBackendApi",
@@ -29,6 +30,11 @@ __d(
     "WAWebLaunchSocketUtils",
     "WAWebLid1X1MigrationGating",
     "WAWebLogoutReasonConstants",
+    "WAWebLongTaskAccumulator",
+    "WAWebMessageDeliveryCounters",
+    "WAWebMessageDeliveryODS",
+    "WAWebMessageReceiveFlow",
+    "WAWebMessageReceiveQpl",
     "WAWebModelStorage",
     "WAWebOfflineResumeCounters",
     "WAWebOfflineResumeODS",
@@ -154,7 +160,7 @@ __d(
         o("WAWebDbRolloutUtil")
           .loadSchemaVersions()
           .then(function () {
-            return S();
+            return R();
           })
           .then(function () {
             return o("WAWebCryptoEncKeyHelper").initEncSalt();
@@ -176,7 +182,7 @@ __d(
               return o("WAWebStatusStorage").initialize();
           })
           .then(function () {
-            return R();
+            return L();
           })
           .then(function () {
             return (y || (y = n("Promise"))).all([
@@ -247,6 +253,7 @@ __d(
                     (o(
                       "WAWebBackendEventBus",
                     ).BackendEventBus.triggerAbPropsLoaded(),
+                      k(),
                       o("WAWebInitFromStorage")
                         .restoreImportantMetaData()
                         .catch(function (e) {
@@ -371,6 +378,10 @@ __d(
       );
     }
     function S() {
+      var e = o("WAWebPageLoadLogging").getPageLoadId();
+      return e === "0" ? null : e;
+    }
+    function R() {
       o("WALogger").LOG(
         g ||
           (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -380,12 +391,12 @@ __d(
       var e = o("WAWebSchemaVersions").getSchemaVersions();
       o("WAWebInvocationInterface").get().setSchemaVersions(e);
     }
-    function R() {
-      return L.apply(this, arguments);
-    }
     function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             h ||
               (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -400,8 +411,23 @@ __d(
               salt: t,
             });
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
+    }
+    function k() {
+      o("WAWebABProps").getABPropConfigValue(
+        "wmi_wa_web_message_delivery_qpl_instrumentation",
+      ) &&
+        (o("WAWebMessageDeliveryCounters").setMessageDeliveryCounters(
+          o("WAWebMessageDeliveryODS").messageDeliveryODSCounters,
+        ),
+        o("WAWebMessageReceiveFlow").setMessageReceiveFlowTracker(
+          o("WAWebMessageReceiveQpl").messageReceiveQplTracker,
+        ),
+        o("WAWebLongTaskAccumulator").startLongTaskAccumulator(),
+        o(
+          "WAWebWamOfflineResumeReporter",
+        ).OfflineResumeReporter.setPageLoadIdProvider(S));
     }
     l.launchSocket = v;
   },
