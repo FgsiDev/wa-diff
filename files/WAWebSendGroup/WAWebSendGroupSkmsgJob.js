@@ -369,9 +369,7 @@ __d(
               G = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
               z = yield o("WAWebPhashUtils").phashV2(
                 [].concat(H, [G], W),
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isOpenGroupBotParticipantAddEnabled() &&
+                o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
                   i.isOpenBotGroup === !0,
                 o(
                   "WAWebBotGroupGatingUtils",

@@ -1,69 +1,89 @@
 __d(
   "WAWebCustomerManagerExportData",
   [
-    "WAWebChatCollection",
-    "WAWebContactCollection",
+    "WAWebBizLabelUtils",
+    "WAWebCustomerContactResolver",
+    "WAWebCustomerManagerChatResolver",
     "WAWebFrontendContactGetters",
     "WAWebLabelCollection",
     "WAWebListItemParentType",
-    "WAWebNoteCollection",
+    "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return e.map(s);
+    function e(e, t, n) {
+      return (
+        n === void 0 && (n = new Map()),
+        e.map(function (e) {
+          var r;
+          return s(e, t, (r = n.get(String(e.chatJid))) != null ? r : []);
+        })
+      );
     }
-    function s(e) {
-      var t,
-        n,
-        r,
-        a = o("WAWebContactCollection").ContactCollection.get(e.chatJid),
-        i = o("WAWebNoteCollection").NoteCollection.maybeGetNoteByChatJid(
-          e.chatJid,
+    function s(e, t, n) {
+      var r,
+        a,
+        i,
+        l,
+        s = String(e.chatJid),
+        u = o("WAWebCustomerContactResolver").resolveCustomerContact(
+          o("WAWebWidFactory").createWid(s),
         ),
-        l = o("WAWebLabelCollection").LabelCollection.getLabelsForModel(
-          String(e.chatJid),
-          o("WAWebListItemParentType").LabelItemParentType.Chat,
+        c = (r = t.get(s)) != null ? r : null,
+        d = Array.from(
+          new Set(
+            [].concat(
+              o("WAWebBizLabelUtils").getLabelsForModelAnyAddressingMode(
+                s,
+                o("WAWebListItemParentType").LabelItemParentType.Chat,
+              ),
+              (a = u == null ? void 0 : u.labels) != null ? a : [],
+              o("WAWebCustomerContactResolver").resolveCustomerLabelIds(s),
+            ),
+          ),
         ),
-        s = [];
-      for (var u of l) {
-        var c,
-          d =
-            (c = o("WAWebLabelCollection").LabelCollection.get(u)) == null
+        m = [];
+      for (var p of d) {
+        var _,
+          f =
+            (_ = o("WAWebLabelCollection").LabelCollection.get(p)) == null
               ? void 0
-              : c.name;
-        d != null && s.push(d);
+              : _.name;
+        f != null && m.push(f);
       }
       return {
         displayName:
-          a != null ? o("WAWebFrontendContactGetters").getDisplayName(a) : "",
+          u != null ? o("WAWebFrontendContactGetters").getDisplayName(u) : "",
         phone:
-          a != null
-            ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(a)
+          u != null
+            ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(u)
                 .displayName
             : "",
         username:
-          a != null
-            ? o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(a)
+          u != null
+            ? o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(u)
             : "",
         email: e.email,
         leadStage: e.leadStage,
         acquisitionSource: e.acquisitionSource,
-        notes: (t = i == null ? void 0 : i.content) != null ? t : null,
+        notes: c,
         birthday: e.birthday,
         birthdayIso: e.birthdayIso,
         lastOrder: e.lastOrder,
         lastMessage:
-          (n =
-            (r = o("WAWebChatCollection").ChatCollection.get(e.chatJid)) == null
+          (i =
+            (l = o(
+              "WAWebCustomerManagerChatResolver",
+            ).resolveCustomerManagerChat(e.chatJid)) == null
               ? void 0
-              : r.t) != null
-            ? n
+              : l.t) != null
+            ? i
             : null,
         address: e.address,
         altPhoneNumbers: e.altPhoneNumbers,
-        lists: s,
+        lists: m,
         createdAt: e.createdAt,
         modifiedAt: e.modifiedAt,
+        customFieldValues: n,
       };
     }
     l.buildCustomerExportRecords = e;

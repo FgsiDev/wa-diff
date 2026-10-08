@@ -41,6 +41,7 @@ __d(
     "WAWebMsgUtilsBridge",
     "WAWebNoop",
     "WAWebOutgoingMessageTone",
+    "WAWebProtobufsE2E.pb",
     "WAWebReactionsBEUtils",
     "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgJob",
@@ -162,7 +163,11 @@ __d(
         ? e.reactionText !== o("WAWebReactionsBEUtils").REVOKED_REACTION_TEXT
         : e.kind === o("WAWebMsgType").MsgKind.PollVoteDecrypted
           ? e.selectedOptionLocalIds.length > 0
-          : S.has(e.type);
+          : e.kind === o("WAWebMsgType").MsgKind.PinInChat
+            ? e.pinMessageType ===
+              o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
+                .PIN_FOR_ALL
+            : S.has(e.type);
     }
     function D(e, t, n) {
       return x.apply(this, arguments);
