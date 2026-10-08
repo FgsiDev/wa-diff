@@ -116,9 +116,13 @@ __d(
             o(
               "WAWebMexLogServerSentInviteIntentJob",
             ).mexLogServerSentInviteIntent(s, t.toString());
-            var d = yield o(
-              "WAWebOutContactInviteConfirmDialog.react",
-            ).waitForOutContactInviteConfirmDialog(a != null ? a : s, s, n);
+            var d = yield n === !0
+              ? o(
+                  "WAWebOutContactInviteConfirmDialog.react",
+                ).waitForOutContactInviteConfirmDialog(a != null ? a : s, s, !0)
+              : o(
+                  "WAWebOutContactInviteConfirmDialog.react",
+                ).waitForOutContactInviteConfirmDialog(a != null ? a : s, s);
             if (!d) return !1;
           }
           return (i == null || i(), c ? v(s, t, a != null ? a : s) : I(s, t));

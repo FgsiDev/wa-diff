@@ -36,9 +36,7 @@ __d(
             }),
           );
     }
-    function d() {
-      return "custom-item";
-    }
+    var d = "custom-item";
     function m(e, t) {
       var n, a;
       if ((e !== "review_and_pay" && e !== "payment_info") || t == null)
@@ -75,7 +73,7 @@ __d(
                 ? a
                 : (e == null || (i = e.retailer_id) == null
                     ? void 0
-                    : i.indexOf(d())) === 0,
+                    : i.indexOf(d)) === 0,
             isQuantitySet:
               (l = e == null ? void 0 : e.isQuantitySet) != null ? l : !0,
             properties:
@@ -222,7 +220,7 @@ __d(
         );
       }
     }
-    ((l.getCustomItemIdPrefix = d),
+    ((l.CUSTOM_ITEM_ID_PREFIX = d),
       (l.paramsJsonToOrderInfo = m),
       (l.getOrderInfo = g));
   },
