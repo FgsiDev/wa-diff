@@ -833,25 +833,28 @@ __d(
           var Ee = t.data,
             ke = Ee.campaignId,
             Ie = Ee.prefill,
-            Te = Ee.referralSlug,
-            De = function () {
-              return o(
-                "WAWebBrAddPixKeyDeepLinkGating",
-              ).isAddPixKeyDeepLinkEnabled()
-                ? (o(
-                    "WAWebBrSavePartnerPixKeyFeature",
-                  ).openAddPixKeyDeepLinkScreen(
-                    "add_pix_key_deeplink",
-                    o(
-                      "WAWebBrAddPixKeyDeepLinkGating",
-                    ).resolveAddPixKeyDeepLinkReferral(Ie, ke, Te),
-                    o(
-                      "WAWebBrAddPixKeyDeepLinkGating",
-                    ).allowlistedAddPixKeyPrefill(Ie),
-                  ),
-                  !0)
-                : !1;
-            };
+            Te = Ee.referralSlug;
+          o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
+            deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
+              .DEEP_LINK_PAYMENT_BR_ADD_PIX_KEY,
+            isExternal: i,
+          });
+          var De = function () {
+            return o(
+              "WAWebBrAddPixKeyDeepLinkGating",
+            ).isAddPixKeyDeepLinkEnabled()
+              ? (o(
+                  "WAWebBrSavePartnerPixKeyFeature",
+                ).openAddPixKeyDeepLinkScreen(
+                  "add_pix_key_deeplink",
+                  o(
+                    "WAWebBrAddPixKeyDeepLinkGating",
+                  ).resolveAddPixKeyDeepLinkReferral(Ie, ke, Te),
+                  Ie,
+                ),
+                !0)
+              : !1;
+          };
           if (o("WAWebBizFrontendGatingUtils").isPixOnWebEnabled()) return De();
           var xe = function () {
             (o("WAWebPrimaryFeaturesModel").PrimaryFeatures.off(

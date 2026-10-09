@@ -394,123 +394,117 @@ __d(
       );
     }
     function re() {
-      return ne();
-    }
-    function oe() {
-      return ne();
-    }
-    function ae() {
       return (
         !r("WAWebEnvironment").isWindows ||
         (ne() && r("WAWebEnvironment").getEnvironment() !== "prod")
       );
     }
-    var ie = !1;
+    var oe = !1;
+    function ae() {
+      oe = !0;
+    }
+    function ie() {
+      oe = !1;
+    }
     function le() {
-      ie = !0;
-    }
-    function se() {
-      ie = !1;
-    }
-    function ue() {
       var e = r("justknobx")._("1929");
       return e && !ne();
     }
-    function ce() {
+    function se() {
       return o("WAWebABProps").getABPropConfigValue(
         "enable_web_voip_webtransport",
       );
     }
-    function de() {
-      return g() || X || ne() || ie ? !1 : ce();
+    function ue() {
+      return g() || X || ne() || oe ? !1 : se();
     }
+    function ce() {
+      return se();
+    }
+    var de = 4;
     function me() {
-      return ce();
-    }
-    var pe = 4;
-    function _e() {
       var e = navigator.hardwareConcurrency;
       return typeof e == "number" && e > 0 ? e : 8;
     }
-    function fe() {
+    function pe() {
       return (
-        _e() <= pe &&
+        me() <= de &&
         o("WAWebABProps").getABPropConfigValue(
           "web_voip_adaptive_sctp_prewarm",
         ) === !0
       );
     }
-    function ge() {
+    function _e() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_voip_adaptive_sctp_prewarm_v2",
         ) === !0
       );
     }
-    function he() {
+    function fe() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_voip_av_sync_strict_fifo_drain",
         ) === !0
       );
     }
-    function ye() {
+    function ge() {
       return o("WAWebABProps").getABPropConfigValue(
         "gc_device_switching_killswitch",
       );
     }
-    function Ce() {
+    function he() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_1on1",
       );
     }
-    function be() {
+    function ye() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_lgc",
       );
     }
-    function ve() {
+    function Ce() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_ahgc_call_link",
       );
     }
-    function Se() {
+    function be() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_ahgc_call_link",
+      );
+    }
+    function ve(e) {
+      var t = e.isAdHocGroupCall,
+        n = e.isCallLink,
+        r = e.isGroup;
+      return n === !0 ? be() : t ? Ce() : r ? ye() : he();
+    }
+    function Se() {
+      return (
+        he() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "call_info_optimizations_1on1_context_menu",
+        )
       );
     }
     function Re(e) {
       var t = e.isAdHocGroupCall,
         n = e.isCallLink,
         r = e.isGroup;
-      return n === !0 ? Se() : t ? ve() : r ? be() : Ce();
+      return n === !0 ? be() : t ? Ce() : r ? ye() : Se();
     }
     function Le() {
-      return (
-        Ce() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "call_info_optimizations_1on1_context_menu",
-        )
-      );
-    }
-    function Ee(e) {
-      var t = e.isAdHocGroupCall,
-        n = e.isCallLink,
-        r = e.isGroup;
-      return n === !0 ? Se() : t ? ve() : r ? be() : Le();
-    }
-    function ke() {
       return r("justknobx")._("2102") && o("WAWebUA").UA.isFirefox;
     }
-    function Ie() {
+    function Ee() {
       return o("WAWebUA").UA.isSafari;
     }
-    function Te() {
+    function ke() {
       return (
         "documentPictureInPicture" in window && !o("WAWebUA").UA.isBrokenDocPip
       );
     }
-    function De() {
+    function Ie() {
       return S() && r("justknobx")._("4943");
     }
     ((l.isWebKitBrowser = g),
@@ -550,31 +544,29 @@ __d(
       (l.isCurrentCallGroup = ee),
       (l.hasFnaRelay = te),
       (l.isWinHybridPlusEnabled = ne),
-      (l.isWinHybridPlusIncomingPopoutEnabled = re),
-      (l.isWinHybridPlusOutgoingPopoutEnabled = oe),
-      (l.isWebCallingUiEnabled = ae),
-      (l.markWebTransportFellBack = le),
-      (l.resetWebTransportFallbackState = se),
-      (l.shouldUseOriginalRelayPort = ue),
-      (l.isWebTransportConfigured = ce),
-      (l.isWebTransportEnabled = de),
-      (l.isWebTransportFastSetupEnabled = me),
-      (l.getVoipCpuCoreCount = _e),
-      (l.shouldSkipEagerSctpPrewarm = fe),
-      (l.isAdaptiveSctpPrewarmV2Enabled = ge),
-      (l.isAvSyncStrictFifoDrainEnabled = he),
-      (l.isDeviceSwitchingEnabled = ye),
-      (l.isCallInfoOptimizationsEnabledFor1to1 = Ce),
-      (l.isCallInfoOptimizationsEnabledForLGC = be),
-      (l.isCallInfoOptimizationsEnabledForAHGC = ve),
-      (l.isCallInfoOptimizationsEnabledForCallLink = Se),
-      (l.isCallInfoOptimizationsEnabledForCallType = Re),
-      (l.isCallInfoOptimizations1to1ContextMenuEnabled = Le),
-      (l.isCallInfoOptimizationsContextMenuEnabledForCallType = Ee),
-      (l.isPopoutReuseCaptureEnabled = ke),
-      (l.doesPopoutEndMainWindowScreenShare = Ie),
-      (l.isDocPipEnabled = Te),
-      (l.areRichCallNotificationsEnabled = De));
+      (l.isWebCallingUiEnabled = re),
+      (l.markWebTransportFellBack = ae),
+      (l.resetWebTransportFallbackState = ie),
+      (l.shouldUseOriginalRelayPort = le),
+      (l.isWebTransportConfigured = se),
+      (l.isWebTransportEnabled = ue),
+      (l.isWebTransportFastSetupEnabled = ce),
+      (l.getVoipCpuCoreCount = me),
+      (l.shouldSkipEagerSctpPrewarm = pe),
+      (l.isAdaptiveSctpPrewarmV2Enabled = _e),
+      (l.isAvSyncStrictFifoDrainEnabled = fe),
+      (l.isDeviceSwitchingEnabled = ge),
+      (l.isCallInfoOptimizationsEnabledFor1to1 = he),
+      (l.isCallInfoOptimizationsEnabledForLGC = ye),
+      (l.isCallInfoOptimizationsEnabledForAHGC = Ce),
+      (l.isCallInfoOptimizationsEnabledForCallLink = be),
+      (l.isCallInfoOptimizationsEnabledForCallType = ve),
+      (l.isCallInfoOptimizations1to1ContextMenuEnabled = Se),
+      (l.isCallInfoOptimizationsContextMenuEnabledForCallType = Re),
+      (l.isPopoutReuseCaptureEnabled = Le),
+      (l.doesPopoutEndMainWindowScreenShare = Ee),
+      (l.isDocPipEnabled = ke),
+      (l.areRichCallNotificationsEnabled = Ie));
   },
   98,
 );
