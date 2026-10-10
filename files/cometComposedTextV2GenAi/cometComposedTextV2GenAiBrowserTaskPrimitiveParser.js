@@ -21,6 +21,7 @@ __d(
             state: c(e),
             statusLabel: s(e.status_label),
             title: s(e.title),
+            version: e.version,
           }),
         );
     }
