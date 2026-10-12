@@ -9,7 +9,6 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebLabelCollection",
     "WAWebListUtils",
-    "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
     "WAWebListsLogging",
     "WAWebWamEnumChatFilterActionTypes",
@@ -86,12 +85,9 @@ __d(
               },
             ));
         }
-        if (
-          a != null &&
+        if (a != null) {
           (a.predefinedId != null && (e.predefinedId = a.predefinedId),
-          a.name != null && (e.labelName = a.name),
-          o("WAWebListsGatingUtils").isListsEnabled())
-        ) {
+            a.name != null && (e.labelName = a.name));
           var l = parseInt(a.id, 10);
           isNaN(l) || (e.listId = l);
           var s = o("WAWebListsLogging").getListType(a.type);
@@ -227,30 +223,32 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n, r) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i = {
-                actionType: o("WAWebWamEnumChatFilterActionTypes")
-                  .CHAT_FILTER_ACTION_TYPES.SEARCH_MSG_SENT,
-                filterType: e(n),
-                searchResultType: m(r),
-                sessionId: t,
-              },
-              l =
-                a != null
-                  ? yield o("WAWebChatThreadLogging").getChatThreadID(a.toJid())
-                  : null;
-            (s({ eventData: i, filter: n, threadId: l }),
-              new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
-                i,
-              ).commit());
-          },
-        )),
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.chatId,
+            r = t.filter,
+            a = t.searchResult,
+            i = t.sessionId,
+            l = {
+              actionType: o("WAWebWamEnumChatFilterActionTypes")
+                .CHAT_FILTER_ACTION_TYPES.SEARCH_MSG_SENT,
+              filterType: e(r),
+              searchResultType: m(a),
+              sessionId: i,
+            },
+            u =
+              n != null
+                ? yield o("WAWebChatThreadLogging").getChatThreadID(n.toJid())
+                : null;
+          (s({ eventData: l, filter: r, threadId: u }),
+            new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
+              l,
+            ).commit());
+        })),
         y.apply(this, arguments)
       );
     }

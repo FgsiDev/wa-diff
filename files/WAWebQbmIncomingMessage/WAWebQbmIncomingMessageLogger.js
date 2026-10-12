@@ -45,14 +45,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !(
-              e.length === 0 ||
-              !o("WAWebABProps").getABPropConfigValue(
-                "enable_logging_qbm_incoming_message",
-              )
-            )
-          ) {
+          if (e.length !== 0) {
             var n = e.map(function (e) {
                 return e.from != null ? e.from.toJid() : "";
               }),

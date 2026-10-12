@@ -1246,6 +1246,7 @@ __d(
         121e4,
         121e4,
       ],
+      deleted_message_system_style_enabled: [39057, "bool", !1, !1],
       desktop_calling_ring_icon_enabled: [35376, "bool", !1, !1],
       desktop_upsell_intro_panel_illustration_variant: [19518, "int", 0, 0],
       dev_prop_boolean: [1065, "bool", !1, !1],
@@ -2144,6 +2145,7 @@ __d(
       out_contact_invites_enabled: [28170, "int", 0, 0],
       out_of_sync_disappearing_messages_logging: [2561, "bool", !1, !0],
       overscroll_logo_enabled: [37770, "bool", !1, !1],
+      overscroll_logo_theme: [39075, "int", 0, 0],
       p2b_calling_availability_experiment_enabled: [31098, "bool", !1, !0],
       p2m_external_payments_link_enabled: [4295, "bool", !1, !0],
       p2p_pills_allowlist: [
@@ -3473,6 +3475,7 @@ __d(
       wa_web_meta_one_biz_ai_entry_point_enabled: [37987, "bool", !1, !1],
       wa_web_meta_one_biz_tools_entry_point_enabled: [37912, "bool", !1, !1],
       wa_web_meta_one_dev: [37481, "bool", !1, !1],
+      wa_web_meta_one_mock_billing: [39076, "bool", !1, !1],
       wa_web_meta_one_subscription_notifications_enabled: [
         38221,
         "bool",

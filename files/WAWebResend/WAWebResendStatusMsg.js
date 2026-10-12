@@ -10,6 +10,7 @@ __d(
     "WAWebManageE2ESessionsJob",
     "WAWebReportingTokenUtils",
     "WAWebSendMsgCommonApi",
+    "WAWebSessionScope",
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
@@ -56,11 +57,12 @@ __d(
             g = f[0],
             y = f[1],
             b = f[2],
-            v = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+            v = f[3],
+            S = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
               r.data,
               n,
             ),
-            S = o("WAWap").wap(
+            R = o("WAWap").wap(
               "message",
               {
                 id: o("WAWap").CUSTOM_STRING(_.id),
@@ -75,11 +77,13 @@ __d(
               y,
               b,
               o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
-                sessionScope: i,
+                sessionScope: v
+                  ? i
+                  : o("WAWebSessionScope").SessionScope.DEFAULT,
               }),
-              v,
+              S,
             ),
-            R = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(S);
+            L = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(R);
           return (
             o("WALogger")
               .LOG(
@@ -94,7 +98,7 @@ __d(
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
-            { stanza: S, stanzaClass: R }
+            { stanza: R, stanzaClass: L }
           );
         })),
         _.apply(this, arguments)

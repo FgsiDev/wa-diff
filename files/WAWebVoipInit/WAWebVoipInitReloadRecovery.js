@@ -64,6 +64,10 @@ __d(
               loadAgeMs: r == null ? 0 : n - r.startedAtMs,
               loadIndex: (e = r == null ? void 0 : r.index) != null ? e : 0,
               pendingLoads: this.$7.size,
+              ringableCalls: Array.from(this.$9.values()).filter(function (e) {
+                var t = e.canRing;
+                return t;
+              }).length,
               source: t.source,
               urgencyAgeMs: n - t.startedAtMs,
               waitingCalls: this.$9.size,
@@ -507,6 +511,7 @@ __d(
           "load_idx=" + e.loadIndex,
           "loads=" + e.pendingLoads,
           "calls=" + e.waitingCalls,
+          "ring=" + e.ringableCalls,
           "vis=" + t,
         ),
         n != null &&
@@ -534,6 +539,7 @@ __d(
               },
         int: {
           pending_wasm_loads: e.pendingLoads,
+          ringable_waiting_calls: e.ringableCalls,
           urgency_age_ms: e.urgencyAgeMs,
           waiting_calls: e.waitingCalls,
           wasm_load_age_ms: e.loadAgeMs,

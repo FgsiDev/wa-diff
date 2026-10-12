@@ -25,6 +25,8 @@ __d(
     "WAWebMaybePostOfflineCountTooHighMetric",
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessageQueue",
+    "WAWebMessageQueueImpl",
+    "WAWebMessageQueueTimeout",
     "WAWebMessageReceiveFlow",
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgProcessingDecryptApi",
@@ -236,16 +238,23 @@ __d(
               chatType: U.type,
               isOffline: G,
               queueDepth: o("WAWebMessageQueue").getMessageQueueDepth(),
+              queueImpl: o("WAWebMessageQueueImpl").getMessageQueueImpl(),
               stanzaId: z,
               stanzaType: V.type,
             },
             function (e) {
-              return o("WAWebMessageQueue").onMessageQueue({
-                chatWid: U.chat,
-                isOffline: G,
-                msgCategory: U.category,
-                action: e,
-              });
+              return o("WAWebMessageQueue")
+                .onMessageQueue({
+                  chatWid: U.chat,
+                  isOffline: G,
+                  msgCategory: U.category,
+                  action: e,
+                })
+                .catch(function (e) {
+                  return o(
+                    "WAWebMessageQueueTimeout",
+                  ).handleMessageQueueTimeout(e, "msg");
+                });
             },
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e;
@@ -516,7 +525,13 @@ __d(
                   null
                 );
               var F = o("WAWebMsgProcessingApiUtils").getFrom(U),
-                G = F.isStatus() || V.isGroupStatus === !0,
+                G = o(
+                  "WAWebStatusSessionGatingUtils",
+                ).isIncomingStatusSessionContext({
+                  from: F,
+                  isGroupStatus: V.isGroupStatus,
+                  metaSessionScope: V.metaSessionScope,
+                }),
                 j;
               if (
                 (G
@@ -530,7 +545,7 @@ __d(
                   : B.some(function (e) {
                       return e.sessionType === "pq";
                     }) && (j = o("WAWebSessionScope").SessionScope.PQ),
-                j != null)
+                F.isStatus() || V.isGroupStatus === !0)
               ) {
                 var K;
                 o("WALogger")
@@ -543,7 +558,7 @@ __d(
                         "",
                       ])),
                     String(V.isGroupStatus === !0),
-                    j,
+                    j != null ? j : o("WAWebSessionScope").SessionScope.DEFAULT,
                     (K = V.metaSessionScope) != null ? K : "none",
                   )
                   .tags("messaging");
