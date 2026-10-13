@@ -18,7 +18,6 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactBlockedErrorAction",
     "WAWebContactCollection",
-    "WAWebCreateNackFromStanza",
     "WAWebDBProcessMessage",
     "WAWebDBUpdateMessageTable",
     "WAWebErrorType",
@@ -592,7 +591,7 @@ __d(
                   ack: o("WAWebAck").ACK.FAILED,
                 })),
                 t.ackErrorCode ===
-                  o("WAWebCreateNackFromStanza").NackReason
+                  o("WAWebHandleMsgError").MessageSentAckErrorCode
                     .NewChatMessagesCapped &&
                   ((a = babelHelpers.extends({}, a, {
                     errorCode:

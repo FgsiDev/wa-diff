@@ -97,6 +97,13 @@ __d(
           }
           return t;
         })()),
+        (r.registerCapabilities = function (t) {
+          return this.request(
+            "POST",
+            o("WAWebHatchVmTransport").JarvisPaths.CLIENT_REGISTER_CAPABILITIES,
+            { body: p(t), responseShape: "flat-or-envelope" },
+          );
+        }),
         (r.connectors = function (t, n) {
           return (
             t === void 0 && (t = []),
