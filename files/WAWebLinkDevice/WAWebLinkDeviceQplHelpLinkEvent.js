@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "QuickPerformanceLogger",
     "WAWebAltDeviceLinkingApi",
+    "WAWebAndroidTabletVisitId",
     "WAWebEnvironment",
     "WAWebLinkDeviceExperience",
     "WAWebPermanentStorage",
@@ -99,11 +100,14 @@ __d(
       var r = {
           android_tablet_browser_linked_before: f() ? 1 : 0,
           android_tablet_detector_version: t.detectorVersion,
+          android_tablet_visit_id: o(
+            "WAWebAndroidTabletVisitId",
+          ).getOrCreateAndroidTabletVisitId(),
         },
-        o = _(e);
-      o != null && (r.android_tablet_overlay_event = o);
-      var a = g(n);
-      return (a != null && (r.android_tablet_country = a), r);
+        a = _(e);
+      a != null && (r.android_tablet_overlay_event = a);
+      var i = g(n);
+      return (i != null && (r.android_tablet_country = i), r);
     }
     function _(e) {
       return e === s.ANDROID_TABLET_OVERLAY_SCREEN_LOADED

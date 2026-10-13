@@ -7,8 +7,10 @@ __d(
     "WAWebBotUtils",
     "WAWebHatchGating",
     "WAWebHatchLinkedStatusManager",
+    "WAWebHatchMinPrimaryVersions",
     "WAWebMuseDefaultAssistantVariant",
     "WAWebPrimaryFeaturesModel",
+    "WAWebPrimaryVersionGating",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,6 +31,10 @@ __d(
     function u() {
       return (
         e() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
         o("WAWebABProps").getABPropConfigValue("ai_hatch_connectors_enabled")
       );
     }
@@ -49,31 +55,52 @@ __d(
     }
     function m() {
       return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_response_ux_parity_enabled",
+        )
+      );
+    }
+    function p() {
+      return (
         e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_ideas_enabled")
       );
     }
-    function p(t) {
+    function _(t) {
       return (
         t != null &&
         o("WAWebBotUtils").isHatchBot(t) &&
         e() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
         o("WAWebABProps").getABPropConfigValue("ai_hatch_browser_enabled")
       );
     }
-    function _() {
+    function f() {
       return (
         e() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_secure_credentials_enabled",
         )
       );
     }
-    function f() {
+    function g() {
       return (
-        e() && o("WAWebABProps").getABPropConfigValue("ai_hatch_space_enabled")
+        e() &&
+        o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(
+          o("WAWebHatchMinPrimaryVersions")
+            .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
+        ) &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_space_enabled")
       );
     }
-    function g() {
+    function h() {
       return (
         e() &&
         o("WAWebBotBaseGating").isAiSubscriptionEnabled() &&
@@ -82,13 +109,13 @@ __d(
         )
       );
     }
-    function h() {
+    function y() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue("ai_hatch_activity_enabled")
       );
     }
-    function y() {
+    function C() {
       return e()
         ? (function (e) {
             if (
@@ -123,7 +150,7 @@ __d(
           )
         : !1;
     }
-    function C(e) {
+    function b(e) {
       return e ||
         !o("WAWebABProps").getABPropConfigValue(
           "ai_hatch_video_avatars_enabled",
@@ -141,14 +168,15 @@ __d(
       (l.isHatchApprovalNotificationEnabled = s),
       (l.isHatchConnectorsEnabled = u),
       (l.isHatchConnectorsEnabledForLoad = c),
-      (l.isHatchIdeasEnabled = m),
-      (l.isHatchBrowserEnabled = p),
-      (l.isHatchSecureCredentialsEnabled = _),
-      (l.isHatchSpaceEnabled = f),
-      (l.isHatchManageSubscriptionEnabled = g),
-      (l.isHatchActivityEnabled = h),
-      (l.isMuseNavBarEntryPointSelected = y),
-      (l.getHatchNavBarAnimationMode = C));
+      (l.isHatchJarvisRendererEnabled = m),
+      (l.isHatchIdeasEnabled = p),
+      (l.isHatchBrowserEnabled = _),
+      (l.isHatchSecureCredentialsEnabled = f),
+      (l.isHatchSpaceEnabled = g),
+      (l.isHatchManageSubscriptionEnabled = h),
+      (l.isHatchActivityEnabled = y),
+      (l.isMuseNavBarEntryPointSelected = C),
+      (l.getHatchNavBarAnimationMode = b));
   },
   98,
 );

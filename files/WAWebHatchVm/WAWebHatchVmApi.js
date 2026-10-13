@@ -223,6 +223,13 @@ __d(
             t,
           );
         }),
+        (r.chatMessage = function (t, n, r) {
+          return this.request(
+            "GET",
+            o("WAWebHatchVmTransport").JarvisPaths.CHATS_MESSAGE(t, n),
+            babelHelpers.extends({}, r, { responseShape: "flat-or-envelope" }),
+          );
+        }),
         (r.oauthCallback = function (t, n) {
           return this.request(
             "POST",

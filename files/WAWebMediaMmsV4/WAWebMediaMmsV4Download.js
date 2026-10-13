@@ -1,8 +1,6 @@
 __d(
   "WAWebMediaMmsV4Download",
   [
-    "JSResourceForInteraction",
-    "Promise",
     "WAAbortError",
     "WABlobToArrayBuffer",
     "WACustomError",
@@ -45,6 +43,7 @@ __d(
     "WAWebWebcProgressiveImageWamEvent",
     "asyncToGeneratorRuntime",
     "err",
+    "fflate",
     "getErrorSafe",
     "isStringNullOrEmpty",
     "justknobx",
@@ -70,8 +69,7 @@ __d(
       R,
       L,
       E,
-      k,
-      I = (function (e) {
+      k = (function (e) {
         function t(t) {
           var n;
           return (
@@ -82,7 +80,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      T = (function (e) {
+      I = (function (e) {
         function t(t) {
           var n;
           return (
@@ -93,23 +91,23 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      D = { THUMBNAIL: 1, LOW: 2, MID: 3, FULL: 4 },
-      x = new WeakMap();
-    function $(e) {
+      T = { THUMBNAIL: 1, LOW: 2, MID: 3, FULL: 4 },
+      D = new WeakMap();
+    function x(e) {
       e.getDownloadPromises().forEach(function (e) {
         var t;
         if (e != null) {
-          var n = (t = x.get(e)) == null ? void 0 : t.abort;
-          n != null && (x.delete(e), n());
+          var n = (t = D.get(e)) == null ? void 0 : t.abort;
+          n != null && (D.delete(e), n());
         }
       });
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function N() {
+    function P() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatWid,
             n = e.downloadOrigin,
             r = e.mediaBlob,
@@ -118,7 +116,7 @@ __d(
             l = e.mimetype,
             s = e.rmrReason;
           if (!a.mediaBlob) {
-            var u = yield M({
+            var u = yield N({
               downloadOrigin: n,
               mediaBlob: r,
               mediaObject: a,
@@ -131,7 +129,7 @@ __d(
                 a,
                 r,
               ),
-              yield O({
+              yield F({
                 mimetype: l,
                 mediaObject: a,
                 downloadEvenIfExpensive: !1,
@@ -142,15 +140,15 @@ __d(
               }));
           }
         })),
-        N.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function w() {
+    function M() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.downloadOrigin,
             a = t.mediaBlob,
             i = t.mediaObject,
@@ -193,20 +191,20 @@ __d(
                   l,
                 )
                 .tags("media", "security"),
-              W(u, c),
+              B(u, c),
               !1
             );
           }
         })),
-        w.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function F() {
+    function A() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r = e.downloadQpl,
@@ -242,7 +240,7 @@ __d(
               userDownloadAttemptCount: e.mediaObject.userDownloadAttemptCount,
               downloadOrigin: e.downloadOrigin,
               mode: e.mode,
-              progressiveJpegOpts: Y({
+              progressiveJpegOpts: X({
                 scanLengths: e.scanLengths,
                 scansSidecar: e.scansSidecar,
                 mimetype: a,
@@ -276,30 +274,30 @@ __d(
                   );
           return new Blob([l], { type: s });
         })),
-        F.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function B() {
+    function O() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatWid,
             a = e.downloadEvenIfExpensive,
             i = e.downloadOrigin,
             l = e.downloadQplContext,
             L = e.experienceIds,
             E = e.isAutoDownload,
-            k = e.isFinalRmrRetry,
-            D = e.isVcardOverMmsDocument,
+            T = e.isFinalRmrRetry,
+            x = e.isVcardOverMmsDocument,
             $ = e.isViewOnce,
             P = e.mediaObject,
             N = e.mediaType,
             M = e.mimetype,
-            w = e.mode,
-            F = e.rmrData,
-            B = e.rmrReason,
+            A = e.mode,
+            O = e.rmrData,
+            W = e.rmrReason,
             q = e.shouldSequenceDownload,
             U = q === void 0 ? !1 : q,
             V = e.shouldThrow,
@@ -343,7 +341,7 @@ __d(
             Y = P.getDownloadPromise(N);
           if (Y) {
             j.addPoint("existing_download_promise");
-            var J = x.get(Y);
+            var J = D.get(Y);
             return (
               J && X && (J.shouldStoreInMemory = !0),
               Y.then(
@@ -361,16 +359,16 @@ __d(
                       });
                 },
                 function (e) {
-                  throw (W(j, e), e);
+                  throw (B(j, e), e);
                 },
               )
             );
           }
-          var Z = P.mediaBlob;
-          if (Z) {
+          var te = P.mediaBlob;
+          if (te) {
             j.addPoint("legacy_media_blob_validation_start");
-            var ne = yield Z.validate().catch(function (e) {
-              throw (W(j, e), e);
+            var ne = yield te.validate().catch(function (e) {
+              throw (B(j, e), e);
             });
             if (
               (j.addPoint("legacy_media_blob_validation_end", {
@@ -457,7 +455,7 @@ __d(
                               Q != null ? Q : "none",
                               P.msgs.length,
                               a,
-                              B,
+                              W,
                             ),
                             a &&
                               o(
@@ -471,8 +469,8 @@ __d(
                               ).downloadManager.rmr({
                                 mediaObject: P,
                                 signal: e,
-                                rmrReason: B,
-                                rmrData: F,
+                                rmrReason: W,
+                                rmrData: O,
                               }),
                               j.addPoint("missing_entry_rmr_end"),
                               (oe = P.entries.getDownloadEntry(
@@ -486,7 +484,7 @@ __d(
                                 N !==
                                 o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER
                               )
-                                throw new I();
+                                throw new k();
                               j.endFail("sticker_entry_missing_after_rmr", {
                                 string: {
                                   earlyExitReason:
@@ -535,7 +533,7 @@ __d(
                           var h;
                           throw (
                             (h = oe) == null || h.markWhetherOnServer(!1),
-                            new T()
+                            new I()
                           );
                         }
                         if (r("justknobx")._("533")) {
@@ -552,12 +550,12 @@ __d(
                               "Newsletter svg mimetype is not supported",
                             );
                         }
-                        var C = yield A({
+                        var C = yield w({
                           directPath: p,
                           encFilehash:
                             (n = oe) == null ? void 0 : n.getEncfilehash(),
                           objFilehash: Q,
-                          isFinalRmrRetry: k,
+                          isFinalRmrRetry: T,
                           mediaKey: (l = oe) == null ? void 0 : l.getMediaKey(),
                           mediaKeyTimestamp:
                             (s = oe) == null
@@ -568,7 +566,7 @@ __d(
                           mediaType: N,
                           mediaObject: P,
                           downloadOrigin: i,
-                          mode: w,
+                          mode: A,
                           scanLengths: _,
                           mimetype: M,
                           scansSidecar: f,
@@ -578,7 +576,7 @@ __d(
                           experienceIds: L,
                           downloadQpl: j,
                         });
-                        ee(N)
+                        Z(N)
                           ? (ae = yield o("WAWebMediaLoad").transcode(C))
                           : (ae = C);
                       }
@@ -590,7 +588,7 @@ __d(
                             "WAWebInMemoryLottieStickerCache",
                           ).extractAndSetBothLottieJSONInMemoryCache(Q, ae),
                           P.consolidate({ isLottie: !0 })),
-                        ae.type === "text/vcard" && D === !0)
+                        ae.type === "text/vcard" && x === !0)
                       )
                         try {
                           var b = yield o("WAWebFileUtils").blobToText(ae);
@@ -671,11 +669,11 @@ __d(
                           if (
                             oe == null ||
                             !a ||
-                            k === !0 ||
+                            T === !0 ||
                             !o(
                               "WAWebMediaCryptoEligibilityUtils",
                             ).isRmrSupportedForMediaType(N) ||
-                            !te(e) ||
+                            !ee(e) ||
                             !o("WAWebABProps").getABPropConfigValue(
                               "wa_web_media_download_rmr_on_hash_mismatch_enabled",
                             )
@@ -696,23 +694,23 @@ __d(
                               {
                                 mediaObject: P,
                                 signal: new AbortController().signal,
-                                rmrReason: B,
-                                rmrData: F,
+                                rmrReason: W,
+                                rmrData: O,
                               },
                             ),
                             j.addPoint("hash_mismatch_rmr_end"),
                             P.clearDownloadPromise(N),
-                            O({
+                            F({
                               mimetype: M,
                               mediaObject: P,
                               downloadEvenIfExpensive: !1,
                               mediaType: N,
-                              rmrReason: B,
-                              rmrData: F,
+                              rmrReason: W,
+                              rmrData: O,
                               downloadOrigin: i,
                               isFinalRmrRetry: !0,
-                              isVcardOverMmsDocument: D,
-                              mode: w,
+                              isVcardOverMmsDocument: x,
+                              mode: A,
                               isAutoDownload: E,
                               chatWid: t,
                               experienceIds: L,
@@ -744,22 +742,22 @@ __d(
                               ).downloadManager.rmr({
                                 mediaObject: P,
                                 signal: new AbortController().signal,
-                                rmrReason: B,
-                                rmrData: F,
+                                rmrReason: W,
+                                rmrData: O,
                               }),
                               j.addPoint("media_not_found_rmr_end"),
                               P.clearDownloadPromise(N),
-                              O({
+                              F({
                                 mimetype: M,
                                 mediaObject: P,
                                 downloadEvenIfExpensive: !1,
                                 mediaType: N,
-                                rmrReason: B,
-                                rmrData: F,
+                                rmrReason: W,
+                                rmrData: O,
                                 downloadOrigin: i,
                                 isFinalRmrRetry: !0,
-                                isVcardOverMmsDocument: D,
-                                mode: w,
+                                isVcardOverMmsDocument: x,
+                                mode: A,
                                 isAutoDownload: E,
                                 chatWid: t,
                                 experienceIds: L,
@@ -782,7 +780,7 @@ __d(
                       o("WAWebMediaLoadErrors").MediaUnsupportedError,
                       function (e) {
                         if (
-                          (W(j, e),
+                          (B(j, e),
                           P.consolidate({
                             downloadStage:
                               o("WAWebMediaTypes").DownloadStage
@@ -823,7 +821,7 @@ __d(
                       o("WAWebDownloadManagerErrors").MediaNotOnPhone,
                       function (e) {
                         if (
-                          (W(j, e),
+                          (B(j, e),
                           P.consolidate({
                             downloadStage:
                               o("WAWebMediaTypes").DownloadStage.ERROR_MISSING,
@@ -835,15 +833,15 @@ __d(
                     ),
                   )
                   .catch(
-                    l.filteredCatch([I, T], function (e) {
+                    l.filteredCatch([k, I], function (e) {
                       if (
-                        (W(j, e),
+                        (B(j, e),
                         P.consolidate({
                           downloadStage:
                             o("WAWebMediaTypes").DownloadStage.ERROR_MISSING,
                         }),
                         !(
-                          e === I &&
+                          e === k &&
                           N === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER
                         ) &&
                           (o("WALogger").WARN(
@@ -875,7 +873,7 @@ __d(
                         o("WAWebMediaFileErrors").MediaHashMismatch,
                       ],
                       function (e) {
-                        W(j, e);
+                        B(j, e);
                         var t = P.progressiveStage;
                         if (
                           (ie.abort(),
@@ -899,7 +897,7 @@ __d(
                     l.filteredCatch(
                       [o("WAWebHttpErrors").MmsDownloadFilehashMismatchError],
                       function (e) {
-                        W(j, e);
+                        B(j, e);
                         var t = P.progressiveStage;
                         (ie.abort(), P.hashMismatchRetryCount++);
                         var n = 10,
@@ -924,7 +922,7 @@ __d(
                   )
                   .catch(function (e) {
                     if (
-                      (W(j, e),
+                      (B(j, e),
                       P.consolidate({
                         downloadStage:
                           o("WAWebMediaTypes").DownloadStage.NEED_POKE,
@@ -1046,16 +1044,16 @@ __d(
                   .finally(function () {
                     P.clearDownloadPromise(N);
                   });
-              return (x.set(q, le), P.setDownloadPromise(q, N), q);
+              return (D.set(q, le), P.setDownloadPromise(q, N), q);
             },
           ).catch(function (e) {
-            throw (W(j, e), e);
+            throw (B(j, e), e);
           });
         })),
-        B.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function W(e, t) {
+    function B(e, t) {
       if (e.isActive()) {
         var n = r("getErrorSafe")(t);
         if (n.name === o("WAAbortError").ABORT_ERROR) {
@@ -1065,43 +1063,37 @@ __d(
         e.endFailWithError("download_failed", n.message);
       }
     }
+    function W(e) {
+      return U(e, /animation\/animation.json$/);
+    }
     function q(e) {
-      return V(e, /animation\/animation.json$/);
+      return U(e, /animation\/animation_secondary.json$/);
     }
-    function U(e) {
-      return V(e, /animation\/animation_secondary.json$/);
-    }
-    function V(e, t) {
+    function U(e, t) {
       var n = Object.keys(e).find(function (e) {
         return t.test(e);
       });
       return n != null ? e[n] : void 0;
     }
-    function H(e) {
-      return G.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function G() {
+    function H() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (k || (k = n("Promise"))).all([
-              o("WABlobToArrayBuffer").blobToArrayBuffer(e),
-              r("JSResourceForInteraction")("fflate")
-                .__setRef("WAWebMediaMmsV4Download")
-                .load(),
-            ]),
-            a = t[0],
-            i = t[1];
-          return i.unzipSync(new Uint8Array(a));
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WABlobToArrayBuffer").blobToArrayBuffer(e),
+            n = new Uint8Array(t);
+          return o("fflate").unzipSync(n);
         })),
-        G.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function z(e, t) {
-      return j.apply(this, arguments);
+    function G(e, t) {
+      return z.apply(this, arguments);
     }
-    function j() {
+    function z() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = new (o(
                 "WAWebStickerLatencyWamEvent",
@@ -1111,8 +1103,8 @@ __d(
                   .STICKER_LATENCY_ACTION.DECOMPRESSION,
               }),
               a = self.performance.now(),
-              i = yield H(e),
-              l = q(i);
+              i = yield V(e),
+              l = W(i);
             if (!l) throw r("err")("animationContents missing");
             var s = new TextDecoder("utf-8").decode(l),
               u = yield o("WAWebStickerUtils").isLottieStickerFirstParty(i, s);
@@ -1130,7 +1122,7 @@ __d(
               n.commit());
             var c = null;
             try {
-              var d = U(i);
+              var d = q(i);
               if (d) {
                 var m = new TextDecoder("utf-8").decode(d),
                   p = yield o(
@@ -1162,15 +1154,15 @@ __d(
             );
           }
         })),
-        j.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function K(e) {
-      return Q.apply(this, arguments);
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function Q() {
+    function K() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.mediaObject,
             n = e.mediaType,
             a = e.mimetype,
@@ -1178,7 +1170,7 @@ __d(
           if (
             !r("isStringNullOrEmpty")(i) &&
             t.downloadStage === o("WAWebMediaTypes").DownloadStage.INIT &&
-            !(yield J(t))
+            !(yield Y(t))
           ) {
             var l = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
                 i,
@@ -1249,19 +1241,19 @@ __d(
             }
           }
         })),
-        Q.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function X(e, t) {
+    function Q(e, t) {
       return !!(e && t && e.length >= 2 && e.length * 10 === t.byteLength);
     }
-    function Y(e) {
+    function X(e) {
       var t = e.mediaObject,
         n = e.mimetype,
         a = e.scanLengths,
         i = e.scansSidecar,
         l = e.signal;
-      if (!X(a, i)) return null;
+      if (!Q(a, i)) return null;
       var s = new (o(
         "WAWebWebcProgressiveImageWamEvent",
       ).WebcProgressiveImageWamEvent)({ webcFirstRenderScans: 0 });
@@ -1279,19 +1271,19 @@ __d(
               }),
               s.webcFirstRenderScans ||
                 ((s.webcFirstRenderScans = n), s.markWebcFirstRenderT()),
-              n >= D.MID && !s.webcMidQualityT && s.markWebcMidQualityT(),
-              n === D.FULL &&
+              n >= T.MID && !s.webcMidQualityT && s.markWebcMidQualityT(),
+              n === T.FULL &&
                 !s.webcFullQualityT &&
                 (s.markWebcFullQualityT(), s.commit())));
         },
       };
     }
-    function J(e) {
-      return Z.apply(this, arguments);
+    function Y(e) {
+      return J.apply(this, arguments);
     }
-    function Z() {
+    function J() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!e.mediaBlob) return !1;
           var t = yield e.mediaBlob.validate();
           return t
@@ -1306,10 +1298,10 @@ __d(
               e.notifyMsgsAsync(),
               !1);
         })),
-        Z.apply(this, arguments)
+        J.apply(this, arguments)
       );
     }
-    function ee(e) {
+    function Z(e) {
       return (
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT ||
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_PTT ||
@@ -1317,7 +1309,7 @@ __d(
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_AUDIO
       );
     }
-    function te(e) {
+    function ee(e) {
       return e instanceof
         o("WAWebHttpErrors").MmsDownloadFilehashMismatchError ||
         e instanceof o("WAWebMediaFileErrors").MediaHashMismatch
@@ -1330,14 +1322,14 @@ __d(
                 o("WAWebMediaFileErrors").PLAINTEXT_HASH_MISMATCH_ERROR,
               ));
     }
-    ((l.NoEntryAfterRMR = I),
-      (l.MissingEncFilehash = T),
-      (l.cancelDownloadMedia = $),
-      (l.manuallySetMedia = P),
-      (l.downloadMedia = O),
-      (l.getContentsOfLottieJSONFile = q),
-      (l.extractBothLottieJSON = z),
-      (l.checkExistence = K));
+    ((l.NoEntryAfterRMR = k),
+      (l.MissingEncFilehash = I),
+      (l.cancelDownloadMedia = x),
+      (l.manuallySetMedia = $),
+      (l.downloadMedia = F),
+      (l.getContentsOfLottieJSONFile = W),
+      (l.extractBothLottieJSON = G),
+      (l.checkExistence = j));
   },
   98,
 );

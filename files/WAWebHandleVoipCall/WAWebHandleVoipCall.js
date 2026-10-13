@@ -8,7 +8,6 @@ __d(
     "WATimeUtils",
     "WAWap",
     "WAWebBackendApi",
-    "WAWebCallLogMsgData.flow",
     "WAWebCommsWapMd",
     "WAWebCoreActionsODS",
     "WAWebEnvironment",
@@ -714,35 +713,6 @@ __d(
             s = e.payloadTag,
             u = e.stanzaId,
             c = e.voipNode;
-          if (
-            t &&
-            o("WAWebVoipGatingUtils").isGroupCallMessage(i) &&
-            !o("WAWebVoipGatingUtils").isGroupCallingEnabled()
-          ) {
-            var d,
-              m =
-                i.group_jid != null
-                  ? { isGroup: !0, groupJid: i.group_jid }
-                  : { isGroup: !0, groupJid: null };
-            return (
-              o("WAWebBackendApi").frontendFireAndForget(
-                "generateCallLogOfferNotice",
-                babelHelpers.extends(
-                  {
-                    callCreatorWid: i.call_creator,
-                    offerTime: i.t,
-                    isVideo: (d = i.isVideoCall) != null ? d : !1,
-                    callId: i.call_id,
-                    isOffline: i.is_offline,
-                    callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
-                      .Missed,
-                  },
-                  m,
-                ),
-              ),
-              ($ || ($ = n("Promise"))).resolve("NO_ACK")
-            );
-          }
           if (X(i.type)) return Z(i, a, u, c, t);
           switch (i.type) {
             case o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE:

@@ -12,6 +12,7 @@ __d(
     "WAWebHatchVmSubscription",
     "WAWebHatchVmTransport",
     "WAWebNoop",
+    "WAWebNullFunc",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -87,9 +88,7 @@ __d(
           if (!k(e)) return null;
           var t = yield o("WAWebHatchVmConnection")
             .connectHatchVmApi()
-            .catch(function () {
-              return null;
-            });
+            .catch(o("WAWebNullFunc").returnNull);
           return k(e) ? (t == null && P("no_session"), t) : null;
         })),
         E.apply(this, arguments)

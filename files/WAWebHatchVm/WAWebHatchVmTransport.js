@@ -125,6 +125,14 @@ __d(
         return "/api/browser-task/" + I(n) + "/" + r;
       },
       CHATS_LIST: "/api/chats/list?limit=100",
+      CHATS_MESSAGE: function (n, r) {
+        return (
+          "/api/chats/message?chat_id=" +
+          encodeURIComponent(n) +
+          "&message_id=" +
+          encodeURIComponent(r)
+        );
+      },
       COMPUTER_CONTEXT: "/api/computer/context",
       COMPUTER_SCREENSHOT: _,
       COMPUTER_SUBSCRIBE: "/api/computer/subscribe",
