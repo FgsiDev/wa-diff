@@ -95,6 +95,7 @@ __d(
       MissGroupVideo: "miss_group_video",
       Silence: "silence",
       HatchMetadataSync: "hatch_metadata_sync",
+      BizAIMetadataSync: "biz_ai_metadata_sync",
       AdminRevoke: "admin_revoke",
       SenderRevoke: "sender_revoke",
       EphemeralSetting: "ephemeral_setting",
@@ -310,6 +311,7 @@ __d(
       LoadingVideo: "loading_video",
       HostedGroupDoNotUseS440891: "is_hosted_group",
       GroupTransitionToBotGroupSystemMsg: "group_transition_to_bot_group",
+      BbProCreate: "bb_pro_create",
       BizBroadcastStatus: "biz_broadcast_status",
       GroupTransitionToTeeBotGroupSystemMsg:
         "group_transition_to_tee_bot_group",

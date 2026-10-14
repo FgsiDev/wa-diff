@@ -112,8 +112,9 @@ __d(
       f,
       g,
       h,
-      y = 1e3,
-      C = (function (t) {
+      y,
+      C = 1e3,
+      b = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -702,7 +703,7 @@ __d(
           (i.$ChatImpl$p_29 = function (t) {
             var e = this;
             t.forEach(function (t) {
-              e.$ChatImpl$p_28(t);
+              return e.$ChatImpl$p_28(t);
             });
           }),
           (i.$ChatImpl$p_30 = function (t) {
@@ -836,7 +837,7 @@ __d(
                 this.$ChatImpl$p_41(),
                 o(
                   "WAWebMemoryPressureCacheRegistry",
-                ).registerMemoryPressureCache(L),
+                ).registerMemoryPressureCache(E),
                 this.$ChatImpl$p_42());
               var a = Array.from(this.$ChatImpl$p_1);
               (o("WAWebDBEphemeralMessage")
@@ -845,14 +846,16 @@ __d(
                   var t = a.map(function (e) {
                     return e.id.toString();
                   });
-                  t.length > 0 &&
-                    (o(
-                      "WAWebUpdateLastAddOnPreviewChatAction",
-                    ).deleteModelsForLastAddOnPreview(t),
-                    o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
-                      e.id.toString(),
-                      t,
-                    ));
+                  if (t.length > 0)
+                    return (
+                      o(
+                        "WAWebUpdateLastAddOnPreviewChatAction",
+                      ).deleteModelsForLastAddOnPreview(t),
+                      o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                        e.id.toString(),
+                        t,
+                      )
+                    );
                 })
                 .catch(function (e) {
                   o("WALogger")
@@ -890,7 +893,7 @@ __d(
           }),
           (i.trimMessagesForMemoryPressure = function () {
             var e = this.msgs;
-            if (e.length <= 1 || this.active || R(e)) return 0;
+            if (e.length <= 1 || this.active || L(e)) return 0;
             var t = o("WAWebFrontendChatGetters").getPreviewMessage(this),
               n = t != null ? e.indexOf(t) : -1,
               r = n >= 0 ? n : e.length - 1;
@@ -1178,12 +1181,27 @@ __d(
             }
           }),
           (i.deleteMessages = function (t) {
-            var e = function (n, r, o) {
-              return !t.includes(n.id.toString());
-            };
-            (this.deleteMsgsPartial(e, !0),
+            var e = this,
+              n = function (n, r, o) {
+                return !t.includes(n.id.toString());
+              };
+            (this.deleteMsgsPartial(n, !0),
               this.getAllMsgs().length === 0 &&
-                o("WAWebChatLoadMessages").loadEarlierMsgs({ chat: this }),
+                o("WAWebChatLoadMessages")
+                  .loadEarlierMsgs({ chat: this })
+                  .catch(function (t) {
+                    o("WALogger")
+                      .ERROR(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "chat:deleteMessages:loadEarlierMsgs failed ",
+                            "",
+                          ])),
+                        e.id.toLogString(),
+                      )
+                      .catching(r("getErrorSafe")(t))
+                      .sendLogs("chat-delete-messages-load-earlier-failed");
+                  }),
               o("WAWebLimitSharingModelUtils").createLimitSharingMsgOnChatClear(
                 this.id,
               ));
@@ -1241,85 +1259,95 @@ __d(
               ),
               o("WAWebMedia").deregisterMsg(t));
           }),
-          (i.$ChatImpl$p_28 = function (t) {
-            var e = this;
-            (r("WAWebAlarm").clearTimeout(this.$ChatImpl$p_2.get(t)),
-              this.$ChatImpl$p_2.delete(t),
-              this.$ChatImpl$p_1.delete(t));
-            var a = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(t);
-            if (
-              !(
-                a == null ||
-                !this.msgs.includes(t) ||
-                o("WAWebMsgGetters").getIsKept(t)
-              )
-            ) {
-              var i = (function () {
-                var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    if (
-                      (e.$ChatImpl$p_2.delete(t),
-                      !o("WAWebMsgGetters").getIsKept(t))
-                    ) {
-                      var n =
-                        t.afterReadDuration != null && t.afterReadDuration > 0;
-                      if (!e.active || n) {
-                        var a = n && e.active;
-                        a &&
-                          ((t.isFadingOut = !0),
-                          yield o("WAPromiseDelays").delayMs(y));
-                        try {
-                          yield o(
-                            "WAWebDBEphemeralMessage",
-                          ).removeExpiredMessagesFromHistory([t]);
-                        } catch (e) {
-                          o("WALogger")
-                            .ERROR(
-                              p ||
-                                (p = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[ephemeral-leak] handleExpiration DB delete failed",
-                                ])),
-                            )
-                            .catching(r("getErrorSafe")(e))
-                            .tags("ephemeral-messages")
-                            .sendLogs(
-                              "ephemeral-leak-handle-expiration-failed",
-                              {
-                                sendLogsType:
-                                  o("WALogger").SendLogsType.INVESTIGATION,
-                              },
-                            );
-                          return;
+          (i.$ChatImpl$p_28 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
+                (r("WAWebAlarm").clearTimeout(this.$ChatImpl$p_2.get(e)),
+                  this.$ChatImpl$p_2.delete(e),
+                  this.$ChatImpl$p_1.delete(e));
+                var a = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
+                if (
+                  !(
+                    a == null ||
+                    !this.msgs.includes(e) ||
+                    o("WAWebMsgGetters").getIsKept(e)
+                  )
+                ) {
+                  var i = (function () {
+                    var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* () {
+                        if (
+                          (t.$ChatImpl$p_2.delete(e),
+                          !o("WAWebMsgGetters").getIsKept(e))
+                        ) {
+                          var n =
+                            e.afterReadDuration != null &&
+                            e.afterReadDuration > 0;
+                          if (!t.active || n) {
+                            var a = n && t.active;
+                            a &&
+                              ((e.isFadingOut = !0),
+                              yield o("WAPromiseDelays").delayMs(C));
+                            try {
+                              yield o(
+                                "WAWebDBEphemeralMessage",
+                              ).removeExpiredMessagesFromHistory([e]);
+                            } catch (e) {
+                              o("WALogger")
+                                .ERROR(
+                                  _ ||
+                                    (_ =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "[ephemeral-leak] handleExpiration DB delete failed",
+                                      ])),
+                                )
+                                .catching(r("getErrorSafe")(e))
+                                .tags("ephemeral-messages")
+                                .sendLogs(
+                                  "ephemeral-leak-handle-expiration-failed",
+                                  {
+                                    sendLogsType:
+                                      o("WALogger").SendLogsType.INVESTIGATION,
+                                  },
+                                );
+                              return;
+                            }
+                            (o(
+                              "WAWebUpdateLastAddOnPreviewChatAction",
+                            ).deleteModelsForLastAddOnPreview([
+                              e.id.toString(),
+                            ]),
+                              yield o(
+                                "WAWebRequestDeleteAddOns",
+                              ).requestDeleteAddOns(t.id.toString(), [
+                                e.id.toString(),
+                              ]),
+                              e.delete({
+                                skipUpdatingSortTime: !0,
+                                doNotResetLastReceived: !0,
+                              }));
+                          } else t.$ChatImpl$p_1.add(e);
                         }
-                        (o(
-                          "WAWebUpdateLastAddOnPreviewChatAction",
-                        ).deleteModelsForLastAddOnPreview([t.id.toString()]),
-                          yield o(
-                            "WAWebRequestDeleteAddOns",
-                          ).requestDeleteAddOns(e.id.toString(), [
-                            t.id.toString(),
-                          ]),
-                          t.delete({
-                            skipUpdatingSortTime: !0,
-                            doNotResetLastReceived: !0,
-                          }));
-                      } else e.$ChatImpl$p_1.add(t);
-                    }
-                  },
-                );
-                return function () {
-                  return a.apply(this, arguments);
-                };
-              })();
-              if (o("WAWebKeepInChatMsgUtils").isExpired(t)) i();
-              else {
-                var l = r("WAWebAlarm").setGlobalTimeout(function () {
-                  return void i();
-                }, a * 1e3);
-                this.$ChatImpl$p_2.set(t, l);
-              }
+                      },
+                    );
+                    return function () {
+                      return a.apply(this, arguments);
+                    };
+                  })();
+                  if (o("WAWebKeepInChatMsgUtils").isExpired(e)) return i();
+                  var l = r("WAWebAlarm").setGlobalTimeout(function () {
+                    return void i();
+                  }, a * 1e3);
+                  this.$ChatImpl$p_2.set(e, l);
+                }
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
             }
-          }),
+            return t;
+          })()),
           (i.isUnreadMsg = function (t) {
             return this.$ChatImpl$p_43(t, this.unreadCount);
           }),
@@ -1390,7 +1418,7 @@ __d(
               this.colorSchemeId != null ||
               this.stockWallpaperImageId != null;
             if (!o("WAWebChatThemeGatingUtils").isChatThemesEnabled() || !e)
-              return (h || (h = n("Promise"))).resolve();
+              return (y || (y = n("Promise"))).resolve();
             var t = this.chatThemeValue,
               r = this.wallpaperValue;
             return (
@@ -1432,8 +1460,8 @@ __d(
               var n = !t.participants.iAmAdmin() && t.announce;
               this.isAnnounceGrpRestrict !== n &&
                 (o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "chat:_updateIsAnnounceGrpRestrict:old ",
                       ", new: ",
                       "",
@@ -1596,8 +1624,8 @@ __d(
               ? this.accountLid == null
                 ? (o("WALogger")
                     .ERROR(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
                           "[presence] getPresenceKey: lid-migrated user no accountLid",
                         ])),
                     )
@@ -1609,23 +1637,23 @@ __d(
           a
         );
       })(r("WAWebSuperChatMsgs"));
-    ((C.Proxy = "chat"), (C.idClass = r("WAWebWid")));
-    var b = o("WAWebBaseModel").defineModel(C);
-    function v() {
+    ((b.Proxy = "chat"), (b.idClass = r("WAWebWid")));
+    var v = o("WAWebBaseModel").defineModel(b);
+    function S() {
       var e = 0;
       for (var t of o("WAWebChatCollection").ChatCollection.getModelsArray())
-        e += S(t);
+        e += R(t);
       return e;
     }
-    function S(e) {
+    function R(e) {
       try {
         return e.trimMessagesForMemoryPressure();
       } catch (e) {
         return (
           o("WALogger")
             .WARN(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[memory-pressure] trimming chat messages failed",
                 ])),
             )
@@ -1635,14 +1663,14 @@ __d(
         );
       }
     }
-    function R(e) {
+    function L(e) {
       var t = e.msgLoadState;
       return (
         t.isLoadingEarlierMsgs || t.isLoadingRecentMsgs || t.isLoadingAroundMsgs
       );
     }
-    var L = { name: "inactive_chat_msgs", unit: "messages", release: v };
-    l.Chat = b;
+    var E = { name: "inactive_chat_msgs", unit: "messages", release: S };
+    l.Chat = v;
   },
   226,
 );

@@ -8,7 +8,6 @@ __d(
     "WATimeUtils",
     "WATypeUtils",
     "WAWebAck",
-    "WAWebBizAiAgentGating",
     "WAWebBizSystemMsgSubtypes",
     "WAWebBotTypes",
     "WAWebBusinessHSMTypes",
@@ -1520,11 +1519,7 @@ __d(
       Jo = p(
         function (e) {
           var t = e[0];
-          return (
-            !t.fromMe &&
-            t.remote.isAiHub() &&
-            o("WAWebBizAiAgentGating").isMaibaWASSReceivingEnabled()
-          );
+          return !t.fromMe && t.remote.isAiHub();
         },
         [L],
       ),

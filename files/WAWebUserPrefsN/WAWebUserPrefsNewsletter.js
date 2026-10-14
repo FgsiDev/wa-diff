@@ -55,8 +55,11 @@ __d(
             t,
           );
         },
-        getCacheTtlMs: o("WAWebNewsletterGatingUtils")
-          .getNewsletterSubscriberListCacheRefreshMs,
+        getCacheTtlMs: function () {
+          return o("WAWebABProps").getABPropConfigValue(
+            "channels_followers_list_cache_refresh_milliseconds",
+          );
+        },
       });
     function p(e) {
       return _.apply(this, arguments);

@@ -48,6 +48,7 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
     "WAWebSendNotSpamAction",
+    "WAWebSilentPaymentMsg",
     "WAWebSilentProtocolMsg",
     "WAWebSingleEmojiDailyUtils",
     "WAWebThreadMsgUtils",
@@ -185,7 +186,7 @@ __d(
           var y =
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               ["sender_revoke", "admin_revoke"].includes(i.subtype),
-            C = o("WAWebSilentProtocolMsg").isSilentProtocolMsg(i),
+            C = $(i),
             b =
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               i.subtype ===
@@ -294,7 +295,7 @@ __d(
               .resolve()
               .then(function () {
                 return e.type === "message"
-                  ? $(e.data, a)
+                  ? P(e.data, a)
                   : o("WAWebAddonSendProcess").sendAddonProcess(
                       I != null ? I : e.data,
                       a,
@@ -550,12 +551,18 @@ __d(
         x.apply(this, arguments)
       );
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
-    }
-    function P() {
+    function $(e) {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        o("WAWebSilentProtocolMsg").isSilentProtocolMsg(e) ||
+        o("WAWebSilentPaymentMsg").isSilentPaymentMsg(e)
+      );
+    }
+    function P(e, t) {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           e.isForwarded &&
             (n = o("WAWebMsgUtilsBridge").createMessageForwardMetric(e));
@@ -630,7 +637,7 @@ __d(
             );
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
     ((l.sendMsgRecord = y), (l.sendAddonRecord = b));
