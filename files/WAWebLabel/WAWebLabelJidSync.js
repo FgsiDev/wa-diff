@@ -491,7 +491,7 @@ __d(
                 try {
                   yield o(
                     "WAWebDBLabelAssociationDatabaseApi",
-                  ).addOrEditLabelAssociations(i);
+                  ).mergeReceivedLabelAssociations(i);
                 } catch (e) {
                   throw (
                     R.forEach(h),

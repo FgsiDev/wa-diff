@@ -5,6 +5,7 @@ __d(
     "WAWebCrashlog",
     "WAWebEnvironment",
     "WAWebUA",
+    "WAWebVoipInvestigationLogUploadGating",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipTransportFallbackTracker",
     "WAWebVoipWebTransportCallSummary",
@@ -12,7 +13,6 @@ __d(
     "WAWebWamEnumCallResultType",
     "getErrorSafe",
     "gkx",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -28,31 +28,30 @@ __d(
       g,
       h,
       y,
-      C,
-      b = 6,
-      v = 10,
-      S = 0.1,
-      R = 0.01,
-      L = 0.1,
-      E = 0.001,
-      k = 8,
-      I = 5e3,
-      T = "voip-group-call-cer",
-      D = 0.1,
-      x = 3,
-      $ = 3e4,
-      P = null,
-      N = new Set(),
+      C = 6,
+      b = 10,
+      v = 0.1,
+      S = 0.01,
+      R = 0.1,
+      L = 0.001,
+      E = 8,
+      k = 5e3,
+      I = "voip-group-call-cer",
+      T = 0.1,
+      D = 3,
+      x = 3e4,
+      $ = null,
+      P = new Set(),
+      N = !1,
       M = !1,
-      w = !1,
-      A = null;
-    function F(e) {
-      if (P == null)
+      w = null;
+    function A(e) {
+      if ($ == null)
         try {
           var t,
             n,
             r = JSON.parse(e);
-          P =
+          $ =
             (t =
               r == null || (n = r.call_info) == null
                 ? void 0
@@ -60,29 +59,29 @@ __d(
               ? t
               : null;
         } catch (e) {
-          P = null;
+          $ = null;
         }
     }
-    function O() {
-      ((M = !1), (w = !1));
+    function F() {
+      ((N = !1), (M = !1));
     }
-    function B() {
+    function O() {
       if (
-        ((M = !0),
+        ((N = !0),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "voip: Web client entered reconnecting",
             ])),
         ),
-        !w)
+        !M)
       ) {
-        w = !0;
+        M = !0;
         var t = o(
             "WAWebVoipWebTransportCallSummary",
           ).getWtCallSummaryIfCurrent(),
           n = t.attempts
-            .slice(-k)
+            .slice(-E)
             .map(function (e) {
               var t,
                 n = e.outcome == null ? "pending" : e.outcome;
@@ -137,13 +136,19 @@ __d(
           ));
       }
     }
-    function W() {
-      var e = M;
-      ((M = !1),
-        !(!e || !r("WAWebEnvironment").isWeb || !z()) &&
-          (q(),
-          (A = window.setTimeout(function () {
-            ((A = null),
+    function B() {
+      var e = N;
+      ((N = !1),
+        !(
+          !e ||
+          !r("WAWebEnvironment").isWeb ||
+          !o(
+            "WAWebVoipInvestigationLogUploadGating",
+          ).isInvestigationLogUploadEnabled()
+        ) &&
+          (W(),
+          (w = window.setTimeout(function () {
+            ((w = null),
               r("gkx")("26258")
                 ? o("WALogger")
                     .LOG(
@@ -154,7 +159,7 @@ __d(
                     )
                     .sendLogs("voip-call-reconnecting", {
                       sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
-                      sampling: E,
+                      sampling: L,
                     })
                 : o("WALogger")
                     .LOG(
@@ -165,32 +170,37 @@ __d(
                     )
                     .sendLogs("voip-call-reconnecting-testing", {
                       sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
-                      sampling: E,
+                      sampling: L,
                     }));
-          }, I))));
+          }, k))));
     }
-    function q() {
-      A != null && (window.clearTimeout(A), (A = null));
+    function W() {
+      w != null && (window.clearTimeout(w), (w = null));
     }
-    function U(e) {
-      if (!z()) return null;
-      var t = e === b || e === v;
+    function q(e) {
+      if (
+        !o(
+          "WAWebVoipInvestigationLogUploadGating",
+        ).isInvestigationLogUploadEnabled()
+      )
+        return null;
+      var t = e === C || e === b;
       if (!t) return null;
       var n = o("WAWebUA").UA.browser.toLowerCase() || "unknown",
         r = o("WAWebVoipWebTransportCallSummary").hasWtActivityThisCall(),
         a = r ? "webtransport-" : "",
-        i = e === b ? "setup-error" : "accepted-but-not-connected",
-        l = o("WAWebUA").UA.isChrome ? R : S,
-        s = r && e === v ? L : l;
+        i = e === C ? "setup-error" : "accepted-but-not-connected",
+        l = o("WAWebUA").UA.isChrome ? S : v,
+        s = r && e === b ? R : l;
       return { reason: "voip-call-error-" + n + "-" + a + i, sampling: s };
     }
-    function V() {
+    function U() {
       var e,
-        t = P;
-      if (((P = null), !!r("WAWebEnvironment").isWeb && t != null)) {
-        var n = U(t);
+        t = $;
+      if ((($ = null), !!r("WAWebEnvironment").isWeb && t != null)) {
+        var n = q(t);
         if (n != null) {
-          q();
+          W();
           var a = n.reason,
             i = n.sampling;
           r("gkx")("26258") || (a = a + "-testing");
@@ -226,11 +236,11 @@ __d(
                   sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
                   sampling: i,
                 });
-            }, I));
+            }, k));
         }
       }
     }
-    function H(e) {
+    function V(e) {
       var t,
         n,
         a =
@@ -245,19 +255,21 @@ __d(
             o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.CONNECTED ||
           !a ||
           e.groupCallIsLastSegment !== !0 ||
-          e.maxConnectedParticipants < x ||
-          !z()
+          e.maxConnectedParticipants < D ||
+          !o(
+            "WAWebVoipInvestigationLogUploadGating",
+          ).isInvestigationLogUploadEnabled()
         )
       ) {
         var i =
           ((t = e.callId) != null ? t : "unknown-call") +
           ":" +
           String((n = e.groupCallSegmentIdx) != null ? n : "unknown-segment");
-        if (!N.has(i)) {
-          N.add(i);
-          var l = D,
-            s = r("gkx")("26258") ? T : T + "-testing",
-            u = G(e);
+        if (!P.has(i)) {
+          P.add(i);
+          var l = T,
+            s = r("gkx")("26258") ? I : I + "-testing",
+            u = H(e);
           (o("WALogger").LOG(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -296,40 +308,23 @@ __d(
                       .catching(r("getErrorSafe")(e));
                   })
                   .finally(function () {
-                    N.delete(i);
+                    P.delete(i);
                   }));
-            }, I));
+            }, k));
         }
       }
     }
-    function G(e) {
+    function H(e) {
       var t = e.groupCallTotalCallTSinceCallStart,
         n = t != null && t >= 0 ? t : e.callT;
-      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - $);
+      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - x);
     }
-    function z() {
-      try {
-        return r("justknobx")._("5297");
-      } catch (e) {
-        return (
-          o("WALogger").WARN(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: investigation log upload JK unavailable, using fallback=true: ",
-                "",
-              ])),
-            String(e),
-          ),
-          !0
-        );
-      }
-    }
-    ((l.captureWamCallResult = F),
-      (l.resetReconnectingStateForNewCall = O),
-      (l.recordCallReconnectingStateForLogs = B),
-      (l.maybeUploadReconnectingLogs = W),
-      (l.maybeUploadErrorLogs = V),
-      (l.maybeUploadGroupCallCerLogs = H));
+    ((l.captureWamCallResult = A),
+      (l.resetReconnectingStateForNewCall = F),
+      (l.recordCallReconnectingStateForLogs = O),
+      (l.maybeUploadReconnectingLogs = B),
+      (l.maybeUploadErrorLogs = U),
+      (l.maybeUploadGroupCallCerLogs = V));
   },
   98,
 );
