@@ -9,6 +9,7 @@ __d(
     "WAWebInAppSignupConfirmation",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebPaymentDetailsGating",
     "WAWebSignupFlowLoggerLazy",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -43,11 +44,15 @@ __d(
             r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
           ) {
             var a;
-            return (a = r("WAWebGetInteractiveActions")(
-              babelHelpers.extends({}, t),
-            )) == null
-              ? void 0
-              : a[0];
+            return o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForMsg(
+              t.msg.unsafe(),
+            )
+              ? null
+              : (a = r("WAWebGetInteractiveActions")(
+                    babelHelpers.extends({}, t),
+                  )) == null
+                ? void 0
+                : a[0];
           } else {
             if (
               t.msg.nativeFlowName ===

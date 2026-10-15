@@ -109,7 +109,7 @@ __d(
         d.nativeFlowName ===
           r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
           ? ((L = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
-              msg: d,
+              msgKey: d.id,
               quotedMsg: p,
               displayType: a,
             })),

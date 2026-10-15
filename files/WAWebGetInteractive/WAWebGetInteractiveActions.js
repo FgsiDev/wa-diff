@@ -30,6 +30,8 @@ __d(
     "WAWebOrderExpansionAction",
     "WAWebOrderStatus",
     "WAWebOrdersExpansionCountries",
+    "WAWebPaymentDetailsBubbleActions",
+    "WAWebPaymentDetailsGating",
     "WAWebPaymentsGatingUtils",
     "WAWebShowMessageActionFallbackErrorAction",
     "WAWebUserPrefsMeUser",
@@ -63,72 +65,68 @@ __d(
             if (
               c === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
             ) {
-              var C = o("WAWebOrderDetails").getOrderInfo(n);
-              if (!C) return null;
-              _.push(
-                o(
-                  "WAWebGetBrazilnteractiveActions",
-                ).getPaymentInfoOrderDetailsInteractiveAction(C, n),
-              );
+              var b = o("WAWebOrderDetails").getOrderInfo(n);
+              if (!b) return null;
+              _.push.apply(_, C(n, b));
             } else if (
               c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
             ) {
-              var b,
-                v = o("WAWebOrderDetails").getOrderInfo(n);
-              if (!v) return null;
-              var S = o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
-                R = o("WAWebOrderStatus").findOrderStatus(S, v.referenceId),
-                L = o("WAWebOrderExpansionAction").getOrderUpdateStatusAction({
-                  chat: S,
+              var v,
+                S = o("WAWebOrderDetails").getOrderInfo(n);
+              if (!S) return null;
+              var R = o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
+                L = o("WAWebOrderStatus").findOrderStatus(R, S.referenceId),
+                E = o("WAWebOrderExpansionAction").getOrderUpdateStatusAction({
+                  chat: R,
                   msg: n,
-                  orderInfo: v,
-                  orderStatus: R,
+                  orderInfo: S,
+                  orderStatus: L,
                   uimContext: l,
                 });
-              L && _.push(L);
-              var E = R === o("WAWebOrderStatus").OrderStatus.Pending,
-                k = i == null;
+              E && _.push(E);
+              var k = L === o("WAWebOrderStatus").OrderStatus.Pending,
+                I = i == null;
               if (
-                (S.contact.isEnterprise ||
-                  ((b = S.contact) == null ? void 0 : b.isHosted) === !0) &&
-                o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(S)
+                (R.contact.isEnterprise ||
+                  ((v = R.contact) == null ? void 0 : v.isHosted) === !0) &&
+                o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(R)
               ) {
-                var I = k ? p(v, n, S) : [g(n, l, !0)];
-                I.length === 0 ? _.push(g(n, l, !E)) : _.push.apply(_, I);
-              } else if (o("WAWebOrderStatus").isPaymentRequest(S, v)) {
-                var T = h(n, v);
-                T != null && _.push(T);
+                var T = I ? p(S, n, R) : [g(n, l, !0)];
+                T.length === 0 ? _.push(g(n, l, !k)) : _.push.apply(_, T);
+              } else if (o("WAWebOrderStatus").isPaymentRequest(R, S)) {
+                var D = h(n, S);
+                D != null && _.push(D);
               } else {
-                var D = null;
-                (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(S) &&
-                  o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(v) &&
-                  (D = o(
+                var x = null;
+                (o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(R) &&
+                  o("WAWebBrPaymentSettingsUtils").hasValidStaticPix(S) &&
+                  (x = o(
                     "WAWebGetBrazilnteractiveActions",
-                  ).getCopyPixStaticCodeInteractiveAction(n, v)),
-                  _.push(D != null ? D : g(n, l, !E)));
+                  ).getCopyPixStaticCodeInteractiveAction(n, S)),
+                  _.push(x != null ? x : g(n, l, !k)));
               }
               if (!o("WAWebMsgGetters").getIsSentByMe(n)) {
-                var x = o("WAWebGetQuickPayAction").getQuickPayAction(
+                var $ = o("WAWebGetQuickPayAction").getQuickPayAction(
                   n,
-                  v.type,
-                  !E,
+                  S.type,
+                  !k,
                 );
-                x && _.push(x);
+                $ && _.push($);
               }
             } else if (
               c ===
               r("WAWebInteractiveMessagesNativeFlowName").MESSAGE_WITH_LINK
             ) {
-              var $ = o(
+              var P = o(
                 "WAWebGetMessageWithLinkAction",
               ).getOpenMessageWithLinkAction(n);
-              $ && _.push($);
+              P && _.push(P);
             } else if (
               c ===
               r("WAWebInteractiveMessagesNativeFlowName").OFFER_PAYMENT_ACCOUNT
             ) {
-              var P = d(n);
-              P && _.push(P);
+              var N = d(n);
+              N && _.push(N);
             }
             if (
               c != null &&
@@ -136,10 +134,10 @@ __d(
                 "WAWebBizTemplateAndInteractiveMessagesUtils",
               ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(c)
             ) {
-              var N = o(
+              var M = o(
                 "WAWebGetInteractiveCtaActions",
               ).getNativeFlowCtasFromInteractiveMsg(n);
-              N != null && _.push.apply(_, m(N, n));
+              M != null && _.push.apply(_, m(M, n));
             }
           }
           break;
@@ -322,6 +320,20 @@ __d(
           );
         },
       };
+    }
+    function C(e, t) {
+      return o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForMsg(
+        e.unsafe(),
+      )
+        ? o("WAWebPaymentDetailsBubbleActions").getPaymentDetailsBubbleActions(
+            e,
+            t,
+          )
+        : [
+            o(
+              "WAWebGetBrazilnteractiveActions",
+            ).getPaymentInfoOrderDetailsInteractiveAction(t, e),
+          ];
     }
     l.default = c;
   },

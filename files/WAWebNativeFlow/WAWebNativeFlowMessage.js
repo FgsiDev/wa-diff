@@ -49,7 +49,7 @@ __d(
         headerTitle: { fontSize: "x6prxxf", fontWeight: "xk50ysn", $$css: !0 },
       };
     function _(e) {
-      var t = o("react-compiler-runtime").c(40),
+      var t = o("react-compiler-runtime").c(41),
         n = e.displayAuthor,
         a = e.displayType,
         i = e.msg,
@@ -110,41 +110,46 @@ __d(
             ? ((k = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
               (t[16] = k))
             : (k = t[16]);
-          var I = d.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
-              msg: i,
-              displayType: a,
-            }),
-            T;
-          (t[17] !== I
-            ? ((T = d.jsx("div", babelHelpers.extends({}, k, { children: I }))),
-              (t[17] = I),
-              (t[18] = T))
-            : (T = t[18]),
-            (l = T));
-          var D;
-          t[19] !== E
-            ? ((D = E
+          var I;
+          (t[17] !== a || t[18] !== i.id
+            ? ((I = d.jsx(
+                "div",
+                babelHelpers.extends({}, k, {
+                  children: d.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
+                    msgKey: i.id,
+                    displayType: a,
+                  }),
+                }),
+              )),
+              (t[17] = a),
+              (t[18] = i.id),
+              (t[19] = I))
+            : (I = t[19]),
+            (l = I));
+          var T;
+          t[20] !== E
+            ? ((T = E
                 ? s._(/*BTDS*/ "Review and pay")
                 : s._(/*BTDS*/ "View details")),
-              (t[19] = E),
-              (t[20] = D))
-            : (D = t[20]);
-          var x;
-          (t[21] !== D
-            ? ((x = { label: D, onClick: h }), (t[21] = D), (t[22] = x))
-            : (x = t[22]),
-            (c = [x]));
-          var $ = R == null ? void 0 : R.type;
+              (t[20] = E),
+              (t[21] = T))
+            : (T = t[21]);
+          var D;
+          (t[22] !== T
+            ? ((D = { label: T, onClick: h }), (t[22] = T), (t[23] = D))
+            : (D = t[23]),
+            (c = [D]));
+          var x = R == null ? void 0 : R.type;
           if (!o("WAWebMsgGetters").getIsSentByMe(i.unsafe())) {
-            var P = o("WAWebGetQuickPayAction").getQuickPayAction(i, $, !E);
-            if (P != null) {
-              var N;
-              if (t[23] !== P) {
-                var M = P.menu,
-                  w = babelHelpers.objectWithoutPropertiesLoose(P, u);
-                ((N = w), (t[23] = P), (t[24] = N));
-              } else N = t[24];
-              c.push(N);
+            var $ = o("WAWebGetQuickPayAction").getQuickPayAction(i, x, !E);
+            if ($ != null) {
+              var P;
+              if (t[24] !== $) {
+                var N = $.menu,
+                  M = babelHelpers.objectWithoutPropertiesLoose($, u);
+                ((P = M), (t[24] = $), (t[25] = P));
+              } else P = t[25];
+              c.push(P);
             }
           }
           ((t[12] = a), (t[13] = i), (t[14] = l), (t[15] = c));
@@ -153,31 +158,31 @@ __d(
         i.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
+        var w;
+        t[26] === Symbol.for("react.memo_cache_sentinel")
+          ? ((w = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
+            (t[26] = w))
+          : (w = t[26]);
         var A;
-        t[25] === Symbol.for("react.memo_cache_sentinel")
-          ? ((A = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
-            (t[25] = A))
-          : (A = t[25]);
-        var F;
-        (t[26] !== a || t[27] !== i
-          ? ((F = d.jsx(
+        (t[27] !== a || t[28] !== i.id
+          ? ((A = d.jsx(
               "div",
-              babelHelpers.extends({}, A, {
+              babelHelpers.extends({}, w, {
                 children: d.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
-                  msg: i,
+                  msgKey: i.id,
                   displayType: a,
                 }),
               }),
             )),
-            (t[26] = a),
-            (t[27] = i),
-            (t[28] = F))
-          : (F = t[28]),
-          (l = F));
+            (t[27] = a),
+            (t[28] = i.id),
+            (t[29] = A))
+          : (A = t[29]),
+          (l = A));
       } else {
-        var O;
-        (t[29] !== i
-          ? ((O = r("isStringNullOrEmpty")(i.title)
+        var F;
+        (t[30] !== i
+          ? ((F = r("isStringNullOrEmpty")(i.title)
               ? null
               : d.jsx(o("WAWebEmojiText.react").EmojiText, {
                   text: i.title,
@@ -189,47 +194,47 @@ __d(
                   inferLinesDirection: !0,
                   xstyle: [m.marginBottom6, p.headerTitle],
                 })),
-            (t[29] = i),
-            (t[30] = O))
-          : (O = t[30]),
-          (l = O));
-        var B;
-        if (t[31] !== i.nativeFlowButtons) {
-          var W;
-          ((B = (W = i.nativeFlowButtons) == null ? void 0 : W.map(f)),
-            (t[31] = i.nativeFlowButtons),
-            (t[32] = B));
-        } else B = t[32];
-        c = B;
+            (t[30] = i),
+            (t[31] = F))
+          : (F = t[31]),
+          (l = F));
+        var O;
+        if (t[32] !== i.nativeFlowButtons) {
+          var B;
+          ((O = (B = i.nativeFlowButtons) == null ? void 0 : B.map(f)),
+            (t[32] = i.nativeFlowButtons),
+            (t[33] = O));
+        } else O = t[33];
+        c = O;
       }
-      var q =
+      var W =
           i.nativeFlowName !==
           r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS,
-        U;
+        q;
       return (
-        t[33] !== c ||
-        t[34] !== n ||
-        t[35] !== a ||
-        t[36] !== l ||
-        t[37] !== i ||
-        t[38] !== q
-          ? ((U = d.jsx(r("WAWebInteractiveBubble.react"), {
+        t[34] !== c ||
+        t[35] !== n ||
+        t[36] !== a ||
+        t[37] !== l ||
+        t[38] !== i ||
+        t[39] !== W
+          ? ((q = d.jsx(r("WAWebInteractiveBubble.react"), {
               msg: i,
               displayAuthor: n,
-              displayFooter: q,
+              displayFooter: W,
               header: l,
               displayType: a,
               actions: c,
             })),
-            (t[33] = c),
-            (t[34] = n),
-            (t[35] = a),
-            (t[36] = l),
-            (t[37] = i),
-            (t[38] = q),
-            (t[39] = U))
-          : (U = t[39]),
-        U
+            (t[34] = c),
+            (t[35] = n),
+            (t[36] = a),
+            (t[37] = l),
+            (t[38] = i),
+            (t[39] = W),
+            (t[40] = q))
+          : (q = t[40]),
+        q
       );
     }
     function f(e) {
