@@ -12,6 +12,7 @@ __d(
     "WAWebCryptoCurve25519",
     "WAWebDbEncryptionKey",
     "WAWebLogoutReasonConstants",
+    "WAWebPageLoadLogging",
     "WAWebSocketConstants",
     "WAWebSocketLogoutJob",
     "WAWebUserPrefsMultiDeviceWorkerCompatible",
@@ -86,13 +87,19 @@ __d(
                   "WAWebUserPrefsScreenLockWorkerCompatible",
                 ).getScreenLockEnabled())
               ) {
-                o("WAWebBackendEventBusWorkerCompatible")
+                (o("WAWebBackendEventBusWorkerCompatible")
                   .getBackendEventBus()
                   .triggerSetSocketState(
                     o("WAWebSocketConstants").SOCKET_STATE.SCREEN_LOCKED,
-                  );
+                  ),
+                  o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                    "hs_passcode_wait",
+                  ));
                 var n = yield this.passcodeUnlockNoiseInfo(e);
-                n && (e = n);
+                (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                  "hs_passcode_wait",
+                ),
+                  n && (e = n));
               }
               var r = yield this.$3(e);
               return r

@@ -2,6 +2,7 @@ __d(
   "WAWebNewsletterStatusFetchAction",
   [
     "$InternalEnum",
+    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
@@ -20,6 +21,8 @@ __d(
     "WAWebNewsletterReactionCollection",
     "WAWebNewsletterStatusProcessingUtils",
     "WAWebNewsletterUpdateMsgsRecordsJob",
+    "WAWebNoop",
+    "WAWebNullFunc",
     "WAWebStatusCollection",
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
@@ -32,37 +35,60 @@ __d(
       u,
       c,
       d,
-      m = n("$InternalEnum").Mirrored([
+      m,
+      p = n("$InternalEnum").Mirrored([
         "NewStatuses",
         "NoNewStatuses",
         "FetchFailed",
-      ]),
-      p = new Map();
+      ]);
     function _(e) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = p.get(e);
-          if (t != null) return t;
-          var n = S(e);
-          p.set(e, n);
-          try {
-            return yield n;
-          } finally {
-            p.delete(e);
-          }
+          var t = yield (m || (m = n("Promise"))).all([
+              h(e),
+              C(e).catch(o("WAWebNullFunc").returnNull),
+            ]),
+            a = t[0],
+            i = t[1];
+          return (
+            i != null &&
+              (yield v(i, e).catch(r("WAWebNoop")),
+              yield R(i, e).catch(r("WAWebNoop"))),
+            a
+          );
         })),
         f.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    var g = new Map();
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = g.get(e);
+          if (t != null) return t;
+          var n = E(e);
+          g.set(e, n);
+          try {
+            return yield n;
+          } finally {
+            g.delete(e);
+          }
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o(
             "WAWebStatusGatingUtils",
           ).isChannelStatusLikesSendEnabledNoExposure()
@@ -71,15 +97,15 @@ __d(
               ).fetchNewsletterStatusMyReactions(e)
             : null;
         })),
-        h.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (t.length !== 0)
             try {
               var r = yield o(
@@ -112,15 +138,15 @@ __d(
                 .sendLogs("newsletter-status-my-reactions-hydrate-failed");
             }
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function v() {
+    function L() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebStatusCollection").StatusCollection.get(
             o("WAWebJidToWid").jidWithTypeToWid({
               jidType: "newsletter",
@@ -201,15 +227,15 @@ __d(
               }
           }
         })),
-        v.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function R() {
+    function k() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = o("WAWebNewsletterQueryUtils").mapMembershipTypeToViewRole(
               r("WAWebNewsletterMetadataCollection") == null ||
@@ -225,7 +251,7 @@ __d(
               ).getNewsletterStatuses(e, n, {}),
               s = l.from,
               d = l.msgs,
-              p = l.reactionCounts,
+              m = l.reactionCounts,
               _ = l.revokedServerIds,
               f = l.viewCounts;
             if (
@@ -239,15 +265,15 @@ __d(
                 String(d.length),
                 e,
               ),
-              yield L(s, _ != null ? _ : []),
+              yield I(s, _ != null ? _ : []),
               d.length === 0)
             )
-              return x(s, e);
-            yield k({
+              return N(s, e);
+            yield D({
               from: s,
               msgs: d,
               viewCounts: f,
-              reactionCounts: p,
+              reactionCounts: m,
               isFullFetch: !0,
             });
             var g =
@@ -268,7 +294,7 @@ __d(
                 o(
                   "WAWebNewsletterStatusProcessingUtils",
                 ).syncFilledStatusCursor(e, h),
-              m.NewStatuses
+              p.NewStatuses
             );
           } catch (t) {
             return (
@@ -284,19 +310,19 @@ __d(
                 .catching(r("getErrorSafe")(t))
                 .tags("newsletter", "status")
                 .sendLogs("newsletter-status-fetch-failed"),
-              m.FetchFailed
+              p.FetchFailed
             );
           }
         })),
-        R.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t.length !== 0) {
             var n = o("WAWebStatusCollection").StatusCollection.get(e);
             if (n != null) {
@@ -314,15 +340,15 @@ __d(
             }
           }
         })),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function I() {
+    function x() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.from,
             n = e.isFullFetch,
             r = e.msgs,
@@ -370,19 +396,19 @@ __d(
             n)
           ) {
             var m = o("WAWebStatusCollection").StatusCollection.get(t);
-            m != null && (yield T(m));
+            m != null && (yield $(m));
           }
           o("WAWebNewsletterStatusProcessingUtils").updateStatusUnreadCount(t);
         })),
-        I.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function D() {
+    function P() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [];
           e.msgs.forEach(function (e) {
             return t.push(e.id.toString());
@@ -395,10 +421,10 @@ __d(
             r != null && r >= o("WAWebAck").ACK.READ && e.set({ ack: r });
           });
         })),
-        D.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function x(e, t) {
+    function N(e, t) {
       var n,
         a = o("WAWebStatusCollection").StatusCollection.get(e);
       a != null && o("WAWebStatusCollection").StatusCollection.remove(a);
@@ -416,14 +442,15 @@ __d(
             t,
             l,
           ),
-        m.NoNewStatuses
+        p.NoNewStatuses
       );
     }
-    ((l.FetchResult = m),
-      (l.fetchNewsletterStatuses = _),
-      (l.fetchMyStatusReactions = g),
-      (l.hydrateMyStatusReactions = y),
-      (l.reconcileMyStatusReactions = b));
+    ((l.FetchResult = p),
+      (l.fetchNewsletterStatusesAndMyReactions = _),
+      (l.fetchNewsletterStatuses = h),
+      (l.fetchMyStatusReactions = C),
+      (l.hydrateMyStatusReactions = v),
+      (l.reconcileMyStatusReactions = R));
   },
   98,
 );

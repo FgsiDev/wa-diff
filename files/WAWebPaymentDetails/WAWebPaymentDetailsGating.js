@@ -9,40 +9,67 @@ __d(
     "WAWebPaymentsGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t = e.id.remote;
+    var e = ["msgKey"];
+    function s(e) {
+      return u({
+        interactivePayload: e.interactivePayload,
+        interactiveType: e.interactiveType,
+        msgKey: e.id,
+        nativeFlowName: e.nativeFlowName,
+        type: e.type,
+      });
+    }
+    function u(t) {
+      var n = t.msgKey,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        a = n.remote;
       return (
-        t.isUser() &&
-        !t.isBot() &&
-        (!o("WAWebMobilePlatforms").isSMB() || e.id.fromMe) &&
-        o("WAWebBrazilPaymentState").isReceiptAndStateStamped(u(e)) &&
+        a.isUser() &&
+        !a.isBot() &&
+        (!o("WAWebMobilePlatforms").isSMB() || n.fromMe) &&
+        o("WAWebBrazilPaymentState").isReceiptAndStateStamped(m(r)) &&
         o("WAWebPaymentsGatingUtils").isBrazilPaymentDetailsAvailable()
       );
     }
-    function s(e) {
+    function c(e) {
       return (
         (!o("WAWebMobilePlatforms").isSMB() || e) &&
         o("WAWebPaymentsGatingUtils").isBrazilPaymentDetailsAvailable()
       );
     }
-    function u(e) {
-      var t;
-      if (
-        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-        e.nativeFlowName ===
-          r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO &&
-        (t = e.interactivePayload) != null &&
-        t.buttons
-      ) {
-        var n = e.interactivePayload;
-        return n;
-      }
-      return null;
+    function d(e) {
+      return m({
+        interactivePayload: e.interactivePayload,
+        interactiveType: e.interactiveType,
+        nativeFlowName: e.nativeFlowName,
+        type: e.type,
+      });
     }
-    ((l.isPaymentDetailsEnabledForMsg = e),
-      (l.isPaymentDetailsEnabledForReceiptNotice = s),
-      (l.getPaymentInfoPayload = u));
+    function m(e) {
+      var t = e.interactivePayload,
+        n = e.interactiveType,
+        a = e.nativeFlowName,
+        i = e.type;
+      if (
+        i !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        n !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !(t != null && t.buttons)
+      )
+        return null;
+      var l = t;
+      return p(a, l) ? l : null;
+    }
+    function p(e, t) {
+      return (
+        e === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO ||
+        (e === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
+          o("WAWebBrazilPaymentState").isPixCodeRequestPayload(t))
+      );
+    }
+    ((l.isPaymentDetailsEnabledForMsg = s),
+      (l.isPaymentDetailsEnabledFor = u),
+      (l.isPaymentDetailsEnabledForReceiptNotice = c),
+      (l.getPaymentRequestPayload = d));
   },
   98,
 );

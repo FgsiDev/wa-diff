@@ -1,10 +1,10 @@
 __d(
   "cometVirtualizationMarginStep",
-  ["justknobx"],
+  ["VirtualizationConfig"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = r("justknobx")._("3658"),
-      s = r("justknobx")._("3659");
+    var e = o("VirtualizationConfig").getMarginScrollDelta(),
+      s = o("VirtualizationConfig").getScrollSpeedFactorBase();
     function u(e, t) {
       return (
         e.bottom === t.bottom &&

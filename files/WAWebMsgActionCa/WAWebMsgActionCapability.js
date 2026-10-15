@@ -632,6 +632,7 @@ __d(
         (t === void 0 && (t = !1),
         o("WAWebMessageEditUtils").getMsgEditType(e.type) !==
           o("WAWebMessageEditUtils").MsgEditType.PollEdit ||
+          o("WAWebMsgGetters").getIsNewsletterMsg(e) ||
           !o("WAWebPollsGatingUtils").isPollCreatorEditSendingEnabled(
             e.id.remote,
           ))

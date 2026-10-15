@@ -6,8 +6,8 @@ __d(
     "WAWebBrazilPaymentState",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
-    "WAWebGetBrazilnteractiveActions",
     "WAWebLazyLoadedRetriable",
+    "WAWebMsgCollection",
     "WAWebPaymentDetailsModels",
     "WAWebPaymentDetailsStatusPolicy",
     "WAWebPaymentDetailsStrings",
@@ -20,78 +20,95 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = s || (s = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(function () {
+      u,
+      c = u || (u = o("react")),
+      d = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")("WAWebPaymentDetailsDialogs.react")
           .__setRef("WAWebPaymentDetailsBubbleActions")
           .load();
       }, "WAWebPaymentDetailsDialogs");
-    function d(e, t) {
-      var n = e.unsafe(),
-        a = o("WAWebPaymentDetailsModels").getPaymentDetailsPov(n.id.fromMe),
-        i = o("WAWebBrazilPaymentState").getBrazilPaymentState(
-          n.interactivePayload,
-        ),
-        l = o("WAWebBrazilPaymentState").getPaymentDetailsStatus(i),
-        s = o("WAWebFrontendContactGetters").getFormattedName(
-          o("WAWebFrontendMsgGetters").getChat(n).contact,
-        ),
+    function m(e, t) {
+      var n = e.interactivePayload,
+        a = e.msgKey,
+        i = o("WAWebPaymentDetailsModels").getPaymentDetailsPov(a.fromMe),
+        l = o("WAWebBrazilPaymentState").getBrazilPaymentState(n),
+        s = o("WAWebBrazilPaymentState").getPaymentDetailsStatus(l),
         u = [];
       return (
-        o("WAWebPaymentDetailsStatusPolicy").canMarkAsPaid(a, l) &&
+        o("WAWebPaymentDetailsStatusPolicy").canMarkAsPaid(i, s) &&
           u.push({
             label: o("WAWebPaymentDetailsStrings").getMarkAsPaidLabel(),
             onClick: function () {
-              m(function (e) {
-                var t = e.confirmMarkAsPaid;
-                return t(n, s);
-              }, o("WAWebPaymentDetailsStrings").getMarkAsPaidFailedToast);
+              p(
+                a,
+                function (e, t, n) {
+                  var r = e.confirmMarkAsPaid;
+                  return r(t, n);
+                },
+                o("WAWebPaymentDetailsStrings").getMarkAsPaidFailedToast,
+              );
             },
             testid: "payment-details-bubble-mark-as-paid",
           }),
-        o("WAWebPaymentDetailsStatusPolicy").showsCopyPixKeyCta(a, l) &&
-          u.push(
-            o(
-              "WAWebGetBrazilnteractiveActions",
-            ).getPaymentInfoOrderDetailsInteractiveAction(t, e),
-          ),
+        t != null &&
+          o("WAWebPaymentDetailsStatusPolicy").showsCopyCta(i, s) &&
+          u.push(t),
         o("WAWebPaymentDetailsStatusPolicy").canAttachReceipt(
-          a,
-          i.receiptMsgId,
+          i,
+          l.receiptMsgId,
         ) &&
           u.push({
             label: o("WAWebPaymentDetailsStrings").getAddReceiptLabel(),
             Icon: r("WDSIconIcAdd.react"),
             onClick: function () {
-              m(function (e) {
-                var t = e.openAddReceiptDialog;
-                return t(n, s);
-              }, o("WAWebPaymentDetailsStrings").getAddReceiptFailedToast);
+              p(
+                a,
+                function (e, t, n) {
+                  var r = e.openAddReceiptDialog;
+                  return r(t, n);
+                },
+                o("WAWebPaymentDetailsStrings").getAddReceiptFailedToast,
+              );
             },
             testid: "payment-details-bubble-add-receipt",
           }),
         u
       );
     }
-    function m(t, n) {
-      c()
-        .then(t)
-        .catch(function (t) {
+    function p(t, n, a) {
+      var i = o("WAWebMsgCollection").MsgCollection.get(t);
+      if (i == null) {
+        o("WALogger").WARN(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[br-payment-details] payment message left the collection before its dialog opened",
+            ])),
+        );
+        return;
+      }
+      var l = o("WAWebFrontendContactGetters").getFormattedName(
+        o("WAWebFrontendMsgGetters").getChat(i).contact,
+      );
+      d()
+        .then(function (e) {
+          return n(e, i, l);
+        })
+        .catch(function (e) {
           (o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[br-payment-details] could not open a payment details dialog",
                 ])),
             )
-            .catching(r("getErrorSafe")(t))
+            .catching(r("getErrorSafe")(e))
             .sendLogs("payment-details-dialogs-load-failed"),
             o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, { msg: n() }),
+              c.jsx(o("WAWebToast.react").Toast, { msg: a() }),
             ));
         });
     }
-    l.getPaymentDetailsBubbleActions = d;
+    l.getPaymentDetailsBubbleActions = m;
   },
   98,
 );

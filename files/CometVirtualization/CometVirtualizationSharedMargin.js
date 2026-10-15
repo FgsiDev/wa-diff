@@ -8,8 +8,9 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new Map();
-    function s(e, t) {
+    var e = o("VirtualizationConfig").getScrollHandlingDebounceMs(),
+      s = new Map();
+    function u(e, t) {
       return JSON.stringify([
         e,
         t.initialTopBottomMargin,
@@ -18,90 +19,90 @@ __d(
         t.readAheadMarginMax,
       ]);
     }
-    function u(t) {
-      var n, r;
-      return (n = (r = e.get(t)) == null ? void 0 : r.margin) != null
-        ? n
+    function c(e) {
+      var t, n;
+      return (t = (n = s.get(e)) == null ? void 0 : n.margin) != null
+        ? t
         : null;
     }
-    function c(e, t) {
+    function d(e, t) {
       ((e.margin = t),
         Array.from(e.listeners).forEach(function (e) {
           return e();
         }));
     }
-    function d(t, n, r) {
-      var a = e.get(t);
-      if (a != null) {
-        var i = a.config,
-          l = o("cometVirtualizationMarginStep").computeNextMargin(
-            a.margin,
+    function m(e, t, n) {
+      var r = s.get(e);
+      if (r != null) {
+        var a = r.config,
+          i = o("cometVirtualizationMarginStep").computeNextMargin(
+            r.margin,
+            t,
             n,
-            r,
             o("cometVirtualizationMarginBounds").computeMarginBounds(
-              i.initialTopBottomMargin,
+              a.initialTopBottomMargin,
               window.innerHeight,
-              i.isInfiniteScrollUp,
-              i.readAheadMarginMax,
+              a.isInfiniteScrollUp,
+              a.readAheadMarginMax,
             ),
           );
-        l !== a.margin && c(a, l);
+        i !== r.margin && d(r, i);
       }
     }
-    function m(e) {
+    function p(e) {
       return e instanceof Element ? e.scrollTop : e.scrollY;
     }
-    function p(e, t, n) {
+    function _(t, n, o) {
       var a = r("CometDebounce")(
           function () {
-            var n = m(t),
-              r = n > l.lastScrollTop;
-            ((l.lastScrollTop = n), d(e, r, l.scrollSpeed.weightedSpeed));
+            var e = p(n),
+              r = e > l.lastScrollTop;
+            ((l.lastScrollTop = e), m(t, r, l.scrollSpeed.weightedSpeed));
           },
-          { wait: o("VirtualizationConfig").SCROLL_HANDLING_DEBOUNCE_MS },
+          { wait: e },
         ),
         i = function () {
           return a();
         },
         l = {
           detach: function () {
-            (t.removeEventListener("scroll", i), a.reset());
+            (n.removeEventListener("scroll", i), a.reset());
           },
-          lastScrollTop: m(t),
-          scrollSpeed: n,
+          lastScrollTop: p(n),
+          scrollSpeed: o,
           subscribers: 0,
         };
-      return (t.addEventListener("scroll", i, { passive: !0 }), l);
+      return (n.addEventListener("scroll", i, { passive: !0 }), l);
     }
-    function _(t, n, r, o, a, i) {
-      var l,
-        s = e.get(t);
-      s == null &&
-        ((s = {
+    function f(e, t, n, r, o, a) {
+      var i,
+        l = s.get(e);
+      l == null &&
+        ((l = {
           attachments: new Map(),
-          config: babelHelpers.extends({}, n),
+          config: babelHelpers.extends({}, t),
           listeners: new Set(),
-          margin: r,
+          margin: n,
         }),
-        e.set(t, s));
-      var u = s,
-        c = (l = u.attachments.get(o)) != null ? l : p(t, o, a);
-      (u.attachments.set(o, c),
+        s.set(e, l));
+      var u = l,
+        c = (i = u.attachments.get(r)) != null ? i : _(e, r, o);
+      (u.attachments.set(r, c),
         c.subscribers++,
-        (c.scrollSpeed = a),
-        u.listeners.add(i));
+        (c.scrollSpeed = o),
+        u.listeners.add(a));
       var d = !0;
       return function () {
         d &&
           ((d = !1),
-          u.listeners.delete(i),
-          --c.subscribers === 0 && (c.detach(), u.attachments.delete(o)));
+          u.listeners.delete(a),
+          --c.subscribers === 0 && (c.detach(), u.attachments.delete(r)));
       };
     }
-    ((l.getSharedMarginKey = s),
-      (l.readSharedMargin = u),
-      (l.stepSharedMargin = d),
-      (l.subscribeToSharedMargin = _));
+    ((l.getSharedMarginKey = u),
+      (l.readSharedMargin = c),
+      (l.stepSharedMargin = m),
+      (l.subscribeToSharedMargin = f));
   },
   98,
 );

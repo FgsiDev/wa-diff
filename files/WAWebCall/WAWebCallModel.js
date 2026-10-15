@@ -70,6 +70,7 @@ __d(
             (n.postCallSurveyInteracted = !1),
             (n.wasEverConnected = !1),
             (n.wasEverActive = !1),
+            (n.didRefreshGroupInfoOnMismatch = !1),
             (n.callLogResult = null),
             (n.userEndedCall = !1),
             (n.callFailedReason = null),

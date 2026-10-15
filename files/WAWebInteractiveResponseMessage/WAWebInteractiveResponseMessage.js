@@ -1,14 +1,12 @@
 __d(
   "WAWebInteractiveResponseMessage",
   [
-    "WAWebFrontendMsgGetters",
     "WAWebGalaxyFlowFeatureSupport",
     "WAWebInteractiveBubble.react",
     "WAWebInteractiveGalaxyFlowResponseMessage.react",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebStateUtils",
     "react",
     "react-compiler-runtime",
     "useWAWebMsgValues",
@@ -18,7 +16,7 @@ __d(
       s,
       u = s || (s = o("react"));
     function c(t) {
-      var n = o("react-compiler-runtime").c(21),
+      var n = o("react-compiler-runtime").c(14),
         a,
         i,
         l;
@@ -35,72 +33,48 @@ __d(
       if (n[4] === Symbol.for("react.memo_cache_sentinel")) {
         var c;
         ((s = [
-          (c = o("WAWebMsgGetters")).getNativeFlowName,
+          (c = o("WAWebMsgGetters")).getType,
+          c.getNativeFlowName,
           c.getInteractiveType,
           c.getInteractivePayload,
           c.getTo,
-          o("WAWebFrontendMsgGetters").getSafeMsg,
         ]),
           (n[4] = s));
       } else s = n[4];
-      var m = o("useWAWebMsgValues").useMsgValues(a, s),
-        p = m[0],
-        _ = m[1],
-        f = m[2],
-        g = m[3],
-        h = m[4],
-        y,
-        C,
-        b,
-        v;
-      if (n[5] !== i || n[6] !== h) {
-        v = Symbol.for("react.early_return_sentinel");
-        e: {
-          var S = d(h);
-          if (S == null) {
-            v = null;
-            break e;
-          }
-          ((y = r("WAWebInteractiveBubble.react")),
-            (C = i),
-            (b = o("WAWebStateUtils").unproxy(S)));
-        }
-        ((n[5] = i),
-          (n[6] = h),
-          (n[7] = y),
-          (n[8] = C),
-          (n[9] = b),
-          (n[10] = v));
-      } else ((y = n[7]), (C = n[8]), (b = n[9]), (v = n[10]));
-      if (v !== Symbol.for("react.early_return_sentinel")) return v;
-      var R;
-      n[11] !== l
-        ? ((R = l
+      var d = o("useWAWebMsgValues").useMsgValues(a, s),
+        m = d[0],
+        p = d[1],
+        _ = d[2],
+        f = d[3],
+        g = d[4];
+      if (m !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE) return null;
+      var h;
+      n[5] !== l
+        ? ((h = l
             ? u.jsx("div", {
                 className: "x1198e8h x1lxpwgx xzueoph xw01apr",
                 children: l,
               })
             : null),
-          (n[11] = l),
-          (n[12] = R))
-        : (R = n[12]);
-      var L;
-      n[13] !== y || n[14] !== C || n[15] !== b || n[16] !== R
-        ? ((L = u.jsx(
-            y,
-            babelHelpers.extends({}, C, {
-              msg: b,
-              header: R,
+          (n[5] = l),
+          (n[6] = h))
+        : (h = n[6]);
+      var y;
+      n[7] !== a || n[8] !== i || n[9] !== h
+        ? ((y = u.jsx(
+            r("WAWebInteractiveBubble.react"),
+            babelHelpers.extends({}, i, {
+              msgKey: a,
+              header: h,
               displayFooter: !1,
             }),
           )),
-          (n[13] = y),
-          (n[14] = C),
-          (n[15] = b),
-          (n[16] = R),
-          (n[17] = L))
-        : (L = n[17]);
-      var E = L;
+          (n[7] = a),
+          (n[8] = i),
+          (n[9] = h),
+          (n[10] = y))
+        : (y = n[10]);
+      var C = y;
       if (
         p === r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW &&
         o("WAWebGalaxyFlowFeatureSupport").isFlowResponseSupportedFor({
@@ -109,26 +83,21 @@ __d(
           to: g,
         })
       ) {
-        var k;
+        var b;
         return (
-          n[18] !== E || n[19] !== a
-            ? ((k = u.jsx(
+          n[11] !== C || n[12] !== a
+            ? ((b = u.jsx(
                 r("WAWebInteractiveGalaxyFlowResponseMessage.react"),
-                { msgKey: a, defaultMsg: E },
+                { msgKey: a, defaultMsg: C },
               )),
-              (n[18] = E),
-              (n[19] = a),
-              (n[20] = k))
-            : (k = n[20]),
-          k
+              (n[11] = C),
+              (n[12] = a),
+              (n[13] = b))
+            : (b = n[13]),
+          b
         );
       }
-      return E;
-    }
-    function d(e) {
-      return e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE
-        ? e
-        : null;
+      return C;
     }
     l.default = c;
   },
