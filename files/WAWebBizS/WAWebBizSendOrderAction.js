@@ -15,7 +15,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebOrderCollection",
-    "WAWebOrderDetailMath",
+    "WAWebOrderDetailMathDefaultOffset",
     "WAWebOrderStatus",
     "WAWebPaymentsGatingUtils",
     "WAWebPaymentsPixBannerUtils",
@@ -306,7 +306,7 @@ __d(
                 currency: a.currency,
                 total_amount: {
                   value: 0,
-                  offset: o("WAWebOrderDetailMath").DEFAULT_OFFSET,
+                  offset: o("WAWebOrderDetailMathDefaultOffset").DEFAULT_OFFSET,
                 },
                 order_request_id: a.id,
                 order: {
@@ -318,7 +318,8 @@ __d(
                         "WAWebBizOrderGetFriendlyRandomIdAction",
                       )(),
                       amount: {
-                        offset: o("WAWebOrderDetailMath").DEFAULT_OFFSET,
+                        offset: o("WAWebOrderDetailMathDefaultOffset")
+                          .DEFAULT_OFFSET,
                         value: 0,
                       },
                       name: "",
@@ -329,7 +330,8 @@ __d(
                   ],
                   subtotal: {
                     value: 0,
-                    offset: o("WAWebOrderDetailMath").DEFAULT_OFFSET,
+                    offset: o("WAWebOrderDetailMathDefaultOffset")
+                      .DEFAULT_OFFSET,
                   },
                   tax: null,
                   shipping: null,

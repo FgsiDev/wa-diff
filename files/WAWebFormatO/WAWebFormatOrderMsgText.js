@@ -1,1 +1,16 @@
-__d("WAWebFormatOrderMsgText",[],(function(t,n,r,o,a,i){function e(e){var t=e.msg;return t.message||""}i.default=e}),66);
+__d(
+  "WAWebFormatOrderMsgText",
+  ["WAWebFormatMsgTextUtils"],
+  function (t, n, r, o, a, i, l) {
+    function e(e) {
+      var t = e.msg,
+        n = e.options;
+      return o("WAWebFormatMsgTextUtils").maskSpoilersWithOptions(
+        t.message || "",
+        n,
+      );
+    }
+    l.default = e;
+  },
+  98,
+);

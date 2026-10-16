@@ -1,1 +1,21 @@
-__d("WAWebFormatTemplateButtonReplyMsgText",["WAWebUnformatMsg"],(function(t,n,r,o,a,i,l){function e(e){var t,n=e.msg,o=e.options.unformat;return o===!0?r("WAWebUnformatMsg")(n,n.body):(t=n.body)!=null?t:""}l.default=e}),98);
+__d(
+  "WAWebFormatTemplateButtonReplyMsgText",
+  ["WAWebFormatMsgTextUtils"],
+  function (t, n, r, o, a, i, l) {
+    function e(e) {
+      var t = e.msg,
+        n = e.options;
+      if (n.unformat !== !0) {
+        var r;
+        return (r = t.body) != null ? r : "";
+      }
+      return o("WAWebFormatMsgTextUtils").unformatTextWithSpoilerReplacement(
+        t,
+        t.body,
+        n,
+      );
+    }
+    l.default = e;
+  },
+  98,
+);
