@@ -536,65 +536,82 @@ __d(
     }
     ft.displayName = ft.name + " [from " + i.id + "]";
     function gt() {
-      return s._(/*BTDS*/ "Manage customer base");
+      return s._(/*BTDS*/ "Disconnected");
     }
     gt.displayName = gt.name + " [from " + i.id + "]";
-    function ht() {
-      return s._(/*BTDS*/ "Manage your customer base in advanced settings");
+    function ht(e) {
+      return s._(/*BTDS*/ "Connect business broadcasts to send. {=m2}", [
+        s._implicitParam(
+          "=m2",
+          u.jsx(r("WDSTextualLink.react"), {
+            onClick: e,
+            testid: "biz-broadcasts-connect-banner-action",
+            children: s._(/*BTDS*/ "Connect"),
+          }),
+        ),
+      ]);
     }
     ht.displayName = ht.name + " [from " + i.id + "]";
     function yt() {
+      return s._(/*BTDS*/ "Manage customer base");
+    }
+    yt.displayName = yt.name + " [from " + i.id + "]";
+    function Ct() {
+      return s._(/*BTDS*/ "Manage your customer base in advanced settings");
+    }
+    Ct.displayName = Ct.name + " [from " + i.id + "]";
+    function bt() {
       return s._(
         /*BTDS*/ "Download subscribed recipients in advanced settings",
       );
     }
-    yt.displayName = yt.name + " [from " + i.id + "]";
-    function Ct() {
+    bt.displayName = bt.name + " [from " + i.id + "]";
+    function vt() {
       return s._(
         /*BTDS*/ "Remove recipients from data sharing in advanced settings",
       );
     }
-    Ct.displayName = Ct.name + " [from " + i.id + "]";
-    function bt() {
-      return s._(/*BTDS*/ "View");
-    }
-    bt.displayName = bt.name + " [from " + i.id + "]";
-    function vt() {
-      return s._(/*BTDS*/ "Customer base");
-    }
     vt.displayName = vt.name + " [from " + i.id + "]";
     function St() {
-      return s._(/*BTDS*/ "Unsubscribe recipients");
+      return s._(/*BTDS*/ "View");
     }
     St.displayName = St.name + " [from " + i.id + "]";
     function Rt() {
-      return s._(/*BTDS*/ "Download subscribed recipients");
+      return s._(/*BTDS*/ "Customer base");
     }
     Rt.displayName = Rt.name + " [from " + i.id + "]";
     function Lt() {
-      return s._(/*BTDS*/ "Message limits");
+      return s._(/*BTDS*/ "Unsubscribe recipients");
     }
     Lt.displayName = Lt.name + " [from " + i.id + "]";
-    function Et(e) {
+    function Et() {
+      return s._(/*BTDS*/ "Download subscribed recipients");
+    }
+    Et.displayName = Et.name + " [from " + i.id + "]";
+    function kt() {
+      return s._(/*BTDS*/ "Message limits");
+    }
+    kt.displayName = kt.name + " [from " + i.id + "]";
+    function It(e) {
       return s._(
         /*BTDS*/ '_j{"*":"{conversations} daily conversations","_1":"1 daily conversation"}',
         [s._plural(e, "conversations")],
       );
     }
-    Et.displayName = Et.name + " [from " + i.id + "]";
-    function kt() {
-      return s._(/*BTDS*/ "Unlimited daily conversations");
-    }
-    kt.displayName = kt.name + " [from " + i.id + "]";
-    function It() {
-      return s._(/*BTDS*/ "Message limit");
-    }
     It.displayName = It.name + " [from " + i.id + "]";
     function Tt() {
-      return s._(/*BTDS*/ "Daily conversations");
+      return s._(/*BTDS*/ "Unlimited daily conversations");
     }
     Tt.displayName = Tt.name + " [from " + i.id + "]";
-    function Dt(e, t) {
+    function Dt() {
+      return s._(/*BTDS*/ "Message limit");
+    }
+    Dt.displayName = Dt.name + " [from " + i.id + "]";
+    function xt() {
+      return s._(/*BTDS*/ "Daily conversations");
+    }
+    xt.displayName = xt.name + " [from " + i.id + "]";
+    function $t(e, t) {
       return s._(
         /*BTDS*/ '_j{"*":"{daily conversations sent} of {daily conversation limit} sent"}',
         [
@@ -603,32 +620,32 @@ __d(
         ],
       );
     }
-    Dt.displayName = Dt.name + " [from " + i.id + "]";
-    function xt(e) {
+    $t.displayName = $t.name + " [from " + i.id + "]";
+    function Pt(e) {
       return s._(/*BTDS*/ "{daily conversations sent} of unlimited sent", [
         s._param("daily conversations sent", e),
       ]);
     }
-    xt.displayName = xt.name + " [from " + i.id + "]";
-    function $t() {
-      return s._(/*BTDS*/ "Message limits aren't available right now.");
-    }
-    $t.displayName = $t.name + " [from " + i.id + "]";
-    function Pt() {
-      return s._(/*BTDS*/ "Increase message limit");
-    }
     Pt.displayName = Pt.name + " [from " + i.id + "]";
     function Nt() {
+      return s._(/*BTDS*/ "Message limits aren't available right now.");
+    }
+    Nt.displayName = Nt.name + " [from " + i.id + "]";
+    function Mt() {
+      return s._(/*BTDS*/ "Increase message limit");
+    }
+    Mt.displayName = Mt.name + " [from " + i.id + "]";
+    function wt() {
       return s._(
         /*BTDS*/ "Complete these requirements to raise your daily limit.",
       );
     }
-    Nt.displayName = Nt.name + " [from " + i.id + "]";
-    function Mt() {
+    wt.displayName = wt.name + " [from " + i.id + "]";
+    function At() {
       return s._(/*BTDS*/ "Switch to primary phone");
     }
-    Mt.displayName = Mt.name + " [from " + i.id + "]";
-    function wt() {
+    At.displayName = At.name + " [from " + i.id + "]";
+    function Ft() {
       return s._(/*BTDS*/ "Get verified on your primary phone. {=m2}", [
         s._implicitParam(
           "=m2",
@@ -639,45 +656,40 @@ __d(
         ),
       ]);
     }
-    wt.displayName = wt.name + " [from " + i.id + "]";
-    function At() {
-      return s._(
-        /*BTDS*/ "You may need to log back in after this change is complete.",
-      );
-    }
-    At.displayName = At.name + " [from " + i.id + "]";
-    function Ft() {
-      return s._(
-        /*BTDS*/ "You may need to log back in after setup is complete.",
-      );
-    }
     Ft.displayName = Ft.name + " [from " + i.id + "]";
     function Ot() {
       return s._(
-        /*BTDS*/ "Business broadcasts need to be disconnected on your primary phone.",
+        /*BTDS*/ "You may need to log back in after this change is complete.",
       );
     }
     Ot.displayName = Ot.name + " [from " + i.id + "]";
     function Bt() {
       return s._(
-        /*BTDS*/ "Set up advanced tools on your primary phone. {=m2}",
-        [
-          s._implicitParam(
-            "=m2",
-            u.jsx(r("WDSTextualLink.react"), {
-              href: o("WAWebFaqUrl").getBusinessBroadcastsLearnMoreUrl(),
-              children: s._(/*BTDS*/ "Learn about advanced tools"),
-            }),
-          ),
-        ],
+        /*BTDS*/ "You may need to log back in after setup is complete.",
       );
     }
     Bt.displayName = Bt.name + " [from " + i.id + "]";
     function Wt() {
-      return s._(/*BTDS*/ "Send high-quality messages");
+      return s._(
+        /*BTDS*/ "Business broadcasts need to be disconnected on your primary phone.",
+      );
     }
     Wt.displayName = Wt.name + " [from " + i.id + "]";
-    function qt(e, t, n, a) {
+    function qt() {
+      return s._(/*BTDS*/ "Switch to your primary phone");
+    }
+    qt.displayName = qt.name + " [from " + i.id + "]";
+    function Ut() {
+      return s._(
+        /*BTDS*/ "Business broadcasts need to be connected on your primary phone.",
+      );
+    }
+    Ut.displayName = Ut.name + " [from " + i.id + "]";
+    function Vt() {
+      return s._(/*BTDS*/ "Send high-quality messages");
+    }
+    Vt.displayName = Vt.name + " [from " + i.id + "]";
+    function Ht(e, t, n, a) {
       if ((a === void 0 && (a = !1), a)) {
         var i;
         return (
@@ -707,7 +719,7 @@ __d(
         [s._plural(n, "days"), s._param("sent", e), s._param("target", t)],
       );
     }
-    ((qt.displayName = qt.name + " [from " + i.id + "]"),
+    ((Ht.displayName = Ht.name + " [from " + i.id + "]"),
       (l.getBroadcastColumnHeader = c),
       (l.getAudienceColumnHeader = d),
       (l.getStatusColumnHeader = m),
@@ -822,32 +834,35 @@ __d(
       (l.getBusinessBroadcastsSettingsTitle = pt),
       (l.getAdvancedToolsLabel = _t),
       (l.getConnectBusinessBroadcastsLabel = ft),
-      (l.getManageCustomerBaseSectionLabel = gt),
-      (l.getManageCustomerBaseReminderToast = ht),
-      (l.getDownloadSubscribedRecipientsReminderToast = yt),
-      (l.getRemoveFromDataSharingReminderToast = Ct),
-      (l.getReminderToastActionLabel = bt),
-      (l.getCustomerBaseIdentityLabel = vt),
-      (l.getUnsubscribeRecipientsLabel = St),
-      (l.getDownloadSubscribedRecipientsLabel = Rt),
-      (l.getMessageLimitsLabel = Lt),
-      (l.getMessageLimitsSublabel = Et),
-      (l.getUnlimitedMessageLimitsSublabel = kt),
-      (l.getMessageLimitPanelTitle = It),
-      (l.getDailyConversationsLabel = Tt),
-      (l.getDailyConversationsUsageLabel = Dt),
-      (l.getUnlimitedDailyConversationsUsageLabel = xt),
-      (l.getMessageLimitsUnavailableLabel = $t),
-      (l.getIncreaseMessageLimitLabel = Pt),
-      (l.getIncreaseMessageLimitSublabel = Nt),
-      (l.getVerifyOnPhoneTitle = Mt),
-      (l.getVerifyOnPhoneSubtitle = wt),
-      (l.getAdvancedToolsSettingsReloginNotice = At),
-      (l.getAdvancedToolsSetupReloginNotice = Ft),
-      (l.getAdvancedToolsTurnOffOnPhoneSubtitle = Ot),
-      (l.getAdvancedToolsTurnOnOnPhoneSubtitle = Bt),
-      (l.getSendHighQualityMessagesLabel = Wt),
-      (l.getSendHighQualityMessagesProgressSublabel = qt));
+      (l.getConnectBroadcastsBannerTitle = gt),
+      (l.getConnectBroadcastsBannerBody = ht),
+      (l.getManageCustomerBaseSectionLabel = yt),
+      (l.getManageCustomerBaseReminderToast = Ct),
+      (l.getDownloadSubscribedRecipientsReminderToast = bt),
+      (l.getRemoveFromDataSharingReminderToast = vt),
+      (l.getReminderToastActionLabel = St),
+      (l.getCustomerBaseIdentityLabel = Rt),
+      (l.getUnsubscribeRecipientsLabel = Lt),
+      (l.getDownloadSubscribedRecipientsLabel = Et),
+      (l.getMessageLimitsLabel = kt),
+      (l.getMessageLimitsSublabel = It),
+      (l.getUnlimitedMessageLimitsSublabel = Tt),
+      (l.getMessageLimitPanelTitle = Dt),
+      (l.getDailyConversationsLabel = xt),
+      (l.getDailyConversationsUsageLabel = $t),
+      (l.getUnlimitedDailyConversationsUsageLabel = Pt),
+      (l.getMessageLimitsUnavailableLabel = Nt),
+      (l.getIncreaseMessageLimitLabel = Mt),
+      (l.getIncreaseMessageLimitSublabel = wt),
+      (l.getVerifyOnPhoneTitle = At),
+      (l.getVerifyOnPhoneSubtitle = Ft),
+      (l.getAdvancedToolsSettingsReloginNotice = Ot),
+      (l.getAdvancedToolsSetupReloginNotice = Bt),
+      (l.getAdvancedToolsTurnOffOnPhoneSubtitle = Wt),
+      (l.getConnectBroadcastsOnPhoneTitle = qt),
+      (l.getAdvancedToolsTurnOnOnPhoneSubtitle = Ut),
+      (l.getSendHighQualityMessagesLabel = Vt),
+      (l.getSendHighQualityMessagesProgressSublabel = Ht));
   },
   226,
 );

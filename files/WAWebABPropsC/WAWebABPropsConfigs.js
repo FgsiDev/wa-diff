@@ -4200,6 +4200,7 @@ __d(
       web_voip_camera_fingerprint_logging_enabled: [39096, "bool", !1, !0],
       web_voip_capture_video_rotation_type: [27973, "int", 0, 0],
       web_voip_deferred_boot_early_module_prefetch: [35091, "bool", !1, !1],
+      web_voip_deferred_boot_hidden_prewarm: [39722, "bool", !1, !1],
       web_voip_deferred_boot_init: [34923, "bool", !1, !1],
       web_voip_deferred_boot_init_max_delay_ms: [34924, "int", 12e4, 12e4],
       web_voip_device_access_recovery_enabled: [38393, "bool", !1, !1],
