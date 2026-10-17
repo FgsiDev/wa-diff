@@ -115,7 +115,7 @@ __d(
       C = {
         description: function () {
           return s._(
-            /*BTDS*/ "Tap the heart to like a status, just like on your phone.",
+            /*BTDS*/ "Select the heart to like a status, just like on your phone.",
           );
         },
         Icon: r("WDSIconIcFavorite.react"),

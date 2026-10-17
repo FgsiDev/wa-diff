@@ -4,35 +4,47 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "jarvis-media://",
-      s = "mmg",
-      u = 1e3;
-    function c(t) {
-      if (t == null) return null;
-      var n = t.encryptedMedia;
-      return t.url.startsWith(e)
-        ? n == null || n.mediaTransport !== s
+      s = 1e3;
+    function u(e) {
+      if (e == null) return null;
+      var t = e.encryptedMedia;
+      return d(e.url)
+        ? t == null
           ? null
           : {
               descriptor: {
-                directPath: n.directPath,
-                encFilehash: n.fileEncSha256B64,
-                filehash: n.fileSha256B64,
-                mediaKey: n.mediaKeyB64,
-                mediaKeyTimestamp: Math.floor(n.mediaKeyTimestampMs / u),
-                mediaType: m(n.mediaType, n.mimeType),
-                mimetype: n.mimeType,
+                directPath: t.directPath,
+                encFilehash: t.encFilehash,
+                filehash: t.filehash,
+                mediaKey: t.mediaKey,
+                mediaKeyTimestamp: Math.floor(t.mediaKeyTimestampMs / s),
+                mediaType: p(t.mediaType, t.mimeType),
+                mimetype: t.mimeType,
               },
               kind: "encrypted",
             }
-        : o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(t.url)
-          ? { kind: "url", url: t.url }
+        : o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(e.url)
+          ? { kind: "url", url: e.url }
           : null;
     }
-    function d(e) {
+    function c(e, t) {
+      if (e == null) return null;
+      if (d(e)) {
+        var n = t.get(e);
+        return (n == null ? void 0 : n.url) === e ? u(n) : null;
+      }
+      return o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(e)
+        ? { kind: "url", url: e }
+        : null;
+    }
+    function d(t) {
+      return t.startsWith(e);
+    }
+    function m(e) {
       var t = e == null ? void 0 : e.thumbnailJpegB64;
       return t != null ? "data:image/jpeg;base64," + t : null;
     }
-    function m(e, t) {
+    function p(e, t) {
       var n =
         e === "image" || e === "sticker" || e === "xma-image"
           ? "image"
@@ -53,7 +65,10 @@ __d(
               ? "audio"
               : "document";
     }
-    ((l.getHatchJarvisMediaSource = c), (l.getHatchJarvisThumbnailUrl = d));
+    ((l.getHatchJarvisMediaSource = u),
+      (l.getHatchJarvisImageSource = c),
+      (l.isHatchJarvisMediaUrl = d),
+      (l.getHatchJarvisThumbnailUrl = m));
   },
   98,
 );

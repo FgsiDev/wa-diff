@@ -1,6 +1,12 @@
 __d(
   "WAWebHatchJarvisWidgets",
-  ["WAWebHatchJsonReaders", "WAWebHatchUrl"],
+  [
+    "WAWebHatchBrowserTask",
+    "WAWebHatchJarvisMedia",
+    "WAWebHatchJsonReaders",
+    "WAWebHatchSecureCredentialDecoder",
+    "WAWebHatchUrl",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new Set(["building", "failed", "pending"]);
@@ -56,7 +62,7 @@ __d(
             action_url: e.linkUrl,
             card_id: (t != null ? t : "list") + "/" + n,
             connector_id: n,
-            image_url: e.imageUrl,
+            image_url: o("WAWebHatchUrl").toWebUrl(e.imageUrl),
             subtitle: e.body,
             title: e.title,
           };
@@ -65,43 +71,40 @@ __d(
       var n,
         r,
         a = s(o("WAWebHatchJsonReaders").readString(e, "title")),
-        i = o("WAWebHatchUrl").toWebUrl(
+        i = o(
+          "WAWebHatchSecureCredentialDecoder",
+        ).readHatchSecureCredentialCaptureLink(
           o("WAWebHatchJsonReaders").readString(
             o("WAWebHatchJsonReaders").readObject(e, "data"),
             "url",
           ),
-        );
+        ),
+        l = function (t) {
+          return s(i == null ? void 0 : i.get(t));
+        },
+        u = o("WAWebHatchUrl").toHttpsUrl(l("page_url"));
       if (
         o("WAWebHatchJsonReaders").readString(e, "type") !==
           "credentials_vault" ||
         t == null ||
         a == null ||
-        i == null
+        u == null
       )
         return null;
-      var l = new URL(i);
-      if (!l.pathname.endsWith("/browser-credentials")) return null;
-      var u = new URLSearchParams(l.hash.replace(/^#/, "")),
-        c = function (t) {
-          return s(u.get(t));
-        },
-        d = o("WAWebHatchUrl").toWebUrl(c("page_url")),
-        m = d != null ? new URL(d) : null;
-      if (m == null || m.protocol !== "https:" || m.username !== "")
-        return null;
-      var p = c("verification_code_label");
+      var c = new URL(u),
+        d = l("verification_code_label");
       return {
         __typename: "GenAISecureCredentialRequestPrimitive",
-        capture_kind: p != null ? "VERIFICATION_CODE" : "SIGN_IN",
+        capture_kind: d != null ? "VERIFICATION_CODE" : "SIGN_IN",
         fields:
-          p != null
-            ? [L("VERIFICATION_CODE", p, !0)]
+          d != null
+            ? [E("VERIFICATION_CODE", d, !0)]
             : [
-                L("USERNAME", (n = c("username_label")) != null ? n : "", !1),
-                L("PASSWORD", (r = c("password_label")) != null ? r : "", !0),
+                E("USERNAME", (n = l("username_label")) != null ? n : "", !1),
+                E("PASSWORD", (r = l("password_label")) != null ? r : "", !0),
               ],
-        host: m.hostname,
-        page_url: d != null ? d : "",
+        host: c.hostname,
+        page_url: u,
         request_id: t,
         status: "PENDING",
         subtitle: s(o("WAWebHatchJsonReaders").readString(e, "subtitle")),
@@ -147,39 +150,35 @@ __d(
     function p(e) {
       var t,
         n,
-        r = s(o("WAWebHatchJsonReaders").readString(e, "browser_task_id"));
-      if (r == null) return null;
-      var a = o("WAWebHatchJsonReaders").readObject(e, "current_site"),
-        i = s(o("WAWebHatchJsonReaders").readString(e, "display_status")),
-        l = s(o("WAWebHatchJsonReaders").readString(e, "status")),
-        u = o("WAWebHatchJsonReaders").readNumber(e, "version");
+        r,
+        a = o("WAWebHatchBrowserTask").decodeHatchBrowserTask(e),
+        i = s(a == null ? void 0 : a.browserTaskID);
+      if (a == null || i == null) return null;
+      var l = o("WAWebHatchJsonReaders").readObject(e, "current_site"),
+        u = s(a.displayStatus),
+        c = s(a.status);
       return {
         __typename: "GenAIBrowserTaskPrimitive",
-        activity_title: s(
-          o("WAWebHatchJsonReaders").readString(e, "activity_title"),
-        ),
-        browser_task_id: r,
+        activity_title: s(a.activityTitle),
+        browser_task_id: i,
         current_site:
-          a != null
+          l != null
             ? {
                 __typename: "GenAIBrowserTaskSite",
-                domain: s(o("WAWebHatchJsonReaders").readString(a, "domain")),
-                page_title: s(
-                  o("WAWebHatchJsonReaders").readString(a, "page_title"),
-                ),
+                domain: s(a.siteDomain),
+                page_title: s(a.pageTitle),
                 url: o("WAWebHatchUrl").toWebUrl(
-                  o("WAWebHatchJsonReaders").readString(a, "url"),
+                  o("WAWebHatchJsonReaders").readString(l, "url"),
                 ),
               }
             : null,
-        preview_available:
-          o("WAWebHatchJsonReaders").readBool(e, "preview_available") === !0,
-        state: v(l, i),
-        status: l != null ? l : "",
-        status_label: i,
+        preview_available: a.previewAvailable === !0,
+        state: S(c, u),
+        status: c != null ? c : "",
+        status_label: u,
         title:
           (t =
-            (n = s(o("WAWebHatchJsonReaders").readString(e, "title"))) != null
+            (n = s(a.title)) != null
               ? n
               : s(
                   o("WAWebHatchJsonReaders").readString(
@@ -188,8 +187,8 @@ __d(
                   ),
                 )) != null
             ? t
-            : s(o("WAWebHatchJsonReaders").readString(a, "page_title")),
-        version: u != null ? u : 0,
+            : s(a.pageTitle),
+        version: (r = a.version) != null ? r : 0,
       };
     }
     function _(e) {
@@ -252,14 +251,12 @@ __d(
             description: s(
               o("WAWebHatchJsonReaders").readString(e, "description"),
             ),
-            imageUrl: o("WAWebHatchUrl").toWebUrl(
-              o("WAWebHatchJsonReaders").readString(e, "image_url"),
-            ),
+            imageUrl: C(o("WAWebHatchJsonReaders").readString(e, "image_url")),
             siteName: s(o("WAWebHatchJsonReaders").readString(e, "site_name")),
             title:
               (n = s(o("WAWebHatchJsonReaders").readString(e, "title"))) != null
                 ? n
-                : R(t, r),
+                : L(t, r),
             url: r,
           };
     }
@@ -302,11 +299,9 @@ __d(
         body: s(o("WAWebHatchJsonReaders").readString(e, "subtitle")),
         flight:
           n === "flight"
-            ? C(o("WAWebHatchJsonReaders").readObject(r, "flight_data"))
+            ? b(o("WAWebHatchJsonReaders").readObject(r, "flight_data"))
             : null,
-        imageUrl: o("WAWebHatchUrl").toWebUrl(
-          o("WAWebHatchJsonReaders").readString(e, "image_url"),
-        ),
+        imageUrl: C(o("WAWebHatchJsonReaders").readString(e, "image_url")),
         linkUrl:
           n === "link"
             ? o("WAWebHatchUrl").toWebUrl(
@@ -318,6 +313,11 @@ __d(
       };
     }
     function C(e) {
+      return e != null && o("WAWebHatchJarvisMedia").isHatchJarvisMediaUrl(e)
+        ? e
+        : o("WAWebHatchUrl").toWebUrl(e);
+    }
+    function b(e) {
       if (e == null) return null;
       var t = o("WAWebHatchJsonReaders").readObject(e, "bags");
       return {
@@ -331,8 +331,8 @@ __d(
         detailsUrl: o("WAWebHatchUrl").toWebUrl(
           o("WAWebHatchJsonReaders").readString(e, "flight_link"),
         ),
-        isChangeable: b(o("WAWebHatchJsonReaders").readString(e, "changeable")),
-        isRefundable: b(o("WAWebHatchJsonReaders").readString(e, "refundable")),
+        isChangeable: v(o("WAWebHatchJsonReaders").readString(e, "changeable")),
+        isRefundable: v(o("WAWebHatchJsonReaders").readString(e, "refundable")),
         legs: o("WAWebHatchJsonReaders")
           .readObjects(e, "slices")
           .map(function (e) {
@@ -360,11 +360,11 @@ __d(
         price: s(o("WAWebHatchJsonReaders").readString(e, "price")),
       };
     }
-    function b(e) {
+    function v(e) {
       return e === "yes" ? !0 : e === "no" ? !1 : null;
     }
-    function v(e, t) {
-      var n = S(t);
+    function S(e, t) {
+      var n = R(t);
       return n === "starting"
         ? "STARTING"
         : (function (e) {
@@ -387,19 +387,19 @@ __d(
                               ? "NEEDS_USER"
                               : "STOPPED"
                             : "WORKING";
-          })(S(e));
+          })(R(e));
     }
-    function S(e) {
+    function R(e) {
       return (e != null ? e : "").toLowerCase().replace(/[- ]/g, "_");
     }
-    function R(e, t) {
+    function L(e, t) {
       var n = e.trim(),
         r = "](" + t + ")";
       if (!n.startsWith("[") || !n.endsWith(r)) return null;
       var o = n.slice(1, -r.length).trim();
       return o === "" || o === t || o.includes("](") ? null : o;
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       return {
         __typename: "GenAISecureCredentialField",
         is_secret: n,
