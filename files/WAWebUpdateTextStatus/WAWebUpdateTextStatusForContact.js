@@ -7,55 +7,66 @@ __d(
     "WAWebDBUpdateContactTable",
     "WAWebTextStatusUtils",
     "WAWebWidFactory",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
       return e === "mex-notification" || e === "mex-notification-side-sub";
     }
-    async function u(t) {
-      var n = t.contactId,
-        r = t.emoji,
-        a = t.ephemeralDuration,
-        i = t.newUpdateTime,
-        l = t.source,
-        u = t.textString,
-        d = o("WAWebWidFactory").createUserWidOrThrow(n.user, n.server),
-        m = await o("WAWebApiContact").getContactRecord(d);
-      if (!m) {
-        s(l) &&
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[textStatus] notification ",
-                  ": no contact for ",
-                  "",
-                ])),
-              l,
-              d.toLogString(),
-            )
-            .sendLogs("text-status-notification-no-contact", { sampling: 0.1 });
-        return;
-      }
-      var p = c({
-        contact: m,
-        emoji: r,
-        ephemeralDuration: a,
-        newUpdateTime: i,
-        textString: u,
-      });
-      p &&
-        (await o("WAWebDBUpdateContactTable").updateContactTable(
-          d,
-          babelHelpers.extends({}, p),
-        ),
-        o("WAWebBackendApi").frontendFireAndForget(
-          "updateTextStatus",
-          babelHelpers.extends({}, p, { contactId: d }),
-        ));
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function c(e) {
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.contactId,
+            r = t.emoji,
+            a = t.ephemeralDuration,
+            i = t.newUpdateTime,
+            l = t.source,
+            u = t.textString,
+            c = o("WAWebWidFactory").createUserWidOrThrow(n.user, n.server),
+            m = yield o("WAWebApiContact").getContactRecord(c);
+          if (!m) {
+            s(l) &&
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[textStatus] notification ",
+                      ": no contact for ",
+                      "",
+                    ])),
+                  l,
+                  c.toLogString(),
+                )
+                .sendLogs("text-status-notification-no-contact", {
+                  sampling: 0.1,
+                });
+            return;
+          }
+          var p = d({
+            contact: m,
+            emoji: r,
+            ephemeralDuration: a,
+            newUpdateTime: i,
+            textString: u,
+          });
+          p &&
+            (yield o("WAWebDBUpdateContactTable").updateContactTable(
+              c,
+              babelHelpers.extends({}, p),
+            ),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateTextStatus",
+              babelHelpers.extends({}, p, { contactId: c }),
+            ));
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e) {
       var t = e.contact,
         n = e.emoji,
         r = e.ephemeralDuration,

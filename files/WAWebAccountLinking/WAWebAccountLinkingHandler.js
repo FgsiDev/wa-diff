@@ -13,6 +13,7 @@ __d(
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -25,253 +26,309 @@ __d(
       _ = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       );
-    async function f() {
-      o(
-        "WAWebMetaAiWaffleAuthTokenCache",
-      ).clearMetaAiWaffleAuthTokenBlobCache();
-      try {
-        await _.updateAccountLinkingState(
-          o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
-        );
-      } finally {
-        await o(
-          "WAWebSubscriptionAgeGating",
-        ).invalidateSubscriptionAgeVerdict();
-      }
+    function f() {
+      return g.apply(this, arguments);
     }
-    async function g(t) {
-      if (t === o("WAWebAccountLinkingConstants").AccountUnlinkType.SELF) {
-        o(
-          "WAWebMetaAiWaffleAuthTokenCache",
-        ).clearMetaAiWaffleAuthTokenBlobCache();
-        try {
-          await _.purgeWaffleData();
-        } finally {
-          await o(
-            "WAWebSubscriptionAgeGating",
-          ).invalidateSubscriptionAgeVerdict();
-        }
-        o("WAWebWaffleLifecycleWamLogger").logPurge({
-          linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
-            .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
-          traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-            .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
-          unlinkType: 0,
-        });
-      } else
-        try {
-          (await o("WAWebAccountLinkingAPI").ping(),
-            await o("WAWebAccountLinkingAPI").fetchServiceData(),
-            o("WAWebWaffleLifecycleWamLogger").logNotification({
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o(
+            "WAWebMetaAiWaffleAuthTokenCache",
+          ).clearMetaAiWaffleAuthTokenBlobCache();
+          try {
+            yield _.updateAccountLinkingState(
+              o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
+            );
+          } finally {
+            yield o(
+              "WAWebSubscriptionAgeGating",
+            ).invalidateSubscriptionAgeVerdict();
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (t === o("WAWebAccountLinkingConstants").AccountUnlinkType.SELF) {
+            o(
+              "WAWebMetaAiWaffleAuthTokenCache",
+            ).clearMetaAiWaffleAuthTokenBlobCache();
+            try {
+              yield _.purgeWaffleData();
+            } finally {
+              yield o(
+                "WAWebSubscriptionAgeGating",
+              ).invalidateSubscriptionAgeVerdict();
+            }
+            o("WAWebWaffleLifecycleWamLogger").logPurge({
               linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
-                .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.NOT_APPLICABLE,
+                .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
               traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
                 .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
-              unlinkType: 1,
-            }));
-        } catch (t) {
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAFFLE] handleUnlinkedState partial unlink failed: ",
-                  "",
-                ])),
-              t,
-            )
-            .tags("waffle", "account-linking", "unlink")
-            .sendLogs("waffle-partial-unlink-failed", { sampling: 0.01 });
-        }
+              unlinkType: 0,
+            });
+          } else
+            try {
+              (yield o("WAWebAccountLinkingAPI").ping(),
+                yield o("WAWebAccountLinkingAPI").fetchServiceData(),
+                o("WAWebWaffleLifecycleWamLogger").logNotification({
+                  linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
+                    .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.NOT_APPLICABLE,
+                  traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                    .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
+                  unlinkType: 1,
+                }));
+            } catch (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE] handleUnlinkedState partial unlink failed: ",
+                      "",
+                    ])),
+                  t,
+                )
+                .tags("waffle", "account-linking", "unlink")
+                .sendLogs("waffle-partial-unlink-failed", { sampling: 0.01 });
+            }
+        })),
+        y.apply(this, arguments)
+      );
     }
-    async function h() {
-      try {
-        (await o("WAWebAccountLinkingAPI").ping(),
-          await o("WAWebAccountLinkingAPI").fetchServiceData());
-      } catch (e) {
-        throw (
-          o("WALogger")
-            .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAFFLE] handleResyncState active state failed: ",
-                  "",
-                ])),
-              e,
-            )
-            .tags("waffle", "account-linking", "resync")
-            .sendLogs("waffle-resync-active-failed", { sampling: 0.01 }),
-          e
-        );
-      }
+    function C() {
+      return b.apply(this, arguments);
     }
-    async function y() {
-      try {
-        var e = await o("WAWebAccountLinkingAPI").stateExists();
-        if (e != null)
-          switch (e) {
-            case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
-              .UNLINKED:
-              o(
-                "WAWebMetaAiWaffleAuthTokenCache",
-              ).clearMetaAiWaffleAuthTokenBlobCache();
-              try {
-                await _.purgeWaffleData();
-              } finally {
-                await o(
-                  "WAWebSubscriptionAgeGating",
-                ).invalidateSubscriptionAgeVerdict();
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            (yield o("WAWebAccountLinkingAPI").ping(),
+              yield o("WAWebAccountLinkingAPI").fetchServiceData());
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE] handleResyncState active state failed: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .tags("waffle", "account-linking", "resync")
+                .sendLogs("waffle-resync-active-failed", { sampling: 0.01 }),
+              e
+            );
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var e = yield o("WAWebAccountLinkingAPI").stateExists();
+            if (e != null)
+              switch (e) {
+                case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
+                  .UNLINKED:
+                  o(
+                    "WAWebMetaAiWaffleAuthTokenCache",
+                  ).clearMetaAiWaffleAuthTokenBlobCache();
+                  try {
+                    yield _.purgeWaffleData();
+                  } finally {
+                    yield o(
+                      "WAWebSubscriptionAgeGating",
+                    ).invalidateSubscriptionAgeVerdict();
+                  }
+                  break;
+                case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
+                  .ACTIVE:
+                  o("WAWebAccountLinkingGatingUtils").isGuestMode()
+                    ? yield o("WAWebAccountLinkingAPI").refreshAccessToken()
+                    : yield o(
+                        "WAWebAccountLinkingNonceFetchAPI",
+                      ).requestNonceFromPrimary();
+                  break;
+                case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
+                  .PAUSED:
+                  break;
               }
-              break;
-            case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
-              .ACTIVE:
-              o("WAWebAccountLinkingGatingUtils").isGuestMode()
-                ? await o("WAWebAccountLinkingAPI").refreshAccessToken()
-                : await o(
-                    "WAWebAccountLinkingNonceFetchAPI",
-                  ).requestNonceFromPrimary();
-              break;
-            case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
-              .PAUSED:
-              break;
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE] handleResyncState paused state failed: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .tags("waffle", "account-linking", "resync")
+                .sendLogs("waffle-resync-paused-failed", { sampling: 0.01 }),
+              e
+            );
           }
-      } catch (e) {
-        throw (
-          o("WALogger")
-            .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAFFLE] handleResyncState paused state failed: ",
-                  "",
-                ])),
-              e,
-            )
-            .tags("waffle", "account-linking", "resync")
-            .sendLogs("waffle-resync-paused-failed", { sampling: 0.01 }),
-          e
-        );
-      }
+        })),
+        S.apply(this, arguments)
+      );
     }
-    async function C() {
-      try {
-        var e = await o("WAWebAccountLinkingAPI").stateExists();
-        if (e != null)
-          switch (e) {
-            case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
-              .UNLINKED:
-              break;
-            case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
-              .ACTIVE:
-              o("WAWebAccountLinkingGatingUtils").isGuestMode()
-                ? await o("WAWebAccountLinkingAPI").refreshAccessToken()
-                : await o(
-                    "WAWebAccountLinkingNonceFetchAPI",
-                  ).requestNonceFromPrimary();
-              break;
-            case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
-              .PAUSED:
-              await f();
-              break;
+    function R() {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var e = yield o("WAWebAccountLinkingAPI").stateExists();
+            if (e != null)
+              switch (e) {
+                case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
+                  .UNLINKED:
+                  break;
+                case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
+                  .ACTIVE:
+                  o("WAWebAccountLinkingGatingUtils").isGuestMode()
+                    ? yield o("WAWebAccountLinkingAPI").refreshAccessToken()
+                    : yield o(
+                        "WAWebAccountLinkingNonceFetchAPI",
+                      ).requestNonceFromPrimary();
+                  break;
+                case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
+                  .PAUSED:
+                  yield f();
+                  break;
+              }
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE] handleResyncState unlinked state failed: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .tags("waffle", "account-linking", "resync")
+                .sendLogs("waffle-resync-unlinked-failed", { sampling: 0.01 }),
+              e
+            );
           }
-      } catch (e) {
-        throw (
-          o("WALogger")
-            .ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAFFLE] handleResyncState unlinked state failed: ",
-                  "",
-                ])),
-              e,
-            )
-            .tags("waffle", "account-linking", "resync")
-            .sendLogs("waffle-resync-unlinked-failed", { sampling: 0.01 }),
-          e
-        );
-      }
+        })),
+        L.apply(this, arguments)
+      );
     }
-    async function b(e) {
-      try {
-        if (e != null) {
-          var t = await _.getLastResyncTimestamp();
-          if (t != null) {
-            var n = o("WATimeUtils").unixTime() - t;
-            if (n >= 0 && n <= e) return !0;
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            if (e != null) {
+              var t = yield _.getLastResyncTimestamp();
+              if (t != null) {
+                var n = o("WATimeUtils").unixTime() - t;
+                if (n >= 0 && n <= e) return !0;
+              }
+            }
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WAFFLE] handleResyncState dedup check failed: ",
+                    "",
+                  ])),
+                e,
+              )
+              .tags("waffle", "account-linking", "resync")
+              .sendLogs("waffle-resync-dedup-failed", { sampling: 0.01 });
           }
-        }
-      } catch (e) {
-        o("WALogger")
-          .ERROR(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "[WAFFLE] handleResyncState dedup check failed: ",
-                "",
-              ])),
-            e,
-          )
-          .tags("waffle", "account-linking", "resync")
-          .sendLogs("waffle-resync-dedup-failed", { sampling: 0.01 });
-      }
-      return !1;
+          return !1;
+        })),
+        k.apply(this, arguments)
+      );
     }
-    async function v(e) {
-      if (!(await b(e))) {
-        try {
-          await o("WAWebAccountLinkingAPI").fetchValidCertificate();
-        } catch (e) {
-          o("WALogger")
-            .ERROR(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAFFLE] handleResyncState cert refresh failed: ",
-                  "",
-                ])),
-              e,
-            )
-            .tags("waffle", "account-linking", "resync")
-            .sendLogs("waffle-resync-cert-failed", { sampling: 0.01 });
-        }
-        try {
-          var t = await _.getAccountLinkingData();
-          (t != null
-            ? (o("WAWebWaffleLifecycleWamLogger").logNotification({
-                linkState: o("WAWebWaffleLifecycleWamLogger").mapLinkStateToWam(
-                  t.linkState,
-                ),
-                traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-                  .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
-              }),
-              t.linkState ===
-                o("WAWebAccountLinkingConstants").AccountLinkState.Active &&
-                (await h()),
-              t.linkState ===
-                o("WAWebAccountLinkingConstants").AccountLinkState.Paused &&
-                (await y()))
-            : (o("WAWebWaffleLifecycleWamLogger").logNotification({
-                linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
-                  .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
-                traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-                  .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
-              }),
-              await C()),
-            await _.updateLastResyncTimestamp(o("WATimeUtils").unixTime()));
-        } catch (e) {
-          o("WALogger")
-            .ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAFFLE] handleResyncState failed: ",
-                  "",
-                ])),
-              e,
-            )
-            .tags("waffle", "account-linking", "resync")
-            .sendLogs("waffle-resync-failed", { sampling: 0.01 });
-        }
-      }
+    function I(e) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!(yield E(e))) {
+            try {
+              yield o("WAWebAccountLinkingAPI").fetchValidCertificate();
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE] handleResyncState cert refresh failed: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .tags("waffle", "account-linking", "resync")
+                .sendLogs("waffle-resync-cert-failed", { sampling: 0.01 });
+            }
+            try {
+              var t = yield _.getAccountLinkingData();
+              (t != null
+                ? (o("WAWebWaffleLifecycleWamLogger").logNotification({
+                    linkState: o(
+                      "WAWebWaffleLifecycleWamLogger",
+                    ).mapLinkStateToWam(t.linkState),
+                    traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                      .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
+                  }),
+                  t.linkState ===
+                    o("WAWebAccountLinkingConstants").AccountLinkState.Active &&
+                    (yield C()),
+                  t.linkState ===
+                    o("WAWebAccountLinkingConstants").AccountLinkState.Paused &&
+                    (yield v()))
+                : (o("WAWebWaffleLifecycleWamLogger").logNotification({
+                    linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
+                      .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
+                    traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                      .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
+                  }),
+                  yield R()),
+                yield _.updateLastResyncTimestamp(o("WATimeUtils").unixTime()));
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE] handleResyncState failed: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .tags("waffle", "account-linking", "resync")
+                .sendLogs("waffle-resync-failed", { sampling: 0.01 });
+            }
+          }
+        })),
+        T.apply(this, arguments)
+      );
     }
     ((l.handlePausedState = f),
-      (l.handleUnlinkedState = g),
-      (l.handleResyncState = v));
+      (l.handleUnlinkedState = h),
+      (l.handleResyncState = I));
   },
   98,
 );

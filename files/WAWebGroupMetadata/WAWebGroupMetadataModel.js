@@ -2,6 +2,7 @@ __d(
   "WAWebGroupMetadataModel",
   [
     "fbt",
+    "Promise",
     "WALogger",
     "WAShiftTimer",
     "WAWebBaseModel",
@@ -27,12 +28,14 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = (function (t) {
-        function n() {
+      u,
+      c = (function (t) {
+        function a() {
           for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
             a[i] = arguments[i];
           return (
@@ -127,10 +130,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.isNonAdminAndACAGJREnabled = function () {
+          (i.isNonAdminAndACAGJREnabled = function () {
             var e,
               t = !this.participants.iAmAdmin(),
               n = this.participants.iAmMember(),
@@ -140,7 +143,7 @@ __d(
               a = (e = this.membershipApprovalMode) != null ? e : !1;
             return t && n && r && a;
           }),
-          (a.hasUniqueShortNameMention = function (t) {
+          (i.hasUniqueShortNameMention = function (t) {
             var e;
             if (
               !this.uniqueShortNameMap ||
@@ -151,13 +154,13 @@ __d(
             var n = this.$GroupMetadata$p_2(t.shortName);
             return (e = this.uniqueShortNameMap.get(n)) != null ? e : !1;
           }),
-          (a.$GroupMetadata$p_2 = function (t) {
+          (i.$GroupMetadata$p_2 = function (t) {
             return t.toLowerCase().trim();
           }),
-          (a.isSuspendedOrTerminated = function () {
+          (i.isSuspendedOrTerminated = function () {
             return this.suspended || this.terminated;
           }),
-          (a.delete = function () {
+          (i.delete = function () {
             (t.prototype.delete.call(this),
               this.getCollection().remove(this.id),
               this.participants.delete(),
@@ -168,7 +171,7 @@ __d(
                 "WAWebFrontendGroupMetadataGetters",
               ).clearFrontendGroupMetadataGetterCacheFor(this));
           }),
-          (a.canSetSubject = function () {
+          (i.canSetSubject = function () {
             return this.isSuspendedOrTerminated() ||
               o("WAWebGroupMetadataGetters").getGroupType(this) ===
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
@@ -184,7 +187,7 @@ __d(
                       : !this.support
                   : !1;
           }),
-          (a.canSetDescription = function () {
+          (i.canSetDescription = function () {
             return !this.participants.iAmMember() ||
               (!this.participants.iAmAdmin() && this.restrict) ||
               this.isSuspendedOrTerminated() ||
@@ -196,7 +199,7 @@ __d(
               ? !1
               : !this.support;
           }),
-          (a.canSetGroupProperty = function () {
+          (i.canSetGroupProperty = function () {
             return this.isSuspendedOrTerminated() ||
               o("WAWebGroupMetadataGetters").getGroupType(this) ===
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
@@ -205,7 +208,7 @@ __d(
                 ? !this.support
                 : !1;
           }),
-          (a.userCanSetEphemeralSetting = function (t) {
+          (i.userCanSetEphemeralSetting = function (t) {
             var e = !this.support;
             if (this.isSuspendedOrTerminated()) return !1;
             if (t.isUser()) {
@@ -218,7 +221,7 @@ __d(
               ? !1
               : e;
           }),
-          (a.canSetEphemeralSetting = function () {
+          (i.canSetEphemeralSetting = function () {
             var e = this;
             return o("WAWebUserPrefsMeUser")
               .getMeDeviceWids()
@@ -228,7 +231,7 @@ __d(
                 );
               });
           }),
-          (a.initialize = function () {
+          (i.initialize = function () {
             var e = this;
             o("WAWebBaseModel").BaseModel.prototype.initialize.call(this);
             var t = function () {
@@ -286,20 +289,20 @@ __d(
                 o("WAWebGroupType").GroupType.COMMUNITY &&
                 this.$GroupMetadata$p_4());
           }),
-          (a.$GroupMetadata$p_6 = function () {
+          (i.$GroupMetadata$p_6 = function () {
             var e;
             (e = this.$GroupMetadata$p_1) == null ||
-              e.debounce(n.UPDATE_NAME_MAP_DEBOUNCE_TIME);
+              e.debounce(a.UPDATE_NAME_MAP_DEBOUNCE_TIME);
           }),
-          (a.triggerParticipantsChange = function () {
+          (i.triggerParticipantsChange = function () {
             if (o("WAWebMiscGatingUtils").isDropLastNameEnabled()) {
               var e;
               (e = this.$GroupMetadata$p_1) == null ||
-                e.debounce(n.UPDATE_NAME_MAP_DEBOUNCE_TIME);
+                e.debounce(a.UPDATE_NAME_MAP_DEBOUNCE_TIME);
             }
             this.trigger("change:participants");
           }),
-          (a.$GroupMetadata$p_5 = function () {
+          (i.$GroupMetadata$p_5 = function () {
             var e = this;
             return new (o("WAShiftTimer").ShiftTimer)(function () {
               if (o("WAWebMiscGatingUtils").isDropLastNameEnabled()) {
@@ -318,7 +321,7 @@ __d(
               }
             });
           }),
-          (a.$GroupMetadata$p_7 = function () {
+          (i.$GroupMetadata$p_7 = function () {
             return this.participants.some(function (e) {
               return (
                 e.isAdmin &&
@@ -326,7 +329,7 @@ __d(
               );
             });
           }),
-          (a.isTrusted = function () {
+          (i.isTrusted = function () {
             if (this.stale) return this.trusted;
             if (this.support) return (this.trusted = !0);
             if (this.owner) {
@@ -355,7 +358,7 @@ __d(
               ? (this.trusted = !0)
               : (this.trusted = !1);
           }),
-          (a.hasJoined = function () {
+          (i.hasJoined = function () {
             var e = this.id,
               t = this.joinedSubgroups,
               n = o("WAWebGroupMetadataGetters").getGroupType(this);
@@ -364,7 +367,7 @@ __d(
             var r = o("WAWebChatCollection").ChatCollection.get(e);
             return r ? r.isReadOnly === !1 : !1;
           }),
-          (a.$GroupMetadata$p_3 = function () {
+          (i.$GroupMetadata$p_3 = function () {
             o("WAWebGroupMetadataGetters").getGroupType(this) ===
               o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
             !this.canSetDescription() &&
@@ -376,7 +379,7 @@ __d(
                   .toString())
               : (this.displayedDesc = this.desc);
           }),
-          (a.$GroupMetadata$p_4 = function () {
+          (i.$GroupMetadata$p_4 = function () {
             (o("WAWebUpdateSubgroupsCommunityAction").updateJoinedSubgroups(
               this,
             ),
@@ -384,22 +387,22 @@ __d(
                 this,
               ));
           }),
-          (a.revokeGroupsV4AddInvite = function (n) {
+          (i.revokeGroupsV4AddInvite = function (r) {
             var t = this;
             if (this.revokeGroupsV4AddInvitePromise)
               return this.revokeGroupsV4AddInvitePromise;
-            var r = o("WAWebWidToJid").widToGroupJid(this.id),
-              a = this.pendingParticipants,
-              i = Promise.resolve();
+            var a = o("WAWebWidToJid").widToGroupJid(this.id),
+              i = this.pendingParticipants,
+              l = (u || (u = n("Promise"))).resolve();
             return (
-              (i = o("WAWebInviteV4QueryGroupAction").revokeGroupInviteV4(
-                n,
+              (l = o("WAWebInviteV4QueryGroupAction").revokeGroupInviteV4(
                 r,
+                a,
               )),
-              (this.revokeGroupsV4AddInvitePromise = i
+              (this.revokeGroupsV4AddInvitePromise = l
                 .then(function (e) {
                   return (
-                    e.status >= 200 && e.status < 300 && a.remove(n),
+                    e.status >= 200 && e.status < 300 && i.remove(r),
                     e.status
                   );
                 })
@@ -419,42 +422,48 @@ __d(
                 }))
             );
           }),
-          (a.queryGroupsV4PendingInvite = async function () {
-            var e = this,
-              t = await o(
-                "WAWebInviteV4QueryGroupAction",
-              ).getPendingParticipants(this.id);
-            t.forEach(function (t) {
-              e.pendingParticipants.add({
-                id: o("WAWebWidFactory").createUserWidOrThrow(t),
+          (i.queryGroupsV4PendingInvite = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this,
+                t = yield o(
+                  "WAWebInviteV4QueryGroupAction",
+                ).getPendingParticipants(this.id);
+              t.forEach(function (t) {
+                e.pendingParticipants.add({
+                  id: o("WAWebWidFactory").createUserWidOrThrow(t),
+                });
               });
             });
-          }),
-          (a.getJoinedSubgroupsMetadata = function () {
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.getJoinedSubgroupsMetadata = function () {
             var e = this.getCollection();
             return r("compactMap")(this.joinedSubgroups, function (t) {
               return e.get(t.toString());
             });
           }),
-          (a.getJoinedSubgroupsChat = function () {
+          (i.getJoinedSubgroupsChat = function () {
             return r("compactMap")(this.joinedSubgroups, function (e) {
               return o("WAWebChatCollection").ChatCollection.get(e.toString());
             });
           }),
-          (a.getUnjoinedSubgroupsMetadata = function () {
+          (i.getUnjoinedSubgroupsMetadata = function () {
             return r("compactMap")(this.unjoinedSubgroups, function (e) {
               return r("WAWebUnjoinedSubgroupMetadataCollection").get(
                 e.toString(),
               );
             });
           }),
-          (a.getSubgroupsMetadata = function () {
+          (i.getSubgroupsMetadata = function () {
             return [].concat(
               this.getJoinedSubgroupsMetadata(),
               this.getUnjoinedSubgroupsMetadata(),
             );
           }),
-          (a.getSubgroupSuggestions = function () {
+          (i.getSubgroupSuggestions = function () {
             var e = new Set();
             return this.subgroupSuggestions.filter(function (t) {
               var n = t.groupId,
@@ -470,27 +479,27 @@ __d(
                     );
             });
           }),
-          (a.getParentGroupChat = function () {
+          (i.getParentGroupChat = function () {
             var e = this.parentGroup;
             if (e) return o("WAWebChatCollection").ChatCollection.get(e);
           }),
-          (a.isParentGroupParticipant = function () {
+          (i.isParentGroupParticipant = function () {
             var e = this.parentGroup;
             if (!e) return !1;
             var t = this.getCollection().get(e);
             return !!(t != null && t.joinedSubgroups.length);
           }),
-          (a.getCollection = function () {
+          (i.getCollection = function () {
             return r("WAWebGroupMetadataCollection");
           }),
-          n
+          a
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((u.Proxy = "groupMetadata"),
-      (u.idClass = r("WAWebWid")),
-      (u.UPDATE_NAME_MAP_DEBOUNCE_TIME = 200));
-    var c = o("WAWebBaseModel").defineModel(u);
-    l.default = c;
+    ((c.Proxy = "groupMetadata"),
+      (c.idClass = r("WAWebWid")),
+      (c.UPDATE_NAME_MAP_DEBOUNCE_TIME = 200));
+    var d = o("WAWebBaseModel").defineModel(c);
+    l.default = d;
   },
   226,
 );

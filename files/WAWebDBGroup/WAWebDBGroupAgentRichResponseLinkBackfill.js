@@ -1,6 +1,7 @@
 __d(
   "WAWebDBGroupAgentRichResponseLinkBackfill",
   [
+    "Promise",
     "WAWebBotGroupGatingUtils",
     "WAWebCommonTaskScheduler",
     "WAWebDBMessageSerialization",
@@ -8,65 +9,79 @@ __d(
     "WAWebGroupAgentRichResponseLinkIndex",
     "WAWebMsgType",
     "WAWebSchemaMessage",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 500,
-      s = 1e4,
-      u = new Set(),
-      c = new Map();
-    function d(e) {
-      var t = e.toString();
+    var e,
+      s = 500,
+      u = 1e4,
+      c = new Set(),
+      d = new Map();
+    function m(t) {
+      var r = t.toString();
       if (
-        !e.isGroup() ||
+        !t.isGroup() ||
         !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
-        u.has(t)
+        c.has(r)
       )
-        return Promise.resolve([]);
-      var n = c.get(t);
-      if (n != null) return n;
-      var r = p(e, o("WAWebDBMessageUtils").endOfChat(e), 0, [])
+        return (e || (e = n("Promise"))).resolve([]);
+      var a = d.get(r);
+      if (a != null) return a;
+      var i = _(t, o("WAWebDBMessageUtils").endOfChat(t), 0, [])
         .then(function (e) {
-          return (u.add(t), e);
+          return (c.add(r), e);
         })
         .finally(function () {
-          c.delete(t);
+          d.delete(r);
         });
-      return (c.set(t, r), r);
+      return (d.set(r, i), i);
     }
-    function m() {
-      (u.clear(), c.clear());
+    function p() {
+      (c.clear(), d.clear());
     }
-    async function p(t, n, a, i) {
-      var l,
-        u = await o("WAWebSchemaMessage")
-          .getMessageTable()
-          .between(
-            ["internalId"],
-            o("WAWebDBMessageUtils").beginningOfChat(t),
-            n,
-            {
-              limit: Math.min(e, s - a),
-              lowerInclusive: !1,
-              reverse: !0,
-              upperInclusive: !1,
-            },
-          ),
-        c = [];
-      for (var d of u) {
-        var m = _(d, t.toString());
-        m != null &&
-          d.rowId != null &&
-          (c.push({ id: d.id, hasLink: d.rowId }), i.push(m));
-      }
-      c.length > 0 &&
-        (await o("WAWebSchemaMessage").getMessageTable().bulkMergeOnly(c));
-      var f = a + u.length,
-        g = (l = u[u.length - 1]) == null ? void 0 : l.internalId;
-      return u.length < e || f >= s || g == null
-        ? i
-        : (await r("WAWebCommonTaskScheduler").yield(), p(t, g, f, i));
+    function _(e, t, n, r) {
+      return f.apply(this, arguments);
     }
-    function _(e, t) {
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            var i,
+              l = yield o("WAWebSchemaMessage")
+                .getMessageTable()
+                .between(
+                  ["internalId"],
+                  o("WAWebDBMessageUtils").beginningOfChat(e),
+                  t,
+                  {
+                    limit: Math.min(s, u - n),
+                    lowerInclusive: !1,
+                    reverse: !0,
+                    upperInclusive: !1,
+                  },
+                ),
+              c = [];
+            for (var d of l) {
+              var m = g(d, e.toString());
+              m != null &&
+                d.rowId != null &&
+                (c.push({ id: d.id, hasLink: d.rowId }), a.push(m));
+            }
+            c.length > 0 &&
+              (yield o("WAWebSchemaMessage")
+                .getMessageTable()
+                .bulkMergeOnly(c));
+            var p = n + l.length,
+              f = (i = l[l.length - 1]) == null ? void 0 : i.internalId;
+            return l.length < s || p >= u || f == null
+              ? a
+              : (yield r("WAWebCommonTaskScheduler").yield(), _(e, f, p, a));
+          },
+        )),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
       if (
         e.hasLink != null ||
         e.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE
@@ -79,9 +94,9 @@ __d(
         ? n
         : null;
     }
-    ((l.LINK_BACKFILL_BATCH_SIZE = e),
-      (l.backfillGroupAgentRichResponseLinkIndex = d),
-      (l.resetGroupAgentRichResponseLinkBackfillForTests = m));
+    ((l.LINK_BACKFILL_BATCH_SIZE = s),
+      (l.backfillGroupAgentRichResponseLinkIndex = m),
+      (l.resetGroupAgentRichResponseLinkBackfillForTests = p));
   },
   98,
 );

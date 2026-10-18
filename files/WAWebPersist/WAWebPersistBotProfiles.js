@@ -4,42 +4,51 @@ __d(
     "WAWebBotProfileCollection",
     "WAWebProfilePicThumbCollection",
     "WAWebSchemaBotProfile",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["commands", "id", "prompts"],
-      s = ["name"];
-    async function u(t) {
-      (await o("WAWebSchemaBotProfile")
-        .getBotProfileTable()
-        .bulkCreateOrMerge(
-          t.map(function (t) {
-            var n = t.commands,
-              r = t.id,
-              o = t.prompts,
-              a = babelHelpers.objectWithoutPropertiesLoose(t, e);
-            return babelHelpers.extends(
-              {
-                id: r.toString(),
-                prompts: JSON.stringify(o),
-                commands: JSON.stringify(n),
-              },
-              a,
-            );
-          }),
-        ),
-        t.forEach(function (e) {
-          return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
-            babelHelpers.extends({ id: e.id }, e),
-          );
-        }));
+    var e = ["name"],
+      s = ["commands", "id", "prompts"];
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function c(e, t, n) {
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (yield o("WAWebSchemaBotProfile")
+            .getBotProfileTable()
+            .bulkCreateOrMerge(
+              e.map(function (e) {
+                var t = e.commands,
+                  n = e.id,
+                  r = e.prompts,
+                  o = babelHelpers.objectWithoutPropertiesLoose(e, s);
+                return babelHelpers.extends(
+                  {
+                    id: n.toString(),
+                    prompts: JSON.stringify(r),
+                    commands: JSON.stringify(t),
+                  },
+                  o,
+                );
+              }),
+            ),
+            e.forEach(function (e) {
+              return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
+                babelHelpers.extends({ id: e.id }, e),
+              );
+            }));
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t, n) {
       var r = n != null && n !== "" ? n : null,
         a = t != null && t !== "" ? t : null,
         i = r != null ? r : a;
       if (i == null) return null;
       var l = a != null ? a : i;
-      if (d(e, i, l)) return null;
+      if (m(e, i, l)) return null;
       var s = Date.now();
       return (
         o("WAWebProfilePicThumbCollection")
@@ -66,7 +75,7 @@ __d(
         }
       );
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       var r = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
         e,
       );
@@ -79,55 +88,81 @@ __d(
         r.filehash == null
       );
     }
-    async function m(e, t) {
-      return p([{ fields: t, wid: e }]);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    async function p(e) {
-      if (e.length !== 0) {
-        var t = e.map(function (e) {
-          var t = e.fields,
-            n = e.wid;
-          return { fields: _(t), wid: n };
-        });
-        (await o("WAWebSchemaBotProfile")
-          .getBotProfileTable()
-          .bulkCreateOrMerge(
-            t.map(function (e) {
-              var t = e.fields,
-                n = e.wid;
-              return babelHelpers.extends({ id: n.toString() }, t);
-            }),
-          ),
-          t.forEach(function (e) {
-            var t = e.fields,
-              n = e.wid;
-            return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
-              babelHelpers.extends({ id: n }, t),
-            );
-          }));
-      }
-    }
-    function _(e) {
-      var t = e.name,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, s);
-      return t != null && t !== ""
-        ? babelHelpers.extends({}, n, { name: t })
-        : n;
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return f([{ fields: t, wid: e }]);
+        })),
+        _.apply(this, arguments)
+      );
     }
     function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length !== 0) {
+            var t = e.map(function (e) {
+              var t = e.fields,
+                n = e.wid;
+              return { fields: h(t), wid: n };
+            });
+            (yield o("WAWebSchemaBotProfile")
+              .getBotProfileTable()
+              .bulkCreateOrMerge(
+                t.map(function (e) {
+                  var t = e.fields,
+                    n = e.wid;
+                  return babelHelpers.extends({ id: n.toString() }, t);
+                }),
+              ),
+              t.forEach(function (e) {
+                var t = e.fields,
+                  n = e.wid;
+                return o("WAWebBotProfileCollection").BotProfileCollection.gadd(
+                  babelHelpers.extends({ id: n }, t),
+                );
+              }));
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(t) {
+      var n = t.name,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return n != null && n !== ""
+        ? babelHelpers.extends({}, r, { name: n })
+        : r;
+    }
+    function y(e) {
       return e != null && (e.name != null || e.lastFetchedTimeMs != null);
     }
-    async function g(e) {
-      return f(
-        await o("WAWebSchemaBotProfile").getBotProfileTable().get(e.toString()),
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return y(
+            yield o("WAWebSchemaBotProfile")
+              .getBotProfileTable()
+              .get(e.toString()),
+          );
+        })),
+        b.apply(this, arguments)
       );
     }
     ((l.persistBotProfiles = u),
-      (l.setBotProfilePicUrls = c),
-      (l.mergeBotSupportFields = m),
-      (l.mergeBotSupportFieldsBatch = p),
-      (l.isStoredBotProfile = f),
-      (l.hasStoredBotProfile = g));
+      (l.setBotProfilePicUrls = d),
+      (l.mergeBotSupportFields = p),
+      (l.mergeBotSupportFieldsBatch = f),
+      (l.isStoredBotProfile = y),
+      (l.hasStoredBotProfile = C));
   },
   98,
 );

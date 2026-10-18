@@ -7,6 +7,7 @@ __d(
     "WAWebMediaData",
     "WAWebMediaPrepSendToChat",
     "WAWebMediaTypes",
+    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -49,9 +50,9 @@ __d(
               },
             )));
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.sendToChat = function (t) {
+          (a.sendToChat = function (t) {
             var e = t.chat,
               n = t.earlyUpload,
               a = t.options;
@@ -61,9 +62,15 @@ __d(
               { chat: e, earlyUpload: n, options: a, prep: this },
             );
           }),
-          (n.waitForPrep = async function () {
-            return (await this.$1, this.mediaData);
-          }),
+          (a.waitForPrep = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return (yield this.$1, this.mediaData);
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })();

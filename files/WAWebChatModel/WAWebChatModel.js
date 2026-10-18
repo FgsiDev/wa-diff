@@ -2,6 +2,7 @@ __d(
   "WAWebChatModel",
   [
     "fbt",
+    "Promise",
     "WAFilteredCatch",
     "WAInOrderPromiseQueue",
     "WALogger",
@@ -97,6 +98,7 @@ __d(
     "WAWebViewRepliesCollection",
     "WAWebWamEnumWebcChatType",
     "WAWebWid",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
   ],
@@ -111,9 +113,10 @@ __d(
       f,
       g,
       h,
-      y = 1e3,
-      C = (function (t) {
-        function n() {
+      y,
+      C = 1e3,
+      b = (function (t) {
+        function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -267,10 +270,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var a = n.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.initialize = function () {
+          (i.initialize = function () {
             var n = this,
               a;
             (t.prototype.initialize.call(this),
@@ -468,11 +471,7 @@ __d(
                     o("WALogger").LOG(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose(
-                          [
-                            `broadcast title update failed 
-`,
-                            "",
-                          ],
+                          ["broadcast title update failed \n", ""],
                           ["broadcast title update failed \\n", ""],
                         )),
                       t,
@@ -610,7 +609,7 @@ __d(
               ),
               this.listenTo(this, "change:tcToken", this.$ChatImpl$p_11));
           }),
-          (a.$ChatImpl$p_34 = function () {
+          (i.$ChatImpl$p_34 = function () {
             if (o("WAWebChatAssignmentGatingUtils").chatAssignmentEnabled()) {
               this.set(
                 "unopenedByAssignedAgent",
@@ -628,94 +627,94 @@ __d(
                 this.listenTo(e, "change", this.$ChatImpl$p_37));
             }
           }),
-          (a.$ChatImpl$p_35 = function () {
+          (i.$ChatImpl$p_35 = function () {
             ((this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
               this.listenTo(this.msgs, "bulk_add", this.$ChatImpl$p_38),
               this.listenTo(this.msgs, "change:msgs", this.$ChatImpl$p_39));
           }),
-          (a.$ChatImpl$p_11 = function () {
+          (i.$ChatImpl$p_11 = function () {
             o("WAWebChatGroupUtils").updateCanSend(this);
           }),
-          (a.$ChatImpl$p_10 = function () {
+          (i.$ChatImpl$p_10 = function () {
             o("WAWebChatGroupUtils").updateTitle(this);
           }),
-          (a.$ChatImpl$p_7 = function () {
+          (i.$ChatImpl$p_7 = function () {
             o("WAWebChatUpdates").updateMuteExpiration(this);
           }),
-          (a.$ChatImpl$p_8 = function () {
+          (i.$ChatImpl$p_8 = function () {
             o("WAWebChatUpdates").updateMentionAllMuteExpiration(this);
           }),
-          (a.$ChatImpl$p_9 = function () {
+          (i.$ChatImpl$p_9 = function () {
             o("WAWebChatUpdates").updateCallMuteExpiration(this);
           }),
-          (a.$ChatImpl$p_17 = function () {
+          (i.$ChatImpl$p_17 = function () {
             o("WAWebChatGroupUtils").updateReadOnly(this);
           }),
-          (a.$ChatImpl$p_18 = function () {
+          (i.$ChatImpl$p_18 = function () {
             (o("WAWebChatGroupUtils").updateReadOnly(this),
               o("WAWebChatGroupUtils").updateCanSend(this));
           }),
-          (a.$ChatImpl$p_31 = function () {
+          (i.$ChatImpl$p_31 = function () {
             return o("WAWebChatMedia").resetMediaMsgs(this);
           }),
-          (a.$ChatImpl$p_33 = function () {
+          (i.$ChatImpl$p_33 = function () {
             o("WAWebChatMessageSearch").clearFtsCache(this);
           }),
-          (a.$ChatImpl$p_25 = function () {
+          (i.$ChatImpl$p_25 = function () {
             o("WAWebChatUpdates").updateSortTime(this);
           }),
-          (a.$ChatImpl$p_21 = function () {
+          (i.$ChatImpl$p_21 = function () {
             o("WAWebPresenceChatAction").presenceOnlineChanged(this);
           }),
-          (a.$ChatImpl$p_13 = function () {
+          (i.$ChatImpl$p_13 = function () {
             this.isFavorite = !!o(
               "WAWebFavoriteCollection",
             ).FavoriteCollection.get(this.id.toString());
           }),
-          (a.$ChatImpl$p_15 = function () {
+          (i.$ChatImpl$p_15 = function () {
             o("WAWebChatShowUnreadInTitle").computeShowUnreadInTitle(this);
             var e = this.groupMetadata;
             e != null &&
               (this.groupType = o("WAWebGroupMetadataGetters").getGroupType(e));
           }),
-          (a.$ChatImpl$p_16 = function () {
+          (i.$ChatImpl$p_16 = function () {
             var e = this.groupMetadata;
             e != null && (this.hasCapi = e.hasCapi);
           }),
-          (a.$ChatImpl$p_19 = function () {
+          (i.$ChatImpl$p_19 = function () {
             var e = this.groupMetadata;
             e != null && (this.isParentGroup = e.isParentGroup);
           }),
-          (a.$ChatImpl$p_20 = function () {
+          (i.$ChatImpl$p_20 = function () {
             var e = this.broadcastMetadata;
             ((e == null ? void 0 : e.recipients) != null &&
               (this.broadcastRecipientCount = e.recipients.length),
               o("WAWebChatGroupUtils").updateTitle(this));
           }),
-          (a.$ChatImpl$p_22 = function () {
+          (i.$ChatImpl$p_22 = function () {
             ((o("WAWebChatGetters").getIsGroup(this) ||
               o("WAWebChatGetters").getIsNewsletter(this)) &&
               (this.isTrusted(), o("WAWebChatGroupUtils").updateCanSend(this)),
               o("WAWebChatGetters").getIsGroup(this) &&
                 r("WAWebGroupMetadataCollection").update(this.id));
           }),
-          (a.$ChatImpl$p_24 = function (t) {
+          (i.$ChatImpl$p_24 = function (t) {
             o("WAWebHandleNewMsgAction").handleNewMsgForChat(this, t);
           }),
-          (a.$ChatImpl$p_26 = function (t, n) {
+          (i.$ChatImpl$p_26 = function (t, n) {
             o("WAWebChatMedia").addMediaMsgs(this, t, n);
           }),
-          (a.$ChatImpl$p_29 = function (t) {
+          (i.$ChatImpl$p_29 = function (t) {
             var e = this;
             t.forEach(function (t) {
               return e.$ChatImpl$p_28(t);
             });
           }),
-          (a.$ChatImpl$p_30 = function (t) {
+          (i.$ChatImpl$p_30 = function (t) {
             var e = this.keptMsgs;
             e && (o("WAWebMsgGetters").getIsKept(t) ? e.add(t) : e.remove(t));
           }),
-          (a.$ChatImpl$p_37 = function () {
+          (i.$ChatImpl$p_37 = function () {
             var e = o(
               "WAWebChatAssignmentCollection",
             ).ChatAssignmentCollection.getAgentCollectionForChatId(this.id);
@@ -728,20 +727,20 @@ __d(
               this.set("isAssignedToMe", this.$ChatImpl$p_36()),
               this.set("assignedAgent", e.at(0)));
           }),
-          (a.$ChatImpl$p_38 = function (t, n) {
+          (i.$ChatImpl$p_38 = function (t, n) {
             var e = t.filter(function (e) {
               return o("WAWebFrontendMsgGetters").getAsEventCreation(e);
             });
             e.length && this.getEventMsgs().add(e, n);
           }),
-          (a.$ChatImpl$p_39 = function () {
+          (i.$ChatImpl$p_39 = function () {
             if (this.eventMsgs) {
               var e;
               (this.eventMsgs.delete(),
                 (e = this.eventMsgs) == null || e.initialize());
             }
           }),
-          (a.$ChatImpl$p_36 = function () {
+          (i.$ChatImpl$p_36 = function () {
             var e = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId();
@@ -752,10 +751,10 @@ __d(
                 return t.deviceId === e;
               });
           }),
-          (a.$ChatImpl$p_5 = function () {
+          (i.$ChatImpl$p_5 = function () {
             o("WAWebChatUnreadMentions").handleUnreadMention(this);
           }),
-          (a.set = function (n, r, o) {
+          (i.set = function (n, r, o) {
             if (typeof n == "string") {
               if (
                 (n === "muteExpiration" && this.mute && this.mute.setMute(r),
@@ -781,17 +780,17 @@ __d(
             }
             return (t.prototype.set.call(this, n, r, o), this);
           }),
-          (a.equals = function (t) {
+          (i.equals = function (t) {
             return this.id.equals(t == null ? void 0 : t.id);
           }),
-          (a.addPendingAction = function (t) {
+          (i.addPendingAction = function (t) {
             var e = this,
               n = function () {
                 e.$ChatImpl$p_40();
               };
             (t.then(n, n), this.pendingAction++);
           }),
-          (a.$ChatImpl$p_40 = function () {
+          (i.$ChatImpl$p_40 = function () {
             this.pendingAction > 0
               ? this.pendingAction--
               : (o("WALogger").LOG(
@@ -802,7 +801,7 @@ __d(
                 ),
                 (this.pendingAction = 0));
           }),
-          (a.$ChatImpl$p_4 = function () {
+          (i.$ChatImpl$p_4 = function () {
             if (o("WAWebFrontendChatGetters").getHasDraftMessage(this)) {
               var e;
               this.draftMessageSortTs =
@@ -811,7 +810,7 @@ __d(
               this.draftMessageSortTs != null &&
                 (this.draftMessageSortTs = null);
           }),
-          (a.$ChatImpl$p_32 = function () {
+          (i.$ChatImpl$p_32 = function () {
             var e = this;
             if (
               (o("WAWebChatGetters").getIsGroup(this) &&
@@ -842,7 +841,7 @@ __d(
                 this.$ChatImpl$p_41(),
                 o(
                   "WAWebMemoryPressureCacheRegistry",
-                ).registerMemoryPressureCache(L),
+                ).registerMemoryPressureCache(E),
                 this.$ChatImpl$p_42());
               var a = Array.from(this.$ChatImpl$p_1);
               (o("WAWebDBEphemeralMessage")
@@ -887,7 +886,7 @@ __d(
                 }));
             }
           }),
-          (a.$ChatImpl$p_41 = function () {
+          (i.$ChatImpl$p_41 = function () {
             var e = this.msgs;
             if (!(e.length <= o("WAWebCollectionConstants").PAGE_SIZE)) {
               var t = e.length - o("WAWebCollectionConstants").PAGE_SIZE,
@@ -896,9 +895,9 @@ __d(
                 (e.msgLoadState.noEarlierMsgs = !1));
             }
           }),
-          (a.trimMessagesForMemoryPressure = function () {
+          (i.trimMessagesForMemoryPressure = function () {
             var e = this.msgs;
-            if (e.length <= 1 || this.active || R(e)) return 0;
+            if (e.length <= 1 || this.active || L(e)) return 0;
             var t = o("WAWebFrontendChatGetters").getPreviewMessage(this),
               n = t != null ? e.indexOf(t) : -1,
               r = n >= 0 ? n : e.length - 1;
@@ -908,7 +907,7 @@ __d(
                 (e.msgLoadState.noEarlierMsgs = !1),
                 r);
           }),
-          (a.$ChatImpl$p_42 = function () {
+          (i.$ChatImpl$p_42 = function () {
             if (
               o("WAWebABProps").getABPropConfigValue(
                 "web_evict_thumbnail_hq_on_inactive",
@@ -917,13 +916,13 @@ __d(
               for (var e of this.msgs.getModelsArray())
                 e.thumbnailHQ && e.set({ thumbnailHQ: void 0 }, { silent: !0 });
           }),
-          (a.$ChatImpl$p_23 = function () {
+          (i.$ChatImpl$p_23 = function () {
             var e = this.getCollection();
             ((e.notSpam[this.id] = this.notSpam),
               this.isTrusted(),
               this.notSpam && this.stopListening(this, "change:notSpam"));
           }),
-          (a.isCAGAdmin = function () {
+          (i.isCAGAdmin = function () {
             var e,
               t =
                 (e = this.groupMetadata) == null
@@ -933,12 +932,12 @@ __d(
               ? t && o("WAWebFrontendChatGetters").getIsCAG(this)
               : !1;
           }),
-          (a.hasMaybeSentMsgToChat = function () {
+          (i.hasMaybeSentMsgToChat = function () {
             return this.getAllMsgs().some(function (e) {
               return o("WAWebMsgGetters").getIsSentByMe(e);
             });
           }),
-          (a.isTrusted = function () {
+          (i.isTrusted = function () {
             var e = !1;
             if (o("WAWebChatGetters").getIsGroup(this)) {
               var t;
@@ -966,7 +965,7 @@ __d(
               (this.trusted = !!e)
             );
           }),
-          (a.isGroupSafetyChecked = function () {
+          (i.isGroupSafetyChecked = function () {
             var e = !1;
             if (this.groupMetadata) {
               var t;
@@ -979,7 +978,7 @@ __d(
             }
             return (this.groupSafetyChecked = !!e);
           }),
-          (a.isSuspendedOrTerminated = function () {
+          (i.isSuspendedOrTerminated = function () {
             if (o("WAWebChatGetters").getIsGroup(this)) {
               var e;
               return !!(
@@ -996,7 +995,7 @@ __d(
             }
             return !1;
           }),
-          (a.title = function () {
+          (i.title = function () {
             var e;
             return o("WAWebChatGetters").getIsGroup(this)
               ? (e = this.formattedTitle) != null
@@ -1004,7 +1003,7 @@ __d(
                 : s._(/*BTDS*/ "Unknown subject").toString()
               : this.formattedTitle;
           }),
-          (a.getTcToken = function () {
+          (i.getTcToken = function () {
             return this.tcToken == null ||
               this.tcTokenTimestamp == null ||
               o("WAWebTrustedContactsUtils").isTokenExpired(
@@ -1014,12 +1013,12 @@ __d(
               ? null
               : this.tcToken;
           }),
-          (a.shouldShowUnreadDivider = function () {
+          (i.shouldShowUnreadDivider = function () {
             return o("WAWebFrontendChatGetters").getShouldShowUnreadDivider(
               this,
             );
           }),
-          (a.delete = function () {
+          (i.delete = function () {
             (t.prototype.delete.call(this),
               this.getCollection().remove(this.id),
               this.$ChatImpl$p_3.abort(),
@@ -1041,13 +1040,13 @@ __d(
                 this,
               ));
           }),
-          (a.isDirty = function () {
+          (i.isDirty = function () {
             return this.unreadCount !== 0;
           }),
-          (a.hasUnreadEdit = function () {
+          (i.hasUnreadEdit = function () {
             return this.unreadEditTimestampMs != null;
           }),
-          (a.setComposeContents = function (t) {
+          (i.setComposeContents = function (t) {
             var e,
               n = t.text;
             if (((e = t.text) == null ? void 0 : e.trim()) === "") {
@@ -1066,7 +1065,7 @@ __d(
               a,
             );
           }),
-          (a.getComposeContents = function () {
+          (i.getComposeContents = function () {
             if (this.draftMessage) {
               var e = {
                   timestamp: this.draftMessage.timestamp,
@@ -1084,19 +1083,19 @@ __d(
               );
             }
           }),
-          (a.setAttachMediaContents = function (t) {
+          (i.setAttachMediaContents = function (t) {
             ((this.attachMediaContents = t),
               (this.draftAttachMediaContentsSortTs = t
                 ? o("WATimeUtils").unixTime()
                 : null));
           }),
-          (a.setIsCameraCaptureDrawerOpen = function (t) {
+          (i.setIsCameraCaptureDrawerOpen = function (t) {
             this.isCameraCaptureDrawerOpen = t;
           }),
-          (a.isComposingWithUnsavedChanges = function () {
+          (i.isComposingWithUnsavedChanges = function () {
             return this.isComposingPoll;
           }),
-          (a.isBusinessGroup = function () {
+          (i.isBusinessGroup = function () {
             var e,
               t =
                 (e = this.groupMetadata) == null
@@ -1109,10 +1108,10 @@ __d(
             }
             return !1;
           }),
-          (a.isCAG = function () {
+          (i.isCAG = function () {
             return o("WAWebFrontendChatGetters").getIsCAG(this);
           }),
-          (a.onEmptyMRM = function () {
+          (i.onEmptyMRM = function () {
             (o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -1131,18 +1130,14 @@ __d(
                   o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose(
-                        [
-                          `chat:onEmptyMRM failed
-`,
-                          "",
-                        ],
+                        ["chat:onEmptyMRM failed\n", ""],
                         ["chat:onEmptyMRM failed\\n", ""],
                       )),
                     e,
                   );
                 }));
           }),
-          (a.deleteMsgsPartial = function (t, n) {
+          (i.deleteMsgsPartial = function (t, n) {
             var e = this;
             n === void 0 && (n = !1);
             var r = this.unreadCount,
@@ -1189,7 +1184,7 @@ __d(
                 });
             }
           }),
-          (a.deleteMessages = function (t) {
+          (i.deleteMessages = function (t) {
             var e = this,
               n = function (n, r, o) {
                 return !t.includes(n.id.toString());
@@ -1215,7 +1210,7 @@ __d(
                 this.id,
               ));
           }),
-          (a.getLastMsgKeyForAction = function () {
+          (i.getLastMsgKeyForAction = function () {
             var e = this.msgs.last(),
               t;
             return (
@@ -1227,7 +1222,7 @@ __d(
               t || void 0
             );
           }),
-          (a.getWebcChatType = function () {
+          (i.getWebcChatType = function () {
             var e = o("WAWebFrontendChatGetters").getKind(this);
             if (e != null)
               switch (e) {
@@ -1250,97 +1245,120 @@ __d(
               throw (t.stack, t);
             }
           }),
-          (a.getMdChatAssignmentChatType = function () {
+          (i.getMdChatAssignmentChatType = function () {
             return o(
               "WAWebChatModelDerivedMethods",
             ).getMdChatAssignmentChatTypeFn(this);
           }),
-          (a.deregisterExpiredViewOnceBulkMessages = function (t) {
+          (i.deregisterExpiredViewOnceBulkMessages = function (t) {
             var e = this;
             t.forEach(function (t) {
               return e.$ChatImpl$p_27(t);
             });
           }),
-          (a.$ChatImpl$p_27 = function (t) {
+          (i.$ChatImpl$p_27 = function (t) {
             o("WAWebViewOnceState").isExpired(t.safe()) &&
               (o("WAWebAppTracker").AppTracker.mark(
                 o("WAWebAppTracker").AppTrackerType.PurgeViewOnce,
               ),
               o("WAWebMedia").deregisterMsg(t));
           }),
-          (a.$ChatImpl$p_28 = async function (t) {
-            var e = this;
-            (r("WAWebAlarm").clearTimeout(this.$ChatImpl$p_2.get(t)),
-              this.$ChatImpl$p_2.delete(t),
-              this.$ChatImpl$p_1.delete(t));
-            var n = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(t);
-            if (
-              !(
-                n == null ||
-                !this.msgs.includes(t) ||
-                o("WAWebMsgGetters").getIsKept(t)
-              )
-            ) {
-              var a = async function () {
+          (i.$ChatImpl$p_28 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
+                (r("WAWebAlarm").clearTimeout(this.$ChatImpl$p_2.get(e)),
+                  this.$ChatImpl$p_2.delete(e),
+                  this.$ChatImpl$p_1.delete(e));
+                var a = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
                 if (
-                  (e.$ChatImpl$p_2.delete(t),
-                  !o("WAWebMsgGetters").getIsKept(t))
+                  !(
+                    a == null ||
+                    !this.msgs.includes(e) ||
+                    o("WAWebMsgGetters").getIsKept(e)
+                  )
                 ) {
-                  var n =
-                    t.afterReadDuration != null && t.afterReadDuration > 0;
-                  if (!e.active || n) {
-                    var a = n && e.active;
-                    a &&
-                      ((t.isFadingOut = !0),
-                      await o("WAPromiseDelays").delayMs(y));
-                    try {
-                      await o(
-                        "WAWebDBEphemeralMessage",
-                      ).removeExpiredMessagesFromHistory([t]);
-                    } catch (e) {
-                      o("WALogger")
-                        .ERROR(
-                          _ ||
-                            (_ = babelHelpers.taggedTemplateLiteralLoose([
-                              "[ephemeral-leak] handleExpiration DB delete failed",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(e))
-                        .tags("ephemeral-messages")
-                        .sendLogs("ephemeral-leak-handle-expiration-failed", {
-                          sendLogsType:
-                            o("WALogger").SendLogsType.INVESTIGATION,
-                        });
-                      return;
-                    }
-                    (o(
-                      "WAWebUpdateLastAddOnPreviewChatAction",
-                    ).deleteModelsForLastAddOnPreview([t.id.toString()]),
-                      await o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
-                        e.id.toString(),
-                        [t.id.toString()],
-                      ),
-                      t.delete({
-                        skipUpdatingSortTime: !0,
-                        doNotResetLastReceived: !0,
-                      }));
-                  } else e.$ChatImpl$p_1.add(t);
+                  var i = (function () {
+                    var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* () {
+                        if (
+                          (t.$ChatImpl$p_2.delete(e),
+                          !o("WAWebMsgGetters").getIsKept(e))
+                        ) {
+                          var n =
+                            e.afterReadDuration != null &&
+                            e.afterReadDuration > 0;
+                          if (!t.active || n) {
+                            var a = n && t.active;
+                            a &&
+                              ((e.isFadingOut = !0),
+                              yield o("WAPromiseDelays").delayMs(C));
+                            try {
+                              yield o(
+                                "WAWebDBEphemeralMessage",
+                              ).removeExpiredMessagesFromHistory([e]);
+                            } catch (e) {
+                              o("WALogger")
+                                .ERROR(
+                                  _ ||
+                                    (_ =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "[ephemeral-leak] handleExpiration DB delete failed",
+                                      ])),
+                                )
+                                .catching(r("getErrorSafe")(e))
+                                .tags("ephemeral-messages")
+                                .sendLogs(
+                                  "ephemeral-leak-handle-expiration-failed",
+                                  {
+                                    sendLogsType:
+                                      o("WALogger").SendLogsType.INVESTIGATION,
+                                  },
+                                );
+                              return;
+                            }
+                            (o(
+                              "WAWebUpdateLastAddOnPreviewChatAction",
+                            ).deleteModelsForLastAddOnPreview([
+                              e.id.toString(),
+                            ]),
+                              yield o(
+                                "WAWebRequestDeleteAddOns",
+                              ).requestDeleteAddOns(t.id.toString(), [
+                                e.id.toString(),
+                              ]),
+                              e.delete({
+                                skipUpdatingSortTime: !0,
+                                doNotResetLastReceived: !0,
+                              }));
+                          } else t.$ChatImpl$p_1.add(e);
+                        }
+                      },
+                    );
+                    return function () {
+                      return a.apply(this, arguments);
+                    };
+                  })();
+                  if (o("WAWebKeepInChatMsgUtils").isExpired(e)) return i();
+                  var l = r("WAWebAlarm").setGlobalTimeout(function () {
+                    return void i();
+                  }, a * 1e3);
+                  this.$ChatImpl$p_2.set(e, l);
                 }
-              };
-              if (o("WAWebKeepInChatMsgUtils").isExpired(t)) return a();
-              var i = r("WAWebAlarm").setGlobalTimeout(function () {
-                return void a();
-              }, n * 1e3);
-              this.$ChatImpl$p_2.set(t, i);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
             }
-          }),
-          (a.isUnreadMsg = function (t) {
+            return t;
+          })()),
+          (i.isUnreadMsg = function (t) {
             return this.$ChatImpl$p_43(t, this.unreadCount);
           }),
-          (a.isActiveUnreadMsg = function (t) {
+          (i.isActiveUnreadMsg = function (t) {
             return this.$ChatImpl$p_43(t, this.activeUnreadCount);
           }),
-          (a.$ChatImpl$p_43 = function (t, n) {
+          (i.$ChatImpl$p_43 = function (t, n) {
             if (n <= 0) return !1;
             for (
               var e = this.msgs.getModelsArray(), r = 0, a = e.length - 1;
@@ -1355,7 +1373,7 @@ __d(
             }
             return !1;
           }),
-          (a.setWallpaperValue = function (t) {
+          (i.setWallpaperValue = function (t) {
             return (
               (this.wallpaperValue = t),
               o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
@@ -1363,7 +1381,7 @@ __d(
               })
             );
           }),
-          (a.setChatThemeValue = function (t) {
+          (i.setChatThemeValue = function (t) {
             return (
               (this.chatThemeValue = t),
               o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
@@ -1371,7 +1389,7 @@ __d(
               })
             );
           }),
-          (a.deriveThemeValueObjectsFromFlats = function () {
+          (i.deriveThemeValueObjectsFromFlats = function () {
             var e =
               this.wallpaper != null ||
               this.showDoodle != null ||
@@ -1396,7 +1414,7 @@ __d(
                   this.colorSchemeId != null ? this.colorSchemeId : null,
               }));
           }),
-          (a.persistDerivedThemeValuesIfNeeded = function () {
+          (i.persistDerivedThemeValuesIfNeeded = function () {
             var e =
               this.wallpaper != null ||
               this.showDoodle != null ||
@@ -1404,9 +1422,9 @@ __d(
               this.colorSchemeId != null ||
               this.stockWallpaperImageId != null;
             if (!o("WAWebChatThemeGatingUtils").isChatThemesEnabled() || !e)
-              return Promise.resolve();
+              return (y || (y = n("Promise"))).resolve();
             var t = this.chatThemeValue,
-              n = this.wallpaperValue;
+              r = this.wallpaperValue;
             return (
               (this.wallpaper = null),
               (this.showDoodle = null),
@@ -1414,7 +1432,7 @@ __d(
               (this.colorSchemeId = null),
               (this.stockWallpaperImageId = null),
               o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-                wallpaperValue: n,
+                wallpaperValue: r,
                 chatThemeValue: t,
                 wallpaper: null,
                 showDoodle: null,
@@ -1424,7 +1442,7 @@ __d(
               })
             );
           }),
-          (a.setSuggestedRepliesEnabled = function (t) {
+          (i.setSuggestedRepliesEnabled = function (t) {
             return (
               (this.suggestedRepliesEnabled = t),
               o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
@@ -1432,10 +1450,10 @@ __d(
               })
             );
           }),
-          (a.setForceDismissAiAgentBlockingBar = function (t) {
+          (i.setForceDismissAiAgentBlockingBar = function (t) {
             this.forceDismissAiAgentBlockBar = t;
           }),
-          (a.$ChatImpl$p_14 = function () {
+          (i.$ChatImpl$p_14 = function () {
             var e = this,
               t = this.groupMetadata;
             if (
@@ -1462,7 +1480,7 @@ __d(
                   }));
             }
           }),
-          (a.sortMsgs = function (t, n) {
+          (i.sortMsgs = function (t, n) {
             var e = t.map(function (e) {
               var t = r("nullthrows")(e.getMsgChunk(n != null ? n : void 0));
               return {
@@ -1481,10 +1499,10 @@ __d(
                 return e.msg;
               });
           }),
-          (a.$ChatImpl$p_12 = function () {
+          (i.$ChatImpl$p_12 = function () {
             o("WAWebChatShowUnreadInTitle").computeShowUnreadInTitle(this);
           }),
-          (a.removeFromCollection = function (t) {
+          (i.removeFromCollection = function (t) {
             (t.star && o("WAWebStarredMsgCollection").removeStarredMsgs([t]),
               o("WAWebMsgGetters").getIsMedia(t) && this.mediaMsgs
                 ? this.mediaMsgs.remove(t)
@@ -1506,35 +1524,35 @@ __d(
                 .getChat(t)
                 .unreadMentionMetadata.removeUnreadMentions(t.id.toString()));
           }),
-          (a.getMediaMsgs = function () {
+          (i.getMediaMsgs = function () {
             return (
               this.mediaMsgs ||
                 (this.mediaMsgs = new (r("WAWebChatMediaMsgsCollection"))()),
               this.mediaMsgs
             );
           }),
-          (a.getLinkMsgs = function () {
+          (i.getLinkMsgs = function () {
             return (
               this.linkMsgs ||
                 (this.linkMsgs = new (r("WAWebChatLinkMsgsCollection"))()),
               this.linkMsgs
             );
           }),
-          (a.getDocMsgs = function () {
+          (i.getDocMsgs = function () {
             return (
               this.docMsgs ||
                 (this.docMsgs = new (r("WAWebChatDocMsgsCollection"))()),
               this.docMsgs
             );
           }),
-          (a.getEventMsgs = function () {
+          (i.getEventMsgs = function () {
             return (
               this.eventMsgs ||
                 (this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
               this.eventMsgs
             );
           }),
-          (a.getParticipantCount = function () {
+          (i.getParticipantCount = function () {
             var e;
             return (
               ((e = this.groupMetadata) == null
@@ -1542,12 +1560,12 @@ __d(
                 : e.participants.length) || 1
             );
           }),
-          (a.iAmAdmin = function () {
+          (i.iAmAdmin = function () {
             return this.groupMetadata
               ? this.groupMetadata.participants.iAmAdmin()
               : !1;
           }),
-          (a.getKeptMsgs = function () {
+          (i.getKeptMsgs = function () {
             var e = this.keptMsgs;
             return (
               e ||
@@ -1560,38 +1578,52 @@ __d(
               e
             );
           }),
-          (a.hasKeptMsgs = function () {
+          (i.hasKeptMsgs = function () {
             return this.msgs.some(function (e) {
               return o("WAWebMsgGetters").getIsKept(e);
             });
           }),
-          (a.canSendPolls = function () {
+          (i.canSendPolls = function () {
             return o("WAWebChatModelDerivedMethods").canSendPolls(this);
           }),
-          (a.getAbortController = function () {
+          (i.getAbortController = function () {
             return this.$ChatImpl$p_3;
           }),
-          (a.getDeleteSignal = function () {
+          (i.getDeleteSignal = function () {
             return this.getAbortController().signal;
           }),
-          (a.getCollection = function () {
+          (i.getCollection = function () {
             return o("WAWebChatGetters").getIsNewsletter(this)
               ? r("WAWebNewsletterCollection")
               : o("WAWebChatCollection").ChatCollection;
           }),
-          (a.updateBotInvokeSystemMsgCreated = async function () {
-            (await o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-              hasCreatedBotInvokeSystemMsg: !0,
-            }),
-              (this.hasCreatedBotInvokeSystemMsg = !0));
-          }),
-          (a.updateBizBotSysMsgCreated = async function (t) {
-            (await o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-              bizBotSystemMsgType: t,
-            }),
-              (this.bizBotSystemMsgType = t));
-          }),
-          (a.$ChatImpl$p_6 = function () {
+          (i.updateBotInvokeSystemMsgCreated = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (yield o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+                hasCreatedBotInvokeSystemMsg: !0,
+              }),
+                (this.hasCreatedBotInvokeSystemMsg = !0));
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.updateBizBotSysMsgCreated = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                (yield o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+                  bizBotSystemMsgType: e,
+                }),
+                  (this.bizBotSystemMsgType = e));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (i.$ChatImpl$p_6 = function () {
             return o("WAWebLidMigrationUtils").shouldHaveAccountLid(this.id)
               ? this.accountLid == null
                 ? (o("WALogger")
@@ -1606,18 +1638,18 @@ __d(
                 : this.accountLid
               : this.id;
           }),
-          n
+          a
         );
       })(r("WAWebSuperChatMsgs"));
-    ((C.Proxy = "chat"), (C.idClass = r("WAWebWid")));
-    var b = o("WAWebBaseModel").defineModel(C);
-    function v() {
+    ((b.Proxy = "chat"), (b.idClass = r("WAWebWid")));
+    var v = o("WAWebBaseModel").defineModel(b);
+    function S() {
       var e = 0;
       for (var t of o("WAWebChatCollection").ChatCollection.getModelsArray())
-        e += S(t);
+        e += R(t);
       return e;
     }
-    function S(e) {
+    function R(e) {
       try {
         return e.trimMessagesForMemoryPressure();
       } catch (e) {
@@ -1635,14 +1667,14 @@ __d(
         );
       }
     }
-    function R(e) {
+    function L(e) {
       var t = e.msgLoadState;
       return (
         t.isLoadingEarlierMsgs || t.isLoadingRecentMsgs || t.isLoadingAroundMsgs
       );
     }
-    var L = { name: "inactive_chat_msgs", unit: "messages", release: v };
-    l.Chat = b;
+    var E = { name: "inactive_chat_msgs", unit: "messages", release: S };
+    l.Chat = v;
   },
   226,
 );

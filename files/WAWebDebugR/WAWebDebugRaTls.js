@@ -1,10 +1,12 @@
 __d(
   "WAWebDebugRaTls",
   [
+    "Promise",
     "WABase64",
     "WALogger",
     "WATheiaRaTls",
     "WAWebTEENodeTokenThriftFetcher",
+    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -13,90 +15,102 @@ __d(
       s,
       u,
       c,
-      d = new Uint8Array(0),
-      m = 100,
-      p = 1e4,
-      _ = 3e4,
-      f = 32,
-      g = Object.freeze({
+      d,
+      m = new Uint8Array(0),
+      p = 100,
+      _ = 1e4,
+      f = 3e4,
+      g = 32,
+      h = Object.freeze({
         0: "CONNECTING",
         1: "OPEN",
         2: "CLOSING",
         3: "CLOSED",
       }),
-      h = Object.freeze(
+      y = Object.freeze(
         ((e = {}),
-        (e[(c = o("WATheiaRaTls")).WATheiaRaTlsState.INIT.valueOf()] = "INIT"),
-        (e[c.WATheiaRaTlsState.CONNECTING.valueOf()] = "CONNECTING"),
-        (e[c.WATheiaRaTlsState.CONNECTED.valueOf()] = "CONNECTED"),
-        (e[c.WATheiaRaTlsState.CLOSED.valueOf()] = "CLOSED"),
-        (e[c.WATheiaRaTlsState.ERROR.valueOf()] = "ERROR"),
+        (e[(d = o("WATheiaRaTls")).WATheiaRaTlsState.INIT.valueOf()] = "INIT"),
+        (e[d.WATheiaRaTlsState.CONNECTING.valueOf()] = "CONNECTING"),
+        (e[d.WATheiaRaTlsState.CONNECTED.valueOf()] = "CONNECTED"),
+        (e[d.WATheiaRaTlsState.CLOSED.valueOf()] = "CLOSED"),
+        (e[d.WATheiaRaTlsState.ERROR.valueOf()] = "ERROR"),
         e),
       ),
-      y = "wss://teellm.meta.com?x-tee-node-token=<redacted>",
-      C = 1;
-    async function b(e, t, n, a) {
-      (e === void 0 && (e = o("WATheiaRaTls").WATheiaRaTlsClientPolicy.DEBUG),
-        t === void 0 && (t = !0),
-        n === void 0 && (n = "rc"),
-        a === void 0 && (a = !1));
-      var i = C++,
-        l = null,
-        c = null;
-      try {
-        var d = await o(
-            "WAWebTEENodeTokenThriftFetcher",
-          ).fetchNodeTokenViaThrift(n, a),
-          m = d.nodeToken,
-          p = S(o("WABase64").encodeB64(m)),
-          _ = await o("WATheiaRaTls").loadWATheiaRaTls();
-        ((l = _.createSession(e, {
-          enableTheiaV2Mode: !0,
-          requestTransparencyReport: !0,
-          shouldVerifyCert: t,
-        })),
-          (c = await v(p, i)));
-        var f = await R(l, c, i),
-          g = x(l, e, f);
-        return (
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[ratls-wasm] connected policy=",
-                " steps=",
-                " sent=",
-                " received=",
-                "",
-              ])),
-            e,
-            String(g.handshakeSteps),
-            String(g.sentBytes),
-            String(g.receivedBytes),
-          ),
-          g
-        );
-      } catch (e) {
-        throw (
-          o("WALogger")
-            .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ratls-wasm] debug handshake failed",
-                ])),
-            )
-            .catching(r("getErrorSafe")(e))
-            .sendLogs("ratls-wasm-debug-handshake-failed"),
-          e
-        );
-      } finally {
-        (l != null && l.close(), $(c, i));
-      }
+      C = "wss://teellm.meta.com?x-tee-node-token=<redacted>",
+      b = 1;
+    function v(e, t, n, r) {
+      return S.apply(this, arguments);
     }
-    ((b.doc =
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            (e === void 0 &&
+              (e = o("WATheiaRaTls").WATheiaRaTlsClientPolicy.DEBUG),
+              t === void 0 && (t = !0),
+              n === void 0 && (n = "rc"),
+              a === void 0 && (a = !1));
+            var i = b++,
+              l = null,
+              c = null;
+            try {
+              var d = yield o(
+                  "WAWebTEENodeTokenThriftFetcher",
+                ).fetchNodeTokenViaThrift(n, a),
+                m = d.nodeToken,
+                p = L(o("WABase64").encodeB64(m)),
+                _ = yield o("WATheiaRaTls").loadWATheiaRaTls();
+              ((l = _.createSession(e, {
+                enableTheiaV2Mode: !0,
+                requestTransparencyReport: !0,
+                shouldVerifyCert: t,
+              })),
+                (c = yield R(p, i)));
+              var f = yield E(l, c, i),
+                g = A(l, e, f);
+              return (
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ratls-wasm] connected policy=",
+                      " steps=",
+                      " sent=",
+                      " received=",
+                      "",
+                    ])),
+                  e,
+                  String(g.handshakeSteps),
+                  String(g.sentBytes),
+                  String(g.receivedBytes),
+                ),
+                g
+              );
+            } catch (e) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[ratls-wasm] debug handshake failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("ratls-wasm-debug-handshake-failed"),
+                e
+              );
+            } finally {
+              (l != null && l.close(), F(c, i));
+            }
+          },
+        )),
+        S.apply(this, arguments)
+      );
+    }
+    ((v.doc =
       "Full flow: fetch a TEE node token via the dev-only thrift endpoint, then run a browser RA-TLS WASM handshake against the teellm WebSocket endpoint. Optional args: clientPolicy, shouldVerifyCert, env, useAcs."),
-      (b.paramsToExecute = []));
-    function v(e, t) {
-      return new Promise(function (n, o) {
+      (v.paramsToExecute = []));
+    function R(e, t) {
+      return new (c || (c = n("Promise")))(function (n, o) {
         var a = new WebSocket(e);
         a.binaryType = "arraybuffer";
         var i = null,
@@ -113,77 +127,117 @@ __d(
             (l(), o(r("err")("RA-TLS WebSocket open failed")));
           },
           c = function (t) {
-            (l(), o(P(t)));
+            (l(), o(O(t)));
           };
         ((i = self.setTimeout(function () {
-          (l(), $(a, t), o(r("err")("RA-TLS WebSocket open timed out")));
-        }, p)),
+          (l(), F(a, t), o(r("err")("RA-TLS WebSocket open timed out")));
+        }, _)),
           a.addEventListener("open", s),
           a.addEventListener("error", u),
           a.addEventListener("close", c));
       });
     }
-    function S(e) {
+    function L(e) {
       return (
         "wss://teellm.meta.com/alpha.teellm.wa.meta.com?x-tee-node-token=" +
         encodeURIComponent(e)
       );
     }
-    async function R(e, t, n) {
-      var o = I(t, n),
-        a = null,
-        i = new Promise(function (e, t) {
-          a = self.setTimeout(function () {
-            t(r("err")("RA-TLS WebSocket handshake timed out"));
-          }, _);
-        });
-      try {
-        var l = await Promise.race([L(e, t, o, n), i]);
-        return l;
-      } catch (e) {
-        throw e;
-      } finally {
-        (a != null && self.clearTimeout(a), o.dispose());
-      }
+    function E(e, t, n) {
+      return k.apply(this, arguments);
     }
-    async function L(e, t, n, r) {
-      var o = {
-          finalAdditionalErrorCode: 0,
-          handshakeSteps: 0,
-          receivedBytes: 0,
-          sentBytes: 0,
-        },
-        a = e.performHandshake(d, d, d);
+    function k() {
       return (
-        k({ handshakeID: r, metrics: o, result: a, session: e, socket: t }),
-        await E(e, t, n, o, r),
-        o
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, o) {
+          var a = P(t, o),
+            i = null,
+            l = new (c || (c = n("Promise")))(function (e, t) {
+              i = self.setTimeout(function () {
+                t(r("err")("RA-TLS WebSocket handshake timed out"));
+              }, f);
+            });
+          try {
+            var s = yield (c || (c = n("Promise"))).race([I(e, t, a, o), l]);
+            return s;
+          } catch (e) {
+            throw e;
+          } finally {
+            (i != null && self.clearTimeout(i), a.dispose());
+          }
+        })),
+        k.apply(this, arguments)
       );
     }
-    async function E(e, t, n, a, i) {
-      var l = e.getState();
-      if (l !== o("WATheiaRaTls").WATheiaRaTlsState.CONNECTED.valueOf()) {
-        if (a.handshakeSteps >= m)
-          throw r("err")(
-            "RA-TLS handshake did not connect after " +
-              String(a.handshakeSteps) +
-              " steps",
-          );
-        var s;
-        try {
-          s = await n.read();
-        } catch (e) {
-          throw e;
-        }
-        a.receivedBytes += s.length;
-        var u = e.performHandshake(d, s, d);
-        return (
-          k({ handshakeID: i, metrics: a, result: u, session: e, socket: t }),
-          E(e, t, n, a, i)
-        );
-      }
+    function I(e, t, n, r) {
+      return T.apply(this, arguments);
     }
-    function k(e) {
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var o = {
+                finalAdditionalErrorCode: 0,
+                handshakeSteps: 0,
+                receivedBytes: 0,
+                sentBytes: 0,
+              },
+              a = e.performHandshake(m, m, m);
+            return (
+              $({
+                handshakeID: r,
+                metrics: o,
+                result: a,
+                session: e,
+                socket: t,
+              }),
+              yield D(e, t, n, o, r),
+              o
+            );
+          },
+        )),
+        T.apply(this, arguments)
+      );
+    }
+    function D(e, t, n, r, o) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a, i) {
+            var l = e.getState();
+            if (l !== o("WATheiaRaTls").WATheiaRaTlsState.CONNECTED.valueOf()) {
+              if (a.handshakeSteps >= p)
+                throw r("err")(
+                  "RA-TLS handshake did not connect after " +
+                    String(a.handshakeSteps) +
+                    " steps",
+                );
+              var s;
+              try {
+                s = yield n.read();
+              } catch (e) {
+                throw e;
+              }
+              a.receivedBytes += s.length;
+              var u = e.performHandshake(m, s, m);
+              return (
+                $({
+                  handshakeID: i,
+                  metrics: a,
+                  result: u,
+                  session: e,
+                  socket: t,
+                }),
+                D(e, t, n, a, i)
+              );
+            }
+          },
+        )),
+        x.apply(this, arguments)
+      );
+    }
+    function $(e) {
       var t = e.handshakeID,
         n = e.metrics,
         a = e.result,
@@ -193,76 +247,84 @@ __d(
         (n.finalAdditionalErrorCode = a.additionalErrorCode));
       var s = i.getState();
       if (
-        ((n.sentBytes += D(l, a.sendBuffer, t, n.handshakeSteps)),
+        ((n.sentBytes += w(l, a.sendBuffer, t, n.handshakeSteps)),
         s === o("WATheiaRaTls").WATheiaRaTlsState.ERROR.valueOf())
       )
         throw r("err")(
           "RA-TLS handshake failed with code " + String(a.additionalErrorCode),
         );
     }
-    function I(e, t) {
-      var n = [],
-        o = [],
-        a = null,
-        i = function () {
-          for (; n.length > 0 && o.length > 0; ) {
-            var e = n.shift(),
-              t = o.shift();
+    function P(e, t) {
+      var o = [],
+        a = [],
+        i = null,
+        l = function () {
+          for (; o.length > 0 && a.length > 0; ) {
+            var e = o.shift(),
+              t = a.shift();
             e != null && t != null && t.resolve(e);
           }
         },
-        l = function (t) {
-          for (a = t; o.length > 0; ) {
-            var e = o.shift();
+        s = function (t) {
+          for (i = t; a.length > 0; ) {
+            var e = a.shift();
             e != null && e.reject(t);
           }
         },
-        s = function (t) {
-          T(t.data)
+        u = function (t) {
+          N(t.data)
             .then(function (e) {
-              e.length > 0 && (n.push(e), i());
+              e.length > 0 && (o.push(e), l());
             })
             .catch(function (e) {
-              l(r("getErrorSafe")(e));
+              s(r("getErrorSafe")(e));
             });
         },
-        u = function (t) {
-          l(r("err")("RA-TLS WebSocket read failed"));
+        d = function (t) {
+          s(r("err")("RA-TLS WebSocket read failed"));
         },
-        c = function (t) {
-          l(P(t));
+        m = function (t) {
+          s(O(t));
         };
       return (
-        e.addEventListener("message", s),
-        e.addEventListener("error", u),
-        e.addEventListener("close", c),
+        e.addEventListener("message", u),
+        e.addEventListener("error", d),
+        e.addEventListener("close", m),
         {
           read: function () {
-            var e = n.shift();
+            var e = o.shift();
             return e != null
-              ? Promise.resolve(e)
-              : a != null
-                ? Promise.reject(a)
-                : new Promise(function (e, t) {
-                    o.push({ resolve: e, reject: t });
+              ? (c || (c = n("Promise"))).resolve(e)
+              : i != null
+                ? (c || (c = n("Promise"))).reject(i)
+                : new (c || (c = n("Promise")))(function (e, t) {
+                    a.push({ resolve: e, reject: t });
                   });
           },
           dispose: function () {
-            (e.removeEventListener("message", s),
-              e.removeEventListener("error", u),
-              e.removeEventListener("close", c),
-              l(r("err")("RA-TLS WebSocket byte reader disposed")));
+            (e.removeEventListener("message", u),
+              e.removeEventListener("error", d),
+              e.removeEventListener("close", m),
+              s(r("err")("RA-TLS WebSocket byte reader disposed")));
           },
         }
       );
     }
-    async function T(e) {
-      if (e instanceof ArrayBuffer) return new Uint8Array(e);
-      if (Blob !== void 0 && e instanceof Blob)
-        return new Uint8Array(await e.arrayBuffer());
-      throw r("err")("RA-TLS WebSocket returned non-binary data");
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function D(e, t, n, r) {
+    function M() {
+      return (
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e instanceof ArrayBuffer) return new Uint8Array(e);
+          if (Blob !== void 0 && e instanceof Blob)
+            return new Uint8Array(yield e.arrayBuffer());
+          throw r("err")("RA-TLS WebSocket returned non-binary data");
+        })),
+        M.apply(this, arguments)
+      );
+    }
+    function w(e, t, n, r) {
       if (t.length === 0) return 0;
       try {
         e.send(t);
@@ -271,11 +333,11 @@ __d(
       }
       return t.length;
     }
-    function x(e, t, n) {
+    function A(e, t, n) {
       return {
         attestationBundleCount: e.getAttestationBundles().length,
         clientPolicy: t,
-        endpoint: y,
+        endpoint: C,
         finalAdditionalErrorCode: n.finalAdditionalErrorCode,
         handshakeSteps: n.handshakeSteps,
         localServiceTransparencyStreamCount: Object.keys(
@@ -286,15 +348,15 @@ __d(
         state: "CONNECTED",
       };
     }
-    function $(e, t) {
+    function F(e, t) {
       e != null && e.readyState !== WebSocket.CLOSED && e.close();
     }
-    function P(e) {
+    function O(e) {
       return r("err")(
-        "RA-TLS WebSocket closed before handshake completed " + V(e),
+        "RA-TLS WebSocket closed before handshake completed " + Q(e),
       );
     }
-    function N(e) {
+    function B(e) {
       try {
         var t = new URL(e),
           n = [];
@@ -308,25 +370,25 @@ __d(
           nodeTokenPresent: r != null && r.length > 0,
           pathname: t.pathname,
           protocol: t.protocol,
-          redacted: y,
+          redacted: C,
           searchParamNames: n.sort(),
         };
       } catch (e) {
-        return { error: z(e), redacted: y };
+        return { error: J(e), redacted: C };
       }
     }
-    function M(e) {
+    function W(e) {
       return e == null
         ? null
         : {
             binaryType: e.binaryType,
             bufferedAmount: e.bufferedAmount,
             readyState: e.readyState,
-            readyStateName: H(e.readyState),
-            url: y,
+            readyStateName: X(e.readyState),
+            url: C,
           };
     }
-    function w(e) {
+    function q(e) {
       return {
         finalAdditionalErrorCode: e.finalAdditionalErrorCode,
         handshakeSteps: e.handshakeSteps,
@@ -334,61 +396,61 @@ __d(
         sentBytes: e.sentBytes,
       };
     }
-    function A(e) {
+    function U(e) {
       return {
         additionalErrorCode: e.additionalErrorCode,
-        recvBuffer: B(e.recvBuffer),
-        sendBuffer: B(e.sendBuffer),
+        recvBuffer: G(e.recvBuffer),
+        sendBuffer: G(e.sendBuffer),
         state: e.state,
-        stateName: G(e.state),
-        transparencyReportDataBuffer: B(e.transparencyReportDataBuffer),
+        stateName: Y(e.state),
+        transparencyReportDataBuffer: G(e.transparencyReportDataBuffer),
       };
     }
-    function F(e) {
+    function V(e) {
       if (e == null) return null;
       try {
-        return O(e.getState());
+        return H(e.getState());
       } catch (e) {
-        return { error: z(e), state: null, stateName: "unavailable" };
+        return { error: J(e), state: null, stateName: "unavailable" };
       }
     }
-    function O(e) {
-      return { state: e, stateName: G(e) };
+    function H(e) {
+      return { state: e, stateName: Y(e) };
     }
-    function B(e) {
-      var t = Math.min(e.length, f);
-      if (e.length <= f)
-        return { length: e.length, previewHex: W(e, 0, t), previewLength: t };
-      var n = Math.max(t, e.length - f);
+    function G(e) {
+      var t = Math.min(e.length, g);
+      if (e.length <= g)
+        return { length: e.length, previewHex: z(e, 0, t), previewLength: t };
+      var n = Math.max(t, e.length - g);
       return {
         length: e.length,
-        previewHex: W(e, 0, t),
+        previewHex: z(e, 0, t),
         previewLength: t,
-        tailHex: W(e, n, e.length),
+        tailHex: z(e, n, e.length),
         tailLength: e.length - n,
         truncatedBytes: n - t,
       };
     }
-    function W(e, t, n) {
+    function z(e, t, n) {
       for (var r = [], o = t; o < n; o++)
         r.push(e[o].toString(16).padStart(2, "0"));
       return r.join("");
     }
-    function q(e) {
+    function j(e) {
       return e instanceof ArrayBuffer
         ? "ArrayBuffer"
         : Blob !== void 0 && e instanceof Blob
           ? "Blob"
           : typeof e;
     }
-    function U(e) {
+    function K(e) {
       return CloseEvent !== void 0 && e instanceof CloseEvent
         ? { code: e.code, reason: e.reason, type: e.type, wasClean: e.wasClean }
         : { type: e.type };
     }
-    function V(e) {
+    function Q(e) {
       var t,
-        n = U(e);
+        n = K(e);
       return n.code == null
         ? n.type
         : n.type +
@@ -399,21 +461,21 @@ __d(
             " reason=" +
             ((t = n.reason) != null ? t : "");
     }
-    function H(e) {
-      var t;
-      return (t = g[e]) != null ? t : "UNKNOWN";
-    }
-    function G(e) {
+    function X(e) {
       var t;
       return (t = h[e]) != null ? t : "UNKNOWN";
     }
-    function z(e) {
+    function Y(e) {
+      var t;
+      return (t = y[e]) != null ? t : "UNKNOWN";
+    }
+    function J(e) {
       return e instanceof Error
         ? { message: e.message, name: e.name, stack: e.stack }
         : { message: String(e) };
     }
-    var j = { runTheiaRaTlsHandshake: b };
-    l.default = j;
+    var Z = { runTheiaRaTlsHandshake: v };
+    l.default = Z;
   },
   98,
 );

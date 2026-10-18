@@ -2,6 +2,7 @@ __d(
   "WAWebMediaWasmWorkerClient",
   [
     "FBLogger",
+    "Promise",
     "QPLUserFlow",
     "WAByteArray",
     "WACustomError",
@@ -12,6 +13,7 @@ __d(
     "WAWebNoop",
     "WorkerBundleResource",
     "WorkerMessagePort",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,18 +43,19 @@ __d(
       D,
       x,
       $,
-      P = function () {
+      P,
+      N = function () {
         return r("FBLogger")("media_platform").tags([
           "WAWebMediaWasmWorkerClient",
         ]);
       },
-      N = o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ? null : F();
-    function M() {
-      return (N == null && (N = F()), N);
+      M = o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ? null : O();
+    function w() {
+      return (M == null && (M = O()), M);
     }
-    var w = 3e4,
-      A = 1e4;
-    function F() {
+    var A = 3e4,
+      F = 1e4;
+    function O() {
       var t = o("WorkerBundleResource").createDedicatedWebWorker(
           r("WAWebMediaWasmWorkerResource"),
         ),
@@ -66,7 +69,7 @@ __d(
             r = t.message;
           switch (n) {
             case "dev":
-              P().DEBUG(
+              N().DEBUG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "from worker: ",
@@ -76,7 +79,7 @@ __d(
               );
               break;
             case "error":
-              P().MUSTFIX(
+              N().MUSTFIX(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "worker error: ",
@@ -89,12 +92,12 @@ __d(
           }
         }),
         n.addMessageListener("qpl", function (e) {
-          O(e);
+          B(e);
         }),
         n
       );
     }
-    function O(e) {
+    function B(e) {
       var t = e.action,
         n = e.event;
       switch (t.type) {
@@ -111,7 +114,7 @@ __d(
           break;
         }
         default:
-          P().MUSTFIX(
+          N().MUSTFIX(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
                 "Unknown QPL action type from worker: ",
@@ -121,11 +124,11 @@ __d(
           );
       }
     }
-    function B(e) {
+    function W(e) {
       e == null || e.addPoint("get_connected_worker_port_start");
-      var t = M();
+      var t = w();
       return o("WAPromiseTimeout")
-        .promiseTimeout(t.fullyConnected, w)
+        .promiseTimeout(t.fullyConnected, A)
         .then(function (t) {
           return (
             e == null || e.addPoint("get_connected_worker_port_end"),
@@ -145,7 +148,7 @@ __d(
               }),
             t instanceof o("WACustomError").TimeoutError
               ? o("WAResultOrError").makeError("worker-connection-timeout")
-              : (P().MUSTFIX(
+              : (N().MUSTFIX(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
                       "worker-connection-runtime-error: ",
@@ -159,438 +162,486 @@ __d(
           );
         });
     }
-    var W = 0;
-    function q() {
-      return ++W;
+    var q = 0;
+    function U() {
+      return ++q;
     }
-    async function U(e) {
-      var t = q();
-      P().INFO(
-        d ||
-          (d = babelHelpers.taggedTemplateLiteralLoose([
-            "calculateFilehashInWorker[",
-            "]: sending ",
-            "MB to worker",
-          ])),
-        t,
-        Math.floor(e.byteLength / (1024 * 1024)),
-      );
-      var n = await B();
-      if (!n.success)
-        return {
-          transferredBuffer: e,
-          result: o("WAResultOrError").makeError(n.error),
-        };
-      var r = n.value,
-        a = r.onMessageOnce("calculateFilehashResponse", function (e) {
-          return e.requestId === t;
-        });
-      r.postMessage(
-        { buffer: e, requestId: t, type: "calculateFilehashRequest" },
-        [e],
-      );
-      var i = await a,
-        l = i.output,
-        s = i.transferredBuffer;
-      return l.success
-        ? (P().INFO(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "calculateFilehashInWorker[",
-                "]: received result from worker",
-              ])),
-            t,
-          ),
-          {
-            transferredBuffer: s,
-            result: o("WAResultOrError").makeResult({ filehash: l.value }),
-          })
-        : (P().MUSTFIX(
+    function V(e) {
+      return H.apply(this, arguments);
+    }
+    function H() {
+      return (
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = U();
+          N().INFO(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
                 "calculateFilehashInWorker[",
-                "]: failed: ",
-                "",
+                "]: sending ",
+                "MB to worker",
               ])),
             t,
-            l.error.errorMessage,
-          ),
-          {
-            transferredBuffer: s,
-            result: o("WAResultOrError").makeError(l.error.errorType),
-          });
+            Math.floor(e.byteLength / (1024 * 1024)),
+          );
+          var n = yield W();
+          if (!n.success)
+            return {
+              transferredBuffer: e,
+              result: o("WAResultOrError").makeError(n.error),
+            };
+          var r = n.value,
+            a = r.onMessageOnce("calculateFilehashResponse", function (e) {
+              return e.requestId === t;
+            });
+          r.postMessage(
+            { buffer: e, requestId: t, type: "calculateFilehashRequest" },
+            [e],
+          );
+          var i = yield a,
+            l = i.output,
+            s = i.transferredBuffer;
+          return l.success
+            ? (N().INFO(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "calculateFilehashInWorker[",
+                    "]: received result from worker",
+                  ])),
+                t,
+              ),
+              {
+                transferredBuffer: s,
+                result: o("WAResultOrError").makeResult({ filehash: l.value }),
+              })
+            : (N().MUSTFIX(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "calculateFilehashInWorker[",
+                    "]: failed: ",
+                    "",
+                  ])),
+                t,
+                l.error.errorMessage,
+              ),
+              {
+                transferredBuffer: s,
+                result: o("WAResultOrError").makeError(l.error.errorType),
+              });
+        })),
+        H.apply(this, arguments)
+      );
     }
-    async function V(e, t, n) {
-      var r = q();
-      P().INFO(
-        _ ||
-          (_ = babelHelpers.taggedTemplateLiteralLoose([
-            "hmacSha256InWorker[",
-            "]: sending ",
-            "MB to worker",
-          ])),
-        r,
-        Math.floor(t.byteLength / (1024 * 1024)),
-      );
-      var a = await B();
-      if (!a.success)
-        return {
-          transferredKeyBuffer: e,
-          transferredBuffer: t,
-          result: o("WAResultOrError").makeError(a.error),
-        };
-      var i = a.value,
-        l = i.onMessageOnce("calculateHmacSha256Response", function (e) {
-          return e.requestId === r;
-        });
-      i.postMessage(
-        {
-          keyBuffer: e,
-          buffer: t,
-          length: n,
-          requestId: r,
-          type: "calculateHmacSha256Request",
-        },
-        [e, t],
-      );
-      var s = await l,
-        u = s.output,
-        c = s.transferredBuffer,
-        d = s.transferredKeyBuffer;
-      return u.success
-        ? (P().INFO(
-            f ||
-              (f = babelHelpers.taggedTemplateLiteralLoose([
-                "hmacSha256InWorker[",
-                "]: received result from worker",
-              ])),
-            r,
-          ),
-          {
-            transferredKeyBuffer: d,
-            transferredBuffer: c,
-            result: o("WAResultOrError").makeResult({ hmac: u.value }),
-          })
-        : (P().MUSTFIX(
+    function G(e, t, n) {
+      return z.apply(this, arguments);
+    }
+    function z() {
+      return (
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = U();
+          N().INFO(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
                 "hmacSha256InWorker[",
-                "]: failed: ",
-                "",
+                "]: sending ",
+                "MB to worker",
               ])),
             r,
-            u.error.errorMessage,
-          ),
-          {
-            transferredKeyBuffer: d,
-            transferredBuffer: c,
-            result: o("WAResultOrError").makeError(u.error.errorType),
-          });
+            Math.floor(t.byteLength / (1024 * 1024)),
+          );
+          var a = yield W();
+          if (!a.success)
+            return {
+              transferredKeyBuffer: e,
+              transferredBuffer: t,
+              result: o("WAResultOrError").makeError(a.error),
+            };
+          var i = a.value,
+            l = i.onMessageOnce("calculateHmacSha256Response", function (e) {
+              return e.requestId === r;
+            });
+          i.postMessage(
+            {
+              keyBuffer: e,
+              buffer: t,
+              length: n,
+              requestId: r,
+              type: "calculateHmacSha256Request",
+            },
+            [e, t],
+          );
+          var s = yield l,
+            u = s.output,
+            c = s.transferredBuffer,
+            d = s.transferredKeyBuffer;
+          return u.success
+            ? (N().INFO(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "hmacSha256InWorker[",
+                    "]: received result from worker",
+                  ])),
+                r,
+              ),
+              {
+                transferredKeyBuffer: d,
+                transferredBuffer: c,
+                result: o("WAResultOrError").makeResult({ hmac: u.value }),
+              })
+            : (N().MUSTFIX(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "hmacSha256InWorker[",
+                    "]: failed: ",
+                    "",
+                  ])),
+                r,
+                u.error.errorMessage,
+              ),
+              {
+                transferredKeyBuffer: d,
+                transferredBuffer: c,
+                result: o("WAResultOrError").makeError(u.error.errorType),
+              });
+        })),
+        z.apply(this, arguments)
+      );
     }
-    async function H(e) {
-      var t = e.eventFlow,
-        n = e.input,
-        r = e.mimeType,
-        a = e.supportsHevc;
-      P().INFO(
-        h ||
-          (h = babelHelpers.taggedTemplateLiteralLoose([
-            "transcodeToMp4InWorker processing video",
-          ])),
-      );
-      var i = q();
-      P().INFO(
-        y ||
-          (y = babelHelpers.taggedTemplateLiteralLoose([
-            "sending input bytes to worker, requestId: ",
-            "",
-          ])),
-        i,
-      );
-      var l = await B(t);
-      if (!l.success) return o("WAResultOrError").makeError(l.error);
-      var s = l.value,
-        u = s.onMessageOnce("transcodeToMp4Response", function (e) {
-          return e.requestId === i;
-        }),
-        c = o("WAByteArray").uint8ArrayToBuffer(n),
-        d = c ? [c] : void 0;
-      (s.postMessage(
-        {
-          input: c,
-          requestId: i,
-          mimeType: r,
-          supportsHevc: a,
-          type: "transcodeToMp4Request",
-          qplData: t.flowDetails,
-        },
-        d,
-      ),
-        t == null || t.addPoint("sent_request_to_media_worker_start"));
-      var m = await u,
-        p = m.output;
+    function j(e) {
+      return K.apply(this, arguments);
+    }
+    function K() {
       return (
-        P().INFO(
-          C ||
-            (C = babelHelpers.taggedTemplateLiteralLoose([
-              "received output from worker, requestId: ",
-              ", success: ",
-              "",
-            ])),
-          i,
-          p.success,
-        ),
-        p.success
-          ? (t == null || t.addPoint("sent_request_to_media_worker_end"), p)
-          : (t == null || t.addPoint("sent_request_to_media_worker_end"),
-            t == null ||
-              t.addAnnotations({
-                string: { errorMessage: p.error.errorMessage },
-              }),
-            o("WAResultOrError").makeError(p.error.errorType))
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.eventFlow,
+            n = e.input,
+            r = e.mimeType,
+            a = e.supportsHevc;
+          N().INFO(
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
+                "transcodeToMp4InWorker processing video",
+              ])),
+          );
+          var i = U();
+          N().INFO(
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
+                "sending input bytes to worker, requestId: ",
+                "",
+              ])),
+            i,
+          );
+          var l = yield W(t);
+          if (!l.success) return o("WAResultOrError").makeError(l.error);
+          var s = l.value,
+            u = s.onMessageOnce("transcodeToMp4Response", function (e) {
+              return e.requestId === i;
+            }),
+            c = o("WAByteArray").uint8ArrayToBuffer(n),
+            d = c ? [c] : void 0;
+          (s.postMessage(
+            {
+              input: c,
+              requestId: i,
+              mimeType: r,
+              supportsHevc: a,
+              type: "transcodeToMp4Request",
+              qplData: t.flowDetails,
+            },
+            d,
+          ),
+            t == null || t.addPoint("sent_request_to_media_worker_start"));
+          var m = yield u,
+            p = m.output;
+          return (
+            N().INFO(
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
+                  "received output from worker, requestId: ",
+                  ", success: ",
+                  "",
+                ])),
+              i,
+              p.success,
+            ),
+            p.success
+              ? (t == null || t.addPoint("sent_request_to_media_worker_end"), p)
+              : (t == null || t.addPoint("sent_request_to_media_worker_end"),
+                t == null ||
+                  t.addAnnotations({
+                    string: { errorMessage: p.error.errorMessage },
+                  }),
+                o("WAResultOrError").makeError(p.error.errorType))
+          );
+        })),
+        K.apply(this, arguments)
       );
     }
-    async function G(e) {
-      var t = e.eventFlow,
-        n = e.input;
-      P().INFO(
-        b ||
-          (b = babelHelpers.taggedTemplateLiteralLoose([
-            "mp4RepairMuxInWorker processing video",
-          ])),
-      );
-      var r = q();
-      P().INFO(
-        v ||
-          (v = babelHelpers.taggedTemplateLiteralLoose([
-            "sending input bytes to worker, requestId: ",
-            "",
-          ])),
-        r,
-      );
-      var a = await B(t);
-      if (!a.success) return o("WAResultOrError").makeError(a.error);
-      var i = a.value,
-        l = i.onMessageOnce("mediaOperationResponse", function (e) {
-          return e.requestId === r;
-        }),
-        s = o("WAByteArray").uint8ArrayToBuffer(n),
-        u = s ? [s] : void 0;
-      (i.postMessage(
-        {
-          operation: "mp4RepairMux",
-          input: s,
-          requestId: r,
-          type: "mediaOperationRequest",
-        },
-        u,
-      ),
-        t == null || t.addPoint("sent_request_to_media_worker_start"));
-      var c = await l,
-        d = c.output;
-      return d.success
-        ? (P().INFO(
+    function Q(e) {
+      return X.apply(this, arguments);
+    }
+    function X() {
+      return (
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.eventFlow,
+            n = e.input;
+          N().INFO(
             S ||
               (S = babelHelpers.taggedTemplateLiteralLoose([
-                "received output from worker, requestId: ",
-                "",
+                "mp4RepairMuxInWorker processing video",
               ])),
-            r,
-          ),
-          t == null || t.addPoint("sent_request_to_media_worker_end"),
-          o("WAResultOrError").makeResult(d.value))
-        : (P().MUSTFIX(
+          );
+          var r = U();
+          N().INFO(
             R ||
               (R = babelHelpers.taggedTemplateLiteralLoose([
-                "requestId: ",
-                ", error: ",
+                "sending input bytes to worker, requestId: ",
                 "",
               ])),
             r,
-            d.error.errorMessage,
+          );
+          var a = yield W(t);
+          if (!a.success) return o("WAResultOrError").makeError(a.error);
+          var i = a.value,
+            l = i.onMessageOnce("mediaOperationResponse", function (e) {
+              return e.requestId === r;
+            }),
+            s = o("WAByteArray").uint8ArrayToBuffer(n),
+            u = s ? [s] : void 0;
+          (i.postMessage(
+            {
+              operation: "mp4RepairMux",
+              input: s,
+              requestId: r,
+              type: "mediaOperationRequest",
+            },
+            u,
           ),
-          t == null || t.addPoint("sent_request_to_media_worker_fail"),
-          o("WAResultOrError").makeError(d.error.errorType));
-    }
-    async function z(e) {
-      var t = e.eventFlow,
-        n = e.input,
-        r = e.mediaType,
-        a = e.rawMimeType,
-        i = e.strictMp4ValidationEnabled,
-        l = e.strictOggOpusValidationEnabled,
-        s = q();
-      P().INFO(
-        L ||
-          (L = babelHelpers.taggedTemplateLiteralLoose([
-            "start kaleidoscope classify in worker, requestId: ",
-            "",
-          ])),
-        s,
+            t == null || t.addPoint("sent_request_to_media_worker_start"));
+          var c = yield l,
+            d = c.output;
+          return d.success
+            ? (N().INFO(
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                    "received output from worker, requestId: ",
+                    "",
+                  ])),
+                r,
+              ),
+              t == null || t.addPoint("sent_request_to_media_worker_end"),
+              o("WAResultOrError").makeResult(d.value))
+            : (N().MUSTFIX(
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                    "requestId: ",
+                    ", error: ",
+                    "",
+                  ])),
+                r,
+                d.error.errorMessage,
+              ),
+              t == null || t.addPoint("sent_request_to_media_worker_fail"),
+              o("WAResultOrError").makeError(d.error.errorType));
+        })),
+        X.apply(this, arguments)
       );
-      var u = await B(t);
-      if (!u.success)
-        return {
-          transferredBuffer: n,
-          result: o("WAResultOrError").makeError({ errorName: u.error }),
-        };
-      var c = u.value,
-        d = c.onMessageOnce("kaleidoscopeClassifyResponse", function (e) {
-          return e.requestId === s;
-        });
-      (c.postMessage(
-        {
-          mediaType: r,
-          rawMimeType: a,
-          strictOggOpusValidationEnabled: l,
-          strictMp4ValidationEnabled: i,
-          input: n,
-          requestId: s,
-          type: "kaleidoscopeClassifyRequest",
-        },
-        [n],
-      ),
-        t.addPoint("sent_request_to_media_worker_start"));
-      var m = await d,
-        p = m.output,
-        _ = m.transferredBuffer;
-      return p.success
-        ? (P().INFO(
-            E ||
-              (E = babelHelpers.taggedTemplateLiteralLoose([
-                "received output from worker, requestId: ",
+    }
+    function Y(e) {
+      return J.apply(this, arguments);
+    }
+    function J() {
+      return (
+        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.eventFlow,
+            n = e.input,
+            r = e.mediaType,
+            a = e.rawMimeType,
+            i = e.strictMp4ValidationEnabled,
+            l = e.strictOggOpusValidationEnabled,
+            s = U();
+          N().INFO(
+            k ||
+              (k = babelHelpers.taggedTemplateLiteralLoose([
+                "start kaleidoscope classify in worker, requestId: ",
                 "",
               ])),
             s,
-          ),
-          t == null || t.addPoint("sent_request_to_media_worker_end"),
-          { transferredBuffer: _, result: p })
-        : (t.addPoint("sent_request_to_media_worker_fail"),
-          {
-            transferredBuffer: _,
-            result: o("WAResultOrError").makeError({ errorName: p.error }),
-          });
-    }
-    async function j(e) {
-      var t = e.eventFlow,
-        n = e.hints,
-        a = e.input,
-        i = q();
-      P().INFO(
-        k ||
-          (k = babelHelpers.taggedTemplateLiteralLoose([
-            "start kaleidoscope provenance detection in worker, requestId: ",
-            "",
-          ])),
-        i,
-      );
-      var l = await B(t);
-      if (!l.success)
-        return (
-          P().WARN(
-            I ||
-              (I = babelHelpers.taggedTemplateLiteralLoose([
-                "provenance detection failed, requestId: ",
-                ", reason: no-worker-port, error: ",
-                "",
-              ])),
-            i,
-            l.error,
-          ),
-          t == null ||
-            t.addPoint("worker_roundtrip_fail", {
-              string: { failure_reason: "no_worker_port" },
-            }),
-          { transferredBuffer: a, provenance: null }
-        );
-      var s = l.value,
-        u = r("WAWebNoop"),
-        c = new Promise(function (e) {
-          var t = s.addMessageListener(
-            "kaleidoscopeProvenanceResponse",
-            function (t) {
-              t.requestId === i &&
-                (u(),
-                P().INFO(
-                  T ||
-                    (T = babelHelpers.taggedTemplateLiteralLoose([
-                      "received provenance from worker, requestId: ",
-                      ", hasSignal: ",
-                      "",
-                    ])),
-                  i,
-                  t.provenance != null,
-                ),
-                e({
-                  transferredBuffer: t.transferredBuffer,
-                  provenance: t.provenance,
-                  engineErrorCode: t.engineErrorCode,
-                }));
-            },
           );
-          u = function () {
-            s.removeMessageListener("kaleidoscopeProvenanceResponse", t);
-          };
-        });
-      try {
-        (t == null || t.addPoint("worker_roundtrip_start"),
-          s.postMessage(
+          var u = yield W(t);
+          if (!u.success)
+            return {
+              transferredBuffer: n,
+              result: o("WAResultOrError").makeError({ errorName: u.error }),
+            };
+          var c = u.value,
+            d = c.onMessageOnce("kaleidoscopeClassifyResponse", function (e) {
+              return e.requestId === s;
+            });
+          (c.postMessage(
             {
-              input: a,
-              hints: n,
-              qplData: t == null ? void 0 : t.flowDetails,
-              requestId: i,
-              type: "kaleidoscopeProvenanceRequest",
+              mediaType: r,
+              rawMimeType: a,
+              strictOggOpusValidationEnabled: l,
+              strictMp4ValidationEnabled: i,
+              input: n,
+              requestId: s,
+              type: "kaleidoscopeClassifyRequest",
             },
-            [a],
-          ));
-        var d = await o("WAPromiseTimeout").promiseTimeout(c, A);
-        return (t == null || t.addPoint("worker_roundtrip_end"), d);
-      } catch (e) {
-        u();
-        var m =
-          e instanceof o("WACustomError").TimeoutError
-            ? "timeout"
-            : "post_failed";
-        return (
-          P().WARN(
-            D ||
-              (D = babelHelpers.taggedTemplateLiteralLoose([
-                "provenance detection failed, requestId: ",
-                ", reason: ",
-                ", error: ",
+            [n],
+          ),
+            t.addPoint("sent_request_to_media_worker_start"));
+          var m = yield d,
+            p = m.output,
+            _ = m.transferredBuffer;
+          return p.success
+            ? (N().INFO(
+                I ||
+                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                    "received output from worker, requestId: ",
+                    "",
+                  ])),
+                s,
+              ),
+              t == null || t.addPoint("sent_request_to_media_worker_end"),
+              { transferredBuffer: _, result: p })
+            : (t.addPoint("sent_request_to_media_worker_fail"),
+              {
+                transferredBuffer: _,
+                result: o("WAResultOrError").makeError({ errorName: p.error }),
+              });
+        })),
+        J.apply(this, arguments)
+      );
+    }
+    function Z(e) {
+      return ee.apply(this, arguments);
+    }
+    function ee() {
+      return (
+        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.eventFlow,
+            a = e.hints,
+            i = e.input,
+            l = U();
+          N().INFO(
+            T ||
+              (T = babelHelpers.taggedTemplateLiteralLoose([
+                "start kaleidoscope provenance detection in worker, requestId: ",
                 "",
               ])),
-            i,
-            m,
-            r("getErrorSafe")(e).message,
-          ),
-          t == null ||
-            t.addPoint("worker_roundtrip_fail", {
-              string: { failure_reason: m },
-            }),
-          { transferredBuffer: a, provenance: null }
-        );
-      }
+            l,
+          );
+          var s = yield W(t);
+          if (!s.success)
+            return (
+              N().WARN(
+                D ||
+                  (D = babelHelpers.taggedTemplateLiteralLoose([
+                    "provenance detection failed, requestId: ",
+                    ", reason: no-worker-port, error: ",
+                    "",
+                  ])),
+                l,
+                s.error,
+              ),
+              t == null ||
+                t.addPoint("worker_roundtrip_fail", {
+                  string: { failure_reason: "no_worker_port" },
+                }),
+              { transferredBuffer: i, provenance: null }
+            );
+          var u = s.value,
+            c = r("WAWebNoop"),
+            d = new (P || (P = n("Promise")))(function (e) {
+              var t = u.addMessageListener(
+                "kaleidoscopeProvenanceResponse",
+                function (t) {
+                  t.requestId === l &&
+                    (c(),
+                    N().INFO(
+                      x ||
+                        (x = babelHelpers.taggedTemplateLiteralLoose([
+                          "received provenance from worker, requestId: ",
+                          ", hasSignal: ",
+                          "",
+                        ])),
+                      l,
+                      t.provenance != null,
+                    ),
+                    e({
+                      transferredBuffer: t.transferredBuffer,
+                      provenance: t.provenance,
+                      engineErrorCode: t.engineErrorCode,
+                    }));
+                },
+              );
+              c = function () {
+                u.removeMessageListener("kaleidoscopeProvenanceResponse", t);
+              };
+            });
+          try {
+            (t == null || t.addPoint("worker_roundtrip_start"),
+              u.postMessage(
+                {
+                  input: i,
+                  hints: a,
+                  qplData: t == null ? void 0 : t.flowDetails,
+                  requestId: l,
+                  type: "kaleidoscopeProvenanceRequest",
+                },
+                [i],
+              ));
+            var m = yield o("WAPromiseTimeout").promiseTimeout(d, F);
+            return (t == null || t.addPoint("worker_roundtrip_end"), m);
+          } catch (e) {
+            c();
+            var p =
+              e instanceof o("WACustomError").TimeoutError
+                ? "timeout"
+                : "post_failed";
+            return (
+              N().WARN(
+                $ ||
+                  ($ = babelHelpers.taggedTemplateLiteralLoose([
+                    "provenance detection failed, requestId: ",
+                    ", reason: ",
+                    ", error: ",
+                    "",
+                  ])),
+                l,
+                p,
+                r("getErrorSafe")(e).message,
+              ),
+              t == null ||
+                t.addPoint("worker_roundtrip_fail", {
+                  string: { failure_reason: p },
+                }),
+              { transferredBuffer: i, provenance: null }
+            );
+          }
+        })),
+        ee.apply(this, arguments)
+      );
     }
-    function K(e) {
-      (P().INFO(
-        x ||
-          (x = babelHelpers.taggedTemplateLiteralLoose([
+    function te(e) {
+      (N().INFO(
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose([
             "start prewarming media wasm worker, operation: ",
             "",
           ])),
         e,
       ),
         o("WAPromiseTimeout")
-          .promiseTimeout(M().fullyConnected, w)
+          .promiseTimeout(w().fullyConnected, A)
           .then(function (t) {
             t.postMessage({ type: "prewarm", operation: e });
           })
           .catch(function (e) {
-            P().WARN(
-              $ ||
-                ($ = babelHelpers.taggedTemplateLiteralLoose([
+            N().WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "prewarm failed: ",
                   "",
                 ])),
@@ -598,14 +649,14 @@ __d(
             );
           }));
     }
-    ((l.getWorkerPortWithTimeout = B),
-      (l.calculateFilehashInWorker = U),
-      (l.hmacSha256InWorker = V),
-      (l.transcodeToMp4InWorker = H),
-      (l.mp4RepairMuxInWorker = G),
-      (l.kaleidoscopeClassifyInWorker = z),
-      (l.detectAiProvenanceInWorker = j),
-      (l.prewarmMediaWasmWorker = K));
+    ((l.getWorkerPortWithTimeout = W),
+      (l.calculateFilehashInWorker = V),
+      (l.hmacSha256InWorker = G),
+      (l.transcodeToMp4InWorker = j),
+      (l.mp4RepairMuxInWorker = Q),
+      (l.kaleidoscopeClassifyInWorker = Y),
+      (l.detectAiProvenanceInWorker = Z),
+      (l.prewarmMediaWasmWorker = te));
   },
   98,
 );

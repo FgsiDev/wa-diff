@@ -8,24 +8,38 @@ __d(
     "WAWebOutgoingPeerMsgKey",
     "WAWebSendAppStateSyncMsgJob",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
-      var t = { collectionNames: e, timestamp: o("WATimeUtils").unixTimeMs() },
-        n = o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(
-          await r("WAWebMsgKey").newId(),
-        ),
-        a = {
-          id: n,
-          to: o("WAWebUserPrefsMeUser").getMyPrimaryForOutgoingPeerMessage(),
-          type: "protocol",
-          subtype: "app_state_fatal_exception_notification",
-          kind: o("WAWebMsgType").MsgKind.PeerMessage,
-          appStateFatalExceptionNotification: t,
-        };
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
       return (
-        await o("WAWebApiPeerMessageStore").storePeerMessages([a]),
-        o("WAWebSendAppStateSyncMsgJob").encryptAndSendKeyMsg({ msg: a })
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = {
+              collectionNames: e,
+              timestamp: o("WATimeUtils").unixTimeMs(),
+            },
+            n = o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(
+              yield r("WAWebMsgKey").newId(),
+            ),
+            a = {
+              id: n,
+              to: o(
+                "WAWebUserPrefsMeUser",
+              ).getMyPrimaryForOutgoingPeerMessage(),
+              type: "protocol",
+              subtype: "app_state_fatal_exception_notification",
+              kind: o("WAWebMsgType").MsgKind.PeerMessage,
+              appStateFatalExceptionNotification: t,
+            };
+          return (
+            yield o("WAWebApiPeerMessageStore").storePeerMessages([a]),
+            o("WAWebSendAppStateSyncMsgJob").encryptAndSendKeyMsg({ msg: a })
+          );
+        })),
+        s.apply(this, arguments)
       );
     }
     l.sendAppStateFatalExceptionNotification = e;

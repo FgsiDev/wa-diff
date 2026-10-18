@@ -4,12 +4,13 @@ __d(
     "WALogger",
     "WAWebAdvSyncDeviceListApi",
     "WAWebApiDeviceList",
+    "WAWebCallCollection",
     "WAWebContactMutator",
     "WAWebLidMigrationUtils",
-    "WAWebVoipAcquireMediaStream",
     "WAWebVoipCancelOutgoingCall",
     "WAWebVoipOutgoingCallQpl",
     "WAWebVoipOutgoingSetupLatencyMode",
+    "WAWebVoipStartCallPermissions",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -29,21 +30,21 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a,
-              i = S();
+              i = R();
             (a = o("WAWebVoipOutgoingCallQpl")).voipOutgoingCallQplAddPoint(
               e,
               a.VoipOutgoingCallQplPoint.DEVICE_PERMISSIONS_START,
             );
             var l = yield o(
-              "WAWebVoipAcquireMediaStream",
-            ).checkVoipDevicePermissions(n, null, r);
+              "WAWebVoipStartCallPermissions",
+            ).checkStartCallPermissions(n, r);
             a.voipOutgoingCallQplAddPoint(
               e,
               a.VoipOutgoingCallQplPoint.DEVICE_PERMISSIONS_END,
             );
-            var s = S();
-            if (!l) return { status: "stopped", stop: "no_permission" };
-            var u = yield y(e, t);
+            var s = R();
+            if (l == null) return { status: "stopped", stop: "no_permission" };
+            var u = yield C(e, t);
             return u.status === "stopped"
               ? u
               : (o("WAWebVoipOutgoingCallQpl").voipOutgoingCallQplAddPoint(
@@ -51,13 +52,14 @@ __d(
                   o("WAWebVoipOutgoingCallQpl").VoipOutgoingCallQplPoint
                     .SYNC_DEVICE_LIST_START,
                 ),
-                yield b(u.peerWid, e),
+                yield v(u.peerWid, e),
                 o("WAWebVoipOutgoingCallQpl").voipOutgoingCallQplAddPoint(
                   e,
                   o("WAWebVoipOutgoingCallQpl").VoipOutgoingCallQplPoint
                     .SYNC_DEVICE_LIST_END,
                 ),
                 babelHelpers.extends({}, u, {
+                  permission: l,
                   permissionsEndTs: s,
                   permissionsStartTs: i,
                 }));
@@ -72,9 +74,10 @@ __d(
       return n.status === "stopped"
         ? (g(e, t, n.stop, o), null)
         : {
-            devicePermissionsMs: h(n, a),
+            devicePermissionsMs: y(n, a),
             peerPnWid: n.peerPnWid,
             peerWid: n.peerWid,
+            permission: n.permission,
             signal: o,
           };
     }
@@ -88,10 +91,7 @@ __d(
           break e;
         }
         if (r === "no_permission") {
-          (o("WAWebVoipOutgoingCallQpl").endVoipOutgoingCallQplCancel(
-            t,
-            "permission_denied",
-          ),
+          (o("WAWebVoipOutgoingCallQpl").endVoipOutgoingCallQplCancel(t, h()),
             o("WAWebVoipCancelOutgoingCall").cancelPendingOutgoingCall());
           break e;
         }
@@ -135,19 +135,24 @@ __d(
         );
       }
     }
-    function h(e, t) {
+    function h() {
+      return r("WAWebCallCollection").activeCall != null
+        ? "another_call"
+        : "permission_denied";
+    }
+    function y(e, t) {
       var n = e.permissionsEndTs,
         r = e.permissionsStartTs;
       return r == null || n == null || t == null
         ? null
         : Math.max(0, n - Math.max(r, t));
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebLidMigrationUtils").toLid(t),
             r = o("WAWebLidMigrationUtils").toPn(t);
           if (n == null) {
@@ -193,15 +198,15 @@ __d(
             ? { status: "stopped", stop: "peer_wid_null" }
             : { peerPnWid: r, peerWid: a, status: "resolved" };
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebVoipOutgoingSetupLatencyMode").isCacheAwareSyncEnabled())
             try {
               var n = yield o("WAWebApiDeviceList").getDeviceRecord(e);
@@ -247,10 +252,10 @@ __d(
             phash: null,
           });
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S() {
+    function R() {
       var e, t;
       return (e = (t = globalThis.performance) == null ? void 0 : t.now()) !=
         null
@@ -260,7 +265,7 @@ __d(
     ((l.runOutgoingCallPreSetup = p),
       (l.finishOutgoingCallPreSetup = f),
       (l.stopOutgoingCallBeforeSetup = g),
-      (l.nowMs = S));
+      (l.nowMs = R));
   },
   98,
 );

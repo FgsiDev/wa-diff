@@ -2,6 +2,7 @@ __d(
   "WAWebGroupAgentNonInitiatorNux",
   [
     "JSResourceForInteraction",
+    "Promise",
     "WALogger",
     "WAWebBotGroupGatingUtils",
     "WAWebBotStaticProfiles",
@@ -14,128 +15,176 @@ __d(
     "WAWebNoop",
     "WAWebNullFunc",
     "WAWebResolveGroupAgentParticipants",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = s || (s = o("react")),
-      c = !1,
-      d = null,
-      m = r("WAWebLazyLoadedRetriable")(function () {
+      u,
+      c = u || (u = o("react")),
+      d = !1,
+      m = null,
+      p = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")(
           "WAWebGroupAgentNonInitiatorNuxModal.react",
         )
           .__setRef("WAWebGroupAgentNonInitiatorNux")
           .load();
       }, "GroupAgentNonInitiatorNuxModal");
-    async function p(e) {
-      await g(e, "modal", r("WAWebNoop"));
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    async function _(e) {
-      await d;
-      var t = await Promise.all(e.map(b)),
-        n = e.find(function (e, n) {
-          return t[n];
-        });
-      n != null && (await f(n));
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield C(e, "modal", r("WAWebNoop"));
+        })),
+        f.apply(this, arguments)
+      );
     }
-    function f(e) {
-      var t = d;
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield m;
+          var t = yield (s || (s = n("Promise"))).all(e.map(E)),
+            r = e.find(function (e, n) {
+              return t[n];
+            });
+          r != null && (yield y(r));
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      var t = m;
       if (t != null) return t;
-      var n = new Promise(function (t) {
-        g(e, "support", t).then(function (e) {
+      var r = new (s || (s = n("Promise")))(function (t) {
+        C(e, "support", t).then(function (e) {
           e || t();
         });
       }).finally(function () {
-        d = null;
+        m = null;
       });
-      return ((d = n), n);
+      return ((m = r), r);
     }
-    async function g(t, n, a) {
-      var i = o("WAWebBotTosIds").getMuseGroupNonInitiatorNoticeId();
-      if (c || i == null) return !1;
-      c = !0;
-      var l = function () {
-        (C(), a());
-      };
-      try {
-        var s = await h(t, Number(i), n, l);
-        return (s || C(), s);
-      } catch (t) {
-        return (
-          C(),
-          o("WALogger")
-            .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[GroupAgentNonInitiatorNux] failed to show the NUX",
-                ])),
+    function C(e, t, n) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i = o("WAWebBotTosIds").getMuseGroupNonInitiatorNoticeId();
+          if (d || i == null) return !1;
+          d = !0;
+          var l = function () {
+            (L(), a());
+          };
+          try {
+            var s = yield v(t, Number(i), n, l);
+            return (s || L(), s);
+          } catch (t) {
+            return (
+              L(),
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[GroupAgentNonInitiatorNux] failed to show the NUX",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("group-agent-non-initiator-nux-failed"),
+              !1
+            );
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t, n, r) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            if (
+              !(yield E(e)) ||
+              (yield o("WAWebBotTos").refreshMuseGroupTosNotices(),
+              o("WAWebBotTos").hasAcceptedMuseGroupTos())
             )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("group-agent-non-initiator-nux-failed"),
-          !1
-        );
-      }
+              return !1;
+            var a = yield p(),
+              i = yield o("WAWebModalManager").ModalManager.existsAsync(),
+              l = function () {
+                (r(), R(n));
+              },
+              s = c.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+                fallback: o("WAWebNullFunc").returnNull,
+                name: "group-agent-non-initiator-nux",
+                onError: l,
+                children: c.jsx(a, {
+                  modalManagerType: n,
+                  noticeId: t,
+                  onClosed: r,
+                }),
+              });
+            return n === "support"
+              ? i
+                ? (o("WAWebModalManager").ModalManager.openSupportModal(s, {
+                    blockClose: !0,
+                  }),
+                  !0)
+                : !1
+              : i
+                ? !1
+                : (o("WAWebModalManager").ModalManager.open(s), !0);
+          },
+        )),
+        S.apply(this, arguments)
+      );
     }
-    async function h(e, t, n, r) {
-      if (
-        !(await b(e)) ||
-        (await o("WAWebBotTos").refreshMuseGroupTosNotices(),
-        o("WAWebBotTos").hasAcceptedMuseGroupTos())
-      )
-        return !1;
-      var a = await m(),
-        i = await o("WAWebModalManager").ModalManager.existsAsync(),
-        l = function () {
-          (r(), y(n));
-        },
-        s = u.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
-          fallback: o("WAWebNullFunc").returnNull,
-          name: "group-agent-non-initiator-nux",
-          onError: l,
-          children: u.jsx(a, { modalManagerType: n, noticeId: t, onClosed: r }),
-        });
-      return n === "support"
-        ? i
-          ? (o("WAWebModalManager").ModalManager.openSupportModal(s, {
-              blockClose: !0,
-            }),
-            !0)
-          : !1
-        : i
-          ? !1
-          : (o("WAWebModalManager").ModalManager.open(s), !0);
-    }
-    function y(e) {
+    function R(e) {
       e === "support"
         ? o("WAWebModalManager").ModalManager.closeSupportModal()
         : o("WAWebModalManager").closeModalManager();
     }
-    function C() {
-      c = !1;
+    function L() {
+      d = !1;
     }
-    async function b(e) {
-      var t = e.groupMetadata;
-      if (
-        !e.id.isGroup() ||
-        e.isCAG() ||
-        t == null ||
-        !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
-        o("WAWebBotTosIds").getMuseGroupNonInitiatorNoticeId() == null ||
-        o("WAWebBotTos").hasAcceptedMuseGroupTos()
-      )
-        return !1;
-      var n = [];
+    function E(e) {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        t.participants.forEach(function (e) {
-          v(e.id) && n.push(e.id);
-        }),
-        o("WAWebResolveGroupAgentParticipants").hasMuseNoticeGroupAgent(n)
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.groupMetadata;
+          if (
+            !e.id.isGroup() ||
+            e.isCAG() ||
+            t == null ||
+            !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
+            o("WAWebBotTosIds").getMuseGroupNonInitiatorNoticeId() == null ||
+            o("WAWebBotTos").hasAcceptedMuseGroupTos()
+          )
+            return !1;
+          var n = [];
+          return (
+            t.participants.forEach(function (e) {
+              I(e.id) && n.push(e.id);
+            }),
+            o("WAWebResolveGroupAgentParticipants").hasMuseNoticeGroupAgent(n)
+          );
+        })),
+        k.apply(this, arguments)
       );
     }
-    function v(e) {
+    function I(e) {
       return (
         e.isBot() &&
         !o("WAWebBotUtils").isAnyMetaAiBot(e) &&
@@ -144,9 +193,9 @@ __d(
         !o("WAWebBotStaticProfiles").isStaticProfile(e)
       );
     }
-    ((l.maybeShowGroupAgentNonInitiatorNux = p),
-      (l.maybeShowGroupAgentNonInitiatorNuxForForward = _),
-      (l.isGroupAgentNonInitiatorNuxOwed = b));
+    ((l.maybeShowGroupAgentNonInitiatorNux = _),
+      (l.maybeShowGroupAgentNonInitiatorNuxForForward = g),
+      (l.isGroupAgentNonInitiatorNuxOwed = E));
   },
   98,
 );

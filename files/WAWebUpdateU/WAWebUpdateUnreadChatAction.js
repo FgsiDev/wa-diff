@@ -2,6 +2,7 @@ __d(
   "WAWebUpdateUnreadChatAction",
   [
     "fbt",
+    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAShiftTimer",
@@ -22,6 +23,7 @@ __d(
     "WAWebStreamModel",
     "WAWebToastManager",
     "WAWebUim",
+    "asyncToGeneratorRuntime",
     "err",
     "gkx",
     "react",
@@ -34,120 +36,139 @@ __d(
       m,
       p,
       _,
-      f = _ || (_ = o("react"));
-    function g(e, t, n) {
+      f,
+      g = f || (f = o("react"));
+    function h(e, t, n) {
       return (
         n === void 0 && (n = !0),
-        R({ allowAction: n, chat: o("WAWebStateUtils").unproxy(e), unread: t })
+        E({ allowAction: n, chat: o("WAWebStateUtils").unproxy(e), unread: t })
       );
     }
-    function h() {
+    function y() {
       var e = null,
         t = new (o("WAShiftTimer").ShiftTimer)(function (t) {
-          (b(t), (e = null));
+          (v(t), (e = null));
         });
-      return async function (n) {
-        var r = n.afterAvailable,
-          a = r === void 0 ? !0 : r,
-          i = n.chat,
-          l = n.threadId,
-          s = e;
-        if (s != null) {
-          var u = s.chat.id.toString(),
-            c = i.id.toString();
-          u !== c && (t.cancel(), b(s), (e = null));
-        }
-        if (!t.isScheduled()) {
-          var d = o("WAWebABProps").getABPropConfigValue(
-            "web_resume_optimized_read_receipt_send_interval",
-          );
-          t.onOrAfter(d, { chat: i, threadId: l, afterAvailable: a });
-        }
-        e = { chat: i, threadId: l, afterAvailable: a };
-      };
-    }
-    var y = h();
-    function C(e) {
-      return o("WAWebCmd").Cmd.isOfflineDeliveryEnd ? b(e) : y(e);
-    }
-    async function b(t) {
-      var n = t.afterAvailable,
-        r = n === void 0 ? !0 : n,
-        a = t.chat,
-        i = t.threadId,
-        l = i === void 0 ? null : i;
-      if (o("WAWebCurrentUser").isEmployee() && o("WAWebUim").isCmdPressed()) {
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "sendSeen: skip since cmd is pressed",
-            ])),
-        );
-        return;
-      }
-      var s = o("WAWebStateUtils").unproxy(a);
-      await Promise.all([
-        E({ chat: s, threadId: l, afterAvailable: r }),
-        M({ chat: s, threadId: l, afterAvailable: r }),
-      ]).catch(
-        o("WAFilteredCatch").filteredCatch(
-          o("WAWebBackendErrors").ServerStatusCodeError,
-          function (e) {
-            o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendSeen: got status ",
-                  "",
-                ])),
-              e.status,
+      return (function () {
+        var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
+          var r = n.afterAvailable,
+            a = r === void 0 ? !0 : r,
+            i = n.chat,
+            l = n.threadId,
+            s = e;
+          if (s != null) {
+            var u = s.chat.id.toString(),
+              c = i.id.toString();
+            u !== c && (t.cancel(), v(s), (e = null));
+          }
+          if (!t.isScheduled()) {
+            var d = o("WAWebABProps").getABPropConfigValue(
+              "web_resume_optimized_read_receipt_send_interval",
             );
-          },
-        ),
+            t.onOrAfter(d, { chat: i, threadId: l, afterAvailable: a });
+          }
+          e = { chat: i, threadId: l, afterAvailable: a };
+        });
+        return function (e) {
+          return r.apply(this, arguments);
+        };
+      })();
+    }
+    var C = y();
+    function b(e) {
+      return o("WAWebCmd").Cmd.isOfflineDeliveryEnd ? v(e) : C(e);
+    }
+    function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.afterAvailable,
+            r = t === void 0 ? !0 : t,
+            a = e.chat,
+            i = e.threadId,
+            l = i === void 0 ? null : i;
+          if (
+            o("WAWebCurrentUser").isEmployee() &&
+            o("WAWebUim").isCmdPressed()
+          ) {
+            o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "sendSeen: skip since cmd is pressed",
+                ])),
+            );
+            return;
+          }
+          var s = o("WAWebStateUtils").unproxy(a);
+          yield (_ || (_ = n("Promise")))
+            .all([
+              I({ chat: s, threadId: l, afterAvailable: r }),
+              W({ chat: s, threadId: l, afterAvailable: r }),
+            ])
+            .catch(
+              o("WAFilteredCatch").filteredCatch(
+                o("WAWebBackendErrors").ServerStatusCodeError,
+                function (e) {
+                  o("WALogger").WARN(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "sendSeen: got status ",
+                        "",
+                      ])),
+                    e.status,
+                  );
+                },
+              ),
+            );
+        })),
+        S.apply(this, arguments)
       );
     }
-    function v(e, t, n) {
-      return I({
+    function R(e, t, n) {
+      return x({
         chat: o("WAWebStateUtils").unproxy(e),
         seenCount: t,
         shouldUpdatePendingSeenCount: n,
       });
     }
-    function S(e) {
-      return T(o("WAWebStateUtils").unproxy(e));
+    function L(e) {
+      return P(o("WAWebStateUtils").unproxy(e));
     }
-    function R(e) {
-      var t = e.allowAction,
-        n = e.chat,
-        a = e.toastId,
-        i = a === void 0 ? o("WAWebActionToast.react").genId() : a,
-        l = e.unread;
-      l ? n.active && (n.markedUnread = !0) : (n.markedUnread = !1);
-      var u = n.promises;
-      if (u.markUnread) return u.markUnread;
-      var d = (u.markUnread = l
-          ? k(n)
-          : Promise.all([E({ chat: n }), M({ chat: n })])),
-        m = l
+    function E(t) {
+      var a = t.allowAction,
+        i = t.chat,
+        l = t.toastId,
+        u = l === void 0 ? o("WAWebActionToast.react").genId() : l,
+        c = t.unread;
+      c ? i.active && (i.markedUnread = !0) : (i.markedUnread = !1);
+      var d = i.promises;
+      if (d.markUnread) return d.markUnread;
+      var m = (d.markUnread = c
+          ? T(i)
+          : (_ || (_ = n("Promise"))).all([I({ chat: i }), W({ chat: i })])),
+        p = c
           ? new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Marking as unread"),
             )
           : new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Marking as read"),
             ),
-        p = d
+        f = m
           .then(function () {
-            var e = l
+            var e = c
               ? s._(/*BTDS*/ "Marked as unread")
               : s._(/*BTDS*/ "Marked as read");
-            return t
+            return a
               ? new (o("WAWebActionToast.react").ActionType)(e, {
                   actionText: s._(/*BTDS*/ "Undo"),
                   actionHandler: function () {
-                    return R({
-                      allowAction: t,
-                      chat: n,
-                      toastId: i,
-                      unread: !l,
+                    return E({
+                      allowAction: a,
+                      chat: i,
+                      toastId: u,
+                      unread: !c,
                     });
                   },
                 })
@@ -158,7 +179,7 @@ __d(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 if (e.status >= 400)
-                  return l
+                  return c
                     ? new (o("WAWebActionToast.react").ActionType)(
                         s._(/*BTDS*/ "Couldn't mark chat as unread."),
                       )
@@ -170,18 +191,18 @@ __d(
             ),
           )
           .catch(function () {
-            var e = l
+            var e = c
               ? s._(/*BTDS*/ "Couldn't mark chat as unread.")
               : s._(/*BTDS*/ "Couldn't mark chat as read.");
-            return t
+            return a
               ? new (o("WAWebActionToast.react").ActionType)(e, {
                   actionText: s._(/*BTDS*/ "Try again."),
                   actionHandler: function () {
-                    return R({
-                      allowAction: t,
-                      chat: n,
-                      toastId: i,
-                      unread: l,
+                    return E({
+                      allowAction: a,
+                      chat: i,
+                      toastId: u,
+                      unread: c,
                     });
                   },
                 })
@@ -189,316 +210,378 @@ __d(
           });
       return (
         o("WAWebToastManager").ToastManager.open(
-          f.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: i,
-            initialAction: m,
-            pendingAction: p,
+          g.jsx(o("WAWebActionToast.react").ActionToast, {
+            id: u,
+            initialAction: p,
+            pendingAction: f,
           }),
         ),
-        d
+        m
           .then(r("WAWebNoop"))
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
-              function (e) {
+              function (t) {
                 o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
                       "markUnread: got status ",
                       "",
                     ])),
-                  e.status,
+                  t.status,
                 );
               },
             ),
           )
           .finally(function () {
-            u.markUnread = null;
+            d.markUnread = null;
           })
       );
     }
-    function L(e) {
+    function k(e) {
       r("gkx")("26258") ||
         o("WALogger").LOG(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "[update-unread]: ",
               "",
             ])),
           e,
         );
     }
-    function E(e) {
+    function I(e) {
       var t,
-        n,
-        a = e.afterAvailable,
-        i = a === void 0 ? !0 : a,
-        l = e.chat,
-        s = e.threadId,
-        u = s === void 0 ? null : s;
-      L("sendSeen: start");
-      var c =
-        u != null &&
+        a,
+        i = e.afterAvailable,
+        l = i === void 0 ? !0 : i,
+        s = e.chat,
+        u = e.threadId,
+        d = u === void 0 ? null : u;
+      k("sendSeen: start");
+      var m =
+        d != null &&
         ((t =
-          (n = l.aiThreads) == null || (n = n.get(u)) == null
+          (a = s.aiThreads) == null || (a = a.get(d)) == null
             ? void 0
-            : n.unreadCount) != null
+            : a.unreadCount) != null
           ? t
           : 0) > 0;
-      if (l.markedUnread || (l.unreadCount === 0 && !c))
+      if (s.markedUnread || (s.unreadCount === 0 && !m))
         return (
-          L("markedUnread: " + String(l.markedUnread)),
-          L("unreadCount: " + l.unreadCount),
-          L("threadHasUnread: " + String(c)),
-          L("sendSeen: end-1"),
-          Promise.resolve()
+          k("markedUnread: " + String(s.markedUnread)),
+          k("unreadCount: " + s.unreadCount),
+          k("threadHasUnread: " + String(m)),
+          k("sendSeen: end-1"),
+          (_ || (_ = n("Promise"))).resolve()
         );
-      if (!o("WAWebStreamModel").Stream.available && i)
+      if (!o("WAWebStreamModel").Stream.available && l)
         return (
-          L("stream unavailable"),
-          l.listenToOnce(
+          k("stream unavailable"),
+          s.listenToOnce(
             o("WAWebStreamModel").Stream,
             "change:available",
             function () {
-              return E({ chat: l, threadId: u });
+              return I({ chat: s, threadId: d });
             },
           ),
-          L("sendSeen: end-2"),
-          Promise.resolve()
+          k("sendSeen: end-2"),
+          (_ || (_ = n("Promise"))).resolve()
         );
-      (L("stream available"),
-        L("unreadCount: " + l.unreadCount),
-        L("pendingSeenCount: " + l.pendingSeenCount));
-      var d = l.unreadCount - l.pendingSeenCount;
-      L("unreadCountDelta: " + d);
-      var p = l.unreadCount === -1 && d === -1;
-      if (d <= 0 && !p && u == null)
-        return (L("sendSeen: end-3"), Promise.resolve());
-      ((l.disableUnreadAnchor = !0),
-        (l.pendingSeenCount = l.unreadCount),
-        L("pendingSeenCount set to: " + l.unreadCount));
-      var _ = function () {
-          ((l.pendingSeenCount -= d),
-            L("pendingSeenCount set to " + l.pendingSeenCount),
-            l.pendingSeenCount < 0 &&
+      (k("stream available"),
+        k("unreadCount: " + s.unreadCount),
+        k("pendingSeenCount: " + s.pendingSeenCount));
+      var p = s.unreadCount - s.pendingSeenCount;
+      k("unreadCountDelta: " + p);
+      var f = s.unreadCount === -1 && p === -1;
+      if (p <= 0 && !f && d == null)
+        return (k("sendSeen: end-3"), (_ || (_ = n("Promise"))).resolve());
+      ((s.disableUnreadAnchor = !0),
+        (s.pendingSeenCount = s.unreadCount),
+        k("pendingSeenCount set to: " + s.unreadCount));
+      var g = function () {
+          ((s.pendingSeenCount -= p),
+            k("pendingSeenCount set to " + s.pendingSeenCount),
+            s.pendingSeenCount < 0 &&
               (o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "models:chat:sendSeen unread ",
                     " pending: ",
                     " delta: ",
                     "",
                   ])),
-                l.unreadCount,
-                l.pendingSeenCount,
-                d,
+                s.unreadCount,
+                s.pendingSeenCount,
+                p,
               ),
-              (l.pendingSeenCount = 0)));
+              (s.pendingSeenCount = 0)));
         },
-        f = r("gkx")("26258") ? l.getLastMsgKeyForAction() : l.lastReceivedKey;
-      if (u != null) {
-        var g,
-          h = (g = l.aiThreads) == null ? void 0 : g.get(u);
-        (h == null ? void 0 : h.lastReceivedKey) != null &&
-          ((f = h.lastReceivedKey),
-          L(
+        h = r("gkx")("26258") ? s.getLastMsgKeyForAction() : s.lastReceivedKey;
+      if (d != null) {
+        var y,
+          C = (y = s.aiThreads) == null ? void 0 : y.get(d);
+        (C == null ? void 0 : C.lastReceivedKey) != null &&
+          ((h = C.lastReceivedKey),
+          k(
             "using thread-specific lastReceivedKey: " +
-              h.lastReceivedKey.toString(),
+              C.lastReceivedKey.toString(),
           ));
       }
       return o("WAWebChatSendConversationSeen")
         .sendConversationSeen({
-          chat: l,
-          key: f,
-          threadId: u != null ? u : void 0,
-          unreadDelta: d,
+          chat: s,
+          key: h,
+          threadId: d != null ? d : void 0,
+          unreadDelta: p,
         })
-        .then(async function (e) {
-          var t = e.chatUnreadUpdate,
-            n = e.fullyReadThreadIds;
-          t != null ? x(l, t) : await D(l, d);
-          for (var r of n) {
-            var o,
-              a = (o = l.aiThreads) == null ? void 0 : o.get(r);
-            a && a.set({ unreadCount: 0 });
-          }
-        })
+        .then(
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e.chatUnreadUpdate,
+                  n = e.fullyReadThreadIds;
+                t != null ? A(s, t) : yield M(s, p);
+                for (var r of n) {
+                  var o,
+                    a = (o = s.aiThreads) == null ? void 0 : o.get(r);
+                  a && a.set({ unreadCount: 0 });
+                }
+              },
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        )
         .catch(
           o("WAFilteredCatch").filteredCatch(
             o("WAWebBackendErrors").ServerStatusCodeError,
             function (e) {
-              return (_(), Promise.reject(e));
+              return (g(), (_ || (_ = n("Promise"))).reject(e));
             },
           ),
         )
         .then(function () {
-          L("sendSeen: end-4");
+          k("sendSeen: end-4");
         });
     }
-    async function k(e) {
-      var t = e.getLastMsgKeyForAction();
-      try {
-        (await o("WAWebChatSeenBridge").sendConversationUnseen(e.id, t),
-          await S(e));
-      } catch (t) {
-        return o("WAFilteredCatch").filteredCatch(
-          o("WAWebBackendErrors").ServerStatusCodeError,
-          function (t) {
-            return ((e.markedUnread = !1), Promise.reject(t));
-          },
-        )(t);
-      }
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    async function I(e) {
-      var t = e.chat,
-        n = e.seenCount,
-        r = e.shouldUpdatePendingSeenCount,
-        a = r === void 0 ? !1 : r;
-      L("markSeen: start - " + String(n));
-      var i = null;
-      n != null
-        ? n > 0 && n <= t.unreadCount
-          ? (i = t.unreadCount - n)
-          : n === -1 && t.unreadCount <= 0 && (i = 0)
-        : (i = 0);
-      var l =
-        i == null
-          ? Promise.resolve()
-          : o("WAWebChatSeenBridge").markConversationSeen(t.id, i);
-      if ((await l, n != null && a)) {
-        var s = t.pendingSeenCount - n;
-        ((t.pendingSeenCount = Math.max(0, s)),
-          L("pendingSeenCount set to " + t.pendingSeenCount));
-      }
-      (i != null && ((t.unreadCount = i), L("unreadCount set to " + i)),
-        (t.unreadMsgAnchor = void 0),
-        (t.markedUnread = !1),
-        (t.unreadDividerOffset = 0),
-        L("markSeen: end"));
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.getLastMsgKeyForAction();
+          try {
+            (yield o("WAWebChatSeenBridge").sendConversationUnseen(e.id, t),
+              yield L(e));
+          } catch (t) {
+            return o("WAFilteredCatch").filteredCatch(
+              o("WAWebBackendErrors").ServerStatusCodeError,
+              function (t) {
+                return (
+                  (e.markedUnread = !1),
+                  (_ || (_ = n("Promise"))).reject(t)
+                );
+              },
+            )(t);
+          }
+        })),
+        D.apply(this, arguments)
+      );
     }
-    async function T(e) {
-      if (
-        e.unreadCount === 0 ||
-        e.unreadCount === o("WAWebChatUnreadConstants").MARKED_AS_UNREAD
-      )
-        return (
-          e.active && (e.markedUnread = !0),
-          o("WAWebChatSeenBridge")
-            .markConversationUnseen(e.id)
-            .then(function () {
-              e.unreadCount = o("WAWebChatUnreadConstants").MARKED_AS_UNREAD;
-            })
-        );
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    async function D(e, t, n) {
-      n === void 0 && (n = !0);
-      var r = await o("WAWebApiChat").getChatMeta(e.id),
-        a = r.unreadCount;
-      if (
-        (L("updateUnreadCount: old " + e.unreadCount + ", new " + a),
-        (e.unreadCount = a),
-        (e.unreadDividerOffset = 0),
-        (e.unreadMsgAnchor = void 0),
-        (e.markedUnread = !1),
-        n)
-      ) {
-        var i = e.pendingSeenCount - t;
-        e.pendingSeenCount = Math.max(0, i);
-      }
+    function $() {
+      return (
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            r = e.seenCount,
+            a = e.shouldUpdatePendingSeenCount,
+            i = a === void 0 ? !1 : a;
+          k("markSeen: start - " + String(r));
+          var l = null;
+          r != null
+            ? r > 0 && r <= t.unreadCount
+              ? (l = t.unreadCount - r)
+              : r === -1 && t.unreadCount <= 0 && (l = 0)
+            : (l = 0);
+          var s =
+            l == null
+              ? (_ || (_ = n("Promise"))).resolve()
+              : o("WAWebChatSeenBridge").markConversationSeen(t.id, l);
+          if ((yield s, r != null && i)) {
+            var u = t.pendingSeenCount - r;
+            ((t.pendingSeenCount = Math.max(0, u)),
+              k("pendingSeenCount set to " + t.pendingSeenCount));
+          }
+          (l != null && ((t.unreadCount = l), k("unreadCount set to " + l)),
+            (t.unreadMsgAnchor = void 0),
+            (t.markedUnread = !1),
+            (t.unreadDividerOffset = 0),
+            k("markSeen: end"));
+        })),
+        $.apply(this, arguments)
+      );
     }
-    function x(e, t) {
+    function P(e) {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            e.unreadCount === 0 ||
+            e.unreadCount === o("WAWebChatUnreadConstants").MARKED_AS_UNREAD
+          )
+            return (
+              e.active && (e.markedUnread = !0),
+              o("WAWebChatSeenBridge")
+                .markConversationUnseen(e.id)
+                .then(function () {
+                  e.unreadCount = o(
+                    "WAWebChatUnreadConstants",
+                  ).MARKED_AS_UNREAD;
+                })
+            );
+        })),
+        N.apply(this, arguments)
+      );
+    }
+    function M(e, t, n) {
+      return w.apply(this, arguments);
+    }
+    function w() {
+      return (
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          n === void 0 && (n = !0);
+          var r = yield o("WAWebApiChat").getChatMeta(e.id),
+            a = r.unreadCount;
+          if (
+            (k("updateUnreadCount: old " + e.unreadCount + ", new " + a),
+            (e.unreadCount = a),
+            (e.unreadDividerOffset = 0),
+            (e.unreadMsgAnchor = void 0),
+            (e.markedUnread = !1),
+            n)
+          ) {
+            var i = e.pendingSeenCount - t;
+            e.pendingSeenCount = Math.max(0, i);
+          }
+        })),
+        w.apply(this, arguments)
+      );
+    }
+    function A(e, t) {
       ((e.unreadCount = t.unreadCount),
         (e.unreadDividerOffset = t.unreadDividerOffset));
       var n = e.pendingSeenCount - t.markedAsReadCount;
       ((e.pendingSeenCount = Math.max(0, n)),
-        L("sendSeen: updated chat unread count to " + t.unreadCount));
+        k("sendSeen: updated chat unread count to " + t.unreadCount));
     }
-    function $(e) {
+    function F(e) {
       e.unreadMentionMetadata.reset();
     }
-    function P(e) {
+    function O(e) {
       r("gkx")("26258") ||
         o("WALogger").LOG(
-          p ||
-            (p = babelHelpers.taggedTemplateLiteralLoose([
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
               "[message-edit/send-seen] ",
               "",
             ])),
           e,
         );
     }
-    var N = new (o("WAWebPromiseQueue").PromiseQueue)();
-    async function M(e) {
-      var t,
-        n = e.afterAvailable,
-        r = n === void 0 ? !0 : n,
-        a = e.chat,
-        i = e.threadId,
-        l = i === void 0 ? null : i,
-        s = l != null ? ((t = a.aiThreads) == null ? void 0 : t.get(l)) : null,
-        u = s != null ? s.unreadEditTimestampMs : a.unreadEditTimestampMs;
-      if (u != null) {
-        if (
-          (P("sendSeen: start - " + String(u)),
-          !o("WAWebStreamModel").Stream.available && r)
-        ) {
-          (a.listenToOnce(
-            o("WAWebStreamModel").Stream,
-            "change:available",
-            function () {
-              return M({ chat: a, threadId: l });
-            },
-          ),
-            P("sendSeen: end - stream unavailable"));
-          return;
-        }
-        await N.enqueue(async function () {
-          var e = s != null ? s.unreadEditTimestampMs : a.unreadEditTimestampMs;
-          if (e == null) {
-            P("sendSeen: end - no unread edits");
-            return;
-          }
-          var t = await o("WAWebSendReadReceiptJob").markEditedMsgsRead(
-              a.id,
-              { trusted: a.trusted },
-              l != null ? l : void 0,
-            ),
-            n = t.chatUnreadUpdate,
-            r = t.fullyReadThreadIds;
-          if ((n != null && x(a, n), r.length > 0)) {
-            for (var i of r) {
-              var c;
-              (c = a.aiThreads) == null ||
-                (c = c.get(i)) == null ||
-                c.set({ unreadCount: 0, unreadEditTimestampMs: null });
-            }
-            P(
-              "sendSeen: updated " +
-                r.length +
-                " thread unread counts and cleared timestamps",
-            );
-          }
-          if ((P("sendSeen: marked edit as read"), l == null)) {
-            if (u !== a.unreadEditTimestampMs) {
-              P("sendSeen: end - has new unread edits");
+    var B = new (o("WAWebPromiseQueue").PromiseQueue)();
+    function W(e) {
+      return q.apply(this, arguments);
+    }
+    function q() {
+      return (
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            r = e.afterAvailable,
+            a = r === void 0 ? !0 : r,
+            i = e.chat,
+            l = e.threadId,
+            s = l === void 0 ? null : l,
+            u =
+              s != null
+                ? (t = i.aiThreads) == null
+                  ? void 0
+                  : t.get(s)
+                : null,
+            c = u != null ? u.unreadEditTimestampMs : i.unreadEditTimestampMs;
+          if (c != null) {
+            if (
+              (O("sendSeen: start - " + String(c)),
+              !o("WAWebStreamModel").Stream.available && a)
+            ) {
+              (i.listenToOnce(
+                o("WAWebStreamModel").Stream,
+                "change:available",
+                function () {
+                  return W({ chat: i, threadId: s });
+                },
+              ),
+                O("sendSeen: end - stream unavailable"));
               return;
             }
-            ((a.unreadEditTimestampMs = null),
-              await o("WAWebDBUpdateChatTable").updateChatTable(a.id, {
-                unreadEditTimestampMs: null,
+            yield B.enqueue(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var e =
+                  u != null ? u.unreadEditTimestampMs : i.unreadEditTimestampMs;
+                if (e == null) {
+                  O("sendSeen: end - no unread edits");
+                  return;
+                }
+                var t = yield o("WAWebSendReadReceiptJob").markEditedMsgsRead(
+                    i.id,
+                    { trusted: i.trusted },
+                    s != null ? s : void 0,
+                  ),
+                  n = t.chatUnreadUpdate,
+                  r = t.fullyReadThreadIds;
+                if ((n != null && A(i, n), r.length > 0)) {
+                  for (var a of r) {
+                    var l;
+                    (l = i.aiThreads) == null ||
+                      (l = l.get(a)) == null ||
+                      l.set({ unreadCount: 0, unreadEditTimestampMs: null });
+                  }
+                  O(
+                    "sendSeen: updated " +
+                      r.length +
+                      " thread unread counts and cleared timestamps",
+                  );
+                }
+                if ((O("sendSeen: marked edit as read"), s == null)) {
+                  if (c !== i.unreadEditTimestampMs) {
+                    O("sendSeen: end - has new unread edits");
+                    return;
+                  }
+                  ((i.unreadEditTimestampMs = null),
+                    yield o("WAWebDBUpdateChatTable").updateChatTable(i.id, {
+                      unreadEditTimestampMs: null,
+                    }),
+                    O("sendSeen: end - all edits are marked as read"));
+                } else O("sendSeen: end - thread edits marked as read");
               }),
-              P("sendSeen: end - all edits are marked as read"));
-          } else P("sendSeen: end - thread edits marked as read");
-        });
-      }
+            );
+          }
+        })),
+        q.apply(this, arguments)
+      );
     }
-    ((l.markUnread = g),
-      (l.sendSeenDebounced = C),
-      (l.sendSeen = b),
-      (l.markSeen = v),
-      (l.markUnseen = S),
-      (l.updateUnreadCountMD = D),
-      (l.clearUnreadMentions = $));
+    ((l.markUnread = h),
+      (l.sendSeenDebounced = b),
+      (l.sendSeen = v),
+      (l.markSeen = R),
+      (l.markUnseen = L),
+      (l.updateUnreadCountMD = M),
+      (l.clearUnreadMentions = F));
   },
   226,
 );

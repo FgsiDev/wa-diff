@@ -9,6 +9,7 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -32,33 +33,41 @@ __d(
     function u(e, t) {
       return (
         t === void 0 && (t = o("WAWebViewMode.flow").ViewModeSurface.CHAT),
-        m(o("WAWebMsgCollection").MsgCollection.byParentMessage(e), t)
+        p(o("WAWebMsgCollection").MsgCollection.byParentMessage(e), t)
       );
     }
-    async function c(e, t) {
-      var n = Array.from(new Set(t)),
-        r = n.filter(function (e) {
-          return o("WAWebMsgCollection").MsgCollection.get(e) == null;
-        });
-      r.length > 0 &&
-        (await o("WAWebMsgCollection").MsgCollection.getMessagesById(r));
-      var a = new Map(
-          o("WAWebMsgCollection")
-            .MsgCollection.byParentMessage(e)
-            .map(function (e) {
-              return [e.id.toString(), e];
-            }),
-        ),
-        i = [];
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        n.forEach(function (e) {
-          var t = a.get(e);
-          t != null && i.push(t);
-        }),
-        i
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = Array.from(new Set(t)),
+            r = n.filter(function (e) {
+              return o("WAWebMsgCollection").MsgCollection.get(e) == null;
+            });
+          r.length > 0 &&
+            (yield o("WAWebMsgCollection").MsgCollection.getMessagesById(r));
+          var a = new Map(
+              o("WAWebMsgCollection")
+                .MsgCollection.byParentMessage(e)
+                .map(function (e) {
+                  return [e.id.toString(), e];
+                }),
+            ),
+            i = [];
+          return (
+            n.forEach(function (e) {
+              var t = a.get(e);
+              t != null && i.push(t);
+            }),
+            i
+          );
+        })),
+        d.apply(this, arguments)
       );
     }
-    function d(e, t) {
+    function m(e, t) {
       return (
         t === void 0 && (t = o("WAWebViewMode.flow").ViewModeSurface.CHAT),
         o("WAWebMsgCollection")
@@ -69,7 +78,7 @@ __d(
           })
       );
     }
-    function m(e, t) {
+    function p(e, t) {
       return e.filter(function (e) {
         var n = e.associationType,
           r = e.parentMsgKey,
@@ -83,14 +92,14 @@ __d(
         );
       });
     }
-    function p(e) {
+    function _(e) {
       var t = e.duringDetach,
         n = t === void 0 ? !1 : t,
         r = e.parentMsgKey,
         o = n ? 1 : 0;
       return u(r).length - o > 0;
     }
-    function _(e) {
+    function f(e) {
       var t = e.duringDetach,
         n = t === void 0 ? !1 : t,
         r = e.parentMsg;
@@ -105,10 +114,10 @@ __d(
         }
         case o("WAWebMsgType").MSG_TYPE.ALBUM:
         default:
-          return !p({ parentMsgKey: r.id, duringDetach: n });
+          return !_({ parentMsgKey: r.id, duringDetach: n });
       }
     }
-    function f(e) {
+    function g(e) {
       var t = e.associationType;
       if (!t) return !0;
       var n = e.parentMsgKey
@@ -118,15 +127,15 @@ __d(
         o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
         ? n != null &&
             n.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
-            !_({ parentMsg: n })
+            !f({ parentMsg: n })
         : t ===
             o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_ALBUM
           ? n != null &&
             n.type === o("WAWebMsgType").MSG_TYPE.ALBUM &&
-            !_({ parentMsg: n })
+            !f({ parentMsg: n })
           : !0;
     }
-    function g(e) {
+    function h(e) {
       e.filter(Boolean).forEach(function (e) {
         var t = e.parentMsgKey,
           n = e.viewMode;
@@ -144,7 +153,7 @@ __d(
               .InvisiblePlaceholderViewModeProcessor.compatibleMessageTypes) !=
               null &&
             r.includes(a.type) &&
-            !_({ parentMsg: a, duringDetach: !1 }) &&
+            !f({ parentMsg: a, duringDetach: !1 }) &&
             !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
               o("WAWebViewMode.flow").ViewModeSurface.CHAT,
               a == null ? void 0 : a.viewMode,
@@ -156,11 +165,11 @@ __d(
     ((l.getLowestAckState = s),
       (l.getHiddenAssociatedMessages = u),
       (l.getAssociatedMessagesByMsgKeys = c),
-      (l.getHiddenViewModeMessagesForChat = d),
-      (l.filterOutVisibleAssociatedMessages = m),
-      (l.shouldHideParentMessage = _),
-      (l.shouldDisplayOrphanMessage = f),
-      (l.makeParentMessagesVisibleInChat = g));
+      (l.getHiddenViewModeMessagesForChat = m),
+      (l.filterOutVisibleAssociatedMessages = p),
+      (l.shouldHideParentMessage = f),
+      (l.shouldDisplayOrphanMessage = g),
+      (l.makeParentMessagesVisibleInChat = h));
   },
   98,
 );

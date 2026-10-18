@@ -7,6 +7,7 @@ __d(
     "WAWebThreadUtils",
     "WAWebViewRepliesModel",
     "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -26,36 +27,50 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.initializeViewRepliesThreads = async function () {
-          return this.$ViewRepliesCollection$p_2 != null
-            ? this.$ViewRepliesCollection$p_2
-            : ((this.$ViewRepliesCollection$p_2 =
-                this.$ViewRepliesCollection$p_3()),
-              this.$ViewRepliesCollection$p_2);
-        }),
-        (n.$ViewRepliesCollection$p_3 = async function () {
-          try {
-            var e = await o(
-              "WAWebThreadMetadataJob",
-            ).getAllViewRepliesThreadsFromChatId(
-              o("WAWebWidToJid").widToChatJid(this.$ViewRepliesCollection$p_1),
-            );
-            if (e != null)
-              for (var t of e) {
-                var n = new (r("WAWebViewRepliesModel"))({
-                  id: t.threadId,
-                  creationTimestamp: t.creationTimestamp,
-                  lastMessageTimestamp: t.lastMessageTimestamp,
-                });
-                this.add(n);
-              }
-          } catch (e) {
-            throw ((this.$ViewRepliesCollection$p_2 = null), e);
+        (a.initializeViewRepliesThreads = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return this.$ViewRepliesCollection$p_2 != null
+              ? this.$ViewRepliesCollection$p_2
+              : ((this.$ViewRepliesCollection$p_2 =
+                  this.$ViewRepliesCollection$p_3()),
+                this.$ViewRepliesCollection$p_2);
+          });
+          function t() {
+            return e.apply(this, arguments);
           }
-        }),
-        (n.hasThreadForMsgKey = function (t) {
+          return t;
+        })()),
+        (a.$ViewRepliesCollection$p_3 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            try {
+              var e = yield o(
+                "WAWebThreadMetadataJob",
+              ).getAllViewRepliesThreadsFromChatId(
+                o("WAWebWidToJid").widToChatJid(
+                  this.$ViewRepliesCollection$p_1,
+                ),
+              );
+              if (e != null)
+                for (var t of e) {
+                  var n = new (r("WAWebViewRepliesModel"))({
+                    id: t.threadId,
+                    creationTimestamp: t.creationTimestamp,
+                    lastMessageTimestamp: t.lastMessageTimestamp,
+                  });
+                  this.add(n);
+                }
+            } catch (e) {
+              throw ((this.$ViewRepliesCollection$p_2 = null), e);
+            }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.hasThreadForMsgKey = function (t) {
           var e = r("WAWebThreadId").fromMessage(
               t,
               o("WAWebThreadUtils").ThreadType.ViewAllReplies,

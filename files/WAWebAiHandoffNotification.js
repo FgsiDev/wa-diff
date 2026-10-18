@@ -14,6 +14,7 @@ __d(
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebWamEnumHandoffNotifActionType",
     "WAWebWamEnumNotificationTypeEnum",
+    "asyncToGeneratorRuntime",
     "cr:3133",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -36,21 +37,21 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.shouldPlaySound = function () {
+          (a.shouldPlaySound = function () {
             return e.prototype.shouldPlaySound.call(this)
               ? o("WAWebNotificationHelpers").shouldPlaySoundGranular(this.chat)
               : !1;
           }),
-          (n.shouldShowBanner = function () {
+          (a.shouldShowBanner = function () {
             return e.prototype.shouldShowBanner.call(this)
               ? o("WAWebNotificationHelpers").shouldEnableNotificationGranular(
                   this.chat,
                 )
               : !1;
           }),
-          (n.shouldMute = function (t) {
+          (a.shouldMute = function (t) {
             return o("WAWebNotificationHelpers").shouldMuteDueToAppState(t)
               ? r("WAWebNotificationMuteReason").AppState
               : o("WAWebMuteGetters").getIsMuted(this.chat.mute)
@@ -61,7 +62,7 @@ __d(
                     ? r("WAWebNotificationMuteReason").OfflineResumeInProgress
                     : null;
           }),
-          (n.buildKey = function () {
+          (a.buildKey = function () {
             return (
               "handoff:" +
               this.$AiHandoffNotification$p_2 +
@@ -71,13 +72,19 @@ __d(
               this.chat.id.toString()
             );
           }),
-          (n.getIcon = async function () {
-            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-              this.chat,
-              this.abortController.signal,
-            );
-          }),
-          (n.getBannerOptions = function () {
+          (a.getIcon = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+                this.chat,
+                this.abortController.signal,
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.getBannerOptions = function () {
             var e = this;
             return {
               wid: this.chat.id,
@@ -98,7 +105,7 @@ __d(
               },
             };
           }),
-          (n.logDelivered = function () {
+          (a.logDelivered = function () {
             o(
               "WAWebBizAiHandoffNotificationLogEvents",
             ).logAiHandoffNotificationAction(
@@ -109,29 +116,43 @@ __d(
               this.$AiHandoffNotification$p_3,
             );
           }),
-          (n.performLogging = async function (n) {
-            var t;
-            (await e.prototype.performLogging.call(this, n),
-              !n &&
-                ((t = c == null ? void 0 : c()) == null || t) &&
-                !this.$AiHandoffNotification$p_1 &&
-                ((this.$AiHandoffNotification$p_1 = !0),
-                o(
-                  "WAWebBizAiHandoffNotificationLogEvents",
-                ).logAiHandoffNotificationAction(
-                  this.chat,
-                  o("WAWebWamEnumHandoffNotifActionType")
-                    .HANDOFF_NOTIF_ACTION_TYPE.NOTIF_SHOWN,
-                  this.$AiHandoffNotification$p_2,
-                  this.$AiHandoffNotification$p_3,
-                )));
-          }),
-          (n.getNotificationDeliveryWamEventData = async function () {
-            return {
-              uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
-                .NOTIFICATION_TYPE_ENUM.OTHER,
-            };
-          }),
+          (a.performLogging = (function () {
+            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (t) {
+                var n;
+                (yield e.prototype.performLogging.call(this, t),
+                  !t &&
+                    ((n = c == null ? void 0 : c()) == null || n) &&
+                    !this.$AiHandoffNotification$p_1 &&
+                    ((this.$AiHandoffNotification$p_1 = !0),
+                    o(
+                      "WAWebBizAiHandoffNotificationLogEvents",
+                    ).logAiHandoffNotificationAction(
+                      this.chat,
+                      o("WAWebWamEnumHandoffNotifActionType")
+                        .HANDOFF_NOTIF_ACTION_TYPE.NOTIF_SHOWN,
+                      this.$AiHandoffNotification$p_2,
+                      this.$AiHandoffNotification$p_3,
+                    )));
+              },
+            );
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (a.getNotificationDeliveryWamEventData = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return {
+                uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
+                  .NOTIFICATION_TYPE_ENUM.OTHER,
+              };
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })(o("WAWebBaseNotification").WABaseNotification);

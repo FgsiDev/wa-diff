@@ -2,6 +2,7 @@ __d(
   "WAWebSubscribePushManagerActionUtils",
   [
     "fbt",
+    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebBackgroundSyncReporter",
@@ -13,32 +14,41 @@ __d(
     "WAWebUserPrefsNotifications",
     "WAWebUserPrefsScreenLock",
     "WAWebWamEnumOnboardSources",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e;
-    function u() {
+    var e, u;
+    function c() {
       var e = o(
         "WAWebMuteCollection",
       ).MuteCollection.getGlobalOfflineNotifications();
-      return ((e = p(e)), e);
+      return ((e = f(e)), e);
     }
-    async function c(e) {
-      var t,
-        n = o("WAWebUserPrefsScreenLock").getScreenLockEnabled(),
-        r =
-          e &&
-          ((t = window.Notification) == null ? void 0 : t.permission) ===
-            o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
-          o(
-            "WAWebPushNotificationsGatingUtils",
-          ).canEnableOfflineNotifications() &&
-          !n;
-      return r;
-    }
-    function d() {
-      return (m(), Promise.resolve());
+    function d(e) {
+      return m.apply(this, arguments);
     }
     function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = o("WAWebUserPrefsScreenLock").getScreenLockEnabled(),
+            r =
+              e &&
+              ((t = window.Notification) == null ? void 0 : t.permission) ===
+                o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
+              o(
+                "WAWebPushNotificationsGatingUtils",
+              ).canEnableOfflineNotifications() &&
+              !n;
+          return r;
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p() {
+      return (_(), (u || (u = n("Promise"))).resolve());
+    }
+    function _() {
       var e,
         t = r("WAWebFbtCommon")("WhatsApp"),
         n = s._(/*BTDS*/ "Syncing messages in the background"),
@@ -74,7 +84,7 @@ __d(
         callNotificationUnknownCaller: _.toString(),
       });
     }
-    function p(t) {
+    function f(t) {
       var n;
       return !t &&
         ((n = window.Notification) == null ? void 0 : n.permission) ===
@@ -102,10 +112,10 @@ __d(
           !0)
         : t;
     }
-    ((l.isOfflineNotificationsEnabled = u),
-      (l.shouldSubscribePushManager = c),
-      (l.updateOfflineNotificationL10nStrings = d),
-      (l.updateOfflineNotificationL10nStringsForOfflineResume = m));
+    ((l.isOfflineNotificationsEnabled = c),
+      (l.shouldSubscribePushManager = d),
+      (l.updateOfflineNotificationL10nStrings = p),
+      (l.updateOfflineNotificationL10nStringsForOfflineResume = _));
   },
   226,
 );

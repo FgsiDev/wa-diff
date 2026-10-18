@@ -6,6 +6,7 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebPushNotificationsGatingUtils",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "fbs",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -22,21 +23,27 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        var r = t.prototype;
         return (
-          (n.shouldShowBanner = function () {
+          (r.shouldShowBanner = function () {
             return !0;
           }),
-          (n.buildKey = function () {
+          (r.buildKey = function () {
             return "test-notification:" + this.creationAt;
           }),
-          (n.getChatKind = function () {
+          (r.getChatKind = function () {
             return null;
           }),
-          (n.getIcon = async function () {
-            return o("WAWebNotificationIconUtils").WHATSAPP_DEFAULT_ICON;
-          }),
-          (n.getBannerOptions = function () {
+          (r.getIcon = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return o("WAWebNotificationIconUtils").WHATSAPP_DEFAULT_ICON;
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getBannerOptions = function () {
             var e = s._(/*BTDS*/ "WhatsApp").toString(),
               t = s
                 ._(/*BTDS*/ "Click here to complete the notification test")

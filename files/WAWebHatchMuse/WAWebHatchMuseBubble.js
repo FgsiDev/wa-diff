@@ -1,10 +1,6 @@
 __d(
   "WAWebHatchMuseBubble",
-  [
-    "WAWebBotUtils",
-    "WAWebHatchFrontendGating",
-    "WAWebHatchMuseBubbleTheme.stylex",
-  ],
+  ["WAWebHatchFrontendGating", "WAWebHatchMuseBubbleTheme.stylex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
@@ -12,28 +8,24 @@ __d(
       "--WAWeb-minimal-tail-shadow-opacity": "0",
     };
     function s(e, t) {
-      return e == null || !o("WAWebBotUtils").isHatchBot(e)
-        ? null
-        : o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
-          ? t
-            ? o("WAWebHatchMuseBubbleTheme.stylex").museThemedBubbleDark
-            : o("WAWebHatchMuseBubbleTheme.stylex").museThemedBubbleLight
-          : !t && o("WAWebHatchFrontendGating").isHatchJarvisRendererEnabled()
-            ? o("WAWebHatchMuseBubbleTheme.stylex").museBubbleLight
-            : null;
+      return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(e)
+        ? t
+          ? o("WAWebHatchMuseBubbleTheme.stylex").museThemedBubbleDark
+          : o("WAWebHatchMuseBubbleTheme.stylex").museThemedBubbleLight
+        : null;
     }
     function u(e, t) {
-      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
+      return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(e)
         ? { isMinimalMode: !1, isVibrant: !1 }
         : t;
     }
     function c(t, n) {
-      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(t)
+      return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(t)
         ? babelHelpers.extends({}, n, e)
         : n;
     }
     function d(e, t) {
-      return o("WAWebHatchFrontendGating").isHatchThemeEnabled(e)
+      return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(e)
         ? t
           ? o("WAWebHatchMuseBubbleTheme.stylex").museWallpaperDark
           : o("WAWebHatchMuseBubbleTheme.stylex").museWallpaperLight

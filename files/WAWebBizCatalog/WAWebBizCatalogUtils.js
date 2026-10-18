@@ -1,39 +1,52 @@
 __d(
   "WAWebBizCatalogUtils",
   [
+    "Promise",
     "WATypeUtils",
     "WAWebCatalogCollection",
     "WAWebFrontendConstants",
     "WAWebNonEmptyString",
     "WAWebQplFlowWrapper",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = r("qpl")._(774780089, "3436"),
-      s = r("qpl")._(774781666, "3445"),
-      u = r("qpl")._(774768970, "3447"),
-      c = 3;
-    async function d(e, t) {
-      var n = e.getData().length || 0,
-        r = !e.getCanLoadMore() || !g(n, e.listItemHeight);
-      if (
-        (t &&
-          o("WAWebQplFlowWrapper").QPL.markerAnnotate(t, {
-            bool: {
-              IsCached: r,
-              IsConsumer: !o("WAWebUserPrefsMeUser").isMeAccount(e.catalog.id),
-            },
-          }),
-        r)
-      )
-        return !0;
-      await e.loadMore(!0);
-      var a = e.getData().length || 0;
-      return g(a, e.listItemHeight) ? e.loadInitialItems() : !0;
+    var e,
+      s = r("qpl")._(774780089, "3436"),
+      u = r("qpl")._(774781666, "3445"),
+      c = r("qpl")._(774768970, "3447"),
+      d = 3;
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    var m = (function () {
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.getData().length || 0,
+            r = !e.getCanLoadMore() || !y(n, e.listItemHeight);
+          if (
+            (t &&
+              o("WAWebQplFlowWrapper").QPL.markerAnnotate(t, {
+                bool: {
+                  IsCached: r,
+                  IsConsumer: !o("WAWebUserPrefsMeUser").isMeAccount(
+                    e.catalog.id,
+                  ),
+                },
+              }),
+            r)
+          )
+            return !0;
+          yield e.loadMore(!0);
+          var a = e.getData().length || 0;
+          return y(a, e.listItemHeight) ? e.loadInitialItems() : !0;
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    var _ = (function () {
         function t(e, t, n, o) {
           if (
             ((this.loading = null),
@@ -55,14 +68,15 @@ __d(
                 : !0;
           }
         }
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.loadMore = function (n) {
+          (a.loadMore = function (a) {
             var t = this;
             if (this.loading) return this.loading;
-            if (!this.getCanLoadMore()) return Promise.resolve();
-            var a = this.collectionId;
-            if (r("isStringNullOrEmpty")(a))
+            if (!this.getCanLoadMore())
+              return (e || (e = n("Promise"))).resolve();
+            var i = this.collectionId;
+            if (r("isStringNullOrEmpty")(i))
               this.loading = o("WAWebCatalogCollection")
                 .CatalogCollection.update(this.catalog.id)
                 .then(function () {
@@ -70,32 +84,32 @@ __d(
                     (t.loading = null));
                 });
             else {
-              var i = n === !0 ? e : void 0;
+              var l = a === !0 ? s : void 0;
               this.loading = this.catalog.collections
                 .findCollectionProducts({
                   forCatalogManager: !1,
                   catalogWid: this.catalog.id,
-                  collectionId: a,
-                  markerId: i,
+                  collectionId: i,
+                  markerId: l,
                 })
                 .then(function () {
                   var e;
                   ((t.canLoadMoreCollectionItems = !!(
-                    (e = t.catalog.collections.get(a)) != null && e.afterCursor
+                    (e = t.catalog.collections.get(i)) != null && e.afterCursor
                   )),
                     (t.loading = null));
                 });
             }
             return this.loading;
           }),
-          (n.loadInitialItems = function () {
-            var t = e;
-            return d(this, t);
+          (a.loadInitialItems = function () {
+            var e = s;
+            return m(this, e);
           }),
-          (n.getCanLoadMore = function () {
+          (a.getCanLoadMore = function () {
             return this.canLoadMoreCollectionItems || this.canLoadMoreAllItems;
           }),
-          (n.getData = function () {
+          (a.getData = function () {
             var e = this.collectionId,
               t;
             if (r("isStringNullOrEmpty")(e))
@@ -119,8 +133,8 @@ __d(
           t
         );
       })(),
-      p = (function () {
-        function e(e) {
+      f = (function () {
+        function t(e) {
           var t = e.canLogQpl,
             n = e.catalog,
             r = e.forCatalogManager,
@@ -137,43 +151,44 @@ __d(
               n.productCollection.length > 0 ? !!this.catalog.afterCursor : !0),
             (this.canLogQpl = t));
         }
-        var t = e.prototype;
+        var r = t.prototype;
         return (
-          (t.loadMore = function (t) {
-            var e = this;
+          (r.loadMore = function (r) {
+            var t = this;
             if (this.loading) return this.loading;
-            if (!this.getCanLoadMore()) return Promise.resolve();
+            if (!this.getCanLoadMore())
+              return (e || (e = n("Promise"))).resolve();
             if (this.canLoadMoreCollections) {
-              var n = this.canLogQpl && t === !0 ? s : void 0;
+              var a = this.canLogQpl && r === !0 ? u : void 0;
               this.loading = this.catalog.collections
                 .findCollectionsList(
                   this.catalog.id,
-                  c,
+                  d,
                   this.forCatalogManager,
-                  n,
+                  a,
                 )
                 .then(function () {
-                  ((e.canLoadMoreCollections =
-                    !!e.catalog.collections.afterCursor),
-                    (e.loading = null));
+                  ((t.canLoadMoreCollections =
+                    !!t.catalog.collections.afterCursor),
+                    (t.loading = null));
                 });
             } else
               this.loading = o("WAWebCatalogCollection")
                 .CatalogCollection.update(this.catalog.id)
                 .then(function () {
-                  ((e.canLoadMoreCatalog = !!e.catalog.afterCursor),
-                    (e.loading = null));
+                  ((t.canLoadMoreCatalog = !!t.catalog.afterCursor),
+                    (t.loading = null));
                 });
             return this.loading;
           }),
-          (t.loadInitialItems = function () {
-            var e = this.canLogQpl ? s : void 0;
-            return d(this, e);
+          (r.loadInitialItems = function () {
+            var e = this.canLogQpl ? u : void 0;
+            return m(this, e);
           }),
-          (t.getCanLoadMore = function () {
+          (r.getCanLoadMore = function () {
             return this.canLoadMoreCollections || this.canLoadMoreCatalog;
           }),
-          (t.getData = function () {
+          (r.getData = function () {
             var e = this,
               t = this.catalog.collections.getCollectionModels(
                 this.forCatalogManager,
@@ -186,7 +201,7 @@ __d(
                 if (r.length !== 0) {
                   var o;
                   (t.push({ collection: n, product: void 0 }),
-                    r.length > c && (r.length = c),
+                    r.length > d && (r.length = d),
                     (o = t).push.apply(
                       o,
                       r.map(function (e) {
@@ -206,11 +221,11 @@ __d(
               });
             return (n.push.apply(n, o), n);
           }),
-          e
+          t
         );
       })(),
-      _ = (function () {
-        function e(e, t, n, r) {
+      g = (function () {
+        function t(e, t, n, r) {
           ((this.loading = null),
             (this.canLoadMoreCollections = !0),
             (this.catalog = e),
@@ -218,37 +233,38 @@ __d(
             (this.listItemHeight = n),
             (this.canLogQpl = r));
         }
-        var t = e.prototype;
+        var r = t.prototype;
         return (
-          (t.loadMore = function (t) {
-            var e = this;
+          (r.loadMore = function (r) {
+            var t = this;
             if (this.loading) return this.loading;
-            if (!this.getCanLoadMore()) return Promise.resolve();
+            if (!this.getCanLoadMore())
+              return (e || (e = n("Promise"))).resolve();
             if (this.canLoadMoreCollections) {
-              var n = this.canLogQpl && t === !0 ? u : void 0;
+              var o = this.canLogQpl && r === !0 ? c : void 0;
               this.loading = this.catalog.collections
                 .findCollectionsList(
                   this.catalog.id,
-                  c,
+                  d,
                   this.forCatalogManager,
-                  n,
+                  o,
                 )
                 .then(function () {
-                  ((e.canLoadMoreCollections =
-                    !!e.catalog.collections.afterCursor),
-                    (e.loading = null));
+                  ((t.canLoadMoreCollections =
+                    !!t.catalog.collections.afterCursor),
+                    (t.loading = null));
                 });
             }
-            return this.loading || Promise.resolve();
+            return this.loading || (e || (e = n("Promise"))).resolve();
           }),
-          (t.loadInitialItems = function () {
-            var e = this.canLogQpl ? u : void 0;
-            return d(this, e);
+          (r.loadInitialItems = function () {
+            var e = this.canLogQpl ? c : void 0;
+            return m(this, e);
           }),
-          (t.getCanLoadMore = function () {
+          (r.getCanLoadMore = function () {
             return this.canLoadMoreCollections;
           }),
-          (t.resetData = function () {
+          (r.resetData = function () {
             var e;
             ((e = this.catalog) != null &&
               e.collections &&
@@ -256,18 +272,18 @@ __d(
               (this.catalog.collections.afterCursor = "")),
               (this.canLoadMoreCollections = !0));
           }),
-          (t.getData = function () {
+          (r.getData = function () {
             return this.catalog.collections
               .getCollectionModels(this.forCatalogManager)
               .map(function (e) {
                 return { collection: e, product: void 0 };
               });
           }),
-          e
+          t
         );
       })(),
-      f = (function () {
-        function e(e, t, n) {
+      h = (function () {
+        function t(e, t, n) {
           ((this.loading = null),
             (this.canLoadMore = !0),
             (this.catalog = e),
@@ -279,10 +295,10 @@ __d(
               n,
             )));
         }
-        var t = e.prototype;
+        var a = t.prototype;
         return (
-          (t.loadMore = function () {
-            var e = this;
+          (a.loadMore = function () {
+            var t = this;
             return this.loading
               ? this.loading
               : this.getCanLoadMore()
@@ -291,8 +307,8 @@ __d(
                       ? (this.loading = o("WAWebCatalogCollection")
                           .CatalogCollection.update(this.catalog.id)
                           .then(function () {
-                            ((e.canLoadMore = !!e.catalog.afterCursor),
-                              (e.loading = null));
+                            ((t.canLoadMore = !!t.catalog.afterCursor),
+                              (t.loading = null));
                           }))
                       : (this.loading = o("WAWebCatalogCollection")
                           .CatalogCollection.findCollectionMembership(
@@ -300,32 +316,32 @@ __d(
                             this.collectionId,
                           )
                           .then(function () {
-                            ((e.canLoadMore = !!e.catalog.afterCursor),
-                              (e.loading = null));
+                            ((t.canLoadMore = !!t.catalog.afterCursor),
+                              (t.loading = null));
                           }))),
-                  this.loading || Promise.resolve())
-                : Promise.resolve();
+                  this.loading || (e || (e = n("Promise"))).resolve())
+                : (e || (e = n("Promise"))).resolve();
           }),
-          (t.loadInitialItems = function () {
-            return d(this);
+          (a.loadInitialItems = function () {
+            return m(this);
           }),
-          (t.getCanLoadMore = function () {
+          (a.getCanLoadMore = function () {
             return this.canLoadMore;
           }),
-          (t.getData = function () {
+          (a.getData = function () {
             return this.catalog.productCollection
               .getProductModels(!0)
               .map(function (e) {
                 return { product: e, collection: void 0 };
               });
           }),
-          e
+          t
         );
       })();
-    function g(e, t) {
+    function y(e, t) {
       return e * t < window.innerHeight;
     }
-    var h = (function () {
+    var C = (function () {
       function e(e) {
         this.dataSource = e;
       }
@@ -340,17 +356,25 @@ __d(
         (t.willLoadMore = function (t) {
           return !!(this.dataSource.loading || this.isScrollAtBottom(t));
         }),
-        (t.onScroll = async function (t, n) {
-          return this.dataSource.loading
-            ? (await this.dataSource.loading, !0)
-            : this.isScrollAtBottom(n)
-              ? (await this.dataSource.loadMore(), !0)
-              : !1;
-        }),
+        (t.onScroll = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              return this.dataSource.loading
+                ? (yield this.dataSource.loading, !0)
+                : this.isScrollAtBottom(t)
+                  ? (yield this.dataSource.loadMore(), !0)
+                  : !1;
+            },
+          );
+          function t(t, n) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         e
       );
     })();
-    function y(e, t, n) {
+    function b(e, t, n) {
       var a = o("WAWebCatalogCollection").CatalogCollection.get(e),
         i,
         l;
@@ -382,12 +406,12 @@ __d(
         };
       }
     }
-    ((l.SingleCollectionDataSource = m),
-      (l.CatalogWithCollectionsDataSource = p),
-      (l.CollectionsDataSource = _),
-      (l.CollectionsContentDataSource = f),
-      (l.CatalogListItemScrollHelper = h),
-      (l.getProductStatsInFetched = y));
+    ((l.SingleCollectionDataSource = _),
+      (l.CatalogWithCollectionsDataSource = f),
+      (l.CollectionsDataSource = g),
+      (l.CollectionsContentDataSource = h),
+      (l.CatalogListItemScrollHelper = C),
+      (l.getProductStatsInFetched = b));
   },
   98,
 );

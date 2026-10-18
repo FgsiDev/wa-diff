@@ -5,7 +5,9 @@ __d(
     "FBLogger",
     "JSResource",
     "VultureJSGating",
+    "VultureJSPageLifecycle",
     "VultureJSServerHits",
+    "asyncToGeneratorRuntime",
     "clearTimeout",
     "objectEntries",
     "requireDeferred",
@@ -51,17 +53,34 @@ __d(
         }
     }
     function v() {
+      if (c != null)
+        for (; f.length > 0; ) {
+          var e = f.pop();
+          e != null && h(e);
+        }
+    }
+    o("VultureJSPageLifecycle").onPageHide(v);
+    function S() {
       r("JSResource")("VultureJSSampleRatesLoader")
         .__setRef("vulture")
         .load()
-        .then(async function (e) {
-          var t = await e.loadSampleRates();
-          for (var n of r("objectEntries")(t)) {
-            var o = n[0],
-              a = n[1];
-            _.set(o, a);
-          }
-        })
+        .then(
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield e.loadSampleRates();
+                for (var n of r("objectEntries")(t)) {
+                  var o = n[0],
+                    a = n[1];
+                  _.set(o, a);
+                }
+              },
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        )
         .catch(function (e) {
           r("FBLogger")("vulture_js", "sample_rate_load_timeout")
             .catching(e)
@@ -69,7 +88,7 @@ __d(
         })
         .finally(C);
     }
-    function S() {
+    function R() {
       m ||
         ((m = !0),
         (e || (e = r("ExecutionEnvironment"))).canUseDOM
@@ -79,16 +98,16 @@ __d(
                   "Timed out attemping to fetch VultureJS sample rates",
                 ));
             }, g)),
-            r("setTimeout")(v, u))
-          : v());
+            r("setTimeout")(S, u))
+          : S());
     }
-    function R(e) {
+    function L(e) {
       if (o("VultureJSGating").isLoggingEnabled()) {
         if (o("VultureJSServerHits").collectServerHit(e)) return;
-        d && c != null ? h(e) : (y(e), S());
+        d && c != null ? h(e) : (y(e), R());
       }
     }
-    l.default = R;
+    l.default = L;
   },
   98,
 );

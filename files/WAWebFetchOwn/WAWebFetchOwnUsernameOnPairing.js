@@ -5,6 +5,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebGetUsernameQueryJob",
     "WAWebUsernameWorkerCompatibleGatingUtils",
+    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,15 +42,23 @@ __d(
               .sendLogs("fetch-own-username-on-pairing-failed"));
         }));
     }
-    async function p() {
-      var e = await o("WAWebGetUsernameQueryJob").getUsernameJob();
-      o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
-            "[username] own username updated after pairing, present=",
-            "",
-          ])),
-        String(e != null),
+    function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebGetUsernameQueryJob").getUsernameJob();
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[username] own username updated after pairing, present=",
+                "",
+              ])),
+            String(e != null),
+          );
+        })),
+        _.apply(this, arguments)
       );
     }
     l.initOwnUsernameFetchOnPairing = d;

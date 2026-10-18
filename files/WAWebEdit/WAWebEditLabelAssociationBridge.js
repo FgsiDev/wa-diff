@@ -1,6 +1,7 @@
 __d(
   "WAWebEditLabelAssociationBridge",
   [
+    "Promise",
     "WALogger",
     "WAWebBackendApi",
     "WAWebCustomerManagerGating",
@@ -13,12 +14,13 @@ __d(
     "WAWebSchemaLabelAssociation",
     "WAWebSchemaLabelSublist",
     "WAWebSyncdCoreApi",
+    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      var n = d(
+    var e, s, u, c;
+    function d(e, t) {
+      var n = m(
         e,
         t.map(function (e) {
           return {
@@ -31,169 +33,198 @@ __d(
       );
       return n;
     }
-    async function d(t, n) {
-      var a = await r("WAWebLabelJidSync").createLabelAssociationMutations(
-          t,
-          n,
-        ),
-        i = o("WAWebCustomerManagerGating").customerManagerEnabled()
-          ? await m(t, n)
-          : { sublistLocalRemoves: [], sublistMutations: [] },
-        l = i.sublistLocalRemoves,
-        s = i.sublistMutations,
-        u =
-          s.length > 0
-            ? ["label-association", "chat", "label_sublist"]
-            : ["label-association", "chat"];
-      await o("WAWebSyncdCoreApi").lockForSync(
-        u,
-        [].concat(a, s),
-        async function () {
-          (await p(t, n),
-            await Promise.all(
-              l.map(function (t) {
-                return o("WAWebDBLabelSublistDatabaseApi")
-                  .removeLabelSublist(t)
-                  .catch(function (t) {
-                    throw (
-                      o("WALogger")
-                        .ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "removeLabelSublist: clear lead sub-list on Lead removal failed",
-                            ])),
-                        )
-                        .verbose()
-                        .sendLogs(
-                          "edit-label-association-remove-lead-sublist-failed",
-                        ),
-                      r("err")(
-                        "removeLabelSublist for lead sub-list cleanup failed",
-                      )
-                    );
-                  });
-              }),
-            ));
-        },
-      );
-      for (var c of l) {
-        var d = o("WAWebSchemaLabelSublist").getChatJidFromPrimaryKey(c);
-        (o("WAWebBackendApi").frontendFireAndForget(
-          "removeLeadSublistFromCollection",
-          {
-            chatJid: d,
-            predefinedId: o(
-              "WAWebSchemaLabelSublist",
-            ).getPredefinedIdFromPrimaryKey(c),
-          },
-        ),
-          o("WAWebBackendApi").frontendFireAndForget("leadRemovedFromChat", {
-            chatJid: d,
-          }));
-      }
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    async function m(e, t) {
-      var n = await Promise.all(
-          e.map(function (e) {
-            var t = e.id;
-            return o("WAWebSchemaLabel").getLabelTable().get(t);
-          }),
-        ),
-        a = e.some(function (e, t) {
-          var r,
-            a = e.type;
-          return (
-            a === "remove" &&
-            o("WAWebLeadListConstants").isLeadListPredefinedId(
-              (r = n[t]) == null ? void 0 : r.predefinedId,
-            )
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i = yield r("WAWebLabelJidSync").createLabelAssociationMutations(
+              t,
+              a,
+            ),
+            l = o("WAWebCustomerManagerGating").customerManagerEnabled()
+              ? yield _(t, a)
+              : { sublistLocalRemoves: [], sublistMutations: [] },
+            s = l.sublistLocalRemoves,
+            u = l.sublistMutations,
+            d =
+              u.length > 0
+                ? ["label-association", "chat", "label_sublist"]
+                : ["label-association", "chat"];
+          yield o("WAWebSyncdCoreApi").lockForSync(
+            d,
+            [].concat(i, u),
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (yield g(t, a),
+                yield (c || (c = n("Promise"))).all(
+                  s.map(function (t) {
+                    return o("WAWebDBLabelSublistDatabaseApi")
+                      .removeLabelSublist(t)
+                      .catch(function (t) {
+                        throw (
+                          o("WALogger")
+                            .ERROR(
+                              e ||
+                                (e = babelHelpers.taggedTemplateLiteralLoose([
+                                  "removeLabelSublist: clear lead sub-list on Lead removal failed",
+                                ])),
+                            )
+                            .verbose()
+                            .sendLogs(
+                              "edit-label-association-remove-lead-sublist-failed",
+                            ),
+                          r("err")(
+                            "removeLabelSublist for lead sub-list cleanup failed",
+                          )
+                        );
+                      });
+                  }),
+                ));
+            }),
           );
-        });
-      if (!a) return { sublistLocalRemoves: [], sublistMutations: [] };
-      var i = t.map(function (e) {
-          var t = e.modelId;
-          return o("WAWebSchemaLabelSublist").createLabelSublistPrimaryKey({
-            predefinedId: o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,
-            chatJid: t,
-          });
-        }),
-        l = await Promise.all(
-          t.map(function (e) {
-            var t = e.modelId;
-            return r("WAWebLabelSublistSync").getLabelSublistRemoveMutation({
-              predefinedId: o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,
-              chatJid: t,
+          for (var m of s) {
+            var p = o("WAWebSchemaLabelSublist").getChatJidFromPrimaryKey(m);
+            (o("WAWebBackendApi").frontendFireAndForget(
+              "removeLeadSublistFromCollection",
+              {
+                chatJid: p,
+                predefinedId: o(
+                  "WAWebSchemaLabelSublist",
+                ).getPredefinedIdFromPrimaryKey(m),
+              },
+            ),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "leadRemovedFromChat",
+                { chatJid: p },
+              ));
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = yield (c || (c = n("Promise"))).all(
+              e.map(function (e) {
+                var t = e.id;
+                return o("WAWebSchemaLabel").getLabelTable().get(t);
+              }),
+            ),
+            i = e.some(function (e, t) {
+              var n,
+                r = e.type;
+              return (
+                r === "remove" &&
+                o("WAWebLeadListConstants").isLeadListPredefinedId(
+                  (n = a[t]) == null ? void 0 : n.predefinedId,
+                )
+              );
+            });
+          if (!i) return { sublistLocalRemoves: [], sublistMutations: [] };
+          var l = t.map(function (e) {
+              var t = e.modelId;
+              return o("WAWebSchemaLabelSublist").createLabelSublistPrimaryKey({
+                predefinedId: o("WAWebLeadListConstants")
+                  .LEAD_LIST_PREDEFINED_ID,
+                chatJid: t,
+              });
+            }),
+            s = yield c.all(
+              t.map(function (e) {
+                var t = e.modelId;
+                return r("WAWebLabelSublistSync").getLabelSublistRemoveMutation(
+                  {
+                    predefinedId: o("WAWebLeadListConstants")
+                      .LEAD_LIST_PREDEFINED_ID,
+                    chatJid: t,
+                  },
+                );
+              }),
+            );
+          return { sublistLocalRemoves: l, sublistMutations: s };
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = [],
+            i = [];
+          (e.forEach(function (e) {
+            var n = e.id,
+              r = e.type;
+            t.map(function (e) {
+              var t = e.labelAssociationType,
+                l = e.modelId;
+              r === "add"
+                ? a.push({ labelId: n, associationId: l, type: t })
+                : i.push(
+                    o(
+                      "WAWebSchemaLabelAssociation",
+                    ).createLabelAssociationPrimaryKey({
+                      labelId: n,
+                      associationId: l,
+                      type: t,
+                    }),
+                  );
             });
           }),
-        );
-      return { sublistLocalRemoves: i, sublistMutations: l };
-    }
-    async function p(e, t) {
-      var n = [],
-        a = [];
-      (e.forEach(function (e) {
-        var r = e.id,
-          i = e.type;
-        t.map(function (e) {
-          var t = e.labelAssociationType,
-            l = e.modelId;
-          i === "add"
-            ? n.push({ labelId: r, associationId: l, type: t })
-            : a.push(
-                o(
-                  "WAWebSchemaLabelAssociation",
-                ).createLabelAssociationPrimaryKey({
-                  labelId: r,
-                  associationId: l,
-                  type: t,
+            yield (c || (c = n("Promise"))).all([
+              o("WAWebDBLabelAssociationDatabaseApi")
+                .addOrEditLabelAssociations(a)
+                .catch(function (e) {
+                  throw (
+                    o("WALogger")
+                      .ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "addOrEditLabelAssociations: label assoc table failed",
+                          ])),
+                      )
+                      .verbose()
+                      .sendLogs(
+                        "editLocalLabelAssociationMD-add-or-edit-label-associations-failed",
+                      ),
+                    r("err")(
+                      "addOrEditLabelAssociations into label association table failed",
+                    )
+                  );
                 }),
-              );
-        });
-      }),
-        await Promise.all([
-          o("WAWebDBLabelAssociationDatabaseApi")
-            .addOrEditLabelAssociations(n)
-            .catch(function (e) {
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "addOrEditLabelAssociations: label assoc table failed",
-                      ])),
-                  )
-                  .verbose()
-                  .sendLogs(
-                    "editLocalLabelAssociationMD-add-or-edit-label-associations-failed",
-                  ),
-                r("err")(
-                  "addOrEditLabelAssociations into label association table failed",
-                )
-              );
-            }),
-          o("WAWebDBLabelAssociationDatabaseApi")
-            .removeLabelAssociations(a)
-            .catch(function (e) {
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "removeLabelAssociations from label association table failed",
-                      ])),
-                  )
-                  .verbose()
-                  .sendLogs(
-                    "editLocalLabelAssociationMD-remove-label-associations-failed",
-                  ),
-                r("err")(
-                  "removeLabelAssociations form label association table failed",
-                )
-              );
-            }),
-        ]));
+              o("WAWebDBLabelAssociationDatabaseApi")
+                .removeLabelAssociations(i)
+                .catch(function (e) {
+                  throw (
+                    o("WALogger")
+                      .ERROR(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "removeLabelAssociations from label association table failed",
+                          ])),
+                      )
+                      .verbose()
+                      .sendLogs(
+                        "editLocalLabelAssociationMD-remove-label-associations-failed",
+                      ),
+                    r("err")(
+                      "removeLabelAssociations form label association table failed",
+                    )
+                  );
+                }),
+            ]));
+        })),
+        h.apply(this, arguments)
+      );
     }
-    ((l.editLabelAssociation = c), (l.editLocalLabelAssociationMD = p));
+    ((l.editLabelAssociation = d), (l.editLocalLabelAssociationMD = g));
   },
   98,
 );

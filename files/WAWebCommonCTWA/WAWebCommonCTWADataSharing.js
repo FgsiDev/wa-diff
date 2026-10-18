@@ -14,6 +14,7 @@ __d(
     "WAWebGetCTWAEligibilityFromConversion",
     "WAWebMobilePlatforms",
     "WAWebUserPrefsGeneral",
+    "asyncToGeneratorRuntime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -259,36 +260,41 @@ __d(
             o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return i || l || s;
       },
-      k = async function () {
-        if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
-          return null;
-        try {
-          var e,
-            t = await u.load(),
-            n = await t.getCtwaBizDataSharingSettingJob();
-          return (
-            (n == null ? void 0 : n.value) != null &&
-              (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
-                n.value,
-                n.version,
+      k = (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
+            return null;
+          try {
+            var e,
+              t = yield u.load(),
+              n = yield t.getCtwaBizDataSharingSettingJob();
+            return (
+              (n == null ? void 0 : n.value) != null &&
+                (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
+                  n.value,
+                  n.version,
+                ),
+                n.value ===
+                  o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
+                  o("WAWebDataSharingUpsellModel").enableUpsell()),
+              (e = n == null ? void 0 : n.value) != null ? e : null
+            );
+          } catch (e) {
+            return (
+              o("WALogger").ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[ctwa] fetchDataSharingSettingAndUpdateModel: fetch failed",
+                  ])),
               ),
-              n.value ===
-                o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
-                o("WAWebDataSharingUpsellModel").enableUpsell()),
-            (e = n == null ? void 0 : n.value) != null ? e : null
-          );
-        } catch (e) {
-          return (
-            o("WALogger").ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ctwa] fetchDataSharingSettingAndUpdateModel: fetch failed",
-                ])),
-            ),
-            null
-          );
-        }
-      };
+              null
+            );
+          }
+        });
+        return function () {
+          return e.apply(this, arguments);
+        };
+      })();
     ((l.shouldShowV2Disclosure = d),
       (l.isGlobalDataSharingAccepted = m),
       (l.markV2DisclosureSeen = p),

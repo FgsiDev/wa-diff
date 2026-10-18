@@ -30,6 +30,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
     "WAWebUserPrefsTypes",
+    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -91,62 +92,72 @@ __d(
         oe = t;
       });
     }
-    var ie = async function (n) {
-      return o("WAWebSMBDataSharingSettingAction")
-        .setSMBDataSharingSettingAction(
-          o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset,
-          n,
-        )
-        .then(function (t) {
-          var n;
-          return (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "debug:resetDataSharingToNotset",
+    var ie = (function () {
+      var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        return o("WAWebSMBDataSharingSettingAction")
+          .setSMBDataSharingSettingAction(
+            o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset,
+            t,
+          )
+          .then(function (t) {
+            var n;
+            return (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "debug:resetDataSharingToNotset",
+                  ])),
+              ),
+              (n = t == null ? void 0 : t.value) != null ? n : null
+            );
+          })
+          .catch(function (e) {
+            o("WALogger").ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "error:debug:resetDataSharingToNotset",
                 ])),
-            ),
-            (n = t == null ? void 0 : t.value) != null ? n : null
-          );
-        })
-        .catch(function (e) {
-          o("WALogger").ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "error:debug:resetDataSharingToNotset",
-              ])),
-          );
-        });
-    };
+            );
+          });
+      });
+      return function (n) {
+        return t.apply(this, arguments);
+      };
+    })();
     ((ie.doc =
       'DFS - resets SMB Data Sharing setting on the server. Sets the value to "notset" (optional version)'),
       (ie.paramsToExecute = []));
-    var le = async function (t, n) {
-      return o("WAWebSMBDataSharingSettingAction")
-        .setSMBDataSharingSettingAction(t, n)
-        .then(function (e) {
-          return (
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "debug:dataSharingSettingServerSet",
-                ])),
-            ),
-            e
-          );
-        })
-        .catch(function (e) {
-          return (
-            o("WALogger").ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "error:debug:dataSharingSettingServerSet",
-                ])),
-            ),
-            null
-          );
-        });
-    };
+    var le = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        return o("WAWebSMBDataSharingSettingAction")
+          .setSMBDataSharingSettingAction(e, t)
+          .then(function (e) {
+            return (
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "debug:dataSharingSettingServerSet",
+                  ])),
+              ),
+              e
+            );
+          })
+          .catch(function (e) {
+            return (
+              o("WALogger").ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "error:debug:dataSharingSettingServerSet",
+                  ])),
+              ),
+              null
+            );
+          });
+      });
+      return function (n, r) {
+        return e.apply(this, arguments);
+      };
+    })();
     ((le.doc =
       'DFS - Sets the SMB Data Sharing setting on the server to a given value ("true"/"false"/"notset") and optional disclosure version'),
       (le.paramsToExecute = [
@@ -213,45 +224,50 @@ __d(
     ((de.doc =
       'DFS - Resets the "v2 disclosure seen" flag so the v2 (ePD) disclosure is treated as not-yet-seen and can be shown again.'),
       (de.paramsToExecute = []));
-    var me = async function () {
-      try {
-        var e = await o(
-          "WASmaxBizSettingsGetPrivacySettingRPC",
-        ).sendGetPrivacySettingRPC();
-        if (e.name === "GetPrivacySettingResponseSuccess") {
-          var t = e.value.privacySmbDataSharingSettingMixin,
-            n = { value: t.value, version: t.version };
+    var me = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        try {
+          var e = yield o(
+            "WASmaxBizSettingsGetPrivacySettingRPC",
+          ).sendGetPrivacySettingRPC();
+          if (e.name === "GetPrivacySettingResponseSuccess") {
+            var t = e.value.privacySmbDataSharingSettingMixin,
+              n = { value: t.value, version: t.version };
+            return (
+              o("WALogger").LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "debug:dataSharingSettingServerFetch",
+                  ])),
+              ),
+              n
+            );
+          }
           return (
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "debug:dataSharingSettingServerFetch",
+            o("WALogger").ERROR(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "error:debug:dataSharingSettingServerFetch",
                 ])),
             ),
-            n
+            null
+          );
+        } catch (e) {
+          return (
+            o("WALogger").ERROR(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "error:debug:dataSharingSettingServerFetch",
+                ])),
+            ),
+            null
           );
         }
-        return (
-          o("WALogger").ERROR(
-            g ||
-              (g = babelHelpers.taggedTemplateLiteralLoose([
-                "error:debug:dataSharingSettingServerFetch",
-              ])),
-          ),
-          null
-        );
-      } catch (e) {
-        return (
-          o("WALogger").ERROR(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
-                "error:debug:dataSharingSettingServerFetch",
-              ])),
-          ),
-          null
-        );
-      }
-    };
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((me.doc =
       "DFS - Fetches the SMB Data Sharing setting (value + disclosure version) from the server"),
       (me.paramsToExecute = []));
@@ -546,47 +562,54 @@ __d(
     ((Re.doc =
       "DFS - checks if the updated consumer UI should be shown. This will be used by testers and bug bashers"),
       (Re.paramsToExecute = []));
-    var Le = async function (t) {
-      var e,
-        n = t || ((e = oe) == null ? void 0 : e.id);
-      if (n != null) {
-        var a = new Map([]);
-        if (n === "all")
-          o("WAWebChatCollection").ChatCollection.forEach(function (e) {
-            var t, n;
-            if (
-              ((t = (n = e.labels) == null ? void 0 : n.length) != null
-                ? t
-                : 0) > 0
-            ) {
-              var r;
-              a.set(e.id.toString(), (r = e.labels) != null ? r : []);
-            }
-          });
-        else {
-          var i;
-          a.set(
-            n.toString(),
-            (i = r("nullthrows")(
-              o("WAWebChatCollection").ChatCollection.get(n),
-            ).labels) != null
-              ? i
-              : [],
-          );
+    var Le = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        var t,
+          n = e || ((t = oe) == null ? void 0 : t.id);
+        if (n != null) {
+          var a = new Map([]);
+          if (n === "all")
+            o("WAWebChatCollection").ChatCollection.forEach(function (e) {
+              var t, n;
+              if (
+                ((t = (n = e.labels) == null ? void 0 : n.length) != null
+                  ? t
+                  : 0) > 0
+              ) {
+                var r;
+                a.set(e.id.toString(), (r = e.labels) != null ? r : []);
+              }
+            });
+          else {
+            var i;
+            a.set(
+              n.toString(),
+              (i = r("nullthrows")(
+                o("WAWebChatCollection").ChatCollection.get(n),
+              ).labels) != null
+                ? i
+                : [],
+            );
+          }
+          try {
+            a.forEach(function (e, t) {
+              var n = r("nullthrows")(
+                  o("WAWebChatCollection").ChatCollection.get(t),
+                ),
+                a = e.map(function (e) {
+                  return { id: e, type: "remove" };
+                });
+              o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(a, [
+                n,
+              ]);
+            });
+          } catch (e) {}
         }
-        try {
-          a.forEach(function (e, t) {
-            var n = r("nullthrows")(
-                o("WAWebChatCollection").ChatCollection.get(t),
-              ),
-              a = e.map(function (e) {
-                return { id: e, type: "remove" };
-              });
-            o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(a, [n]);
-          });
-        } catch (e) {}
-      }
-    };
+      });
+      return function (n) {
+        return e.apply(this, arguments);
+      };
+    })();
     ((Le.doc =
       "Lists - util to unapply all labels from a given chat, the current chat, or from all chats."),
       (Le.paramsToExecute = []));
@@ -624,22 +647,27 @@ __d(
     };
     ((ke.doc = "DFS - Display the value of WAWebCTWADetectedOutcomeModel."),
       (ke.paramsToExecute = []));
-    var Ie = async function () {
-      var e = await o(
-        "WAWebCoexCanonicalStateQuery",
-      ).fetchCoexCanonicalMembership();
-      return (
-        o("WALogger").LOG(
-          M ||
-            (M = babelHelpers.taggedTemplateLiteralLoose([
-              "debug: canonical coex state: ",
-              "",
-            ])),
-          JSON.stringify(e),
-        ),
-        e
-      );
-    };
+    var Ie = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var e = yield o(
+          "WAWebCoexCanonicalStateQuery",
+        ).fetchCoexCanonicalMembership();
+        return (
+          o("WALogger").LOG(
+            M ||
+              (M = babelHelpers.taggedTemplateLiteralLoose([
+                "debug: canonical coex state: ",
+                "",
+              ])),
+            JSON.stringify(e),
+          ),
+          e
+        );
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((Ie.doc =
       "DFS - Fetch the account's canonical coex product state (product_states from Get BSP Info) and log the validated result without storing it."),
       (Ie.paramsToExecute = []));
@@ -672,14 +700,19 @@ __d(
     ((De.doc =
       "DFS - Clear the stored coex product state (WACoexProductState in the IndexedDB user prefs)."),
       (De.paramsToExecute = []));
-    var xe = async function () {
-      return (
-        await o("WAWebCoexStateSyncCoordinator").requestCoexStateRefresh(
-          "debug",
-        ),
-        Te()
-      );
-    };
+    var xe = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        return (
+          yield o("WAWebCoexStateSyncCoordinator").requestCoexStateRefresh(
+            "debug",
+          ),
+          Te()
+        );
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((xe.doc =
       "DFS - Pull the canonical coex product state through the refresh coordinator, store it when the snapshot is valid, then show the stored copy."),
       (xe.paramsToExecute = []));
@@ -765,7 +798,8 @@ __d(
         String(o("WAWebUserPrefsGeneral").getCTWAMessageReceived()),
       );
     };
-    ((Ae.doc = `DFS - Log the current CTWA-message-received flag. This flag gates the "Your customers' activity" settings row.`),
+    ((Ae.doc =
+      'DFS - Log the current CTWA-message-received flag. This flag gates the "Your customers\' activity" settings row.'),
       (Ae.paramsToExecute = []));
     var Fe = function () {
       (o("WAWebUserPrefsGeneral").setCTWAMessageReceived(!1),
@@ -776,291 +810,332 @@ __d(
             ])),
         ));
     };
-    ((Fe.doc = `DFS - Reset the CTWA-message-received flag to false, so the "Your customers' activity" settings row is hidden again until the next CTWA message is received.`),
+    ((Fe.doc =
+      'DFS - Reset the CTWA-message-received flag to false, so the "Your customers\' activity" settings row is hidden again until the next CTWA message is received.'),
       (Fe.paramsToExecute = []));
-    var Oe = async function (t, n) {
-      try {
-        var e = o("WAWebContactSystemMsg").genNotificationMsg(t, {
-          type: "notification_template",
-          kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-          subtype: "biz_automatically_labeled_chat_system_message",
-          templateParams: [n],
-        });
-        await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-          chatId: t,
-          newMsg: e,
-          handleSingleMsgOrigin: "createChat",
-          preserveOrder: !1,
-        });
-      } catch (e) {
-        o("WALogger").ERROR(
-          H ||
-            (H = babelHelpers.taggedTemplateLiteralLoose([
-              "error:debug:dfsRenderDetectedOutcomeSystemMessage",
-            ])),
-        );
-      }
-    };
+    var Oe = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        try {
+          var n = o("WAWebContactSystemMsg").genNotificationMsg(e, {
+            type: "notification_template",
+            kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+            subtype: "biz_automatically_labeled_chat_system_message",
+            templateParams: [t],
+          });
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+            chatId: e,
+            newMsg: n,
+            handleSingleMsgOrigin: "createChat",
+            preserveOrder: !1,
+          });
+        } catch (e) {
+          o("WALogger").ERROR(
+            H ||
+              (H = babelHelpers.taggedTemplateLiteralLoose([
+                "error:debug:dfsRenderDetectedOutcomeSystemMessage",
+              ])),
+          );
+        }
+      });
+      return function (n, r) {
+        return e.apply(this, arguments);
+      };
+    })();
     ((Oe.doc =
       "DFS - Creates and renders a system message of type biz_automatically_labeled_chat_system_message in the current chat."),
       (Oe.paramsToExecute = []));
-    var Be = async function () {
-      var e = new Date();
-      try {
-        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-          o("WAWebIndividualNewChatMessageCappingLimitUtils")
-            .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
-          {
-            capping_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingStatusType.CAPPED,
-            total_quota: 100,
-            used_quota: 100,
-            cycle_end_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
-            ),
-            cycle_start_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth(), 0).getTime() / 1e3,
-            ),
-            mv_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
-            ote_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingOTEStatusType.ELIGIBLE,
-            server_sent_timestamp: Date.now() / 1e3,
-          },
-        ),
-          o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
-      } catch (e) {
-        o("WALogger").ERROR(
-          G ||
-            (G = babelHelpers.taggedTemplateLiteralLoose([
-              "error:debug:dfsSetNewMessageCappedStatus",
+    var Be = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var e = new Date();
+        try {
+          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            o("WAWebIndividualNewChatMessageCappingLimitUtils")
+              .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
+            {
+              capping_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingStatusType.CAPPED,
+              total_quota: 100,
+              used_quota: 100,
+              cycle_end_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
+              ),
+              cycle_start_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth(), 0).getTime() / 1e3,
+              ),
+              mv_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
+              ote_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingOTEStatusType.ELIGIBLE,
+              server_sent_timestamp: Date.now() / 1e3,
+            },
+          ),
+            o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
+        } catch (e) {
+          o("WALogger").ERROR(
+            G ||
+              (G = babelHelpers.taggedTemplateLiteralLoose([
+                "error:debug:dfsSetNewMessageCappedStatus",
+              ])),
+          );
+        }
+        o("WALogger").LOG(
+          z ||
+            (z = babelHelpers.taggedTemplateLiteralLoose([
+              "debug: Set New Message Capped Status",
             ])),
         );
-      }
-      o("WALogger").LOG(
-        z ||
-          (z = babelHelpers.taggedTemplateLiteralLoose([
-            "debug: Set New Message Capped Status",
-          ])),
-      );
-    };
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((Be.doc = "DFS - Set New Message Capped Status"),
       (Be.paramsToExecute = []));
-    var We = async function () {
-      var e = new Date();
-      try {
-        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-          o("WAWebIndividualNewChatMessageCappingLimitUtils")
-            .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
-          {
-            capping_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingStatusType.NONE,
-            total_quota: 100,
-            used_quota: 0,
-            cycle_end_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
-            ),
-            cycle_start_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth(), 0).getTime() / 1e3,
-            ),
-            mv_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
-            ote_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingOTEStatusType.NOT_ELIGIBLE,
-            server_sent_timestamp: Date.now() / 1e3,
-          },
-        ),
-          o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
-      } catch (e) {
-        o("WALogger").ERROR(
-          j ||
-            (j = babelHelpers.taggedTemplateLiteralLoose([
-              "error:debug:dfsResetNewMessageCappedStatus",
+    var We = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var e = new Date();
+        try {
+          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            o("WAWebIndividualNewChatMessageCappingLimitUtils")
+              .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
+            {
+              capping_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingStatusType.NONE,
+              total_quota: 100,
+              used_quota: 0,
+              cycle_end_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
+              ),
+              cycle_start_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth(), 0).getTime() / 1e3,
+              ),
+              mv_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
+              ote_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingOTEStatusType.NOT_ELIGIBLE,
+              server_sent_timestamp: Date.now() / 1e3,
+            },
+          ),
+            o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
+        } catch (e) {
+          o("WALogger").ERROR(
+            j ||
+              (j = babelHelpers.taggedTemplateLiteralLoose([
+                "error:debug:dfsResetNewMessageCappedStatus",
+              ])),
+          );
+        }
+        o("WALogger").LOG(
+          K ||
+            (K = babelHelpers.taggedTemplateLiteralLoose([
+              "debug: Reset New Message Capped Status",
             ])),
         );
-      }
-      o("WALogger").LOG(
-        K ||
-          (K = babelHelpers.taggedTemplateLiteralLoose([
-            "debug: Reset New Message Capped Status",
-          ])),
-      );
-    };
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((We.doc = "DFS - Reset New Message Capped Status"),
       (We.paramsToExecute = []));
-    var qe = async function () {
-      var e = new Date();
-      try {
-        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-          o("WAWebIndividualNewChatMessageCappingLimitUtils")
-            .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
-          {
-            capping_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingStatusType.FIRST_WARNING,
-            total_quota: 100,
-            used_quota: o("WAWebMobilePlatforms").isSMB() ? 50 : 75,
-            cycle_end_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
-            ),
-            cycle_start_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth(), 1).getTime() / 1e3,
-            ),
-            mv_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
-            ote_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingOTEStatusType.ELIGIBLE,
-            server_sent_timestamp: Date.now() / 1e3,
-          },
-        ),
-          o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
-          o("WALogger").LOG(
-            Q ||
-              (Q = babelHelpers.taggedTemplateLiteralLoose([
-                "debug: Set First Warning Status",
+    var qe = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var e = new Date();
+        try {
+          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            o("WAWebIndividualNewChatMessageCappingLimitUtils")
+              .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
+            {
+              capping_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingStatusType.FIRST_WARNING,
+              total_quota: 100,
+              used_quota: o("WAWebMobilePlatforms").isSMB() ? 50 : 75,
+              cycle_end_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
+              ),
+              cycle_start_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth(), 1).getTime() / 1e3,
+              ),
+              mv_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
+              ote_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingOTEStatusType.ELIGIBLE,
+              server_sent_timestamp: Date.now() / 1e3,
+            },
+          ),
+            o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
+            o("WALogger").LOG(
+              Q ||
+                (Q = babelHelpers.taggedTemplateLiteralLoose([
+                  "debug: Set First Warning Status",
+                ])),
+            ));
+        } catch (e) {
+          o("WALogger").ERROR(
+            X ||
+              (X = babelHelpers.taggedTemplateLiteralLoose([
+                "error:debug:dfsSetFirstWarningStatus",
               ])),
-          ));
-      } catch (e) {
-        o("WALogger").ERROR(
-          X ||
-            (X = babelHelpers.taggedTemplateLiteralLoose([
-              "error:debug:dfsSetFirstWarningStatus",
-            ])),
-        );
-      }
-    };
+          );
+        }
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((qe.doc = "DFS - Set New Message Capping First Warning Status"),
       (qe.paramsToExecute = []));
-    var Ue = async function () {
-      var e = new Date();
-      try {
-        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-          o("WAWebIndividualNewChatMessageCappingLimitUtils")
-            .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
-          {
-            capping_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingStatusType.SECOND_WARNING,
-            total_quota: 100,
-            used_quota: o("WAWebMobilePlatforms").isSMB() ? 75 : 90,
-            cycle_end_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
-            ),
-            cycle_start_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth(), 1).getTime() / 1e3,
-            ),
-            mv_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
-            ote_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingOTEStatusType.ELIGIBLE,
-            server_sent_timestamp: Date.now() / 1e3,
-          },
-        ),
-          o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
-          o("WALogger").LOG(
-            Y ||
-              (Y = babelHelpers.taggedTemplateLiteralLoose([
-                "debug: Set Second Warning Status",
+    var Ue = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var e = new Date();
+        try {
+          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            o("WAWebIndividualNewChatMessageCappingLimitUtils")
+              .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
+            {
+              capping_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingStatusType.SECOND_WARNING,
+              total_quota: 100,
+              used_quota: o("WAWebMobilePlatforms").isSMB() ? 75 : 90,
+              cycle_end_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
+              ),
+              cycle_start_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth(), 1).getTime() / 1e3,
+              ),
+              mv_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
+              ote_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingOTEStatusType.ELIGIBLE,
+              server_sent_timestamp: Date.now() / 1e3,
+            },
+          ),
+            o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
+            o("WALogger").LOG(
+              Y ||
+                (Y = babelHelpers.taggedTemplateLiteralLoose([
+                  "debug: Set Second Warning Status",
+                ])),
+            ));
+        } catch (e) {
+          o("WALogger").ERROR(
+            J ||
+              (J = babelHelpers.taggedTemplateLiteralLoose([
+                "error:debug:dfsSetSecondWarningStatus",
               ])),
-          ));
-      } catch (e) {
-        o("WALogger").ERROR(
-          J ||
-            (J = babelHelpers.taggedTemplateLiteralLoose([
-              "error:debug:dfsSetSecondWarningStatus",
-            ])),
-        );
-      }
-    };
+          );
+        }
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((Ue.doc = "DFS - Set New Message Capping Second Warning Status"),
       (Ue.paramsToExecute = []));
-    var Ve = async function () {
-      try {
-        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
-          o("WAWebIndividualNewChatMessageCappingLimitUtils")
-            .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
-        ),
-          o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
-      } catch (e) {
-        o("WALogger").ERROR(
-          Z ||
-            (Z = babelHelpers.taggedTemplateLiteralLoose([
-              "error:debug:dfsClearNewMessageCappedData",
+    var Ve = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        try {
+          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
+            o("WAWebIndividualNewChatMessageCappingLimitUtils")
+              .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
+          ),
+            o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
+        } catch (e) {
+          o("WALogger").ERROR(
+            Z ||
+              (Z = babelHelpers.taggedTemplateLiteralLoose([
+                "error:debug:dfsClearNewMessageCappedData",
+              ])),
+          );
+        }
+        o("WALogger").LOG(
+          ee ||
+            (ee = babelHelpers.taggedTemplateLiteralLoose([
+              "debug: Clear New Message Capped Data",
             ])),
         );
-      }
-      o("WALogger").LOG(
-        ee ||
-          (ee = babelHelpers.taggedTemplateLiteralLoose([
-            "debug: Clear New Message Capped Data",
-          ])),
-      );
-    };
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((Ve.doc = "DFS - Clear New Message Capped data"),
       (Ve.paramsToExecute = []));
-    var He = async function () {
-      var e = new Date();
-      try {
-        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-          o("WAWebIndividualNewChatMessageCappingLimitUtils")
-            .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
-          {
-            capping_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingStatusType.CAPPED,
-            total_quota: 100,
-            used_quota: 100,
-            cycle_end_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
-            ),
-            cycle_start_timestamp: Math.floor(
-              new Date(e.getFullYear(), e.getMonth(), 0).getTime() / 1e3,
-            ),
-            mv_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
-            ote_status: o("WAWebUserPrefsTypes")
-              .NewChatMessageCappingOTEStatusType.ELIGIBLE,
-            server_sent_timestamp: Date.now() / 1e3,
-          },
-        ),
-          o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
-      } catch (e) {
-        o("WALogger").ERROR(
-          te ||
-            (te = babelHelpers.taggedTemplateLiteralLoose([
-              "error:debug:dfsSetCappedWithOTEEligible",
+    var He = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        var e = new Date();
+        try {
+          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            o("WAWebIndividualNewChatMessageCappingLimitUtils")
+              .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
+            {
+              capping_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingStatusType.CAPPED,
+              total_quota: 100,
+              used_quota: 100,
+              cycle_end_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth() + 1, 0).getTime() / 1e3,
+              ),
+              cycle_start_timestamp: Math.floor(
+                new Date(e.getFullYear(), e.getMonth(), 0).getTime() / 1e3,
+              ),
+              mv_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingMVStatusType.NOT_ACTIVE,
+              ote_status: o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingOTEStatusType.ELIGIBLE,
+              server_sent_timestamp: Date.now() / 1e3,
+            },
+          ),
+            o("WAWebCmd").Cmd.newChatMessageCappingStateChange());
+        } catch (e) {
+          o("WALogger").ERROR(
+            te ||
+              (te = babelHelpers.taggedTemplateLiteralLoose([
+                "error:debug:dfsSetCappedWithOTEEligible",
+              ])),
+          );
+        }
+        o("WALogger").LOG(
+          ne ||
+            (ne = babelHelpers.taggedTemplateLiteralLoose([
+              "debug: Set Capped With OTE Eligible",
             ])),
         );
-      }
-      o("WALogger").LOG(
-        ne ||
-          (ne = babelHelpers.taggedTemplateLiteralLoose([
-            "debug: Set Capped With OTE Eligible",
-          ])),
-      );
-    };
+      });
+      return function () {
+        return e.apply(this, arguments);
+      };
+    })();
     ((He.doc = "DFS - Set capping status to CAPPED with OTE ELIGIBLE"),
       (He.paramsToExecute = []));
-    var Ge = async function (t) {
-      try {
-        var e = o("WAWebContactSystemMsg").genNotificationMsg(t, {
-          type: "notification_template",
-          kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-          subtype: "ctwa_consumer_data_sharing_disclosure_system_message",
-          templateParams: [],
-        });
-        await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-          chatId: t,
-          newMsg: e,
-          handleSingleMsgOrigin: "createChat",
-          preserveOrder: !1,
-        });
-      } catch (e) {
-        o("WALogger").ERROR(
-          re ||
-            (re = babelHelpers.taggedTemplateLiteralLoose([
-              "error:debug:dfsRenderConsumerDataDisclosureSystemMessage",
-            ])),
-        );
-      }
-    };
+    var Ge = (function () {
+      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        try {
+          var t = o("WAWebContactSystemMsg").genNotificationMsg(e, {
+            type: "notification_template",
+            kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+            subtype: "ctwa_consumer_data_sharing_disclosure_system_message",
+            templateParams: [],
+          });
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+            chatId: e,
+            newMsg: t,
+            handleSingleMsgOrigin: "createChat",
+            preserveOrder: !1,
+          });
+        } catch (e) {
+          o("WALogger").ERROR(
+            re ||
+              (re = babelHelpers.taggedTemplateLiteralLoose([
+                "error:debug:dfsRenderConsumerDataDisclosureSystemMessage",
+              ])),
+          );
+        }
+      });
+      return function (n) {
+        return e.apply(this, arguments);
+      };
+    })();
     ((Ge.doc =
       "DFS - Creates and renders a system message of type ctwa_consumer_data_disclosure in the current chat."),
       (Ge.paramsToExecute = []));

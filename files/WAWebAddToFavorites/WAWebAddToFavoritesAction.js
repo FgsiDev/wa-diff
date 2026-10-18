@@ -17,6 +17,7 @@ __d(
     "WAWebModalManager",
     "WAWebSyncdCoreApi",
     "WAWebToastManager",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -56,68 +57,81 @@ __d(
         }),
       );
     }
-    async function _(t, n) {
-      var a;
-      if (o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()) {
-        var i = await o("WAWebDBFavoriteDatabaseApi").getAllFavorites(),
-          l =
-            (a = o("WAWebABProps").getABPropConfigValue("favorites_limit")) !=
-            null
-              ? a
-              : 100;
-        if (i.length + (Array.isArray(t) ? t.length : 1) > l) {
-          p(l);
-          return;
-        }
-        var s;
-        if (Array.isArray(t)) {
-          var u = await o(
-            "WAWebDBFavoriteDatabaseApi",
-          ).getNextFavoriteOrderIndex();
-          s = t.map(function (e) {
-            return { id: e.toString(), orderIndex: u++ };
-          });
-        } else s = [babelHelpers.extends({}, t)];
-        n.entryPoint != null &&
-          o("WAWebFavoritesLogging").logAddingMessagingFavorites(
-            s,
-            n.entryPoint,
-          );
-        var _ = i.concat(s),
-          f = o("WATimeUtils").unixTime(),
-          g = await r("WAWebFavoritesSync").getFavoritesMutation(_, f);
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[Favorites] addToFavoritesAction, mutation generated",
-            ])),
-        );
-        var h = o("WAWebSyncdCoreApi")
-          .lockForSync(["favorite", "chat"], [g], async function () {
-            return o("WAWebDBFavoriteDatabaseApi").addOrEditFavorites(s);
-          })
-          .then(function () {
-            return o("WAWebFavoriteCollection").FavoriteCollection.add(
-              s.map(function (e) {
-                return babelHelpers.extends({}, e);
-              }),
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i;
+          if (o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()) {
+            var l = yield o("WAWebDBFavoriteDatabaseApi").getAllFavorites(),
+              s =
+                (i =
+                  o("WAWebABProps").getABPropConfigValue("favorites_limit")) !=
+                null
+                  ? i
+                  : 100;
+            if (l.length + (Array.isArray(t) ? t.length : 1) > s) {
+              p(s);
+              return;
+            }
+            var u;
+            if (Array.isArray(t)) {
+              var _ = yield o(
+                "WAWebDBFavoriteDatabaseApi",
+              ).getNextFavoriteOrderIndex();
+              u = t.map(function (e) {
+                return { id: e.toString(), orderIndex: _++ };
+              });
+            } else u = [babelHelpers.extends({}, t)];
+            a.entryPoint != null &&
+              o("WAWebFavoritesLogging").logAddingMessagingFavorites(
+                u,
+                a.entryPoint,
+              );
+            var f = l.concat(u),
+              g = o("WATimeUtils").unixTime(),
+              h = yield r("WAWebFavoritesSync").getFavoritesMutation(f, g);
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Favorites] addToFavoritesAction, mutation generated",
+                ])),
             );
-          });
-        if (n.suppressToast === !0) await h;
-        else {
-          var y = new (o("WAWebActionToast.react").ActionType)(d()),
-            C = h.then(function () {
-              return new (o("WAWebActionToast.react").ActionType)(m());
-            });
-          o("WAWebToastManager").ToastManager.open(
-            c.jsx(o("WAWebActionToast.react").ActionToast, {
-              id: o("WAWebActionToast.react").genId(),
-              initialAction: y,
-              pendingAction: C,
-            }),
-          );
-        }
-      }
+            var y = o("WAWebSyncdCoreApi")
+              .lockForSync(
+                ["favorite", "chat"],
+                [h],
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  return o("WAWebDBFavoriteDatabaseApi").addOrEditFavorites(u);
+                }),
+              )
+              .then(function () {
+                return o("WAWebFavoriteCollection").FavoriteCollection.add(
+                  u.map(function (e) {
+                    return babelHelpers.extends({}, e);
+                  }),
+                );
+              });
+            if (a.suppressToast === !0) yield y;
+            else {
+              var C = new (o("WAWebActionToast.react").ActionType)(d()),
+                b = y.then(function () {
+                  return new (o("WAWebActionToast.react").ActionType)(m());
+                });
+              o("WAWebToastManager").ToastManager.open(
+                c.jsx(o("WAWebActionToast.react").ActionToast, {
+                  id: o("WAWebActionToast.react").genId(),
+                  initialAction: C,
+                  pendingAction: b,
+                }),
+              );
+            }
+          }
+        })),
+        f.apply(this, arguments)
+      );
     }
     ((l.showFavoritesLimitExceededPopup = p), (l.addToFavoritesAction = _));
   },

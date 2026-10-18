@@ -1,6 +1,7 @@
 __d(
   "WAWebMsgNotification",
   [
+    "Promise",
     "WAWebBaseNotification",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBotBaseGating",
@@ -26,25 +27,27 @@ __d(
     "WAWebViewModeUtils",
     "WAWebVoipGatingUtils",
     "WAWebWamEnumNotificationTypeEnum",
+    "asyncToGeneratorRuntime",
     "cr:3133",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (e = n("cr:3133")) != null ? e : {},
-      u = s.getContextMenuItems,
-      c = s.isReplyable,
-      d = s.shouldIgnoreSquelchForGroupMention,
-      m = (function (e) {
+      s,
+      u = (e = n("cr:3133")) != null ? e : {},
+      c = u.getContextMenuItems,
+      d = u.isReplyable,
+      m = u.shouldIgnoreSquelchForGroupMention,
+      p = (function (e) {
         function t(t) {
           var n,
             r = t.msg;
           return ((n = e.call(this) || this), (n.msg = r), n);
         }
         babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        var a = t.prototype;
         return (
-          (n.shouldPlaySound = function () {
+          (a.shouldPlaySound = function () {
             if (!e.prototype.shouldPlaySound.call(this)) return !1;
             var t = o("WAWebFrontendMsgGetters").getChat(this.msg);
             return (
@@ -52,14 +55,14 @@ __d(
               !o("WAWebMsgGetters").getIsEdited(this.msg)
             );
           }),
-          (n.shouldShowBanner = function () {
+          (a.shouldShowBanner = function () {
             if (!e.prototype.shouldShowBanner.call(this)) return !1;
             var t = o("WAWebFrontendMsgGetters").getChat(this.msg);
             return o(
               "WAWebNotificationHelpers",
             ).shouldEnableNotificationGranular(t);
           }),
-          (n.shouldMute = function (t) {
+          (a.shouldMute = function (t) {
             if (r("WAWebEnvironment").isWindows && this.msg.viewed)
               return r("WAWebNotificationMuteReason").IgnoreViewedMsgs;
             if (this.msg.read === !0)
@@ -122,7 +125,7 @@ __d(
               if (this.msg.activeBotMsgStreamingInProgress === !0)
                 return r("WAWebNotificationMuteReason").BotResponseStreaming;
             }
-            return _(this.msg)
+            return f(this.msg)
               ? r("WAWebNotificationMuteReason").IgnoreInternalSilentTag
               : o("WAWebViewModeUtils").isViewModeVisibleInSurface(
                     o("WAWebViewMode.flow").ViewModeSurface.NOTIFICATION,
@@ -133,7 +136,7 @@ __d(
                   : null
                 : r("WAWebNotificationMuteReason").IgnoreHiddenViewModeMsgs;
           }),
-          (n.shouldSquelch = function () {
+          (a.shouldSquelch = function () {
             var e = o(
               "WAWebNotificationController",
             ).WANotificationController.notificationExists(this.buildKey());
@@ -144,7 +147,7 @@ __d(
                 ).eligibleMessagesForNotificationRetriggering.has(
                   this.msg.type,
                 ))) ||
-              (d != null && d(this.msg))
+              (m != null && m(this.msg))
               ? null
               : o("WAWebNotificationHelpers").shouldSquelch(
                     o("WAWebFrontendMsgGetters").getChat(this.msg),
@@ -152,7 +155,7 @@ __d(
                 ? r("WAWebNotificationMuteReason").GroupFlood
                 : null;
           }),
-          (n.buildKey = function () {
+          (a.buildKey = function () {
             var e, t;
             return (
               "msg:" +
@@ -164,17 +167,17 @@ __d(
                 : this.msg.id.toString())
             );
           }),
-          (n.matchesChat = function (t) {
+          (a.matchesChat = function (t) {
             return t.equals(
               o("WAWebFrontendMsgGetters").getMaybeChat(this.msg),
             );
           }),
-          (n.getChatKind = function () {
+          (a.getChatKind = function () {
             return o("WAWebFrontendChatGetters").getKind(
               o("WAWebFrontendMsgGetters").getChat(this.msg),
             );
           }),
-          (n.getDefaultIcon = function () {
+          (a.getDefaultIcon = function () {
             return o("WAWebMsgGetters").getIsProductListMessage(this.msg)
               ? o("WAWebMediaUtils").convertToDataURI(
                   o("WAWebMsgGetters").getProductListHeaderImage(this.msg),
@@ -183,99 +186,118 @@ __d(
                   o("WAWebFrontendMsgGetters").getChat(this.msg),
                 );
           }),
-          (n.getIcon = async function () {
-            var e = o("WAWebFrontendMsgGetters").getChat(this.msg);
-            if (
-              e.isSenderSuspicious === !0 &&
-              o("WAWebFMXGatingUtils").isSuspiciousFmxEnabled()
-            )
-              return o(
-                "WAWebNotificationIconUtils",
-              ).getDefaultChatNotificationIcon(e);
-            if (
-              !e.trusted &&
-              e.promises.integritySignals != null &&
-              o("WAWebFMXGatingUtils").isSuspiciousFmxEnabled()
-            ) {
-              var t = await Promise.all([
-                  o("WAWebNotificationIconUtils").getChatNotificationIcon(
-                    e,
-                    this.abortController.signal,
-                    this.getDefaultIcon(),
-                  ),
-                  e.promises.integritySignals,
-                ]),
-                n = t[0];
-              return (
-                (e.promises.integritySignals = null),
-                e.isSenderSuspicious === !0
-                  ? o(
-                      "WAWebNotificationIconUtils",
-                    ).getDefaultChatNotificationIcon(e)
-                  : n
+          (a.getIcon = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = o("WAWebFrontendMsgGetters").getChat(this.msg);
+              if (
+                e.isSenderSuspicious === !0 &&
+                o("WAWebFMXGatingUtils").isSuspiciousFmxEnabled()
+              )
+                return o(
+                  "WAWebNotificationIconUtils",
+                ).getDefaultChatNotificationIcon(e);
+              if (
+                !e.trusted &&
+                e.promises.integritySignals != null &&
+                o("WAWebFMXGatingUtils").isSuspiciousFmxEnabled()
+              ) {
+                var t = yield (s || (s = n("Promise"))).all([
+                    o("WAWebNotificationIconUtils").getChatNotificationIcon(
+                      e,
+                      this.abortController.signal,
+                      this.getDefaultIcon(),
+                    ),
+                    e.promises.integritySignals,
+                  ]),
+                  r = t[0];
+                return (
+                  (e.promises.integritySignals = null),
+                  e.isSenderSuspicious === !0
+                    ? o(
+                        "WAWebNotificationIconUtils",
+                      ).getDefaultChatNotificationIcon(e)
+                    : r
+                );
+              }
+              return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+                e,
+                this.abortController.signal,
+                this.getDefaultIcon(),
               );
+            });
+            function t() {
+              return e.apply(this, arguments);
             }
-            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-              e,
-              this.abortController.signal,
-              this.getDefaultIcon(),
-            );
-          }),
-          (n.getBannerOptions = function () {
+            return t;
+          })()),
+          (a.getBannerOptions = function () {
             var e = this.msg,
               t = o("WAWebNotificationsMsgNotification").getNotificationParts(
                 e,
               ),
-              n = o("WAWebGetNotificationStrings").getNotificationBody(
+              a = o("WAWebGetNotificationStrings").getNotificationBody(
                 babelHelpers.extends({}, t, {
                   msgDir: o("WAWebFrontendMsgGetters").getDir(e),
                 }),
               ),
-              a = o("WAWebFrontendMsgGetters").getChat(this.msg),
-              i = async function () {
-                var e = await o("WAWebChatThreadLogging").getChatThreadID(
-                  a.id.toJid(),
+              i = o("WAWebFrontendMsgGetters").getChat(this.msg),
+              l = (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    var e = yield o("WAWebChatThreadLogging").getChatThreadID(
+                      i.id.toJid(),
+                    );
+                    new (o(
+                      "WAWebNotificationEngagementWamEvent",
+                    ).NotificationEngagementWamEvent)({ threadId: e }).commit();
+                  },
                 );
-                new (o(
-                  "WAWebNotificationEngagementWamEvent",
-                ).NotificationEngagementWamEvent)({ threadId: e }).commit();
-              };
+                return function () {
+                  return e.apply(this, arguments);
+                };
+              })();
             return {
-              wid: a.id,
+              wid: i.id,
               msgId: this.msg.id.toString(),
               tag: o(
                 "WAWebNotificationsMsgNotification",
               ).shouldReplaceMsgNotificationManually()
                 ? this.msg.id.toString()
-                : a.id.toString(),
-              title: o("WAWebNotificationHelpers").getNotificationTitle(a),
-              body: n,
+                : i.id.toString(),
+              title: o("WAWebNotificationHelpers").getNotificationTitle(i),
+              body: a,
               onClick: function () {
-                r("gkx")("26258") || i();
+                r("gkx")("26258") || l();
               },
               renotify: !o("WAWebMsgGetters").getIsEdited(this.msg),
               footer: t.footer,
               contextMenuItems: this.getContextMenuItems(),
             };
           }),
-          (n.isReplyable = function () {
+          (a.isReplyable = function () {
             var e;
-            return (e = c == null ? void 0 : c(this.msg)) != null ? e : !1;
+            return (e = d == null ? void 0 : d(this.msg)) != null ? e : !1;
           }),
-          (n.getContextMenuItems = function () {
+          (a.getContextMenuItems = function () {
             var e;
-            return (e = u == null ? void 0 : u(this.msg)) != null ? e : [];
+            return (e = c == null ? void 0 : c(this.msg)) != null ? e : [];
           }),
-          (n.getNotificationDeliveryWamEventData = async function () {
-            return {
-              uiNotificationType: p(this.msg),
-              triggeredByOfflineMessage: this.msg.isOffline === !0,
-            };
-          }),
+          (a.getNotificationDeliveryWamEventData = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              return {
+                uiNotificationType: _(this.msg),
+                triggeredByOfflineMessage: this.msg.isOffline === !0,
+              };
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           t
         );
       })(o("WAWebBaseNotification").WABaseNotification);
-    function p(e) {
+    function _(e) {
       switch (e.type) {
         case o("WAWebMsgType").MSG_TYPE.CHAT:
           return o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
@@ -319,7 +341,7 @@ __d(
             .OTHER;
       }
     }
-    function _(e) {
+    function f(e) {
       var t;
       return (
         !r("gkx")("26258") &&
@@ -328,7 +350,7 @@ __d(
           : t.includes("@silent")) === !0
       );
     }
-    l.WAMsgNotification = m;
+    l.WAMsgNotification = p;
   },
   98,
 );

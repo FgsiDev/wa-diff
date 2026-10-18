@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WAWebBackendEventBus",
+    "WAWebBackendEventBusTypes",
     "WAWebNetworkType",
     "WAWebPonyfillsIdleCallback",
   ],
@@ -22,10 +23,36 @@ __d(
             );
           });
     }
-    function d(e) {
+    function d() {
+      var e = !1,
+        t = function () {
+          e = !0;
+        };
+      return (
+        o("WAWebBackendEventBus").BackendEventBus.onOfflineDeliveryStateReset(
+          t,
+        ),
+        {
+          didRestart: function () {
+            return (
+              e ||
+              !o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
+            );
+          },
+          stop: function () {
+            o("WAWebBackendEventBus").BackendEventBus.off(
+              o("WAWebBackendEventBusTypes").BackendEvent
+                .OFFLINE_DELIVERY_STATE_RESET,
+              t,
+            );
+          },
+        }
+      );
+    }
+    function m(e) {
       return Date.now() - e <= s;
     }
-    function m(t) {
+    function p(t) {
       return new (e || (e = n("Promise")))(function (e) {
         var n = null,
           r =
@@ -41,7 +68,7 @@ __d(
         });
       });
     }
-    function p() {
+    function _() {
       var e,
         t = navigator;
       return (
@@ -50,9 +77,10 @@ __d(
       );
     }
     ((l.waitForCurrentOfflineDeliveryEnd = c),
-      (l.didFireOnTime = d),
-      (l.waitForIdleCallback = m),
-      (l.isConstrainedNetwork = p));
+      (l.watchForOfflineDeliveryRestart = d),
+      (l.didFireOnTime = m),
+      (l.waitForIdleCallback = p),
+      (l.isConstrainedNetwork = _));
   },
   98,
 );

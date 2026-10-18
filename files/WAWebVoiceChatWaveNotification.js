@@ -12,6 +12,7 @@ __d(
     "WAWebNotificationMuteReason",
     "WAWebWidFactory",
     "WAWebWidFormat",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -32,30 +33,36 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      var a = t.prototype;
       return (
-        (n.shouldMute = function (t) {
+        (a.shouldMute = function (t) {
           var e = r("WAWebCallCollection").activeCall;
           return e != null && e.id === this.callId
             ? r("WAWebNotificationMuteReason").AppState
             : null;
         }),
-        (n.buildKey = function () {
+        (a.buildKey = function () {
           return "voice-chat-wave:" + this.callId;
         }),
-        (n.getChatKind = function () {
+        (a.getChatKind = function () {
           return this.groupJid != null
             ? o("WAWebChatFlowTypes").ChatKindType.Group
             : o("WAWebChatFlowTypes").ChatKindType.Chat;
         }),
-        (n.getIcon = async function () {
-          return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-            this.senderWid,
-            this.abortController.signal,
-            o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
-          );
-        }),
-        (n.getBannerOptions = function () {
+        (a.getIcon = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return o("WAWebNotificationIconUtils").getNotificationIconByWid(
+              this.senderWid,
+              this.abortController.signal,
+              o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
+            );
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (a.getBannerOptions = function () {
           var e = this.$WAVoiceChatWaveNotification$p_1();
           return {
             wid: this.senderWid,
@@ -66,13 +73,13 @@ __d(
             tag: this.buildKey(),
           };
         }),
-        (n.$WAVoiceChatWaveNotification$p_1 = function () {
+        (a.$WAVoiceChatWaveNotification$p_1 = function () {
           var e = this.$WAVoiceChatWaveNotification$p_3();
           return e != null
             ? o("WAWebFrontendContactGetters").getDisplayName(e)
             : o("WAWebWidFormat").widToFormattedUser(this.senderWid);
         }),
-        (n.$WAVoiceChatWaveNotification$p_3 = function () {
+        (a.$WAVoiceChatWaveNotification$p_3 = function () {
           var e = this.senderWid;
           if (!e.isUser())
             return o("WAWebContactCollection").ContactCollection.get(e);
@@ -92,7 +99,7 @@ __d(
           }
           return n;
         }),
-        (n.$WAVoiceChatWaveNotification$p_2 = function (t) {
+        (a.$WAVoiceChatWaveNotification$p_2 = function (t) {
           return s
             ._(
               /*BTDS*/ "\ud83d\udc4b {senderName} wants to talk now. Join the conversation!",
