@@ -1,7 +1,6 @@
 __d(
   "WAWebDebugAds",
   [
-    "Promise",
     "WAWebActiveAccountInfoContext.react",
     "WAWebBizNativeAdsStoredFBIdentityStore",
     "WAWebCTWABizAccessTokenNonceManager",
@@ -15,43 +14,41 @@ __d(
     "WAWebUploadNativeAdMedia",
     "WAWebUserPrefsCTWA",
     "WAWebUserPrefsGeneral",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = s || (s = o("react"));
-    function c() {
+      s = e || (e = o("react"));
+    function u() {
       return o("WAWebCTWABizAccessTokenNonceManager")
         .fetchNonce(!0)
         .then(function (e) {});
     }
-    ((c.doc = "Fetch ad account nonce"), (c.paramsToExecute = []));
-    function d() {
+    ((u.doc = "Fetch ad account nonce"), (u.paramsToExecute = []));
+    function c() {
       return o("WAWebFetchAdAccountToken")
         .fetchToken(!0)
         .then(function (e) {});
     }
-    ((d.doc = "Fetch ad account token"), (d.paramsToExecute = []));
-    function m(e) {
+    ((c.doc = "Fetch ad account token"), (c.paramsToExecute = []));
+    function d(e) {
       return o("WAWebLinkAdMediaInFacebook")
         .linkAdMediaInFacebook(e)
         .then(function (e) {})
         .catch(function (e) {});
     }
-    m.doc =
+    d.doc =
       "Link given ad media id in Facebook, so that it is available there for native ads creation flows";
-    function p(t) {
-      var r = function (t) {
+    function m(e) {
+      var t = function (t) {
         return o("WAWebUploadNativeAdMedia")
           .uploadBlobAsNativeAdMedia(t, new AbortController().signal)
           .then(function (e) {})
           .catch(function (e) {});
       };
-      return t == null
-        ? new (e || (e = n("Promise")))(function (e) {
+      return e == null
+        ? new Promise(function (e) {
             var t = document.createElement("input");
             ((t.type = "file"),
               (t.onchange = function () {
@@ -59,94 +56,86 @@ __d(
                 n != null && e(n[0]);
               }),
               t.click());
-          }).then(r)
-        : r(t);
+          }).then(t)
+        : t(e);
     }
-    p.doc =
+    m.doc =
       "Upload given blob as native ad media, so that it is available there for native ads creation flows";
-    var _ = function () {
+    var p = function () {
       o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-        u.jsx(r("WAWebCTWADebugDrawer.react"), {
+        s.jsx(r("WAWebCTWADebugDrawer.react"), {
           onBack: function () {
             o("WAWebDrawerManager").DrawerManager.closeDrawerLeft();
           },
         }),
       );
     };
-    ((_.doc = "Opens the CTWA Debug Drawer"), (_.paramsToExecute = []));
-    function f() {
+    ((p.doc = "Opens the CTWA Debug Drawer"), (p.paramsToExecute = []));
+    function _() {
       o("WAWebFetchAdAccountToken").markTokenAsInvalid();
     }
-    ((f.doc = "Clear WA token from cache and storage"),
-      (f.paramsToExecute = []));
-    function g() {
+    ((_.doc = "Clear WA token from cache and storage"),
+      (_.paramsToExecute = []));
+    function f() {
       o("WAWebBizNativeAdsStoredFBIdentityStore").clearStoredFBIdentity();
     }
-    ((g.doc = "Clear FB identity token from storage"),
-      (g.paramsToExecute = []));
-    function h(e) {
+    ((f.doc = "Clear FB identity token from storage"),
+      (f.paramsToExecute = []));
+    function g(e) {
       o("WAWebUserPrefsGeneral").setLastUsedAdAccountType(e);
     }
-    h.doc =
+    g.doc =
       "Set last used ad account type preference ('FB', 'WAA', or null to clear)";
-    function y() {
+    function h() {
       (o("WAWebBizNativeAdsStoredFBIdentityStore").clearStoredFBIdentity(),
         o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
         o("WAWebUserPrefsGeneral").setLastUsedAdAccountType(null));
     }
-    ((y.doc =
+    ((h.doc =
       "Clear all ads identity (FB token, WA token, and last used account type)"),
-      (y.paramsToExecute = []));
-    function C() {
-      return b.apply(this, arguments);
+      (h.paramsToExecute = []));
+    async function y() {
+      var e = o("WAWebUserPrefsCTWA").getFBIdentity(),
+        t = o("WAWebUserPrefsCTWA").getAdAccountToken(),
+        n =
+          t != null && t.type === "WAA"
+            ? t.bp_id + " (" + t.tokenStrength + ")"
+            : "null",
+        r = o("WAWebUserPrefsGeneral").getLastUsedAdAccountType(),
+        a = await o("WAWebLinkedAccountsJob").queryLinkedPagesInfo();
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsCTWA").getFBIdentity(),
-            t = o("WAWebUserPrefsCTWA").getAdAccountToken(),
-            n =
-              t != null && t.type === "WAA"
-                ? t.bp_id + " (" + t.tokenStrength + ")"
-                : "null",
-            r = o("WAWebUserPrefsGeneral").getLastUsedAdAccountType(),
-            a = yield o("WAWebLinkedAccountsJob").queryLinkedPagesInfo();
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    ((C.doc =
+    ((y.doc =
       "Print current ads identity details (tokens, account type preference, and linked pages)"),
-      (C.paramsToExecute = []));
-    function v(e) {
+      (y.paramsToExecute = []));
+    function C(e) {
       o("WAWebActiveAccountInfoContext.react").setActiveAccountInfo(e);
     }
-    v.doc = "Set the active account info for testing ad entry points";
-    function S() {
+    C.doc = "Set the active account info for testing ad entry points";
+    function b() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e)
         var t = o("WAWebCtwaConversationDepthUtils").getCtwaConversationDepth(
           e,
         );
     }
-    ((S.doc =
+    ((b.doc =
       "Print the CTWA conversation depth (biz reply count) for the active chat"),
-      (S.paramsToExecute = []));
-    var R = {
-      fetchAdAccountNonce: c,
-      fetchAdAccountToken: d,
-      linkAdMediaInFacebook: m,
-      uploadBlobAsNativeAdMedia: p,
-      ctwaOpenDebugDrawer: _,
-      clearWAToken: f,
-      clearFBToken: g,
-      setLastUsedAccountType: h,
-      clearAdsIdentity: y,
-      printAdsIdentityDetails: C,
-      dfsSetActiveAccountInfo: v,
-      printCtwaConversationDepth: S,
+      (b.paramsToExecute = []));
+    var v = {
+      fetchAdAccountNonce: u,
+      fetchAdAccountToken: c,
+      linkAdMediaInFacebook: d,
+      uploadBlobAsNativeAdMedia: m,
+      ctwaOpenDebugDrawer: p,
+      clearWAToken: _,
+      clearFBToken: f,
+      setLastUsedAccountType: g,
+      clearAdsIdentity: h,
+      printAdsIdentityDetails: y,
+      dfsSetActiveAccountInfo: C,
+      printCtwaConversationDepth: b,
     };
-    l.default = R;
+    l.default = v;
   },
   98,
 );

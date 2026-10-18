@@ -1,7 +1,6 @@
 __d(
   "WAWebDebugSmb",
   [
-    "Promise",
     "WAJids",
     "WALogger",
     "WATimeUtils",
@@ -46,7 +45,6 @@ __d(
     "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "react",
     "requireDeferred",
@@ -68,427 +66,329 @@ __d(
       b,
       v,
       S,
-      R,
-      L = R || (R = o("react")),
-      E = r("requireDeferred")("WAWebGetAdsRelayEnvironment").__setRef(
+      R = S || (S = o("react")),
+      L = r("requireDeferred")("WAWebGetAdsRelayEnvironment").__setRef(
         "WAWebDebugSmb",
       ),
-      k = r("requireDeferred")("WAWebShowBillingWizard").__setRef(
+      E = r("requireDeferred")("WAWebShowBillingWizard").__setRef(
         "WAWebDebugSmb",
       );
-    function I(e) {
-      return T.apply(this, arguments);
+    async function k(e) {
+      var t = e.colorIndex,
+        n = e.id,
+        r = e.isActive,
+        a = e.name,
+        i = e.orderIndex,
+        l = e.predefinedId,
+        s = e.type,
+        u = { id: n, name: a, colorIndex: t, predefinedId: l };
+      i != null && (u.orderIndex = i);
+      var c = s != null ? o("WAWebSchemaLabel").ListType.cast(s) : null;
+      (c != null && (u.type = c),
+        r != null && (u.isActive = r),
+        await o("WAWebSchemaLabel").getLabelTable().createOrReplace(u),
+        o("WAWebLabelCollection").LabelCollection.add(
+          babelHelpers.extends({}, u),
+          { merge: !0 },
+        ));
     }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.colorIndex,
-            n = e.id,
-            r = e.isActive,
-            a = e.name,
-            i = e.orderIndex,
-            l = e.predefinedId,
-            s = e.type,
-            u = { id: n, name: a, colorIndex: t, predefinedId: l };
-          i != null && (u.orderIndex = i);
-          var c = s != null ? o("WAWebSchemaLabel").ListType.cast(s) : null;
-          (c != null && (u.type = c),
-            r != null && (u.isActive = r),
-            yield o("WAWebSchemaLabel").getLabelTable().createOrReplace(u),
-            o("WAWebLabelCollection").LabelCollection.add(
-              babelHelpers.extends({}, u),
-              { merge: !0 },
-            ));
-        })),
-        T.apply(this, arguments)
-      );
+    k.doc = "create label";
+    async function I(e) {
+      var t = e.count,
+        n = e.id,
+        r = e.keywords,
+        a = e.message,
+        i = e.shortcut,
+        l = { id: n, shortcut: i, count: t, message: a, keywords: r };
+      (await o("WAWebSchemaQuickReply").getQuickReplyTable().createOrReplace(l),
+        o("WAWebQuickReplyCollection").QuickReplyCollection.add(
+          { id: n, shortcut: i, message: a, keywords: r, count: t },
+          { merge: !0 },
+        ));
     }
-    I.doc = "create label";
-    function D(e) {
-      return x.apply(this, arguments);
+    I.doc = "create quick reply";
+    async function T() {
+      var t,
+        n = new Map([
+          [(t = o("WAWebMobilePlatforms")).PLATFORMS.SMBA, t.PLATFORMS.ANDROID],
+          [t.PLATFORMS.SMBI, t.PLATFORMS.IPHONE],
+          [t.PLATFORMS.IPHONE, t.PLATFORMS.SMBI],
+          [t.PLATFORMS.ANDROID, t.PLATFORMS.SMBA],
+        ]),
+        a = n.get(o("WAWebConnModel").Conn.platform);
+      if (!a)
+        throw r("err")(
+          "Unsupported platform: " + o("WAWebConnModel").Conn.platform,
+        );
+      ((o("WAWebConnModel").Conn.platform = a),
+        await o("WAWebMobilePlatforms").setMobilePlatform(a),
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[reload] toggleSMB",
+            ])),
+        ),
+        window.location.reload());
     }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.count,
-            n = e.id,
-            r = e.keywords,
-            a = e.message,
-            i = e.shortcut,
-            l = { id: n, shortcut: i, count: t, message: a, keywords: r };
-          (yield o("WAWebSchemaQuickReply")
-            .getQuickReplyTable()
-            .createOrReplace(l),
-            o("WAWebQuickReplyCollection").QuickReplyCollection.add(
-              { id: n, shortcut: i, message: a, keywords: r, count: t },
-              { merge: !0 },
-            ));
-        })),
-        x.apply(this, arguments)
-      );
+    ((T.doc =
+      "Toggle between SMB (smba/smbi) and mobile (Android/iOS) platforms"),
+      (T.paramsToExecute = []));
+    async function D(e) {
+      var t = o("WAWebWidFactory").createWidFromWidLike(e).toString();
+      return {
+        row: await o("WAWebApiBusinessProfile").getBusinessProfileRow(t),
+        record: await o("WAWebApiBusinessProfile").getBusinessProfileRecord(t),
+      };
     }
-    D.doc = "create quick reply";
-    function $() {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = new Map([
-              [
-                (e = o("WAWebMobilePlatforms")).PLATFORMS.SMBA,
-                e.PLATFORMS.ANDROID,
-              ],
-              [e.PLATFORMS.SMBI, e.PLATFORMS.IPHONE],
-              [e.PLATFORMS.IPHONE, e.PLATFORMS.SMBI],
-              [e.PLATFORMS.ANDROID, e.PLATFORMS.SMBA],
-            ]),
-            n = t.get(o("WAWebConnModel").Conn.platform);
-          if (!n)
-            throw r("err")(
-              "Unsupported platform: " + o("WAWebConnModel").Conn.platform,
-            );
-          ((o("WAWebConnModel").Conn.platform = n),
-            yield o("WAWebMobilePlatforms").setMobilePlatform(n),
+    async function x(e) {
+      var t = e.accessTokenMeta,
+        n = e.paymentAccountID,
+        r = e.wizardName,
+        a = await Promise.all([E.load(), L.load()]),
+        i = a[0],
+        l = a[1],
+        u = await l(t),
+        c = await i({
+          relayEnvironment: u,
+          paymentAccountID: n,
+          wizardName: r != null ? r : "ADD_PM",
+          wizardPropsJSON: null,
+          flowID: "debug",
+          onCloseCb: function (t) {
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[reload] toggleSMB",
+                  "Billing wizard return code: ",
+                  "",
                 ])),
-            ),
-            window.location.reload());
-        })),
-        P.apply(this, arguments)
-      );
-    }
-    (($.doc =
-      "Toggle between SMB (smba/smbi) and mobile (Android/iOS) platforms"),
-      ($.paramsToExecute = []));
-    function N(e) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWidFactory").createWidFromWidLike(e).toString();
-          return {
-            row: yield o("WAWebApiBusinessProfile").getBusinessProfileRow(t),
-            record: yield o("WAWebApiBusinessProfile").getBusinessProfileRecord(
               t,
-            ),
-          };
-        })),
-        M.apply(this, arguments)
-      );
+            );
+          },
+        });
+      c();
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    async function $() {
+      (await o("WAWebOIDCFlow.react").launchOIDCFlow(),
+        o("WAWebModalManager").ModalManager.open(
+          R.jsxs(o("WAWebModal.react").Modal, {
+            type: o("WAWebModal.react").ModalTheme.AutoWrap,
+            children: [
+              R.jsx(o("WAWebOIDCFlow.react").OIDCEventListener, {}),
+              R.jsx("div", {}),
+            ],
+          }),
+        ));
     }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.accessTokenMeta,
-            r = e.paymentAccountID,
-            a = e.wizardName,
-            i = yield (S || (S = n("Promise"))).all([k.load(), E.load()]),
-            l = i[0],
-            s = i[1],
-            c = yield s(t),
-            d = yield l({
-              relayEnvironment: c,
-              paymentAccountID: r,
-              wizardName: a != null ? a : "ADD_PM",
-              wizardPropsJSON: null,
-              flowID: "debug",
-              onCloseCb: function (t) {
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Billing wizard return code: ",
-                      "",
-                    ])),
-                  t,
-                );
-              },
-            });
-          d();
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F() {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o("WAWebOIDCFlow.react").launchOIDCFlow(),
-            o("WAWebModalManager").ModalManager.open(
-              L.jsxs(o("WAWebModal.react").Modal, {
-                type: o("WAWebModal.react").ModalTheme.AutoWrap,
-                children: [
-                  L.jsx(o("WAWebOIDCFlow.react").OIDCEventListener, {}),
-                  L.jsx("div", {}),
-                ],
-              }),
-            ));
-        })),
-        O.apply(this, arguments)
-      );
-    }
-    function B(t) {
+    function P(e) {
       return o("WAWebBizGetProfileShimlinksQuery")
-        .getProfileShimlinks(t)
-        .then(function (t) {
+        .getProfileShimlinks(e)
+        .then(function (e) {
           o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "debug:bizFetchBusinessProfileShimlinks",
               ])),
           );
         });
     }
-    B.doc = "Fetch business profile shimlinks";
-    var W = function () {
+    P.doc = "Fetch business profile shimlinks";
+    var N = function () {
       o("WAWebModalManager").ModalManager.open(
-        L.jsx(o("WAWebOrderRequestDrawer.react").OrderRequestEducationModal, {
+        R.jsx(o("WAWebOrderRequestDrawer.react").OrderRequestEducationModal, {
           onExit: r("WAWebNoop"),
         }),
       );
     };
-    ((W.doc = "Opens the order request education modal"),
-      (W.paramsToExecute = []));
-    function q() {
+    ((N.doc = "Opens the order request education modal"),
+      (N.paramsToExecute = []));
+    function M() {
       o("WAWebBizOrderExpansionModal.react").openOrderExpansionModal(
         r("WAWebNoop"),
       );
     }
-    function U() {
+    function w() {
       o("WAWebModalManager").ModalManager.open(
-        L.jsx(r("WAWebBizOrderRequestManagementDrawer.react"), {
+        R.jsx(r("WAWebBizOrderRequestManagementDrawer.react"), {
           onBack: o("WAWebModalManager").closeModalManager,
         }),
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    async function A(e) {
+      try {
+        var t = await o("WAWebSchemaAgent")
+          .getAgentTable()
+          .bulkCreateOrReplace(e);
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "createOrReplaceAgent: ",
+              "",
+            ])),
+          String(t),
+        );
+      } catch (e) {
+        o("WALogger").WARN(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "createOrReplaceAgent: error ",
+              "",
+            ])),
+          e,
+        );
+      }
     }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebSchemaAgent")
-              .getAgentTable()
-              .bulkCreateOrReplace(e);
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "createOrReplaceAgent: ",
-                  "",
-                ])),
-              String(t),
-            );
-          } catch (e) {
-            o("WALogger").WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "createOrReplaceAgent: error ",
-                  "",
-                ])),
-              e,
-            );
-          }
-        })),
-        H.apply(this, arguments)
-      );
+    async function F() {
+      await A([
+        { id: "1", name: "Agent1", deviceId: 1, isDeleted: !0 },
+        { id: "11", name: "Vasily", deviceId: 2, isDeleted: !1 },
+        { id: "111", name: "Max", deviceId: 3, isDeleted: !1 },
+        { id: "1111", name: "Jesse", deviceId: 10, isDeleted: !1 },
+        { id: "11111", name: "Fabio", deviceId: 99, isDeleted: !1 },
+      ]);
     }
-    function G() {
-      return z.apply(this, arguments);
+    async function O(e) {
+      var t;
+      e === void 0 && (e = 10);
+      var n = o("WAWebAgentCollection")
+          .AgentCollection.getModelsArray()
+          .filter(function (e) {
+            return e.id !== "-1";
+          }),
+        r =
+          (t = o("WAWebChatCollection").ChatCollection.getModelsArray()) == null
+            ? void 0
+            : t.slice(0, e).map(function (e, t) {
+                var r = e.id.toString(),
+                  o = n[t % (n.length - 1)].id;
+                return {
+                  id: "" + t,
+                  chatId: r,
+                  agentId: o,
+                  chatOpenedByAgent: !1,
+                };
+              });
+      try {
+        var a = await o("WAWebSchemaChatAssignment")
+          .getChatAssignmentTable()
+          .bulkCreateOrReplace(r);
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "createOrReplaceAgent: ",
+              "",
+            ])),
+          String(a),
+        );
+      } catch (e) {
+        o("WALogger").WARN(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "createOrReplaceAgent: error ",
+              "",
+            ])),
+          e,
+        );
+      }
     }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield V([
-            { id: "1", name: "Agent1", deviceId: 1, isDeleted: !0 },
-            { id: "11", name: "Vasily", deviceId: 2, isDeleted: !1 },
-            { id: "111", name: "Max", deviceId: 3, isDeleted: !1 },
-            { id: "1111", name: "Jesse", deviceId: 10, isDeleted: !1 },
-            { id: "11111", name: "Fabio", deviceId: 99, isDeleted: !1 },
-          ]);
-        })),
-        z.apply(this, arguments)
-      );
+    async function B() {
+      var e = [
+        {
+          id: "WA_PREMIUM_1",
+          isAutoRenewing: !0,
+          isDeactivated: !1,
+          expirationDate: void 0,
+          creationTime: void 0,
+          newMessageCappingEnabled: !1,
+          tier: 1,
+          status: "ACTIVE",
+          source: o("WAWebSubscriptionSource").SubscriptionSource.BLUE,
+          isPlatformChanged: !1,
+          startTime: 1e3,
+        },
+        {
+          id: "WA_PREMIUM_2",
+          isAutoRenewing: !1,
+          isDeactivated: !1,
+          expirationDate: void 0,
+          creationTime: null,
+          newMessageCappingEnabled: !1,
+          tier: 2,
+          status: "ACTIVE",
+          source: o("WAWebSubscriptionSource").SubscriptionSource.META_NOVA,
+          isPlatformChanged: !1,
+          startTime: 2e3,
+        },
+        {
+          id: "WA_PREMIUM_4",
+          isAutoRenewing: !1,
+          isDeactivated: !0,
+          expirationDate: 200,
+          creationTime: 50,
+          newMessageCappingEnabled: !0,
+          tier: 1,
+          status: "EXPIRED",
+          source: o("WAWebSubscriptionSource").SubscriptionSource.BLUE,
+          isPlatformChanged: !1,
+          startTime: 100,
+        },
+      ];
+      await o("WAWebSchemaSubscription")
+        .getSubscriptionTable()
+        .bulkCreateOrReplace(e);
     }
-    function j(e) {
-      return K.apply(this, arguments);
+    async function W(e) {
+      try {
+        var t = await o("WAWebPremiumMessageSchema")
+          .getPremiumMessageTable()
+          .bulkCreateOrReplace(e);
+        o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "createPremiumMessage: ",
+              "",
+            ])),
+          String(t),
+        );
+      } catch (e) {
+        o("WALogger").WARN(
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
+              "createPremiumMessage: error ",
+              "",
+            ])),
+          e,
+        );
+      }
     }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          e === void 0 && (e = 10);
-          var n = o("WAWebAgentCollection")
-              .AgentCollection.getModelsArray()
-              .filter(function (e) {
-                return e.id !== "-1";
-              }),
-            r =
-              (t = o("WAWebChatCollection").ChatCollection.getModelsArray()) ==
-              null
-                ? void 0
-                : t.slice(0, e).map(function (e, t) {
-                    var r = e.id.toString(),
-                      o = n[t % (n.length - 1)].id;
-                    return {
-                      id: "" + t,
-                      chatId: r,
-                      agentId: o,
-                      chatOpenedByAgent: !1,
-                    };
-                  });
-          try {
-            var a = yield o("WAWebSchemaChatAssignment")
-              .getChatAssignmentTable()
-              .bulkCreateOrReplace(r);
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "createOrReplaceAgent: ",
-                  "",
-                ])),
-              String(a),
-            );
-          } catch (e) {
-            o("WALogger").WARN(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "createOrReplaceAgent: error ",
-                  "",
-                ])),
-              e,
-            );
-          }
-        })),
-        K.apply(this, arguments)
-      );
-    }
-    function Q() {
-      return X.apply(this, arguments);
-    }
-    function X() {
-      return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = [
-            {
-              id: "WA_PREMIUM_1",
-              isAutoRenewing: !0,
-              isDeactivated: !1,
-              expirationDate: void 0,
-              creationTime: void 0,
-              newMessageCappingEnabled: !1,
-              tier: 1,
-              status: "ACTIVE",
-              source: o("WAWebSubscriptionSource").SubscriptionSource.BLUE,
-              isPlatformChanged: !1,
-              startTime: 1e3,
-            },
-            {
-              id: "WA_PREMIUM_2",
-              isAutoRenewing: !1,
-              isDeactivated: !1,
-              expirationDate: void 0,
-              creationTime: null,
-              newMessageCappingEnabled: !1,
-              tier: 2,
-              status: "ACTIVE",
-              source: o("WAWebSubscriptionSource").SubscriptionSource.META_NOVA,
-              isPlatformChanged: !1,
-              startTime: 2e3,
-            },
-            {
-              id: "WA_PREMIUM_4",
-              isAutoRenewing: !1,
-              isDeactivated: !0,
-              expirationDate: 200,
-              creationTime: 50,
-              newMessageCappingEnabled: !0,
-              tier: 1,
-              status: "EXPIRED",
-              source: o("WAWebSubscriptionSource").SubscriptionSource.BLUE,
-              isPlatformChanged: !1,
-              startTime: 100,
-            },
-          ];
-          yield o("WAWebSchemaSubscription")
-            .getSubscriptionTable()
-            .bulkCreateOrReplace(e);
-        })),
-        X.apply(this, arguments)
-      );
-    }
-    function Y(e) {
-      return J.apply(this, arguments);
-    }
-    function J() {
-      return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebPremiumMessageSchema")
-              .getPremiumMessageTable()
-              .bulkCreateOrReplace(e);
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "createPremiumMessage: ",
-                  "",
-                ])),
-              String(t),
-            );
-          } catch (e) {
-            o("WALogger").WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "createPremiumMessage: error ",
-                  "",
-                ])),
-              e,
-            );
-          }
-        })),
-        J.apply(this, arguments)
-      );
-    }
-    var Z = function () {
+    var q = function () {
       o("WAWebModalManager").ModalManager.open(
-        L.jsx(r("WAWebDOIntroPopup.react"), {}),
+        R.jsx(r("WAWebDOIntroPopup.react"), {}),
       );
     };
-    ((Z.doc = "Opens the DO Intro Popup"), (Z.paramsToExecute = []));
-    var ee = function () {
+    ((q.doc = "Opens the DO Intro Popup"), (q.paramsToExecute = []));
+    var U = function () {
       o("WAWebModalManager").ModalManager.open(
-        L.jsx(o("WAWebSMBListsIntroPopup.react").SMBListsIntroPopup, {}),
+        R.jsx(o("WAWebSMBListsIntroPopup.react").SMBListsIntroPopup, {}),
       );
     };
-    ((ee.doc = "Opens the SMB Lists Intro NUX Popup"),
-      (ee.paramsToExecute = []));
-    var te = function () {
+    ((U.doc = "Opens the SMB Lists Intro NUX Popup"), (U.paramsToExecute = []));
+    var V = function () {
       o("WAWebModalManager").ModalManager.open(
-        L.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
+        R.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
       );
     };
-    ((te.doc = "Opens the Customer Manager Intro NUX Modal"),
-      (te.paramsToExecute = []));
-    var ne = function () {
+    ((V.doc = "Opens the Customer Manager Intro NUX Modal"),
+      (V.paramsToExecute = []));
+    var H = function () {
       o("WAWebModalManager").ModalManager.open(
-        L.jsx(r("WAWebContactInfoFieldsNuxModal.react"), {}),
+        R.jsx(r("WAWebContactInfoFieldsNuxModal.react"), {}),
       );
     };
-    ((ne.doc = "Opens the new contact info fields NUX Modal"),
-      (ne.paramsToExecute = []));
-    var re = function () {
+    ((H.doc = "Opens the new contact info fields NUX Modal"),
+      (H.paramsToExecute = []));
+    var G = function () {
       o("WAWebModalManager").ModalManager.open(
-        L.jsx(
+        R.jsx(
           r("WAWebSmbDataSharingOptInModalDialog")
             .SmbDataSharingOptInModalDialog,
           {
@@ -499,19 +399,11 @@ __d(
         ),
       );
     };
-    function oe(e) {
-      return ae.apply(this, arguments);
-    }
-    function ae() {
-      return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {})),
-        ae.apply(this, arguments)
-      );
-    }
-    oe.doc = "send delete mutation";
-    var ie = function (t) {
+    async function z(e) {}
+    z.doc = "send delete mutation";
+    var j = function (t) {
         o("WAWebModalManager").ModalManager.open(
-          L.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
+          R.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
             accountLid: t,
             entryPoint: o(
               "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
@@ -520,9 +412,9 @@ __d(
           }),
         );
       },
-      le = function (t) {
+      K = function (t) {
         o("WAWebModalManager").ModalManager.open(
-          L.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
+          R.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
             accountLids: [t],
             entryPoint: o(
               "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
@@ -531,206 +423,173 @@ __d(
           }),
         );
       };
-    function se(e, t) {
-      return ue.apply(this, arguments);
+    async function Q(e, t) {
+      var n = o("WAJids").unsafeCoerceToChatJid(e);
+      await o("WAWebCustomerDataAction").customerDataAddAction(n, t);
     }
-    function ue() {
-      return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAJids").unsafeCoerceToChatJid(e);
-          yield o("WAWebCustomerDataAction").customerDataAddAction(n, t);
-        })),
-        ue.apply(this, arguments)
+    Q.doc = "Add or update customer data for a contact";
+    async function X(e) {
+      var t = o("WAJids").unsafeCoerceToChatJid(e);
+      return o("WAWebCustomerDataAction").retrieveCustomerDataForChatJid(t);
+    }
+    X.doc = "Get customer data for a contact";
+    async function Y() {
+      var e = o("WAWebChatCollection")
+        .ChatCollection.filter(function (e) {
+          return r("WAWebWid").isUser(e.id);
+        })
+        .slice(0, 10);
+      if (e.length === 0) {
+        o("WALogger").LOG(
+          g ||
+            (g = babelHelpers.taggedTemplateLiteralLoose([
+              "[CustomerData] No user chats found to seed test data",
+            ])),
+        );
+        return;
+      }
+      var t = e.map(function (e, t) {
+        var n,
+          r = o("WAWebContactCollection").ContactCollection.get(e.id),
+          a =
+            r != null
+              ? o("WAWebFrontendContactGetters").getDisplayName(r)
+              : "Test Customer " + String(t + 1);
+        return {
+          id: e.id.toString(),
+          name: a,
+          shortName: (n = a.split(" ")[0]) != null ? n : "",
+          type: "in",
+          isAddressBookContact: 1,
+          isContactSyncCompleted: 0,
+        };
+      });
+      await r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+        t,
+        "DebugSmb.gen10CustomerManagementTestDataFromChats",
       );
-    }
-    se.doc = "Add or update customer data for a contact";
-    function ce(e) {
-      return de.apply(this, arguments);
-    }
-    function de() {
-      return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAJids").unsafeCoerceToChatJid(e);
-          return o("WAWebCustomerDataAction").retrieveCustomerDataForChatJid(t);
-        })),
-        de.apply(this, arguments)
+      for (var n of t)
+        if (n.id != null) {
+          var a = o("WAWebWidFactory").createWidFromWidLike(n.id);
+          o("WAWebContactCollection").ContactCollection.add(
+            babelHelpers.extends({}, n, { id: a }),
+            { merge: !0 },
+          );
+        }
+      o("WALogger").LOG(
+        h ||
+          (h = babelHelpers.taggedTemplateLiteralLoose([
+            "[CustomerData] Created ",
+            " contacts in DB and collection",
+          ])),
+        String(e.length),
       );
-    }
-    ce.doc = "Get customer data for a contact";
-    function me() {
-      return pe.apply(this, arguments);
-    }
-    function pe() {
-      return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebChatCollection")
-            .ChatCollection.filter(function (e) {
-              return r("WAWebWid").isUser(e.id);
-            })
-            .slice(0, 10);
-          if (e.length === 0) {
-            o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "[CustomerData] No user chats found to seed test data",
-                ])),
-            );
-            return;
-          }
-          var t = e.map(function (e, t) {
-            var n,
-              r = o("WAWebContactCollection").ContactCollection.get(e.id),
-              a =
-                r != null
-                  ? o("WAWebFrontendContactGetters").getDisplayName(r)
-                  : "Test Customer " + String(t + 1);
-            return {
-              id: e.id.toString(),
-              name: a,
-              shortName: (n = a.split(" ")[0]) != null ? n : "",
-              type: "in",
-              isAddressBookContact: 1,
-              isContactSyncCompleted: 0,
-            };
-          });
-          yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-            t,
-            "DebugSmb.gen10CustomerManagementTestDataFromChats",
-          );
-          for (var a of t)
-            if (a.id != null) {
-              var i = o("WAWebWidFactory").createWidFromWidLike(a.id);
-              o("WAWebContactCollection").ContactCollection.add(
-                babelHelpers.extends({}, a, { id: i }),
-                { merge: !0 },
-              );
-            }
-          o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
-                "[CustomerData] Created ",
-                " contacts in DB and collection",
-              ])),
-            String(e.length),
-          );
-          var l = [1, 2, 3, 4, 5, 6],
-            s = [],
-            u = e.filter(function (e) {
-              return e.id.toString().endsWith(o("WAJids").LID_DOMAIN);
-            });
-          if (u.length === 0) {
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "[CustomerData] No LID-based chats found to seed test data",
-                ])),
-            );
-            return;
-          }
-          (yield (S || (S = n("Promise"))).all(
-            u.map(function (e, t) {
-              var n = o("WAJids").unsafeCoerceToChatJid(e.id.toString()),
-                r = l[t % l.length];
-              return (
-                s.length < 3 &&
-                  s.push({ chatId: e.id.toString(), leadStage: r }),
-                o("WAWebCustomerDataAction").customerDataAddAction(n, {
-                  contactType: o("WAWebContactType").ContactType.CUSTOMER,
-                  email: "test@meta.com",
-                  altPhoneNumbers: "666-888-9999",
-                  address: "1 Hacker Way",
-                  leadStage: r,
-                  acquisitionSource: 0,
-                  lastOrder: o("WATimeUtils").castToUnixTime(1773181023),
-                })
-              );
-            }),
-          ),
-            o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
-                  "[CustomerData] seeded=",
-                  " skipped=",
-                  " samples=",
-                  "",
-                ])),
-              String(u.length),
-              String(e.length - u.length),
-              JSON.stringify(s),
-            ));
-        })),
-        pe.apply(this, arguments)
-      );
-    }
-    ((me.doc =
-      "Seed 10 customer management test records with distributed lead stages"),
-      (me.paramsToExecute = []));
-    function _e(e) {
-      return fe.apply(this, arguments);
-    }
-    function fe() {
-      return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WALogger").LOG(
-            b ||
-              (b = babelHelpers.taggedTemplateLiteralLoose([
-                "[DEBUG][SMB] fetching BP access token and session cookies",
-              ])),
-          );
-          var t = yield o(
-            "WAWebBPAccessTokenAndSessionCookiesMutation",
-          ).fetchBPAccessTokenAndSessionCookies(e);
+      var i = [1, 2, 3, 4, 5, 6],
+        l = [],
+        s = e.filter(function (e) {
+          return e.id.toString().endsWith(o("WAJids").LID_DOMAIN);
+        });
+      if (s.length === 0) {
+        o("WALogger").LOG(
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
+              "[CustomerData] No LID-based chats found to seed test data",
+            ])),
+        );
+        return;
+      }
+      (await Promise.all(
+        s.map(function (e, t) {
+          var n = o("WAJids").unsafeCoerceToChatJid(e.id.toString()),
+            r = i[t % i.length];
           return (
-            o("WALogger").LOG(
-              v ||
-                (v = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DEBUG][SMB] BP access token result: ",
-                  "",
-                ])),
-              t,
-            ),
-            t
+            l.length < 3 && l.push({ chatId: e.id.toString(), leadStage: r }),
+            o("WAWebCustomerDataAction").customerDataAddAction(n, {
+              contactType: o("WAWebContactType").ContactType.CUSTOMER,
+              email: "test@meta.com",
+              altPhoneNumbers: "666-888-9999",
+              address: "1 Hacker Way",
+              leadStage: r,
+              acquisitionSource: 0,
+              lastOrder: o("WATimeUtils").castToUnixTime(1773181023),
+            })
           );
-        })),
-        fe.apply(this, arguments)
+        }),
+      ),
+        o("WALogger").LOG(
+          C ||
+            (C = babelHelpers.taggedTemplateLiteralLoose([
+              "[CustomerData] seeded=",
+              " skipped=",
+              " samples=",
+              "",
+            ])),
+          String(s.length),
+          String(e.length - s.length),
+          JSON.stringify(l),
+        ));
+    }
+    ((Y.doc =
+      "Seed 10 customer management test records with distributed lead stages"),
+      (Y.paramsToExecute = []));
+    async function J(e) {
+      o("WALogger").LOG(
+        b ||
+          (b = babelHelpers.taggedTemplateLiteralLoose([
+            "[DEBUG][SMB] fetching BP access token and session cookies",
+          ])),
+      );
+      var t = await o(
+        "WAWebBPAccessTokenAndSessionCookiesMutation",
+      ).fetchBPAccessTokenAndSessionCookies(e);
+      return (
+        o("WALogger").LOG(
+          v ||
+            (v = babelHelpers.taggedTemplateLiteralLoose([
+              "[DEBUG][SMB] BP access token result: ",
+              "",
+            ])),
+          t,
+        ),
+        t
       );
     }
-    _e.doc =
+    J.doc =
       "Fetch SMB BP access token and session cookies via xwa_bp_access_token_and_session_cookies GQL endpoint";
-    var ge = babelHelpers.extends(
+    var Z = babelHelpers.extends(
       {
-        createOrReplaceLabel: I,
-        createOrReplaceQuickReply: D,
-        getBusinessProfileFromDBById: N,
-        toggleSMB: $,
-        showBillingWizard: w,
-        launchOIDCFlow: F,
+        createOrReplaceLabel: k,
+        createOrReplaceQuickReply: I,
+        getBusinessProfileFromDBById: D,
+        toggleSMB: T,
+        showBillingWizard: x,
+        launchOIDCFlow: $,
       },
       r("WAWebDebugPerCustomerDataSharing"),
       {
-        bizFetchBusinessProfileShimlinks: B,
-        openOrderRequestEducationModal: W,
-        openBizOrderExpansionModal: q,
-        openBizOrderRequestManagementModal: U,
-        createTestAgents: G,
-        assignChatsToAgents: j,
-        createSubscriptions: Q,
-        createPremiumMessage: Y,
-        openDOIntroPopup: Z,
-        openSMBListsIntroPopup: ee,
-        openCustomerManagerNuxModal: te,
-        openContactInfoFieldsNuxModal: ne,
-        openSmbDataSharingDialog: re,
-        syncQuickReplyDelete: oe,
-        showPerCustomerDataSharingOptOutModal: ie,
-        showPerCustomerDataSharingOptInModal: le,
-        addCustomerData: se,
-        getCustomerData: ce,
-        gen10CustomerManagementTestDataFromChats: me,
-        fetchBPAccessTokenGQL: _e,
+        bizFetchBusinessProfileShimlinks: P,
+        openOrderRequestEducationModal: N,
+        openBizOrderExpansionModal: M,
+        openBizOrderRequestManagementModal: w,
+        createTestAgents: F,
+        assignChatsToAgents: O,
+        createSubscriptions: B,
+        createPremiumMessage: W,
+        openDOIntroPopup: q,
+        openSMBListsIntroPopup: U,
+        openCustomerManagerNuxModal: V,
+        openContactInfoFieldsNuxModal: H,
+        openSmbDataSharingDialog: G,
+        syncQuickReplyDelete: z,
+        showPerCustomerDataSharingOptOutModal: j,
+        showPerCustomerDataSharingOptInModal: K,
+        addCustomerData: Q,
+        getCustomerData: X,
+        gen10CustomerManagementTestDataFromChats: Y,
+        fetchBPAccessTokenGQL: J,
       },
     );
-    l.default = ge;
+    l.default = Z;
   },
   98,
 );

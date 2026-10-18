@@ -22,85 +22,71 @@ __d(
     "WAWebThreadMsgUtils",
     "WAWebWasaHatchOutboundWrapper",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
       var t = e.agentCopies,
-        r = e.agentEngagementType,
-        a = e.botAttrs,
-        i = e.isFeedback,
-        l = e.msg,
-        s = e.plan;
+        n = e.agentEngagementType,
+        r = e.botAttrs,
+        a = e.isFeedback,
+        i = e.msg,
+        l = e.plan;
+      if (l == null) return null;
+      var s = t[0];
       if (s == null) return null;
-      var u = t[0];
-      if (u == null) return null;
-      var c = S(s),
-        d = c.peerLid,
-        m = c.selfLid,
-        p = R(m, d),
-        _ = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
-          u.agentWid,
+      var u = y(l),
+        c = u.peerLid,
+        d = u.selfLid,
+        m = C(d, c),
+        p = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
+          s.agentWid,
         );
       return {
-        node: C({
-          agentEngagementType: r,
-          botAttrs: a,
-          destinationWids: [m, d, u.agentWid],
-          isFeedback: i,
-          personaType: _ != null ? _ : null,
-          sharedEnc: u.sharedEnc,
+        node: g({
+          agentEngagementType: n,
+          botAttrs: r,
+          destinationWids: [d, c, s.agentWid],
+          isFeedback: a,
+          personaType: p != null ? p : null,
+          sharedEnc: s.sharedEnc,
         }),
-        seedReceipts: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (yield b(l.id.id, p, l.t),
-              yield o(
-                "WAWebCoexV2RetryMarkerStore",
-              ).markCoexV2RepresentedTargets(l.id, u.agentWid));
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        seedReceipts: async function () {
+          (await h(i.id.id, m, i.t),
+            await o("WAWebCoexV2RetryMarkerStore").markCoexV2RepresentedTargets(
+              i.id,
+              s.agentWid,
+            ));
+        },
       };
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      var t = e.botAttrs,
+        n = e.editType,
+        r = e.msg,
+        o = e.msgProtobuf,
+        a = e.relayPlan;
+      if (a == null) return null;
+      var i = a.peerLid,
+        l = a.selfIsCoexV2,
+        s = a.selfLid,
+        u = [s, i].filter(Boolean),
+        c = await _(r, o, n, u, null, l, t);
+      return c == null
+        ? null
+        : {
+            node: c.node,
+            seedReceipts: function () {
+              return h(r.id.id, u, r.t);
+            },
+            shouldHaveIdentity: c.shouldHaveIdentity,
+          };
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.botAttrs,
-            n = e.editType,
-            r = e.msg,
-            o = e.msgProtobuf,
-            a = e.relayPlan;
-          if (a == null) return null;
-          var i = a.peerLid,
-            l = a.selfIsCoexV2,
-            s = a.selfLid,
-            u = [s, i].filter(Boolean),
-            c = yield g(r, o, n, u, null, l, t);
-          return c == null
-            ? null
-            : {
-                node: c.node,
-                seedReceipts: function () {
-                  return b(r.id.id, u, r.t);
-                },
-                shouldHaveIdentity: c.shouldHaveIdentity,
-              };
-        })),
-        d.apply(this, arguments)
-      );
+    function d(e, t) {
+      return f(e, o("WAWebMsgGetters").getMessageSecret(t));
     }
-    function m(e, t) {
-      return y(e, o("WAWebMsgGetters").getMessageSecret(t));
-    }
-    function p(e) {
+    function m(e) {
       var t = e.ciphertext,
         n = e.mediaType,
         r = e.msgProtobuf,
@@ -135,193 +121,160 @@ __d(
         t,
       );
     }
-    function _(e, t, n, r, o) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i,
-              l,
-              s = r.agentEngagementType,
-              u = r.agentWid,
-              c = r.isFeedback,
-              d = r.representedLids,
-              _ = r.selfHosted,
-              f = r.stanzaTo,
-              g = r.useStatelessSession,
-              h = o("WAWebSendMsgBotStanza").getBotStanzaAttrs(
+    async function p(e, t, n, r, a) {
+      var i,
+        l,
+        s = r.agentEngagementType,
+        u = r.agentWid,
+        c = r.isFeedback,
+        p = r.representedLids,
+        _ = r.selfHosted,
+        f = r.stanzaTo,
+        h = r.useStatelessSession,
+        y = o("WAWebSendMsgBotStanza").getBotStanzaAttrs(
+          e,
+          o("WAWebSendMsgBotStanza").getIsBizBotFeedback(e, e.id.remote),
+          (i =
+            (l = o("WAWebThreadMsgUtils").getMsgAiThread(e)) == null
+              ? void 0
+              : l.key.id) != null
+            ? i
+            : null,
+        );
+      (h && (await o("WAWebSignalSessionApi").deleteRemoteSession(u)),
+        await o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+          identityChanged: !1,
+          sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+          wids: [u],
+        }),
+        await o("WAWebICDCMetaApi").populateICDCMeta(
+          o("WAWebWidFactory").asUserWidOrThrow(f),
+          t,
+        ));
+      var C = d(t, e);
+      if (
+        o("WAWebWasaHatchOutboundWrapper").shouldWrapHatchOutbound(
+          f,
+          u,
+          e.subtype,
+        )
+      )
+        try {
+          C = await o("WAWebWasaHatchOutboundWrapper").wrapHatchOutboundMessage(
+            { currentStanzaId: e.id.id, innerMessage: C },
+          );
+        } catch (e) {
+          throw e instanceof
+            o("WAWebWasaHatchOutboundWrapper").WAWebWasaHatchWrapError
+            ? e
+            : new (o("WAWebWasaHatchOutboundWrapper").WAWebWasaHatchWrapError)(
+                "WASA Hatch outbound wrap failed",
                 e,
-                o("WAWebSendMsgBotStanza").getIsBizBotFeedback(e, e.id.remote),
-                (i =
-                  (l = o("WAWebThreadMsgUtils").getMsgAiThread(e)) == null
-                    ? void 0
-                    : l.key.id) != null
-                  ? i
-                  : null,
               );
-            (g && (yield o("WAWebSignalSessionApi").deleteRemoteSession(u)),
-              yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
-                identityChanged: !1,
-                sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-                wids: [u],
-              }),
-              yield o("WAWebICDCMetaApi").populateICDCMeta(
-                o("WAWebWidFactory").asUserWidOrThrow(f),
-                t,
-              ));
-            var y = m(t, e);
-            if (
-              o("WAWebWasaHatchOutboundWrapper").shouldWrapHatchOutbound(
-                f,
-                u,
-                e.subtype,
-              )
-            )
-              try {
-                y = yield o(
-                  "WAWebWasaHatchOutboundWrapper",
-                ).wrapHatchOutboundMessage({
-                  currentStanzaId: e.id.id,
-                  innerMessage: y,
-                });
-              } catch (e) {
-                throw e instanceof
-                  o("WAWebWasaHatchOutboundWrapper").WAWebWasaHatchWrapError
-                  ? e
-                  : new (o(
-                      "WAWebWasaHatchOutboundWrapper",
-                    ).WAWebWasaHatchWrapError)(
-                      "WASA Hatch outbound wrap failed",
-                      e,
-                    );
-              }
-            var b = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
-                u,
-                a,
-                y,
-                e,
-                n,
-                o("WAWebSessionScope").SessionScope.DEFAULT,
-                g,
-                _,
+        }
+      var b = await o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+          u,
+          a,
+          C,
+          e,
+          n,
+          o("WAWebSessionScope").SessionScope.DEFAULT,
+          h,
+          _,
+        ),
+        v = b.ciphertext,
+        S = b.type,
+        R = m({
+          ciphertext: v,
+          mediaType: o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(t),
+          msgProtobuf: t,
+          retryCount: a,
+          type: S,
+          useStatelessSession: h,
+        }),
+        L = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(u);
+      return {
+        node: g({
+          agentEngagementType: s,
+          botAttrs: y,
+          destinationWids: [].concat(p, [u]),
+          isFeedback: c,
+          personaType: L != null ? L : null,
+          sharedEnc: R,
+        }),
+        shouldHaveIdentity:
+          S === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
+        type: S,
+      };
+    }
+    async function _(t, n, a, i, l, s, u) {
+      try {
+        await o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+          identityChanged: !1,
+          sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+          wids: [o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID],
+        });
+        var c = o("WAWebCoexV2ProtoSanitize").sanitizeCoexV2RelayMessage(n),
+          d = await o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+            o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
+            l != null ? l : 0,
+            c,
+            t,
+            a,
+            o("WAWebSessionScope").SessionScope.DEFAULT,
+            !0,
+            s,
+          ),
+          m = d.ciphertext,
+          p = d.type,
+          _ = o("WAWap").wap(
+            "enc",
+            {
+              v: o("WAWap").CUSTOM_STRING(
+                o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
               ),
-              v = b.ciphertext,
-              S = b.type,
-              R = p({
-                ciphertext: v,
-                mediaType: o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(t),
-                msgProtobuf: t,
-                retryCount: a,
-                type: S,
-                useStatelessSession: g,
-              }),
-              L = o("WAWebSimpleSignalPNToFBIDMigration").getFbidBotPersonaType(
-                u,
-              );
-            return {
-              node: C({
-                agentEngagementType: s,
-                botAttrs: h,
-                destinationWids: [].concat(d, [u]),
-                isFeedback: c,
-                personaType: L != null ? L : null,
-                sharedEnc: R,
-              }),
-              shouldHaveIdentity:
-                S === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
-              type: S,
-            };
-          },
-        )),
-        f.apply(this, arguments)
-      );
+              type: o("WAWap").CUSTOM_STRING(p),
+              session_type: o("WAWebEncryptMsgProtobuf").isPqxdhCiphertext(m)
+                ? o("WAWap").CUSTOM_STRING("pq")
+                : o("WAWap").DROP_ATTR,
+              state:
+                p === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+                  ? o("WAWap").CUSTOM_STRING("false")
+                  : o("WAWap").DROP_ATTR,
+              count:
+                l != null && l > 0 ? o("WAWap").INT(l) : o("WAWap").DROP_ATTR,
+            },
+            m,
+          );
+        return {
+          node: g({
+            agentEngagementType: null,
+            botAttrs: u,
+            destinationWids: i,
+            isFeedback: !1,
+            personaType: null,
+            sharedEnc: _,
+          }),
+          shouldHaveIdentity:
+            p === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
+          type: p,
+        };
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] failed to build relay bot node",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("coexv2-relay-bot-node-build-failed"),
+          null
+        );
+      }
     }
-    function g(e, t, n, r, o, a, i) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l, s, u) {
-            try {
-              yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
-                identityChanged: !1,
-                sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-                wids: [o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID],
-              });
-              var c = o("WAWebCoexV2ProtoSanitize").sanitizeCoexV2RelayMessage(
-                  n,
-                ),
-                d = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
-                  o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
-                  l != null ? l : 0,
-                  c,
-                  t,
-                  a,
-                  o("WAWebSessionScope").SessionScope.DEFAULT,
-                  !0,
-                  s,
-                ),
-                m = d.ciphertext,
-                p = d.type,
-                _ = o("WAWap").wap(
-                  "enc",
-                  {
-                    v: o("WAWap").CUSTOM_STRING(
-                      o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
-                    ),
-                    type: o("WAWap").CUSTOM_STRING(p),
-                    session_type: o(
-                      "WAWebEncryptMsgProtobuf",
-                    ).isPqxdhCiphertext(m)
-                      ? o("WAWap").CUSTOM_STRING("pq")
-                      : o("WAWap").DROP_ATTR,
-                    state:
-                      p === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
-                        ? o("WAWap").CUSTOM_STRING("false")
-                        : o("WAWap").DROP_ATTR,
-                    count:
-                      l != null && l > 0
-                        ? o("WAWap").INT(l)
-                        : o("WAWap").DROP_ATTR,
-                  },
-                  m,
-                );
-              return {
-                node: C({
-                  agentEngagementType: null,
-                  botAttrs: u,
-                  destinationWids: i,
-                  isFeedback: !1,
-                  personaType: null,
-                  sharedEnc: _,
-                }),
-                shouldHaveIdentity:
-                  p === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
-                type: p,
-              };
-            } catch (t) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[coexv2] failed to build relay bot node",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t))
-                  .sendLogs("coexv2-relay-bot-node-build-failed"),
-                null
-              );
-            }
-          },
-        )),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t) {
+    function f(e, t) {
       var n,
         r = o("WAWebCoexV2ProtoSanitize").sanitizeCoexV2RelayMessage(e);
       return (
@@ -341,7 +294,7 @@ __d(
         r
       );
     }
-    function C(e) {
+    function g(e) {
       var t = e.agentEngagementType,
         n = e.botAttrs,
         r = e.destinationWids,
@@ -352,7 +305,7 @@ __d(
         u = [];
       for (var c of r)
         if (c != null) {
-          var d = L(c);
+          var d = b(c);
           s.has(d) || (s.add(d), u.push(c));
         }
       var m = u.map(function (e) {
@@ -386,35 +339,27 @@ __d(
         [].concat(m, [l]),
       );
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    async function h(e, t, n) {
+      try {
+        await o(
+          "WAWebApiCoexV2RelayReceiptStore",
+        ).createOrMergeCoexV2RelayReceipts(e, t, n);
+      } catch (e) {
+        throw (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] failed to seed relay receipt rows",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("coexv2-relay-receipt-seed-failed"),
+          e
+        );
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            yield o(
-              "WAWebApiCoexV2RelayReceiptStore",
-            ).createOrMergeCoexV2RelayReceipts(e, t, n);
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] failed to seed relay receipt rows",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("coexv2-relay-receipt-seed-failed"),
-              e
-            );
-          }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function y(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -436,24 +381,24 @@ __d(
         );
       })(e);
     }
-    function R(e, t) {
+    function C(e, t) {
       return e == null
         ? t == null
           ? []
           : [t]
-        : t == null || L(e) === L(t)
+        : t == null || b(e) === b(t)
           ? [e]
           : [e, t];
     }
-    function L(e) {
+    function b(e) {
       return o("WAWebCommsWapMd").DEVICE_JID(e).toString();
     }
     ((l.finalizeCoexV2AgentContribution = u),
       (l.buildCoexV2RelayContribution = c),
-      (l.prepareCoexV2AgentPayload = m),
-      (l.genCoexV2AgentSharedEncNode = p),
-      (l.genCoexV2InvokedAgentRetryBotNode = _),
-      (l.genCoexV2RelayBotNodeForTargets = g));
+      (l.prepareCoexV2AgentPayload = d),
+      (l.genCoexV2AgentSharedEncNode = m),
+      (l.genCoexV2InvokedAgentRetryBotNode = p),
+      (l.genCoexV2RelayBotNodeForTargets = _));
   },
   98,
 );

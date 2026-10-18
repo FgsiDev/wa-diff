@@ -1,95 +1,82 @@
 __d(
   "WAWebSendDirectMsgToDeviceList",
   [
-    "Promise",
     "WAWebCommsAckParser",
     "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebSendMsgCommonApi",
     "WAWebSendMsgCreateFanoutStanza",
     "WAWebSignalProtocolStore",
     "WAWebWamEnumMessageDistributionEnumType",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a,
-            i,
-            l,
-            s,
-            u,
-            c = t.additionalBotBody,
-            d = t.additionalBotShouldHaveIdentity,
-            m = t.deviceList,
-            p = t.groupData,
-            _ = t.metricReporter,
-            f = t.msgProtobuf,
-            g = t.msgRecord,
-            h = t.option,
-            y = t.scheduledMsgMetadata,
-            C = g.data,
-            b = C.id,
-            v = C.to,
-            S = g.data.to,
-            R = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
-              {
-                additionalBotBody: c,
-                additionalBotShouldHaveIdentity: d,
-                chatId: S,
-                deviceList: m,
-                groupData: p,
-                metricReporter: _,
-                msgProtobuf: f,
-                msgRecord: g,
-                option: h,
-                scheduledMsgMetadata: y,
-              },
+    async function e(e) {
+      var t,
+        n,
+        a,
+        i,
+        l,
+        s = e.additionalBotBody,
+        u = e.additionalBotShouldHaveIdentity,
+        c = e.deviceList,
+        d = e.groupData,
+        m = e.metricReporter,
+        p = e.msgProtobuf,
+        _ = e.msgRecord,
+        f = e.option,
+        g = e.scheduledMsgMetadata,
+        h = _.data,
+        y = h.id,
+        C = h.to,
+        b = _.data.to,
+        v = await o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza({
+          additionalBotBody: s,
+          additionalBotShouldHaveIdentity: u,
+          chatId: b,
+          deviceList: c,
+          groupData: d,
+          metricReporter: m,
+          msgProtobuf: p,
+          msgRecord: _,
+          option: f,
+          scheduledMsgMetadata: g,
+        }),
+        S = v.stanza;
+      (await o("WAWebSignalProtocolStore")
+        .getSignalProtocolStore()
+        .flushBufferToDiskIfNotMemOnlyMode(),
+        (t = m.sendPerfReporter) == null || t.postReadyToSendStage(),
+        (n = m.sendPerfReporter) == null || n.startWrittenWireStage());
+      var R = await o(
+          "WAWebDeprecatedSendIqWorkerCompatible",
+        ).deprecatedSendStanzaAndReturnAck(
+          S,
+          o("WAWebCommsAckParser").toCoreAckTemplate({
+            id: y.id,
+            class: "message",
+            from: C,
+            participant: null,
+          }),
+        ),
+        L = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(R);
+      return L.error
+        ? Promise.reject(
+            r("err")(
+              "[messaging] encryptAndSendGroupDirectMsg: Invalid ack from server",
             ),
-            L = R.stanza;
-          (yield o("WAWebSignalProtocolStore")
-            .getSignalProtocolStore()
-            .flushBufferToDiskIfNotMemOnlyMode(),
-            (a = _.sendPerfReporter) == null || a.postReadyToSendStage(),
-            (i = _.sendPerfReporter) == null || i.startWrittenWireStage());
-          var E = yield o(
-              "WAWebDeprecatedSendIqWorkerCompatible",
-            ).deprecatedSendStanzaAndReturnAck(
-              L,
-              o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: b.id,
-                class: "message",
-                from: v,
-                participant: null,
-              }),
+          )
+        : ((a = m.sendReporter) == null ||
+            a.setMessageDistributionType(
+              o("WAWebWamEnumMessageDistributionEnumType")
+                .MESSAGE_DISTRIBUTION_ENUM_TYPE.DIRECT_MESSAGE,
             ),
-            k = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(E);
-          return k.error
-            ? (e || (e = n("Promise"))).reject(
-                r("err")(
-                  "[messaging] encryptAndSendGroupDirectMsg: Invalid ack from server",
-                ),
-              )
-            : ((l = _.sendReporter) == null ||
-                l.setMessageDistributionType(
-                  o("WAWebWamEnumMessageDistributionEnumType")
-                    .MESSAGE_DISTRIBUTION_ENUM_TYPE.DIRECT_MESSAGE,
-                ),
-              (s = _.sendPerfReporter) == null || s.postWrittenWireStage(),
-              (_.sendPerfReporter = null),
-              (u = _.sendReporter) == null || u.postSuccess(),
-              (_.sendReporter = null),
-              k.success);
-        })),
-        u.apply(this, arguments)
-      );
+          (i = m.sendPerfReporter) == null || i.postWrittenWireStage(),
+          (m.sendPerfReporter = null),
+          (l = m.sendReporter) == null || l.postSuccess(),
+          (m.sendReporter = null),
+          L.success);
     }
-    l.sendDirectMsgToDeviceList = s;
+    l.sendDirectMsgToDeviceList = e;
   },
   98,
 );

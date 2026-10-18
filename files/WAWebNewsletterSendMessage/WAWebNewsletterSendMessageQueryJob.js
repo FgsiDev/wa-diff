@@ -4,63 +4,48 @@ __d(
     "WASmaxMessagePublishNewsletterRPC",
     "WAStanzaUtils",
     "WAWebNewsletterValidationUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(
-            e.newsletterJid,
-          );
-          var t = {
-              messageTo: e.newsletterJid,
-              clientNewsletterAndServerOrNewsletterIDMixinGroupArgs: u(e),
-            },
-            n = yield o("WASmaxMessagePublishNewsletterRPC").sendNewsletterRPC(
-              t,
-            );
-          switch (n.name) {
-            case "NewsletterResponseSuccess":
-              return {
-                success: !0,
-                ack: {
-                  t: n.value
-                    .newsletterQuestionResponseOrNewsletterMessageAckMixinGroup
-                    .value.t,
-                },
-                serverId:
-                  n.value
-                    .newsletterQuestionResponseOrNewsletterMessageAckMixinGroup
-                    .value.serverId,
-              };
-            case "NewsletterResponseNegative":
-              return {
-                success: !1,
-                ack: { t: n.value.t, error: n.value.error },
-              };
-          }
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(
+        e.newsletterJid,
       );
-    }
-    function u(e) {
-      switch (e.type) {
-        case "reaction":
-          return c(e);
-        case "pollVote":
-          return d(e);
-        case "newsletterQuestionResponse":
-          return m(e);
-        default:
-          return { newsletterClientID: p(e) };
+      var t = {
+          messageTo: e.newsletterJid,
+          clientNewsletterAndServerOrNewsletterIDMixinGroupArgs: s(e),
+        },
+        n = await o("WASmaxMessagePublishNewsletterRPC").sendNewsletterRPC(t);
+      switch (n.name) {
+        case "NewsletterResponseSuccess":
+          return {
+            success: !0,
+            ack: {
+              t: n.value
+                .newsletterQuestionResponseOrNewsletterMessageAckMixinGroup
+                .value.t,
+            },
+            serverId:
+              n.value.newsletterQuestionResponseOrNewsletterMessageAckMixinGroup
+                .value.serverId,
+          };
+        case "NewsletterResponseNegative":
+          return { success: !1, ack: { t: n.value.t, error: n.value.error } };
       }
     }
-    function c(e) {
+    function s(e) {
+      switch (e.type) {
+        case "reaction":
+          return u(e);
+        case "pollVote":
+          return c(e);
+        case "newsletterQuestionResponse":
+          return d(e);
+        default:
+          return { newsletterClientID: m(e) };
+      }
+    }
+    function u(e) {
       var t = e.reactionCode,
         n =
           t != null && t !== ""
@@ -75,7 +60,7 @@ __d(
         },
       };
     }
-    function d(e) {
+    function c(e) {
       var t = {
         voteArgs: e.votes.map(function (e) {
           return { voteElementValue: e };
@@ -90,7 +75,7 @@ __d(
         },
       };
     }
-    function m(e) {
+    function d(e) {
       return {
         newsletterClientAndServerID: {
           messageId: o("WAStanzaUtils").toStanzaId(e.messageId),
@@ -104,7 +89,7 @@ __d(
         },
       };
     }
-    function p(e) {
+    function m(e) {
       switch (e.type) {
         case "editText":
           return {
@@ -183,7 +168,7 @@ __d(
             hasNewsletterAIContentMeta: e.hasNewsletterAIContentMeta,
             newsletterClientIdContentArgs: babelHelpers.extends(
               {},
-              _(
+              p(
                 {
                   newsletterText: {
                     payloadMixinArgs: { plaintextElementValue: e.payload },
@@ -204,7 +189,7 @@ __d(
             hasNewsletterAIContentMeta: e.hasNewsletterAIContentMeta,
             newsletterClientIdContentArgs: babelHelpers.extends(
               {},
-              _(
+              p(
                 {
                   newsletterMediaPublish: {
                     plaintextMediatype: e.type,
@@ -235,7 +220,7 @@ __d(
             hasNewsletterAIContentMeta: e.hasNewsletterAIContentMeta,
             newsletterClientIdContentArgs: babelHelpers.extends(
               {},
-              _(
+              p(
                 {
                   newsletterMediaPublish: {
                     plaintextMediatype: e.type,
@@ -255,7 +240,7 @@ __d(
           throw (e.type, r("err")("Wrong code path for " + e.type));
       }
     }
-    function _(e, t, n) {
+    function p(e, t, n) {
       if (t)
         return {
           newsletterQuestionPublish: {

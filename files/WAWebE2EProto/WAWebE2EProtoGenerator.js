@@ -37,7 +37,6 @@ __d(
     "WAWebURLUtils",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "isArrayNullOrEmpty",
     "isEmptyObject",
   ],
@@ -512,7 +511,13 @@ __d(
           return (
             e.subtype === "text"
               ? ((e.type = "chat"),
-                e.title && (e.body = "*" + e.title + "*\n" + e.body))
+                e.title &&
+                  (e.body =
+                    "*" +
+                    e.title +
+                    `*
+` +
+                    e.body))
               : (e.type = e.subtype),
             S(e, t, n, r)
           );
@@ -763,99 +768,81 @@ __d(
             }),
           });
     }
-    function U(e) {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            a,
-            i = e.botMessageSecret,
-            l = e.groupHasMuseAgent,
-            s = l === void 0 ? !1 : l,
-            u = e.isGroupAgentParticipantSend,
-            c = u === void 0 ? !1 : u,
-            d = e.hasGroupAgentTarget,
-            m = d === void 0 ? c : d,
-            p = e.hasOpenBotTarget,
-            _ = p === void 0 ? !1 : p,
-            f = e.isGroupMsg,
-            g = f === void 0 ? !1 : f,
-            h = e.isOpenBotGroup,
-            y = h === void 0 ? !1 : h,
-            C = e.mentionedJidList,
-            b = e.message,
-            v = e.messageSecret,
-            S = r("WAWebStructuredClone")(b),
-            R = !1;
-          y === !0 &&
-            o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
-            (R = !0);
-          var L = R && !m && !s;
-          if ((L && F(S), c)) {
-            var E;
-            S.messageContextInfo = babelHelpers.extends(
-              {},
-              S.messageContextInfo,
-              {
-                botMessageSecret: null,
-                messageSecret:
-                  v != null
-                    ? v
-                    : (E = S.messageContextInfo) == null
-                      ? void 0
-                      : E.messageSecret,
-              },
-            );
-          } else
-            S.messageContextInfo = babelHelpers.extends(
-              {},
-              S.messageContextInfo,
-              { messageSecret: null },
-            );
-          (i &&
-            !c &&
-            (S.messageContextInfo = babelHelpers.extends(
-              {},
-              S.messageContextInfo,
-              { botMessageSecret: i },
-            )),
-            g &&
-              o(
-                "WAWebBotGroupGatingUtils",
-              ).isStandardBotProfileGroupEnabled() &&
-              H(S),
-            (S = q(S, R, m, _, L)));
-          var k =
-            (t = S) == null ||
-            (t = t.protocolMessage) == null ||
-            (t = t.botFeedbackMessage) == null
-              ? void 0
-              : t.messageKey;
-          k != null && k.remoteJid != null && delete k.remoteJid;
-          var I =
-            ((n = S) == null || (n = n.protocolMessage) == null
-              ? void 0
-              : n.type) ===
-            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
-              ? (a = S) == null || (a = a.protocolMessage) == null
+    async function U(e) {
+      var t,
+        n,
+        a,
+        i = e.botMessageSecret,
+        l = e.groupHasMuseAgent,
+        s = l === void 0 ? !1 : l,
+        u = e.isGroupAgentParticipantSend,
+        c = u === void 0 ? !1 : u,
+        d = e.hasGroupAgentTarget,
+        m = d === void 0 ? c : d,
+        p = e.hasOpenBotTarget,
+        _ = p === void 0 ? !1 : p,
+        f = e.isGroupMsg,
+        g = f === void 0 ? !1 : f,
+        h = e.isOpenBotGroup,
+        y = h === void 0 ? !1 : h,
+        C = e.mentionedJidList,
+        b = e.message,
+        v = e.messageSecret,
+        S = r("WAWebStructuredClone")(b),
+        R = !1;
+      y === !0 &&
+        o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
+        (R = !0);
+      var L = R && !m && !s;
+      if ((L && F(S), c)) {
+        var E;
+        S.messageContextInfo = babelHelpers.extends({}, S.messageContextInfo, {
+          botMessageSecret: null,
+          messageSecret:
+            v != null
+              ? v
+              : (E = S.messageContextInfo) == null
                 ? void 0
-                : a.key
-              : null;
-          return (
-            I != null && I.remoteJid != null && delete I.remoteJid,
-            yield o(
-              "WAWebBotReplaceMentionWidsWithPushnames",
-            ).replaceMentionWidsWithPushnames(S, C),
-            S
-          );
+                : E.messageSecret,
+        });
+      } else
+        S.messageContextInfo = babelHelpers.extends({}, S.messageContextInfo, {
+          messageSecret: null,
+        });
+      (i &&
+        !c &&
+        (S.messageContextInfo = babelHelpers.extends({}, S.messageContextInfo, {
+          botMessageSecret: i,
         })),
-        V.apply(this, arguments)
+        g &&
+          o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() &&
+          V(S),
+        (S = q(S, R, m, _, L)));
+      var k =
+        (t = S) == null ||
+        (t = t.protocolMessage) == null ||
+        (t = t.botFeedbackMessage) == null
+          ? void 0
+          : t.messageKey;
+      k != null && k.remoteJid != null && delete k.remoteJid;
+      var I =
+        ((n = S) == null || (n = n.protocolMessage) == null
+          ? void 0
+          : n.type) ===
+        o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
+          ? (a = S) == null || (a = a.protocolMessage) == null
+            ? void 0
+            : a.key
+          : null;
+      return (
+        I != null && I.remoteJid != null && delete I.remoteJid,
+        await o(
+          "WAWebBotReplaceMentionWidsWithPushnames",
+        ).replaceMentionWidsWithPushnames(S, C),
+        S
       );
     }
-    function H(e) {
+    function V(e) {
       var t,
         n = (t = e.messageContextInfo) == null ? void 0 : t.botMetadata;
       if ((n == null ? void 0 : n.personaId) != null) {
@@ -866,7 +853,7 @@ __d(
         });
       }
     }
-    function G(e) {
+    function H(e) {
       var t,
         n,
         a,
@@ -911,7 +898,7 @@ __d(
       }
       return i;
     }
-    function z(e) {
+    function G(e) {
       var t,
         n = e,
         a =
@@ -933,7 +920,7 @@ __d(
       }
       return n;
     }
-    function j(e) {
+    function z(e) {
       var t = e,
         n = (e == null ? void 0 : e.protocolMessage) != null;
       if (n) {
@@ -948,7 +935,7 @@ __d(
       }
       return t;
     }
-    function K(e) {
+    function j(e) {
       var t = r("WAWebStructuredClone")(e);
       return (
         (t.messageContextInfo = babelHelpers.extends({}, t.messageContextInfo, {
@@ -957,35 +944,21 @@ __d(
         t
       );
     }
-    function Q(e) {
-      return X.apply(this, arguments);
-    }
-    function X() {
-      return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebBackendApi").frontendSendAndReceive(
-            "getDebugInfo",
-            {
-              addLanguageFields: !0,
-              convertFields: !0,
-              addUserAgentDetails: !0,
-            },
-          );
-          t.sagaKey = "saga_v1_enabled";
-          var n = babelHelpers.extends(
-            { version: 1, debug_information: t },
-            o("WAWebABPropsSaga").getIsSagaV1CarouselEnabled()
-              ? { citations_carousel: !0 }
-              : {},
-          );
-          e.messageContextInfo = babelHelpers.extends(
-            {},
-            e.messageContextInfo,
-            { supportPayload: JSON.stringify(n) },
-          );
-        })),
-        X.apply(this, arguments)
+    async function K(e) {
+      var t = await o("WAWebBackendApi").frontendSendAndReceive(
+        "getDebugInfo",
+        { addLanguageFields: !0, convertFields: !0, addUserAgentDetails: !0 },
       );
+      t.sagaKey = "saga_v1_enabled";
+      var n = babelHelpers.extends(
+        { version: 1, debug_information: t },
+        o("WAWebABPropsSaga").getIsSagaV1CarouselEnabled()
+          ? { citations_carousel: !0 }
+          : {},
+      );
+      e.messageContextInfo = babelHelpers.extends({}, e.messageContextInfo, {
+        supportPayload: JSON.stringify(n),
+      });
     }
     ((l.populateMessageContextInfo = _),
       (l.createPeerMsgProtobuf = f),
@@ -994,11 +967,11 @@ __d(
       (l.createProtobuf = b),
       (l.getProtobufMessage = S),
       (l.updateBotInvokeMsgProtoCopyForCapi = U),
-      (l.updateFbidBotProtobuf = G),
-      (l.updateFbidBotInvokeProtobuf = z),
-      (l.updateBotProtobuf = j),
-      (l.updateGroupMsgProtoWithCapiFlag = K),
-      (l.addDebugInfoSupportPayload = Q));
+      (l.updateFbidBotProtobuf = H),
+      (l.updateFbidBotInvokeProtobuf = G),
+      (l.updateBotProtobuf = z),
+      (l.updateGroupMsgProtoWithCapiFlag = j),
+      (l.addDebugInfoSupportPayload = K));
   },
   98,
 );

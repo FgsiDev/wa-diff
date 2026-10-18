@@ -9,7 +9,6 @@ __d(
     "WAWebLeadSublistChangeNotifier",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,7 +39,7 @@ __d(
         d == null &&
           (d = o(
             "WAWebLeadSublistChangeNotifier",
-          ).subscribeToLeadSublistChanges(T)),
+          ).subscribeToLeadSublistChanges(I)),
         R(),
         function () {
           (p.delete(e),
@@ -81,48 +80,38 @@ __d(
     function R() {
       return (c == null && (c = L()), c);
     }
-    function L() {
-      return E.apply(this, arguments);
+    async function L() {
+      var t = ++m,
+        n = null;
+      try {
+        n = k(await o("WAWebDBLabelSublistDatabaseApi").getAllLabelSublist());
+      } catch (t) {
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[CustomerManager] lead stage store read failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("customer_manager_lead_stage_store_read_failed");
+      }
+      if (t === m) {
+        if (n == null) {
+          c = null;
+          return;
+        }
+        ((s = n), E(), v());
+      }
     }
     function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = ++m,
-            n = null;
-          try {
-            n = I(
-              yield o("WAWebDBLabelSublistDatabaseApi").getAllLabelSublist(),
-            );
-          } catch (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[CustomerManager] lead stage store read failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("customer_manager_lead_stage_store_read_failed");
-          }
-          if (t === m) {
-            if (n == null) {
-              c = null;
-              return;
-            }
-            ((s = n), k(), v());
-          }
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k() {
       for (var e of u) {
         var t = e[0],
           n = e[1];
         b(s, t) === n && u.delete(t);
       }
     }
-    function I(e) {
+    function k(e) {
       var t = new Map();
       for (var n of e)
         if (
@@ -133,7 +122,7 @@ __d(
         }
       return t;
     }
-    function T() {
+    function I() {
       c = L();
     }
     ((l.getLeadStageFromStore = _),

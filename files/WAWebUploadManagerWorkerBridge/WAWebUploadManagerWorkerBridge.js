@@ -11,7 +11,6 @@ __d(
     "WAWebMainThreadUploadManagerHandler",
     "WAWebMmsClient",
     "WAWebUploadManagerBase",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -33,59 +32,49 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.encryptAndUpload = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = e.blob,
-                  r = yield o(
-                    "WAWebBackendWorkerClient",
-                  ).getBackendWorkerBridge(),
-                  a = o("WAWebUploadManagerBase").getNextUploadId();
-                if (e.signal.aborted)
-                  throw new (o("WAAbortError").AbortError)();
+          (n.encryptAndUpload = async function (t, n) {
+            var e = t.blob,
+              r = await o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
+              a = o("WAWebUploadManagerBase").getNextUploadId();
+            if (t.signal.aborted) throw new (o("WAAbortError").AbortError)();
+            o("WAWebMainThreadUploadManagerHandler").registerUploadCallbacks(
+              a,
+              n,
+            );
+            var i = function () {
+              r.fireAndForget("media", "abortUpload", { uploadId: a });
+            };
+            t.signal.addEventListener("abort", i, { once: !0 });
+            try {
+              var l = await r.sendAndReceive("media", "encryptAndUpload", {
+                blob: e,
+                type: t.type,
+                mediaKey: t.mediaKey,
+                mediaKeyTimestamp: t.mediaKeyTimestamp,
+                userUploadAttemptCount: t.userUploadAttemptCount,
+                forwardedFromWeb: t.forwardedFromWeb,
+                uploadOrigin: t.uploadOrigin,
+                isViewOnce: t.isViewOnce,
+                isHdPhoto: t.isHdPhoto,
+                token: t.token,
+                uploadId: a,
+                serializedUploadQpl: o(
+                  "WAWebMainThreadQplHandler",
+                ).serializeQplForBridge(t.uploadQpl),
+              });
+              if (l.success) return l.value;
+              throw o("WAWebDeserializeBridgedError").deserializeBridgedError(
+                l.error,
+              );
+            } finally {
+              (t.signal.removeEventListener("abort", i),
                 o(
                   "WAWebMainThreadUploadManagerHandler",
-                ).registerUploadCallbacks(a, t);
-                var i = function () {
-                  r.fireAndForget("media", "abortUpload", { uploadId: a });
-                };
-                e.signal.addEventListener("abort", i, { once: !0 });
-                try {
-                  var l = yield r.sendAndReceive("media", "encryptAndUpload", {
-                    blob: n,
-                    type: e.type,
-                    mediaKey: e.mediaKey,
-                    mediaKeyTimestamp: e.mediaKeyTimestamp,
-                    userUploadAttemptCount: e.userUploadAttemptCount,
-                    forwardedFromWeb: e.forwardedFromWeb,
-                    uploadOrigin: e.uploadOrigin,
-                    isViewOnce: e.isViewOnce,
-                    isHdPhoto: e.isHdPhoto,
-                    token: e.token,
-                    uploadId: a,
-                    serializedUploadQpl: o(
-                      "WAWebMainThreadQplHandler",
-                    ).serializeQplForBridge(e.uploadQpl),
-                  });
-                  if (l.success) return l.value;
-                  throw o(
-                    "WAWebDeserializeBridgedError",
-                  ).deserializeBridgedError(l.error);
-                } finally {
-                  (e.signal.removeEventListener("abort", i),
-                    o(
-                      "WAWebMainThreadUploadManagerHandler",
-                    ).unregisterUploadCallbacks(a));
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+                ).unregisterUploadCallbacks(a));
             }
-            return t;
-          })()),
+          }),
           t
         );
       })(o("WAWebUploadManagerBase").UploadManagerBase),

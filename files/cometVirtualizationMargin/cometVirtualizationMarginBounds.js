@@ -1,1 +1,27 @@
-__d("cometVirtualizationMarginBounds",["justknobx"],(function(t,n,r,o,a,i,l){"use strict";var e,s,u=((e=r("justknobx")._("3655"))!=null?e:0)/10,c=(s=r("justknobx")._("3657"))!=null?s:0;function d(e,t,n){var r=n?1:u,o=n?u:1;return{bottomMax:Math.min(e*o,t),lowerBound:t/c,topMax:Math.min(e*r,t)}}function m(e,t,n){return Math.min(t,Math.max(n,e))}l.computeMarginBounds=d,l.clampRestoredMargin=m}),98);
+__d(
+  "cometVirtualizationMarginBounds",
+  ["VirtualizationConfig"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = o("VirtualizationConfig").getScrollDirectionDiscount(),
+      s = o(
+        "VirtualizationConfig",
+      ).getTopBottomMarginLowerBoundScreenHeightRatio();
+    function u(t, n, r, o) {
+      var a = r ? 1 : e,
+        i = r ? e : 1,
+        l = Math.min(t * i, n),
+        u = Math.min(t * a, n);
+      return {
+        bottomMax: o != null && !r ? o : l,
+        lowerBound: n / s,
+        topMax: o != null && r ? o : u,
+      };
+    }
+    function c(e, t, n) {
+      return Math.min(t, Math.max(n, e));
+    }
+    ((l.computeMarginBounds = u), (l.clampRestoredMargin = c));
+  },
+  98,
+);

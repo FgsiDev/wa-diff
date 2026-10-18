@@ -33,6 +33,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebMsgModelFromData",
+    "WAWebMuseGroupNuxDebug",
     "WAWebPDFNCommonUtils",
     "WAWebPDFNModal.react",
     "WAWebPersistBotProfiles",
@@ -44,7 +45,6 @@ __d(
     "WAWebUserPrefsBot",
     "WAWebUserPrefsMultiDeviceDebug",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "react",
   ],
@@ -106,6 +106,12 @@ __d(
         }
     }
     function R() {
+      return o("WAWebMuseGroupNuxDebug").resetMuseGroupNux();
+    }
+    ((R.doc =
+      "Clears the Muse group member and Owner notice acceptance on the server (non-prod builds) and on this device, then re-queries the server and returns {noticeId, serverDelete, serverDeleteFailed, serverAcceptedAfter} per notice. Usage: await resetMuseGroupNux()"),
+      (R.paramsToExecute = []));
+    function L() {
       var e = o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBotAgentTosId(),
         ),
@@ -127,21 +133,13 @@ __d(
         }
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (e &&
-            (yield o("WAWebSchemaBotProfile").getBotProfileTable().clear(),
-            o("WAWebUserPrefsBot").setUgcBotListLastBhash(null)),
-            o("WAWebUserPrefsBot").setBotListLastRequestedTimestamp(0),
-            o("WAWebUserPrefsBot").setUgcBotListLastRequestedTimestamp(0),
-            window.location.reload());
-        })),
-        E.apply(this, arguments)
-      );
+    async function E(e) {
+      (e &&
+        (await o("WAWebSchemaBotProfile").getBotProfileTable().clear(),
+        o("WAWebUserPrefsBot").setUgcBotListLastBhash(null)),
+        o("WAWebUserPrefsBot").setBotListLastRequestedTimestamp(0),
+        o("WAWebUserPrefsBot").setUgcBotListLastRequestedTimestamp(0),
+        window.location.reload());
     }
     function k(e) {
       o("WAWebModalManager").ModalManager.open(
@@ -205,128 +203,111 @@ __d(
         n = o("WAWebMsgModelFromData").msgModelFromMsgData(t);
       e.msgs.add(n);
     }
-    function M() {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebDebugUtils").getSelectedChat();
-          (yield o(
-            "WAWebHandlePrivacyModeUpdateMsgAction",
-          ).handlePrivacyModeTransition(e.id, null),
-            yield o(
-              "WAWebHandlePrivacyModeUpdateMsgAction",
-            ).handlePrivacyModeTransition(e.id, {
-              actualActors: o("WAWebHandleMsgTypes.flow").ActualActorsEnumType
-                .Self,
-              hostStorage: o("WAWebHandleMsgTypes.flow").HostStorageEnumType
-                .Facebook,
-              privacyModeTs: o("WATimeUtils").unixTime(),
-            }),
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debugBot] simulateBizPrivacyTransition: ",
-                  "",
-                ])),
-              e.id.toLogString(),
-            ));
-        })),
-        w.apply(this, arguments)
-      );
+    async function M() {
+      var e = o("WAWebDebugUtils").getSelectedChat();
+      (await o(
+        "WAWebHandlePrivacyModeUpdateMsgAction",
+      ).handlePrivacyModeTransition(e.id, null),
+        await o(
+          "WAWebHandlePrivacyModeUpdateMsgAction",
+        ).handlePrivacyModeTransition(e.id, {
+          actualActors: o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.Self,
+          hostStorage: o("WAWebHandleMsgTypes.flow").HostStorageEnumType
+            .Facebook,
+          privacyModeTs: o("WATimeUtils").unixTime(),
+        }),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugBot] simulateBizPrivacyTransition: ",
+              "",
+            ])),
+          e.id.toLogString(),
+        ));
     }
     M.doc =
       'Run an FB-hosted biz privacy transition on the open chat, as an incoming message or verified-name sync would. A business chat gets the "is now using a secure service from Meta" system message; a bot chat must get none.';
-    function A(e, t) {
-      return F.apply(this, arguments);
-    }
-    function F() {
+    async function w(e, t) {
+      var n, a;
+      o("WALogger").LOG(
+        c ||
+          (c = babelHelpers.taggedTemplateLiteralLoose([
+            "[debugBot] downloadImagineMedia: ",
+            "",
+          ])),
+        e,
+      );
+      var i = new AbortController(),
+        l = await o("WAWebHttpExtendedFetch").extendedFetch(e, {
+          signal: i.signal,
+        });
+      if (!l.ok)
+        throw r("err")(
+          "[debugBot] downloadImagineMedia failed: " +
+            l.status +
+            " " +
+            l.statusText,
+        );
+      var s = t != null ? t : "image/jpeg",
+        u = await l.arrayBuffer(),
+        p = new Blob([u], { type: s }),
+        _ = await crypto.subtle.digest("SHA-256", u),
+        f = Array.from(new Uint8Array(_)),
+        g = btoa(String.fromCharCode.apply(null, f));
+      o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(g, p);
+      var h = o("WAWebFilenameManager").getDefaultName({
+          t: Math.round(Date.now() / 1e3),
+          type: "image",
+          mimetype: s,
+          isVcardOverMmsDocument: !1,
+          filename: "",
+          vcardList: [],
+        }),
+        y = window.URL.createObjectURL(p),
+        C = o("WAWebDataLink").createDataLink(y);
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n, a;
-          o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "[debugBot] downloadImagineMedia: ",
-                "",
-              ])),
-            e,
-          );
-          var i = new AbortController(),
-            l = yield o("WAWebHttpExtendedFetch").extendedFetch(e, {
-              signal: i.signal,
-            });
-          if (!l.ok)
-            throw r("err")(
-              "[debugBot] downloadImagineMedia failed: " +
-                l.status +
-                " " +
-                l.statusText,
-            );
-          var s = t != null ? t : "image/jpeg",
-            u = yield l.arrayBuffer(),
-            c = new Blob([u], { type: s }),
-            d = yield crypto.subtle.digest("SHA-256", u),
-            m = Array.from(new Uint8Array(d)),
-            p = btoa(String.fromCharCode.apply(null, m));
-          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(p, c);
-          var h = o("WAWebFilenameManager").getDefaultName({
-              t: Math.round(Date.now() / 1e3),
-              type: "image",
-              mimetype: s,
-              isVcardOverMmsDocument: !1,
-              filename: "",
-              vcardList: [],
-            }),
-            y = window.URL.createObjectURL(c),
-            C = o("WAWebDataLink").createDataLink(y);
-          return (
-            (C.style.display = "none"),
-            (C.download = h),
-            (n = document.body) == null || n.appendChild(C),
-            C.click(),
-            (a = document.body) == null || a.removeChild(C),
-            o("WAPromiseDelays")
-              .delayMs(100)
-              .then(function () {
-                window.URL.revokeObjectURL(y);
-              })
-              .catch(function (e) {
-                o("WALogger").ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[debugBot] downloadImagineMedia: revokeObjectURL failed, ",
-                      "",
-                    ])),
-                  e,
-                );
-              }),
-            o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debugBot] downloadImagineMedia: saved ",
-                  " bytes, filehash=",
+        (C.style.display = "none"),
+        (C.download = h),
+        (n = document.body) == null || n.appendChild(C),
+        C.click(),
+        (a = document.body) == null || a.removeChild(C),
+        o("WAPromiseDelays")
+          .delayMs(100)
+          .then(function () {
+            window.URL.revokeObjectURL(y);
+          })
+          .catch(function (e) {
+            o("WALogger").ERROR(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[debugBot] downloadImagineMedia: revokeObjectURL failed, ",
                   "",
                 ])),
-              c.size,
-              p,
-            ),
-            c
-          );
-        })),
-        F.apply(this, arguments)
+              e,
+            );
+          }),
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugBot] downloadImagineMedia: saved ",
+              " bytes, filehash=",
+              "",
+            ])),
+          p.size,
+          g,
+        ),
+        p
       );
     }
-    A.doc =
+    w.doc =
       "Downloads imagine media and caches it. Usage: downloadImagineMedia(url, mimeType?)";
-    function O(e, t) {
+    function A(e, t) {
       var n = r("WAWebMsgKey").fromString(e),
         a = o("WAWebMsgCollection").MsgCollection.get(n);
       if (a == null) {
         o("WALogger").WARN(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
               "[debugBot] Message not found: ",
               "",
             ])),
@@ -336,8 +317,8 @@ __d(
       }
       if (a.forwardedAiBotMessageInfo == null) {
         o("WALogger").WARN(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
               "[debugBot] Message has no forwardedAiBotMessageInfo",
             ])),
         );
@@ -346,8 +327,8 @@ __d(
       var i = o("WAWebFrontendMsgGetters").getAsRichResponse(a);
       if (i == null) {
         o("WALogger").WARN(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
               "[debugBot] Message is not a rich response",
             ])),
         );
@@ -357,8 +338,8 @@ __d(
         "WAWebUpdateForwardedBotValidationStatusAction",
       ).updateForwardedBotValidationStatusAction(i, t),
         o("WALogger").LOG(
-          m ||
-            (m = babelHelpers.taggedTemplateLiteralLoose([
+          g ||
+            (g = babelHelpers.taggedTemplateLiteralLoose([
               "[debugBot] Set validationStatus=",
               " on ",
               "",
@@ -367,17 +348,17 @@ __d(
           e,
         ));
     }
-    O.doc =
+    A.doc =
       "Sets validationStatus on a forwarded bot message by msgId. Usage: updateForwardedBotValidationStatus(msgId, status)";
-    function B(e) {
+    function F(e) {
       return e != null && e !== ""
         ? o("WAWebWidFactory").createWid(e)
         : o("WAWebDebugUtils").getSelectedChat().id;
     }
-    function W(e) {
+    function O(e) {
       var t,
         n,
-        r = B(e),
+        r = F(e),
         a = o("WAWebBotProfileCollection").BotProfileCollection.get(r),
         i =
           a != null
@@ -403,101 +384,78 @@ __d(
         },
       );
     }
-    W.doc =
+    O.doc =
       "Show a bot's Standard Bot Profile fields + computed support state. Usage: showBotProfile(widStr?) \u2014 defaults to the open chat";
-    function q() {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaBotProfile").getBotProfileTable().all();
-          return e.map(function (e) {
-            var t,
-              n = {
-                product: e.product,
-                isDeprecated: e.isDeprecated,
-                isDeleted: e.isDeleted,
-              },
-              r = o("WAWebBotSupportState").evaluateBotSupport(n, function (e) {
-                return o("WAWebBotProductGating").isBotProductGateOn(
-                  e,
-                  o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
-                );
-              });
-            return babelHelpers.extends(
-              {
-                id: e.id,
-                name: e.name,
-                lastFetchedTimeMs: (t = e.lastFetchedTimeMs) != null ? t : null,
-              },
-              o("WAWebBotProfileDebugUtils").formatProfileDebug(n, r),
+    async function B() {
+      var e = await o("WAWebSchemaBotProfile").getBotProfileTable().all();
+      return e.map(function (e) {
+        var t,
+          n = {
+            product: e.product,
+            isDeprecated: e.isDeprecated,
+            isDeleted: e.isDeleted,
+          },
+          r = o("WAWebBotSupportState").evaluateBotSupport(n, function (e) {
+            return o("WAWebBotProductGating").isBotProductGateOn(
+              e,
+              o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
             );
           });
-        })),
-        U.apply(this, arguments)
-      );
+        return babelHelpers.extends(
+          {
+            id: e.id,
+            name: e.name,
+            lastFetchedTimeMs: (t = e.lastFetchedTimeMs) != null ? t : null,
+          },
+          o("WAWebBotProfileDebugUtils").formatProfileDebug(n, r),
+        );
+      });
     }
-    ((q.doc =
+    ((B.doc =
       "Show SBP fields + computed support state for all cached bot profiles"),
-      (q.paramsToExecute = []));
-    function V(e, t) {
-      return H.apply(this, arguments);
+      (B.paramsToExecute = []));
+    async function W(e, t) {
+      var n = F(e),
+        r = o("WAWebBotProfileCollection").BotProfileCollection.get(n),
+        a =
+          r != null
+            ? o("WAWebBotProfileDebugUtils").profileTypeFromModel(r)
+            : o("WAWebBotProfileDebugUtils").emptyBotProfile(n),
+        i = o("WAWebBotProfileDebugUtils").mergeProfileOverride(a, t);
+      await o("WAWebPersistBotProfiles").persistBotProfiles([i]);
+      var l = {
+          product: i.product,
+          isDeprecated: i.isDeprecated,
+          isDeleted: i.isDeleted,
+        },
+        s = o("WAWebBotSupportState").evaluateBotSupport(l, function (e) {
+          return o("WAWebBotProductGating").isBotProductGateOn(
+            e,
+            o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
+          );
+        });
+      return o("WAWebBotProfileDebugUtils").formatProfileDebug(l, s);
     }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = B(e),
-            r = o("WAWebBotProfileCollection").BotProfileCollection.get(n),
-            a =
-              r != null
-                ? o("WAWebBotProfileDebugUtils").profileTypeFromModel(r)
-                : o("WAWebBotProfileDebugUtils").emptyBotProfile(n),
-            i = o("WAWebBotProfileDebugUtils").mergeProfileOverride(a, t);
-          yield o("WAWebPersistBotProfiles").persistBotProfiles([i]);
-          var l = {
-              product: i.product,
-              isDeprecated: i.isDeprecated,
-              isDeleted: i.isDeleted,
-            },
-            s = o("WAWebBotSupportState").evaluateBotSupport(l, function (e) {
-              return o("WAWebBotProductGating").isBotProductGateOn(
-                e,
-                o("WAWebBotPrimaryFeaturesFrontend").getBotPrimaryFeatures(),
-              );
-            });
-          return o("WAWebBotProfileDebugUtils").formatProfileDebug(l, s);
-        })),
-        H.apply(this, arguments)
-      );
-    }
-    V.doc =
+    W.doc =
       "Force SBP fields on a bot and persist to IndexedDB. Usage: overrideBotProfile(widStr, {product?, isDeprecated?, isDeleted?})";
-    function G(e) {
-      return z.apply(this, arguments);
+    async function q(e) {
+      var t = F(e);
+      (await o("WAWebSchemaBotProfile")
+        .getBotProfileTable()
+        .remove(t.toString()),
+        o("WAWebBotProfileCollection").BotProfileCollection.remove(t));
     }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = B(e);
-          (yield o("WAWebSchemaBotProfile")
-            .getBotProfileTable()
-            .remove(t.toString()),
-            o("WAWebBotProfileCollection").BotProfileCollection.remove(t));
-        })),
-        z.apply(this, arguments)
-      );
-    }
-    G.doc =
+    q.doc =
       "Remove a bot's cached profile row so it refetches on next sync. Usage: clearBotProfileOverride(widStr)";
-    var j = {
+    var U = {
       toggleInjectBizBotProfileFields: b,
       resetBizBotTos: v,
       resetBotTos: S,
-      getBotTosStates: R,
+      resetMuseGroupNux: R,
+      getBotTosStates: L,
       queryTosState: o("WAWebTosJob").queryTosState,
       TosManager: o("WAWebTos").TosManager,
-      fetchBotProfiles: L,
+      fetchBotProfiles: E,
       debugBotConfigs: C,
       getBotAgentTosId: o("WAWebBotTosIds").getBotAgentTosId,
       getBotShortcutTosId: o("WAWebBotTosIds").getBotShortcutTosId,
@@ -511,18 +469,18 @@ __d(
       overrideDefaultBotForTest: P,
       genSessionTransparencySystemMsg: N,
       simulateBizPrivacyTransition: M,
-      updateForwardedBotValidationStatus: O,
-      downloadImagineMedia: A,
-      showBotProfile: W,
-      showAllBotProfiles: q,
-      overrideBotProfile: V,
-      clearBotProfileOverride: G,
+      updateForwardedBotValidationStatus: A,
+      downloadImagineMedia: w,
+      showBotProfile: O,
+      showAllBotProfiles: B,
+      overrideBotProfile: W,
+      clearBotProfileOverride: q,
       BotProfileCollection: o("WAWebBotProfileCollection").BotProfileCollection,
       requestBotList: o("WAWebRequestBotList").requestBotList,
       getBotProfilesFromServer: o("WAWebInitializeBots")
         .getBotProfilesFromServer,
     };
-    l.default = j;
+    l.default = U;
   },
   98,
 );

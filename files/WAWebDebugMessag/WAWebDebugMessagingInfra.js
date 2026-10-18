@@ -1,7 +1,6 @@
 __d(
   "WAWebDebugMessagingInfra",
   [
-    "Promise",
     "WABase64",
     "WAJids",
     "WALogger",
@@ -30,7 +29,6 @@ __d(
     "WAWebSignalStorage",
     "WAWebUserPrefsStatus",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "sumBy",
   ],
@@ -81,947 +79,752 @@ __d(
       X,
       Y,
       J,
-      Z,
-      ee = null,
-      te = null;
-    function ne(e) {
-      return re.apply(this, arguments);
+      Z = null,
+      ee = null;
+    async function te(e) {
+      var t;
+      if (e instanceof ArrayBuffer) t = e;
+      else if (e instanceof Uint8Array) t = e;
+      else if (typeof e == "string") t = new TextEncoder().encode(e);
+      else if (e instanceof Blob) t = await e.arrayBuffer();
+      else {
+        var n;
+        t = new TextEncoder().encode((n = JSON.stringify(e)) != null ? n : "");
+      }
+      for (
+        var r = await self.crypto.subtle.digest("SHA-256", t),
+          o = new Uint8Array(r),
+          a = "",
+          i = 0;
+        i < o.length;
+        i++
+      )
+        a += o[i].toString(16).padStart(2, "0");
+      return a;
     }
-    function re() {
-      return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (e instanceof ArrayBuffer) t = e;
-          else if (e instanceof Uint8Array) t = e;
-          else if (typeof e == "string") t = new TextEncoder().encode(e);
-          else if (e instanceof Blob) t = yield e.arrayBuffer();
-          else {
-            var n;
-            t = new TextEncoder().encode(
-              (n = JSON.stringify(e)) != null ? n : "",
-            );
+    async function ne() {
+      var t = o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .cache_TESTONLY(),
+        n = await o("WAWebSignalStorage").getSessionTable().all(),
+        r = new Map();
+      (await Promise.all(
+        n.map(async function (e) {
+          var t = e.address,
+            n = e.session;
+          if (n != null) {
+            var o = await te(n);
+            r.set(t, o);
           }
-          for (
-            var r = yield self.crypto.subtle.digest("SHA-256", t),
-              o = new Uint8Array(r),
-              a = "",
-              i = 0;
-            i < o.length;
-            i++
-          )
-            a += o[i].toString(16).padStart(2, "0");
-          return a;
-        })),
-        re.apply(this, arguments)
-      );
-    }
-    function oe() {
-      return ae.apply(this, arguments);
-    }
-    function ae() {
-      return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .cache_TESTONLY(),
-            t = yield o("WAWebSignalStorage").getSessionTable().all(),
-            r = new Map();
-          (yield (J || (J = n("Promise"))).all(
-            t.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.address,
-                      n = e.session;
-                    if (n != null) {
-                      var o = yield ne(n);
-                      r.set(t, o);
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          ),
-            yield J.all(
-              Array.from(e.SessionStore.entries()).map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e[0],
-                        n = e[1];
-                      if (n != null && n.deleted) r.delete(t);
-                      else if (n != null) {
-                        var o = yield ne(n.session);
-                        r.set(t, o);
-                      }
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            (Z = r));
-          var a = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
-            i = new Map();
-          (yield J.all(
-            a.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.senderKey,
-                      n = e.senderKeyName;
-                    if (t != null) {
-                      var r = yield ne(t);
-                      i.set(n, r);
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          ),
-            yield J.all(
-              Array.from(e.SenderKeyStore.entries()).map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e[0],
-                        n = e[1];
-                      if (n != null) {
-                        var r = yield ne(n);
-                        i.set(t, r);
-                      } else i.delete(t);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            (ee = i));
-          var l = yield o("WAWebUserPrefsStatus").getStatusSenderKeyMap();
-          ((te = new Set(l.senderKey)),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "snapshotSignalSessions: captured ",
-                  " session entries, ",
-                  " sender key entries (IDB + cache overlay), ",
-                  " status SK distrib entries",
-                ])),
-              r.size,
-              i.size,
-              te.size,
-            ));
-        })),
-        ae.apply(this, arguments)
-      );
-    }
-    oe.doc =
-      "Take a snapshot of all in-memory signal sessions and sender keys (address + hash). Call diffSignalSessions after sending to see changes.";
-    function ie() {
-      return le.apply(this, arguments);
-    }
-    function le() {
-      return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (Z == null)
-            return (
-              o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "diffSignalSessions: no snapshot taken yet, call snapshotSignalSessions first",
-                  ])),
-              ),
-              null
-            );
-          var e = Z,
-            t = o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .cache_TESTONLY(),
-            r = yield o("WAWebSignalStorage").getSessionTable().all(),
-            a = new Map();
-          (yield (J || (J = n("Promise"))).all(
-            r.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.address,
-                      n = e.session;
-                    if (n != null) {
-                      var r = yield ne(n);
-                      a.set(t, r);
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          ),
-            yield J.all(
-              Array.from(t.SessionStore.entries()).map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e[0],
-                        n = e[1];
-                      if (n != null && n.deleted) a.delete(t);
-                      else if (n != null) {
-                        var r = yield ne(n.session);
-                        a.set(t, r);
-                      }
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ));
-          var i = [],
-            l = [],
-            s = [],
-            u = 0;
-          for (var c of a) {
-            var d = c[0],
-              L = c[1],
-              E = e.get(d);
-            E == null ? i.push(d) : E !== L ? s.push(d) : u++;
-          }
-          for (var k of e.keys()) a.has(k) || l.push(k);
-          (o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "diffSignalSessions: ",
-                " new, ",
-                " removed, ",
-                " modified, ",
-                " unchanged",
-              ])),
-            i.length,
-            l.length,
-            s.length,
-            u,
-          ),
-            i.length > 0 &&
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "  NEW: ",
-                    "",
-                  ])),
-                i.join(", "),
-              ),
-            l.length > 0 &&
-              o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "  REMOVED: ",
-                    "",
-                  ])),
-                l.join(", "),
-              ),
-            s.length > 0 &&
-              o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "  MODIFIED: ",
-                    "",
-                  ])),
-                s.join(", "),
-              ));
-          var I = [].concat(
-              i.map(function (e) {
-                return { change: "added", address: e };
-              }),
-              l.map(function (e) {
-                return { change: "removed", address: e };
-              }),
-              s.map(function (e) {
-                return { change: "modified", address: e };
-              }),
-            ),
-            T = ee != null ? ee : new Map(),
-            D = yield o("WAWebSignalStorage").getSenderKeyTable().all(),
-            x = new Map();
-          (yield J.all(
-            D.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.senderKey,
-                      n = e.senderKeyName;
-                    if (t != null) {
-                      var r = yield ne(t);
-                      x.set(n, r);
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          ),
-            yield J.all(
-              Array.from(t.SenderKeyStore.entries()).map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e[0],
-                        n = e[1];
-                      if (n != null) {
-                        var r = yield ne(n);
-                        x.set(t, r);
-                      } else x.delete(t);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ));
-          var $ = [],
-            P = [],
-            N = [],
-            M = 0;
-          for (var w of x) {
-            var A = w[0],
-              F = w[1];
-            {
-              var O = T.get(A);
-              O == null ? $.push(A) : O !== F ? N.push(A) : M++;
+        }),
+      ),
+        await Promise.all(
+          Array.from(t.SessionStore.entries()).map(async function (e) {
+            var t = e[0],
+              n = e[1];
+            if (n != null && n.deleted) r.delete(t);
+            else if (n != null) {
+              var o = await te(n.session);
+              r.set(t, o);
             }
+          }),
+        ),
+        (J = r));
+      var a = await o("WAWebSignalStorage").getSenderKeyTable().all(),
+        i = new Map();
+      (await Promise.all(
+        a.map(async function (e) {
+          var t = e.senderKey,
+            n = e.senderKeyName;
+          if (t != null) {
+            var r = await te(t);
+            i.set(n, r);
           }
-          for (var B of T.keys()) x.has(B) || P.push(B);
-          (o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
-                "diffSignalSessions (sender keys): ",
-                " new, ",
-                " removed, ",
-                " modified, ",
-                " unchanged",
+        }),
+      ),
+        await Promise.all(
+          Array.from(t.SenderKeyStore.entries()).map(async function (e) {
+            var t = e[0],
+              n = e[1];
+            if (n != null) {
+              var r = await te(n);
+              i.set(t, r);
+            } else i.delete(t);
+          }),
+        ),
+        (Z = i));
+      var l = await o("WAWebUserPrefsStatus").getStatusSenderKeyMap();
+      ((ee = new Set(l.senderKey)),
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "snapshotSignalSessions: captured ",
+              " session entries, ",
+              " sender key entries (IDB + cache overlay), ",
+              " status SK distrib entries",
+            ])),
+          r.size,
+          i.size,
+          ee.size,
+        ));
+    }
+    ne.doc =
+      "Take a snapshot of all in-memory signal sessions and sender keys (address + hash). Call diffSignalSessions after sending to see changes.";
+    async function re() {
+      if (J == null)
+        return (
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "diffSignalSessions: no snapshot taken yet, call snapshotSignalSessions first",
               ])),
-            $.length,
-            P.length,
-            N.length,
-            M,
           ),
-            $.length > 0 &&
-              o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "  NEW: ",
-                    "",
-                  ])),
-                $.join(", "),
-              ),
-            P.length > 0 &&
-              o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "  REMOVED: ",
-                    "",
-                  ])),
-                P.join(", "),
-              ),
-            N.length > 0 &&
-              o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "  MODIFIED: ",
-                    "",
-                  ])),
-                N.join(", "),
-              ));
-          var W = [].concat(
-              $.map(function (e) {
-                return { change: "added", address: e };
-              }),
-              P.map(function (e) {
-                return { change: "removed", address: e };
-              }),
-              N.map(function (e) {
-                return { change: "modified", address: e };
-              }),
-            ),
-            q = yield o("WAWebUserPrefsStatus").getStatusSenderKeyMap(),
-            U = new Set(q.senderKey),
-            V = te,
-            H = [],
-            G = [];
-          if (V != null) {
-            for (var z of U) V.has(z) || H.push(z);
-            for (var j of V) U.has(j) || G.push(j);
+          null
+        );
+      var e = J,
+        t = o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .cache_TESTONLY(),
+        n = await o("WAWebSignalStorage").getSessionTable().all(),
+        r = new Map();
+      (await Promise.all(
+        n.map(async function (e) {
+          var t = e.address,
+            n = e.session;
+          if (n != null) {
+            var o = await te(n);
+            r.set(t, o);
           }
-          (o("WALogger").LOG(
-            v ||
-              (v = babelHelpers.taggedTemplateLiteralLoose([
-                "diffSignalSessions (status SK distrib): ",
-                " new, ",
-                " removed",
-              ])),
-            H.length,
-            G.length,
+        }),
+      ),
+        await Promise.all(
+          Array.from(t.SessionStore.entries()).map(async function (e) {
+            var t = e[0],
+              n = e[1];
+            if (n != null && n.deleted) r.delete(t);
+            else if (n != null) {
+              var o = await te(n.session);
+              r.set(t, o);
+            }
+          }),
+        ));
+      var a = [],
+        i = [],
+        l = [],
+        b = 0;
+      for (var v of r) {
+        var S = v[0],
+          R = v[1],
+          L = e.get(S);
+        L == null ? a.push(S) : L !== R ? l.push(S) : b++;
+      }
+      for (var E of e.keys()) r.has(E) || i.push(E);
+      (o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "diffSignalSessions: ",
+            " new, ",
+            " removed, ",
+            " modified, ",
+            " unchanged",
+          ])),
+        a.length,
+        i.length,
+        l.length,
+        b,
+      ),
+        a.length > 0 &&
+          o("WALogger").LOG(
+            c || (c = babelHelpers.taggedTemplateLiteralLoose(["  NEW: ", ""])),
+            a.join(", "),
           ),
-            H.length > 0 &&
-              o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "  NEW: ",
-                    "",
-                  ])),
-                H.join(", "),
-              ),
-            G.length > 0 &&
-              o("WALogger").LOG(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
-                    "  REMOVED: ",
-                    "",
-                  ])),
-                G.join(", "),
-              ));
-          var K = [].concat(
-            H.map(function (e) {
-              return { change: "added", address: e };
-            }),
-            G.map(function (e) {
-              return { change: "removed", address: e };
-            }),
-          );
-          return {
-            sessions: I,
-            senderKeys: W,
-            statusSkDistrib: K,
-            unchanged: u,
-            skUnchanged: M,
-          };
-        })),
-        le.apply(this, arguments)
+        i.length > 0 &&
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "  REMOVED: ",
+                "",
+              ])),
+            i.join(", "),
+          ),
+        l.length > 0 &&
+          o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "  MODIFIED: ",
+                "",
+              ])),
+            l.join(", "),
+          ));
+      var k = [].concat(
+          a.map(function (e) {
+            return { change: "added", address: e };
+          }),
+          i.map(function (e) {
+            return { change: "removed", address: e };
+          }),
+          l.map(function (e) {
+            return { change: "modified", address: e };
+          }),
+        ),
+        I = Z != null ? Z : new Map(),
+        T = await o("WAWebSignalStorage").getSenderKeyTable().all(),
+        D = new Map();
+      (await Promise.all(
+        T.map(async function (e) {
+          var t = e.senderKey,
+            n = e.senderKeyName;
+          if (t != null) {
+            var r = await te(t);
+            D.set(n, r);
+          }
+        }),
+      ),
+        await Promise.all(
+          Array.from(t.SenderKeyStore.entries()).map(async function (e) {
+            var t = e[0],
+              n = e[1];
+            if (n != null) {
+              var r = await te(n);
+              D.set(t, r);
+            } else D.delete(t);
+          }),
+        ));
+      var x = [],
+        $ = [],
+        P = [],
+        N = 0;
+      for (var M of D) {
+        var w = M[0],
+          A = M[1];
+        {
+          var F = I.get(w);
+          F == null ? x.push(w) : F !== A ? P.push(w) : N++;
+        }
+      }
+      for (var O of I.keys()) D.has(O) || $.push(O);
+      (o("WALogger").LOG(
+        p ||
+          (p = babelHelpers.taggedTemplateLiteralLoose([
+            "diffSignalSessions (sender keys): ",
+            " new, ",
+            " removed, ",
+            " modified, ",
+            " unchanged",
+          ])),
+        x.length,
+        $.length,
+        P.length,
+        N,
+      ),
+        x.length > 0 &&
+          o("WALogger").LOG(
+            _ || (_ = babelHelpers.taggedTemplateLiteralLoose(["  NEW: ", ""])),
+            x.join(", "),
+          ),
+        $.length > 0 &&
+          o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "  REMOVED: ",
+                "",
+              ])),
+            $.join(", "),
+          ),
+        P.length > 0 &&
+          o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "  MODIFIED: ",
+                "",
+              ])),
+            P.join(", "),
+          ));
+      var B = [].concat(
+          x.map(function (e) {
+            return { change: "added", address: e };
+          }),
+          $.map(function (e) {
+            return { change: "removed", address: e };
+          }),
+          P.map(function (e) {
+            return { change: "modified", address: e };
+          }),
+        ),
+        W = await o("WAWebUserPrefsStatus").getStatusSenderKeyMap(),
+        q = new Set(W.senderKey),
+        U = ee,
+        V = [],
+        H = [];
+      if (U != null) {
+        for (var G of q) U.has(G) || V.push(G);
+        for (var z of U) q.has(z) || H.push(z);
+      }
+      (o("WALogger").LOG(
+        h ||
+          (h = babelHelpers.taggedTemplateLiteralLoose([
+            "diffSignalSessions (status SK distrib): ",
+            " new, ",
+            " removed",
+          ])),
+        V.length,
+        H.length,
+      ),
+        V.length > 0 &&
+          o("WALogger").LOG(
+            y || (y = babelHelpers.taggedTemplateLiteralLoose(["  NEW: ", ""])),
+            V.join(", "),
+          ),
+        H.length > 0 &&
+          o("WALogger").LOG(
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
+                "  REMOVED: ",
+                "",
+              ])),
+            H.join(", "),
+          ));
+      var j = [].concat(
+        V.map(function (e) {
+          return { change: "added", address: e };
+        }),
+        H.map(function (e) {
+          return { change: "removed", address: e };
+        }),
       );
+      return {
+        sessions: k,
+        senderKeys: B,
+        statusSkDistrib: j,
+        unchanged: b,
+        skUnchanged: N,
+      };
+    }
+    re.doc =
+      "Compare current signal sessions and sender keys against the last snapshot and log new/removed/modified entries";
+    async function oe(e) {
+      var t = e.from,
+        n = e.parentMessageSecret,
+        r = e.parentMessageSender,
+        a = e.parentMessageStanzaId,
+        i = Math.round(Date.now() / 1e3),
+        l = ["\u{1F600}", "\u{1F602}", "\u{1F607}", "\u{1F608}", "\u{1F60A}"],
+        s = l[Math.floor(Math.random() * l.length)],
+        u = self.crypto.getRandomValues(new Uint8Array(12)),
+        c = {
+          type: o("WAWebMsgType").MsgKind.ReactionDecrypted,
+          encode: { text: s, senderTimestampMs: i },
+        },
+        d = await o("WAWebAddonEncryption").encryptAddOn(c, {
+          messageSecret: n,
+          iv: u,
+          stanzaId: a,
+          originalMessageSender: o("WAWebWidFactory").createUserWidOrThrow(r),
+          addOnSender: o("WAWebWidFactory").createUserWidOrThrow(t),
+        }),
+        m = d.encPayload;
+      return {
+        encPayload: o("WABase64").encodeB64(m),
+        encIv: o("WABase64").encodeB64(u.buffer),
+      };
+    }
+    async function ae() {
+      var e = o("WAWebDebugUtils").getSelectedChat();
+      if (!e) {
+        o("WALogger").WARN(
+          b ||
+            (b = babelHelpers.taggedTemplateLiteralLoose([
+              "removeSignalSessionsForActiveChat: no active chat to remove sessions",
+            ])),
+        );
+        return;
+      }
+      var t = [];
+      if (o("WAWebChatGetters").getIsGroup(e)) {
+        var n = await o("WAWebApiParticipantStore").getGroupSenderKeyList(e.id);
+        ((t = [].concat(n.skList, n.skDistribList)),
+          await o("WAWebApiParticipantStore").markForgetSenderKey(e.id, t));
+      } else
+        t = await o("WAWebDBDeviceListFanout").getFanOutList({ wids: [e.id] });
+      if (t.length === 0) {
+        o("WALogger").WARN(
+          v ||
+            (v = babelHelpers.taggedTemplateLiteralLoose([
+              "removeSignalSessionsForActiveChat: no participant found",
+            ])),
+        );
+        return;
+      }
+      var r = 0;
+      (await Promise.all([
+        (await o("WAWebSignal").Session.hasSignalSessions(t)).map(
+          function (e, n) {
+            if (e)
+              return (r++, o("WAWebSignal").Session.deleteRemoteSession(t[n]));
+          },
+        ),
+      ]),
+        await o("WAWebSignalProtocolStore")
+          .getSignalProtocolStore()
+          .flushBufferToDiskIfNotMemOnlyMode(),
+        o(
+          "WAWebEagerlyEstablishE2eeSessionChatAction",
+        ).clearEagerE2EESessionCache(e.id.toString()),
+        o("WALogger").LOG(
+          S ||
+            (S = babelHelpers.taggedTemplateLiteralLoose([
+              "removeSignalSessionsForActiveChat: removed ",
+              " sessions",
+            ])),
+          r,
+        ));
+    }
+    ae.doc =
+      "Remove sessions (to trigger prekeys fetch) for all the participants of the active chat";
+    async function ie(e) {
+      var t = o("WAWebDebugUtils").getSelectedChat();
+      if (!t || !o("WAWebChatGetters").getIsGroup(t)) {
+        o("WALogger").WARN(
+          R ||
+            (R = babelHelpers.taggedTemplateLiteralLoose([
+              "removeSenderKeyForActiveGroupChat: no active chat to remove sender key",
+            ])),
+        );
+        return;
+      }
+      var n = await o("WAWebApiParticipantStore").getGroupSenderKeyList(t.id),
+        r = [].concat(n.skList, n.skDistribList);
+      if (r.length === 0) {
+        o("WALogger").WARN(
+          L ||
+            (L = babelHelpers.taggedTemplateLiteralLoose([
+              "removeSenderKeyForActiveGroupChat: no participant found",
+            ])),
+        );
+        return;
+      }
+      var a = r;
+      if (e != null) {
+        var i = o("WAWebWidFactory").createWid(e);
+        a = a.filter(function (e) {
+          return e.user === i.user && e.server === i.server;
+        });
+      }
+      a.forEach(function (e) {
+        return o("WAWebSignalSessionApi").deleteDeviceSenderKey(e);
+      });
     }
     ie.doc =
-      "Compare current signal sessions and sender keys against the last snapshot and log new/removed/modified entries";
-    function se(e) {
-      return ue.apply(this, arguments);
-    }
-    function ue() {
-      return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.from,
-            n = e.parentMessageSecret,
-            r = e.parentMessageSender,
-            a = e.parentMessageStanzaId,
-            i = Math.round(Date.now() / 1e3),
-            l = [
-              "\uD83D\uDE00",
-              "\uD83D\uDE02",
-              "\uD83D\uDE07",
-              "\uD83D\uDE08",
-              "\uD83D\uDE0A",
-            ],
-            s = l[Math.floor(Math.random() * l.length)],
-            u = self.crypto.getRandomValues(new Uint8Array(12)),
-            c = {
-              type: o("WAWebMsgType").MsgKind.ReactionDecrypted,
-              encode: { text: s, senderTimestampMs: i },
-            },
-            d = yield o("WAWebAddonEncryption").encryptAddOn(c, {
-              messageSecret: n,
-              iv: u,
-              stanzaId: a,
-              originalMessageSender:
-                o("WAWebWidFactory").createUserWidOrThrow(r),
-              addOnSender: o("WAWebWidFactory").createUserWidOrThrow(t),
-            }),
-            m = d.encPayload;
-          return {
-            encPayload: o("WABase64").encodeB64(m),
-            encIv: o("WABase64").encodeB64(u.buffer),
-          };
-        })),
-        ue.apply(this, arguments)
-      );
-    }
-    function ce() {
-      return de.apply(this, arguments);
-    }
-    function de() {
-      return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebDebugUtils").getSelectedChat();
-          if (!e) {
-            o("WALogger").WARN(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeSignalSessionsForActiveChat: no active chat to remove sessions",
-                ])),
-            );
-            return;
-          }
-          var t = [];
-          if (o("WAWebChatGetters").getIsGroup(e)) {
-            var r = yield o("WAWebApiParticipantStore").getGroupSenderKeyList(
-              e.id,
-            );
-            ((t = [].concat(r.skList, r.skDistribList)),
-              yield o("WAWebApiParticipantStore").markForgetSenderKey(e.id, t));
-          } else
-            t = yield o("WAWebDBDeviceListFanout").getFanOutList({
-              wids: [e.id],
-            });
-          if (t.length === 0) {
-            o("WALogger").WARN(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeSignalSessionsForActiveChat: no participant found",
-                ])),
-            );
-            return;
-          }
-          var a = 0;
-          (yield (J || (J = n("Promise"))).all([
-            (yield o("WAWebSignal").Session.hasSignalSessions(t)).map(
-              function (e, n) {
-                if (e)
-                  return (
-                    a++,
-                    o("WAWebSignal").Session.deleteRemoteSession(t[n])
-                  );
-              },
-            ),
-          ]),
-            yield o("WAWebSignalProtocolStore")
-              .getSignalProtocolStore()
-              .flushBufferToDiskIfNotMemOnlyMode(),
-            o(
-              "WAWebEagerlyEstablishE2eeSessionChatAction",
-            ).clearEagerE2EESessionCache(e.id.toString()),
-            o("WALogger").LOG(
-              k ||
-                (k = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeSignalSessionsForActiveChat: removed ",
-                  " sessions",
-                ])),
-              a,
-            ));
-        })),
-        de.apply(this, arguments)
-      );
-    }
-    ce.doc =
-      "Remove sessions (to trigger prekeys fetch) for all the participants of the active chat";
-    function me(e) {
-      return pe.apply(this, arguments);
-    }
-    function pe() {
-      return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebDebugUtils").getSelectedChat();
-          if (!t || !o("WAWebChatGetters").getIsGroup(t)) {
-            o("WALogger").WARN(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeSenderKeyForActiveGroupChat: no active chat to remove sender key",
-                ])),
-            );
-            return;
-          }
-          var n = yield o("WAWebApiParticipantStore").getGroupSenderKeyList(
-              t.id,
-            ),
-            r = [].concat(n.skList, n.skDistribList);
-          if (r.length === 0) {
-            o("WALogger").WARN(
-              T ||
-                (T = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeSenderKeyForActiveGroupChat: no participant found",
-                ])),
-            );
-            return;
-          }
-          var a = r;
-          if (e != null) {
-            var i = o("WAWebWidFactory").createWid(e);
-            a = a.filter(function (e) {
-              return e.user === i.user && e.server === i.server;
-            });
-          }
-          a.forEach(function (e) {
-            return o("WAWebSignalSessionApi").deleteDeviceSenderKey(e);
-          });
-        })),
-        pe.apply(this, arguments)
-      );
-    }
-    me.doc =
       "Remove sender key for active group chat (to trigger read-receipt) when receiving a message from target participant";
-    function _e() {
-      return fe.apply(this, arguments);
-    }
-    function fe() {
-      return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebDebugUtils").getSelectedChat();
-          if (!e) {
-            o("WALogger").WARN(
-              D ||
-                (D = babelHelpers.taggedTemplateLiteralLoose([
-                  "fetchPrekeysForActiveChat: no active chat to fetch prekeys",
-                ])),
-            );
-            return;
-          }
-          var t = [];
-          if (o("WAWebChatGetters").getIsGroup(e)) {
-            var a = yield o("WAWebApiParticipantStore").getGroupSenderKeyList(
-              e.id,
-            );
-            t = [].concat(a.skList, a.skDistribList);
-          } else
-            t = yield o("WAWebDBDeviceListFanout").getFanOutList({
-              wids: [e.id],
-            });
-          if (t.length === 0) {
-            o("WALogger").WARN(
-              x ||
-                (x = babelHelpers.taggedTemplateLiteralLoose([
-                  "fetchPrekeysForActiveChat: no participant found",
-                ])),
-            );
-            return;
-          }
-          o("WALogger").LOG(
-            $ ||
-              ($ = babelHelpers.taggedTemplateLiteralLoose([
-                "fetchPrekeysForActiveChat: requesting ",
-                " prekeys",
-              ])),
-            t.length,
-          );
-          var i = yield o("WAWebFetchPrekeysJob").fetchPrekeys(t),
-            l = i.errors,
-            s = i.prekeyBundles,
-            u = yield (J || (J = n("Promise"))).all(
-              s.map(function (e) {
-                return o("WAWebProcessKeyBundle").processKeyBundles([e]);
-              }),
-            ),
-            c = r("sumBy")(u, function (e) {
-              var t;
-              return (t = e.depletedPrekeyCount) != null ? t : 0;
-            });
-          o("WALogger").LOG(
-            P ||
-              (P = babelHelpers.taggedTemplateLiteralLoose([
-                "fetchPrekeysForActiveChat: requested: ",
-                ", received: ",
-                ", errors: ",
-                ", depleted prekeys: ",
-                "",
-              ])),
-            t.length,
-            s.length,
-            l.length,
-            c,
-          );
-        })),
-        fe.apply(this, arguments)
+    async function le() {
+      var e = o("WAWebDebugUtils").getSelectedChat();
+      if (!e) {
+        o("WALogger").WARN(
+          E ||
+            (E = babelHelpers.taggedTemplateLiteralLoose([
+              "fetchPrekeysForActiveChat: no active chat to fetch prekeys",
+            ])),
+        );
+        return;
+      }
+      var t = [];
+      if (o("WAWebChatGetters").getIsGroup(e)) {
+        var n = await o("WAWebApiParticipantStore").getGroupSenderKeyList(e.id);
+        t = [].concat(n.skList, n.skDistribList);
+      } else
+        t = await o("WAWebDBDeviceListFanout").getFanOutList({ wids: [e.id] });
+      if (t.length === 0) {
+        o("WALogger").WARN(
+          k ||
+            (k = babelHelpers.taggedTemplateLiteralLoose([
+              "fetchPrekeysForActiveChat: no participant found",
+            ])),
+        );
+        return;
+      }
+      o("WALogger").LOG(
+        I ||
+          (I = babelHelpers.taggedTemplateLiteralLoose([
+            "fetchPrekeysForActiveChat: requesting ",
+            " prekeys",
+          ])),
+        t.length,
+      );
+      var a = await o("WAWebFetchPrekeysJob").fetchPrekeys(t),
+        i = a.errors,
+        l = a.prekeyBundles,
+        s = await Promise.all(
+          l.map(function (e) {
+            return o("WAWebProcessKeyBundle").processKeyBundles([e]);
+          }),
+        ),
+        u = r("sumBy")(s, function (e) {
+          var t;
+          return (t = e.depletedPrekeyCount) != null ? t : 0;
+        });
+      o("WALogger").LOG(
+        T ||
+          (T = babelHelpers.taggedTemplateLiteralLoose([
+            "fetchPrekeysForActiveChat: requested: ",
+            ", received: ",
+            ", errors: ",
+            ", depleted prekeys: ",
+            "",
+          ])),
+        t.length,
+        l.length,
+        i.length,
+        u,
       );
     }
-    _e.doc = "Fetch prekeys for all the participants of the active chat";
-    function ge() {
-      return he.apply(this, arguments);
+    le.doc = "Fetch prekeys for all the participants of the active chat";
+    async function se() {
+      var e = o("WAWebDebugUtils").getSelectedChat();
+      if (!e || !o("WAWebChatGetters").getIsUser(e)) {
+        o("WALogger").WARN(
+          D ||
+            (D = babelHelpers.taggedTemplateLiteralLoose([
+              "printDevicesForActiveChat: no active chat or chat is not a 1:1 chat",
+            ])),
+        );
+        return;
+      }
+      var t = o("WAWebDeviceListPk").createDeviceListPK(e.id),
+        n = await o("WAWebApiDeviceList").getDeviceRecord(e.id);
+      if (n == null) {
+        o("WALogger").WARN(
+          x ||
+            (x = babelHelpers.taggedTemplateLiteralLoose([
+              "printDevicesForActiveChat: no record for ",
+              "",
+            ])),
+          t,
+        );
+        return;
+      } else if (n.deleted) {
+        o("WALogger").WARN(
+          $ ||
+            ($ = babelHelpers.taggedTemplateLiteralLoose([
+              'printDevicesForActiveChat: user "',
+              '" has been deleted',
+            ])),
+          t,
+        );
+        return;
+      }
+      o("WALogger").LOG(
+        P ||
+          (P = babelHelpers.taggedTemplateLiteralLoose([
+            "printDevicesForActiveChat: ",
+            " devices: ",
+            "",
+          ])),
+        t,
+        n.devices
+          .map(function (e) {
+            var t = e.id;
+            return n.id + ":" + t;
+          })
+          .join(","),
+      );
     }
-    function he() {
-      return (
-        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebDebugUtils").getSelectedChat();
-          if (!e || !o("WAWebChatGetters").getIsUser(e)) {
-            o("WALogger").WARN(
-              N ||
-                (N = babelHelpers.taggedTemplateLiteralLoose([
-                  "printDevicesForActiveChat: no active chat or chat is not a 1:1 chat",
-                ])),
-            );
-            return;
-          }
-          var t = o("WAWebDeviceListPk").createDeviceListPK(e.id),
-            n = yield o("WAWebApiDeviceList").getDeviceRecord(e.id);
-          if (n == null) {
-            o("WALogger").WARN(
-              M ||
-                (M = babelHelpers.taggedTemplateLiteralLoose([
-                  "printDevicesForActiveChat: no record for ",
-                  "",
-                ])),
-              t,
-            );
-            return;
-          } else if (n.deleted) {
-            o("WALogger").WARN(
-              w ||
-                (w = babelHelpers.taggedTemplateLiteralLoose([
-                  'printDevicesForActiveChat: user "',
-                  '" has been deleted',
-                ])),
-              t,
-            );
-            return;
-          }
-          o("WALogger").LOG(
-            A ||
-              (A = babelHelpers.taggedTemplateLiteralLoose([
-                "printDevicesForActiveChat: ",
-                " devices: ",
-                "",
+    se.doc = "Return list of the devices of the active chat";
+    async function ue(e, t) {
+      var n,
+        r,
+        a,
+        i = o("WAWebDeviceListPk").createDeviceListPK(e),
+        l = await o("WAWebApiDeviceList").getDeviceRecord(e);
+      if (l == null) {
+        o("WALogger").WARN(
+          N ||
+            (N = babelHelpers.taggedTemplateLiteralLoose([
+              "removeDeviceForUser: no record for ",
+              "",
+            ])),
+          i,
+        );
+        return;
+      } else if (l.deleted) {
+        o("WALogger").WARN(
+          M ||
+            (M = babelHelpers.taggedTemplateLiteralLoose([
+              'removeDeviceForUser: user "',
+              '" has been deleted',
+            ])),
+          i,
+        );
+        return;
+      }
+      var s = t;
+      if (s == null) {
+        var u,
+          c =
+            (u = l.devices.find(function (e) {
+              var t = e.id;
+              return t !== o("WAJids").DEFAULT_DEVICE_ID;
+            })) == null
+              ? void 0
+              : u.id;
+        if (c == null) {
+          o("WALogger").WARN(
+            w ||
+              (w = babelHelpers.taggedTemplateLiteralLoose([
+                'removeDeviceForUser: user "',
+                '" has no companion devices',
               ])),
-            t,
-            n.devices
-              .map(function (e) {
+            i,
+          );
+          return;
+        }
+        s = c;
+      }
+      var d = babelHelpers.extends({}, l, {
+        devices:
+          (n = l.devices) == null
+            ? void 0
+            : n.filter(function (e) {
                 var t = e.id;
-                return n.id + ":" + t;
-              })
-              .join(","),
-          );
-        })),
-        he.apply(this, arguments)
+                return t !== s;
+              }),
+      });
+      if (
+        ((r = l.devices) == null ? void 0 : r.length) ===
+        ((a = d.devices) == null ? void 0 : a.length)
+      ) {
+        o("WALogger").WARN(
+          A ||
+            (A = babelHelpers.taggedTemplateLiteralLoose([
+              'removeDeviceForUser: device "',
+              '" not found in ',
+              " record",
+            ])),
+          s,
+          i,
+        );
+        return;
+      }
+      return (
+        await o("WAWebApiDeviceList").createOrReplaceDeviceRecord(d),
+        o("WALogger").LOG(
+          F ||
+            (F = babelHelpers.taggedTemplateLiteralLoose([
+              "removeDeviceForUser: device ",
+              " has been removed from ",
+              "",
+            ])),
+          s,
+          i,
+        ),
+        o("WAWebWidFactory").createDeviceWidFromDeviceListPk(d.id, s)
       );
     }
-    ge.doc = "Return list of the devices of the active chat";
-    function ye(e, t) {
-      return Ce.apply(this, arguments);
+    async function ce(e) {
+      var t = o("WAWebDebugUtils").getSelectedChat();
+      if (!t || !o("WAWebChatGetters").getIsUser(t)) {
+        o("WALogger").WARN(
+          O ||
+            (O = babelHelpers.taggedTemplateLiteralLoose([
+              "removeDeviceForActiveChat: no active chat or chat is not a 1:1 chat",
+            ])),
+        );
+        return;
+      }
+      await ue(t.id, e);
     }
-    function Ce() {
-      return (
-        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a,
-            i = o("WAWebDeviceListPk").createDeviceListPK(e),
-            l = yield o("WAWebApiDeviceList").getDeviceRecord(e);
-          if (l == null) {
-            o("WALogger").WARN(
-              F ||
-                (F = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeDeviceForUser: no record for ",
-                  "",
-                ])),
-              i,
-            );
-            return;
-          } else if (l.deleted) {
-            o("WALogger").WARN(
-              O ||
-                (O = babelHelpers.taggedTemplateLiteralLoose([
-                  'removeDeviceForUser: user "',
-                  '" has been deleted',
-                ])),
-              i,
-            );
-            return;
-          }
-          var s = t;
-          if (s == null) {
-            var u,
-              c =
-                (u = l.devices.find(function (e) {
-                  var t = e.id;
-                  return t !== o("WAJids").DEFAULT_DEVICE_ID;
-                })) == null
-                  ? void 0
-                  : u.id;
-            if (c == null) {
+    ce.doc = "Remove one of the devices for the active chat.";
+    async function de() {
+      var e = o("WAWebDebugUtils").getSelectedChat();
+      if (!(e != null && e.id.isGroup())) {
+        o("WALogger").WARN(
+          B ||
+            (B = babelHelpers.taggedTemplateLiteralLoose([
+              "removeDeviceForActiveGroupChat: no active group chat",
+            ])),
+        );
+        return;
+      }
+      var t = e == null ? void 0 : e.id.toString(),
+        n = null;
+      await o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["participant"], function (e) {
+          var r = e[0];
+          return r.get(t).then(function (e) {
+            if (!e) {
               o("WALogger").WARN(
-                B ||
-                  (B = babelHelpers.taggedTemplateLiteralLoose([
-                    'removeDeviceForUser: user "',
-                    '" has no companion devices',
+                W ||
+                  (W = babelHelpers.taggedTemplateLiteralLoose([
+                    "removeDeviceForActiveGroupChat: group participant info missing for group ",
+                    "",
                   ])),
-                i,
+                t,
               );
               return;
             }
-            s = c;
-          }
-          var d = babelHelpers.extends({}, l, {
-            devices:
-              (n = l.devices) == null
-                ? void 0
-                : n.filter(function (e) {
-                    var t = e.id;
-                    return t !== s;
-                  }),
-          });
-          if (
-            ((r = l.devices) == null ? void 0 : r.length) ===
-            ((a = d.devices) == null ? void 0 : a.length)
-          ) {
-            o("WALogger").WARN(
-              W ||
-                (W = babelHelpers.taggedTemplateLiteralLoose([
-                  'removeDeviceForUser: device "',
-                  '" not found in ',
-                  " record",
-                ])),
-              s,
-              i,
-            );
-            return;
-          }
-          return (
-            yield o("WAWebApiDeviceList").createOrReplaceDeviceRecord(d),
-            o("WALogger").LOG(
-              q ||
-                (q = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeDeviceForUser: device ",
-                  " has been removed from ",
-                  "",
-                ])),
-              s,
-              i,
-            ),
-            o("WAWebWidFactory").createDeviceWidFromDeviceListPk(d.id, s)
-          );
-        })),
-        Ce.apply(this, arguments)
-      );
-    }
-    function be(e) {
-      return ve.apply(this, arguments);
-    }
-    function ve() {
-      return (
-        (ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebDebugUtils").getSelectedChat();
-          if (!t || !o("WAWebChatGetters").getIsUser(t)) {
-            o("WALogger").WARN(
-              U ||
-                (U = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeDeviceForActiveChat: no active chat or chat is not a 1:1 chat",
-                ])),
-            );
-            return;
-          }
-          yield ye(t.id, e);
-        })),
-        ve.apply(this, arguments)
-      );
-    }
-    be.doc = "Remove one of the devices for the active chat.";
-    function Se() {
-      return Re.apply(this, arguments);
-    }
-    function Re() {
-      return (
-        (Re = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebDebugUtils").getSelectedChat();
-          if (!(e != null && e.id.isGroup())) {
-            o("WALogger").WARN(
-              V ||
-                (V = babelHelpers.taggedTemplateLiteralLoose([
-                  "removeDeviceForActiveGroupChat: no active group chat",
-                ])),
-            );
-            return;
-          }
-          var t = e == null ? void 0 : e.id.toString(),
-            n = null;
-          yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(["participant"], function (e) {
-              var r = e[0];
-              return r.get(t).then(function (e) {
-                if (!e) {
-                  o("WALogger").WARN(
-                    H ||
-                      (H = babelHelpers.taggedTemplateLiteralLoose([
-                        "removeDeviceForActiveGroupChat: group participant info missing for group ",
-                        "",
-                      ])),
-                    t,
-                  );
-                  return;
-                }
-                var a = new Map(e.senderKey);
-                if (
-                  (a.forEach(function (e, t) {
-                    var r = o("WAWebWidFactory").createDeviceWidOrThrow(t);
-                    n == null &&
-                      r.device != null &&
-                      ((n = r.toString()), a.delete(n));
-                  }),
-                  n == null)
-                ) {
-                  o("WALogger").WARN(
-                    G ||
-                      (G = babelHelpers.taggedTemplateLiteralLoose([
-                        "removeDeviceForActiveGroupChat: companion not found in ",
-                        " record",
-                      ])),
-                    a,
-                  );
-                  return;
-                }
-                return r.createOrReplace({
-                  groupId: e.groupId,
-                  senderKey: a,
-                  participants: e.participants,
-                  pastParticipants: e.pastParticipants,
-                  admins: e.admins,
-                  rotateKey: e.rotateKey,
-                  deviceSyncComplete: e.deviceSyncComplete,
-                });
-              });
+            var a = new Map(e.senderKey);
+            if (
+              (a.forEach(function (e, t) {
+                var r = o("WAWebWidFactory").createDeviceWidOrThrow(t);
+                n == null &&
+                  r.device != null &&
+                  ((n = r.toString()), a.delete(n));
+              }),
+              n == null)
+            ) {
+              o("WALogger").WARN(
+                q ||
+                  (q = babelHelpers.taggedTemplateLiteralLoose([
+                    "removeDeviceForActiveGroupChat: companion not found in ",
+                    " record",
+                  ])),
+                a,
+              );
+              return;
+            }
+            return r.createOrReplace({
+              groupId: e.groupId,
+              senderKey: a,
+              participants: e.participants,
+              pastParticipants: e.pastParticipants,
+              admins: e.admins,
+              rotateKey: e.rotateKey,
+              deviceSyncComplete: e.deviceSyncComplete,
             });
-        })),
-        Re.apply(this, arguments)
-      );
+          });
+        });
     }
-    Se.doc = "Remove one of the devices for the active group chat.";
-    function Le() {
-      var t = o("WAWebChatCollection").ChatCollection.getActive();
-      if (!(t != null && t.id.isGroup()))
+    de.doc = "Remove one of the devices for the active group chat.";
+    function me() {
+      var e = o("WAWebChatCollection").ChatCollection.getActive();
+      if (!(e != null && e.id.isGroup()))
         return (
           o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            U ||
+              (U = babelHelpers.taggedTemplateLiteralLoose([
                 "the current chat is not a group",
               ])),
           ),
-          (J || (J = n("Promise"))).resolve()
+          Promise.resolve()
         );
-      var r = t == null ? void 0 : t.id.toString();
+      var t = e == null ? void 0 : e.id.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(["participant"], function (e) {
-          var t = e[0];
-          return t.get(r).then(function (e) {
+          var n = e[0];
+          return n.get(t).then(function (e) {
             if (!e) {
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                V ||
+                  (V = babelHelpers.taggedTemplateLiteralLoose([
                     "groupChatRotateSelfSenderKey: group participant info missing for group ",
                     "",
                   ])),
-                r,
+                t,
               );
               return;
             }
-            return t.createOrReplace({
+            return n.createOrReplace({
               groupId: e.groupId,
               senderKey: e.senderKey,
               participants: e.participants,
@@ -1033,205 +836,158 @@ __d(
           });
         });
     }
-    Le.doc = "Rotate the self sender key for the active group chat";
-    function Ee() {
-      return ke.apply(this, arguments);
+    me.doc = "Rotate the self sender key for the active group chat";
+    async function pe() {
+      var e = o("WAWebChatCollection").ChatCollection.getActive();
+      if (!(e != null && e.id.isGroup())) {
+        o("WALogger").WARN(
+          H ||
+            (H = babelHelpers.taggedTemplateLiteralLoose([
+              "groupChatGetParticipantRecord: the current chat is not a group",
+            ])),
+        );
+        return;
+      }
+      var t = e == null ? void 0 : e.id.toString(),
+        n = await o("WAWebSchemaParticipant").getParticipantTable().get(t);
+      if (n == null) {
+        o("WALogger").LOG(
+          G ||
+            (G = babelHelpers.taggedTemplateLiteralLoose([
+              "groupChatGetParticipantRecord: group participant info missing for group ",
+              "",
+            ])),
+          t,
+        );
+        return;
+      }
+      return n;
     }
-    function ke() {
-      return (
-        (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebChatCollection").ChatCollection.getActive();
-          if (!(e != null && e.id.isGroup())) {
-            o("WALogger").WARN(
-              z ||
-                (z = babelHelpers.taggedTemplateLiteralLoose([
-                  "groupChatGetParticipantRecord: the current chat is not a group",
-                ])),
-            );
-            return;
-          }
-          var t = e == null ? void 0 : e.id.toString(),
-            n = yield o("WAWebSchemaParticipant").getParticipantTable().get(t);
-          if (n == null) {
-            o("WALogger").LOG(
-              j ||
-                (j = babelHelpers.taggedTemplateLiteralLoose([
-                  "groupChatGetParticipantRecord: group participant info missing for group ",
-                  "",
-                ])),
-              t,
-            );
-            return;
-          }
-          return n;
-        })),
-        ke.apply(this, arguments)
-      );
+    pe.doc = "Get Participant Table for the active group chat";
+    async function _e() {
+      var e = o("WAWebChatCollection").ChatCollection.getActive();
+      if (!(e != null && e.id.isGroup())) {
+        o("WALogger").WARN(
+          z ||
+            (z = babelHelpers.taggedTemplateLiteralLoose([
+              "groupChatGetGroupMetadataRecord: the current chat is not a group",
+            ])),
+        );
+        return;
+      }
+      var t = e == null ? void 0 : e.id.toString(),
+        n = await o("WAWebSchemaGroupMetadata").getGroupMetadataTable().get(t);
+      if (n == null) {
+        o("WALogger").LOG(
+          j ||
+            (j = babelHelpers.taggedTemplateLiteralLoose([
+              "groupChatGetGroupMetadataRecord: group metadata info missing for group ",
+              "",
+            ])),
+          t,
+        );
+        return;
+      }
+      return n;
     }
-    Ee.doc = "Get Participant Table for the active group chat";
-    function Ie() {
-      return Te.apply(this, arguments);
+    ((_e.doc = "Get GroupMetadata Table for the active group chat"),
+      (de.doc = "Remove one of the devices for the active group chat."));
+    async function fe(e, t) {
+      t === void 0 && (t = 1);
+      var n = o("WAWebDebugUtils").getSelectedChat();
+      if (!n) {
+        o("WALogger").WARN(
+          K ||
+            (K = babelHelpers.taggedTemplateLiteralLoose([
+              "sendTextMessageToActiveChat: select a chat to send the message",
+            ])),
+        );
+        return;
+      }
+      for (var r = [], a = 0; a < t; a++)
+        r.push(
+          o("WAWebSendTextMsgChatAction").sendTextMsgToChat(n, e + " | " + a),
+        );
+      (await Promise.all(r),
+        o("WALogger").LOG(
+          Q ||
+            (Q = babelHelpers.taggedTemplateLiteralLoose([
+              "sendTextMessageToActiveChat: done sending ",
+              ' "',
+              '" message(s) to chat: ',
+              "",
+            ])),
+          t,
+          e,
+          n.id,
+        ));
     }
-    function Te() {
-      return (
-        (Te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebChatCollection").ChatCollection.getActive();
-          if (!(e != null && e.id.isGroup())) {
-            o("WALogger").WARN(
-              K ||
-                (K = babelHelpers.taggedTemplateLiteralLoose([
-                  "groupChatGetGroupMetadataRecord: the current chat is not a group",
-                ])),
-            );
-            return;
-          }
-          var t = e == null ? void 0 : e.id.toString(),
-            n = yield o("WAWebSchemaGroupMetadata")
-              .getGroupMetadataTable()
-              .get(t);
-          if (n == null) {
-            o("WALogger").LOG(
-              Q ||
-                (Q = babelHelpers.taggedTemplateLiteralLoose([
-                  "groupChatGetGroupMetadataRecord: group metadata info missing for group ",
-                  "",
-                ])),
-              t,
-            );
-            return;
-          }
-          return n;
-        })),
-        Te.apply(this, arguments)
-      );
-    }
-    ((Ie.doc = "Get GroupMetadata Table for the active group chat"),
-      (Se.doc = "Remove one of the devices for the active group chat."));
-    function De(e, t) {
-      return xe.apply(this, arguments);
-    }
-    function xe() {
-      return (
-        (xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = 1);
-          var r = o("WAWebDebugUtils").getSelectedChat();
-          if (!r) {
-            o("WALogger").WARN(
-              X ||
-                (X = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendTextMessageToActiveChat: select a chat to send the message",
-                ])),
-            );
-            return;
-          }
-          for (var a = [], i = 0; i < t; i++)
-            a.push(
-              o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
-                r,
-                e + " | " + i,
-              ),
-            );
-          (yield (J || (J = n("Promise"))).all(a),
-            o("WALogger").LOG(
-              Y ||
-                (Y = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendTextMessageToActiveChat: done sending ",
-                  ' "',
-                  '" message(s) to chat: ',
-                  "",
-                ])),
-              t,
-              e,
-              r.id,
-            ));
-        })),
-        xe.apply(this, arguments)
-      );
-    }
-    De.doc = "Send [message], [n] times to the active chat.";
-    function $e(e) {
-      return Pe.apply(this, arguments);
-    }
-    function Pe() {
-      return (
-        (Pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = we(e),
-            n = Fe(Ae(e, "scope")),
-            a = Oe(Ae(e, "action")),
-            i = o("WAWebSignalCommonUtils").createSignalAddress(t.deviceWid, n);
-          if (
-            n !== o("WAWebSessionScope").SessionScope.DEFAULT &&
-            i ===
-              o("WAWebSignalCommonUtils").createSignalAddress(
-                t.deviceWid,
-                o("WAWebSessionScope").SessionScope.DEFAULT,
-              )
+    fe.doc = "Send [message], [n] times to the active chat.";
+    async function ge(e) {
+      var t = ye(e),
+        n = be(Ce(e, "scope")),
+        a = ve(Ce(e, "action")),
+        i = o("WAWebSignalCommonUtils").createSignalAddress(t.deviceWid, n);
+      if (
+        n !== o("WAWebSessionScope").SessionScope.DEFAULT &&
+        i ===
+          o("WAWebSignalCommonUtils").createSignalAddress(
+            t.deviceWid,
+            o("WAWebSessionScope").SessionScope.DEFAULT,
           )
-            throw r("err")(
-              n + " has no separate Signal session for this device",
-            );
-          var l = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
-            s = (yield l.loadSession(i)) != null,
-            u = s;
-          return (
-            a === "delete" &&
-              s &&
-              (yield l.removeSession(i),
-              yield l.flushBufferToDiskIfNotMemOnlyMode(),
-              (u = (yield l.loadSession(i)) != null)),
-            {
-              action: a,
-              target: {
-                peer: t.peer,
-                device: t.device,
-                deviceWid: String(t.deviceWid),
-                scope: n,
-              },
-              address: i,
-              before: { exists: s },
-              after: { exists: u },
-              changed: s !== u,
-            }
-          );
-        })),
-        Pe.apply(this, arguments)
-      );
-    }
-    $e.doc =
-      'Preview or delete one exact Signal session only. Example: Debug.exactSignalSession({peer: "12345@lid", device: 2, scope: "status", action: "preview"}). Delete preserves identity, sibling scopes/devices, sender keys, and chats.';
-    function Ne(e) {
-      return Me.apply(this, arguments);
-    }
-    function Me() {
+      )
+        throw r("err")(n + " has no separate Signal session for this device");
+      var l = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
+        s = (await l.loadSession(i)) != null,
+        u = s;
       return (
-        (Me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = we(e),
-            n = Be(Ae(e, "action")),
-            r = yield o(
-              "WAWebUserPrefsStatus",
-            ).previewOrResetStatusSenderKeyDistribution(t.deviceWid, n);
-          return {
-            action: n,
-            target: {
-              peer: t.peer,
-              device: t.device,
-              deviceWid: String(t.deviceWid),
-              alternateDeviceWid: r.alternateDeviceWid,
-              aliasResolution: r.aliasResolution,
-            },
-            before: r.before,
-            after: r.after,
-            changed: r.changed,
-          };
-        })),
-        Me.apply(this, arguments)
+        a === "delete" &&
+          s &&
+          (await l.removeSession(i),
+          await l.flushBufferToDiskIfNotMemOnlyMode(),
+          (u = (await l.loadSession(i)) != null)),
+        {
+          action: a,
+          target: {
+            peer: t.peer,
+            device: t.device,
+            deviceWid: String(t.deviceWid),
+            scope: n,
+          },
+          address: i,
+          before: { exists: s },
+          after: { exists: u },
+          changed: s !== u,
+        }
       );
     }
-    Ne.doc =
+    ge.doc =
+      'Preview or delete one exact Signal session only. Example: Debug.exactSignalSession({peer: "12345@lid", device: 2, scope: "status", action: "preview"}). Delete preserves identity, sibling scopes/devices, sender keys, and chats.';
+    async function he(e) {
+      var t = ye(e),
+        n = Se(Ce(e, "action")),
+        r = await o(
+          "WAWebUserPrefsStatus",
+        ).previewOrResetStatusSenderKeyDistribution(t.deviceWid, n);
+      return {
+        action: n,
+        target: {
+          peer: t.peer,
+          device: t.device,
+          deviceWid: String(t.deviceWid),
+          alternateDeviceWid: r.alternateDeviceWid,
+          aliasResolution: r.aliasResolution,
+        },
+        before: r.before,
+        after: r.after,
+        changed: r.changed,
+      };
+    }
+    he.doc =
       'Preview or reset status sender-key distribution bookkeeping for one exact device only. The result reports whether the PN/LID alias resolved; reset is an unchanged no-op when it did not. Example: Debug.exactStatusSenderKeyDistribution({peer: "12345@lid", device: 2, action: "preview"}).';
-    function we(e) {
-      var t = Ae(e, "peer"),
-        n = Ae(e, "device");
+    function ye(e) {
+      var t = Ce(e, "peer"),
+        n = Ce(e, "device");
       if (typeof t != "string" || t.length === 0)
         throw r("err")(
           "peer must be a non-empty account-level user JID string",
@@ -1258,28 +1014,28 @@ __d(
         ),
       };
     }
-    function Ae(e, t) {
+    function Ce(e, t) {
       if (typeof e != "object" || e == null || Array.isArray(e))
         throw r("err")("expected one structured object argument");
       if (!(t in e)) throw r("err")("missing required " + t);
       return e[t];
     }
-    function Fe(e) {
+    function be(e) {
       if (e === o("WAWebSessionScope").SessionScope.DEFAULT)
         return o("WAWebSessionScope").SessionScope.DEFAULT;
       if (e === o("WAWebSessionScope").SessionScope.STATUS)
         return o("WAWebSessionScope").SessionScope.STATUS;
       throw r("err")('scope must be exactly "default" or "status"');
     }
-    function Oe(e) {
+    function ve(e) {
       if (e === "preview" || e === "delete") return e;
       throw r("err")('action must be exactly "preview" or "delete"');
     }
-    function Be(e) {
+    function Se(e) {
       if (e === "preview" || e === "reset") return e;
       throw r("err")('action must be exactly "preview" or "reset"');
     }
-    function We(e) {
+    function Re(e) {
       var t = o("WAWebChatCollection").ChatCollection.get(
         o("WAWebWidFactory").createWid(e),
       );
@@ -1288,8 +1044,8 @@ __d(
             .sendClear(t, !1)
             .finally(function () {
               o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                Y ||
+                  (Y = babelHelpers.taggedTemplateLiteralLoose([
                     "chat ",
                     " cleared",
                   ])),
@@ -1297,36 +1053,36 @@ __d(
               );
             })
         : (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            X ||
+              (X = babelHelpers.taggedTemplateLiteralLoose([
                 "chat ",
                 " not found",
               ])),
             e,
           ),
-          (J || (J = n("Promise"))).resolve());
+          Promise.resolve());
     }
-    We.doc =
+    Re.doc =
       "Clear chat passing chatId string. The same as clear chat from dropdown menu.";
-    var qe = {
-      clearChat: We,
-      diffSignalSessions: ie,
-      encryptMockReactionMsg: se,
-      exactSignalSession: $e,
-      exactStatusSenderKeyDistribution: Ne,
-      groupChatGetParticipantRecord: Ee,
-      groupChatGetGroupMetadataRecord: Ie,
-      groupChatRotateSelfSenderKey: Le,
-      removeSignalSessionsForActiveChat: ce,
-      removeSenderKeyForActiveGroupChat: me,
-      fetchPrekeysForActiveChat: _e,
-      printDevicesForActiveChat: ge,
-      removeDeviceForActiveChat: be,
-      removeDeviceForActiveGroupChat: Se,
-      sendTextMessageToActiveChat: De,
-      snapshotSignalSessions: oe,
+    var Le = {
+      clearChat: Re,
+      diffSignalSessions: re,
+      encryptMockReactionMsg: oe,
+      exactSignalSession: ge,
+      exactStatusSenderKeyDistribution: he,
+      groupChatGetParticipantRecord: pe,
+      groupChatGetGroupMetadataRecord: _e,
+      groupChatRotateSelfSenderKey: me,
+      removeSignalSessionsForActiveChat: ae,
+      removeSenderKeyForActiveGroupChat: ie,
+      fetchPrekeysForActiveChat: le,
+      printDevicesForActiveChat: se,
+      removeDeviceForActiveChat: ce,
+      removeDeviceForActiveGroupChat: de,
+      sendTextMessageToActiveChat: fe,
+      snapshotSignalSessions: ne,
     };
-    l.default = qe;
+    l.default = Le;
   },
   98,
 );

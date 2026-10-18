@@ -1,7 +1,6 @@
 __d(
   "WAWebMediaDataUtils",
   [
-    "Promise",
     "WABase64",
     "WALogger",
     "WAPromiseCallSync",
@@ -35,7 +34,6 @@ __d(
     "WAWebWaveformUtils",
     "WAWebWebpParseWebp",
     "WAWebXHR",
-    "asyncToGeneratorRuntime",
     "cr:10296",
     "err",
     "isStringNullOrEmpty",
@@ -48,36 +46,28 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 2e4;
-    function f(e) {
-      return A(
-        (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            t(e);
-            var o = new Image();
-            return (
-              yield new (p || (p = n("Promise")))(function (t, n) {
-                ((o.onload = t),
-                  (o.onabort = function () {
-                    n(r("err")("getImageWidthHeight onabort"));
-                  }),
-                  (o.onerror = function () {
-                    n(r("err")("getImageWidthHeight onerror"));
-                  }),
-                  (o.src = e.url()));
+      p = 2e4;
+    function _(e) {
+      return I(async function (t) {
+        t(e);
+        var n = new Image();
+        return (
+          await new Promise(function (t, o) {
+            ((n.onload = t),
+              (n.onabort = function () {
+                o(r("err")("getImageWidthHeight onabort"));
               }),
-              { width: o.naturalWidth, height: o.naturalHeight }
-            );
-          });
-          return function (e) {
-            return t.apply(this, arguments);
-          };
-        })(),
-      );
+              (n.onerror = function () {
+                o(r("err")("getImageWidthHeight onerror"));
+              }),
+              (n.src = e.url()));
+          }),
+          { width: n.naturalWidth, height: n.naturalHeight }
+        );
+      });
     }
-    function g(e) {
-      return new (p || (p = n("Promise")))(function (t, n) {
+    function f(e) {
+      return new Promise(function (t, n) {
         var o = new Image(),
           a = window.URL.createObjectURL(e);
         ((o.onload = function () {
@@ -95,7 +85,7 @@ __d(
           (o.src = a));
       });
     }
-    function h(t) {
+    function g(t) {
       return o("WAWebFileUtils")
         .blobToArrayBuffer(t)
         .catch(function (t) {
@@ -112,658 +102,561 @@ __d(
           );
         });
     }
-    function y(e) {
-      return A(function (t) {
+    function h(e) {
+      return I(function (t) {
         t(e);
         var n = e.getBlob();
-        if (n) return h(n);
+        if (n) return g(n);
         var a = r("nullthrows")(e.getBase64(), "b64 should be defined");
         return o("WABase64").decodeB64(a);
       });
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function y(e) {
+      var t = await g(e);
+      return r("WAWebDecodeWebpToRgba")(t);
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield h(e);
-          return r("WAWebDecodeWebpToRgba")(t);
-        })),
-        b.apply(this, arguments)
-      );
+    async function C(e) {
+      var t = await g(e);
+      return o("WAWebWebpParseWebp").parseWebp(t);
     }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield h(e);
-          return o("WAWebWebpParseWebp").parseWebp(t);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t) {
-      return A(
-        (function () {
-          var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-            n(e);
-            var a = yield o("WAWebMediaLoad")
-              .transcode(e.forceToBlob(), t)
-              .then(function (e) {
-                return r("WAWebMediaOpaqueData").createFromData(e, e.type);
-              });
-            return (n(a), a.autorelease(), a);
+    function b(e, t) {
+      return I(async function (n) {
+        n(e);
+        var a = await o("WAWebMediaLoad")
+          .transcode(e.forceToBlob(), t)
+          .then(function (e) {
+            return r("WAWebMediaOpaqueData").createFromData(e, e.type);
           });
-          return function (e) {
-            return a.apply(this, arguments);
-          };
-        })(),
-      );
+        return (n(a), a.autorelease(), a);
+      });
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    async function v(e, t) {
+      var n = t.maxDimension,
+        r = t.minDimension,
+        a = t.transparency,
+        i = await o("WAWebImageUtils").rotateAndResize(
+          e,
+          n,
+          o("WAWebImageUtils").BLOB,
+          { transparency: a, minDimension: r },
+        ),
+        l = i.height,
+        s = i.images,
+        u = i.width;
+      if (s == null || s.blob == null)
+        throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
+      return { width: u, height: l, size: s.blob.size };
     }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.maxDimension,
-            r = t.minDimension,
-            a = t.transparency,
-            i = yield o("WAWebImageUtils").rotateAndResize(
-              e,
-              n,
-              o("WAWebImageUtils").BLOB,
-              { transparency: a, minDimension: r },
+    async function S(e, t, n) {
+      var a = t.maxDimension,
+        i = t.minDimension,
+        l = t.transparency,
+        s = e.forceToBlob(),
+        u = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl("image", s);
+      try {
+        var c,
+          d = await o("WAWebImageUtils").rotateAndResize(
+            s,
+            a,
+            o("WAWebImageUtils").BLOB | o("WAWebImageUtils").CANVAS,
+            { transparency: l, minDimension: i },
+          ),
+          m = d.height,
+          _ = d.images,
+          f = d.width;
+        if (_ == null || _.canvas == null)
+          throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
+        var g = await o("WAWebImageUtils").rotateAndResize(
+            _.canvas,
+            o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
+            o("WAWebImageUtils").DATA_URL | o("WAWebImageUtils").CANVAS,
+          ),
+          h = g.images;
+        if (h == null || h.canvas == null)
+          throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
+        var y = o("WAWebCanvasUtils").getResizedDataUrl(
+            h.canvas,
+            "image/jpeg",
+            p,
+          ),
+          C =
+            y != null && y !== ""
+              ? r("WAWebURLUtils").parseDataURL(y).data
+              : null,
+          b =
+            n ===
+              o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
+                .STATUS_TAB_CAMERA_PHOTO_LIBRARY ||
+            n ===
+              o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
+                .STATUS_TAB_CAMERA_CAPTURE ||
+            n ===
+              o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
+                .STATUS_TAB_CAMERA_MEDIA_STRIP ||
+            n ===
+              o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
+                .STATUS_TAB_GIF,
+          v = null,
+          S = null;
+        if (b && _.canvas != null) {
+          var R = await o("WAWebImageUtils").rotateAndResize(
+              _.canvas,
+              o("WAWebMediaConstants").STATUS_IMG_THUMB_MAX_EDGE,
+              o("WAWebImageUtils").DATA_URL,
             ),
-            l = i.height,
-            s = i.images,
-            u = i.width;
-          if (s == null || s.blob == null)
-            throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
-          return { width: u, height: l, size: s.blob.size };
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e, t, n) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = t.maxDimension,
-            i = t.minDimension,
-            l = t.transparency,
-            s = e.forceToBlob(),
-            u = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
-              "image",
-              s,
-            );
-          try {
-            var c,
-              d = yield o("WAWebImageUtils").rotateAndResize(
-                s,
-                a,
-                o("WAWebImageUtils").BLOB | o("WAWebImageUtils").CANVAS,
-                { transparency: l, minDimension: i },
+            L = R.images,
+            E = L == null ? void 0 : L.dataUrl;
+          E != null &&
+            E !== "" &&
+            ((v = await r("WAWebMediaOpaqueData").createFromBase64Jpeg(
+              r("WAWebURLUtils").parseDataURL(E).data,
+            )),
+            (S = {
+              width: o("WAWebMediaConstants").STATUS_IMG_THUMB_MAX_EDGE,
+              height: Math.round(
+                (o("WAWebMediaConstants").STATUS_IMG_THUMB_MAX_EDGE * m) / f,
               ),
-              m = d.height,
-              p = d.images,
-              f = d.width;
-            if (p == null || p.canvas == null)
-              throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
-            var g = yield o("WAWebImageUtils").rotateAndResize(
-                p.canvas,
-                o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
-                o("WAWebImageUtils").DATA_URL | o("WAWebImageUtils").CANVAS,
-              ),
-              h = g.images;
-            if (h == null || h.canvas == null)
-              throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
-            var y = o("WAWebCanvasUtils").getResizedDataUrl(
-                h.canvas,
-                "image/jpeg",
-                _,
-              ),
-              C =
-                y != null && y !== ""
-                  ? r("WAWebURLUtils").parseDataURL(y).data
-                  : null,
-              b =
-                n ===
-                  o("WAWebWamEnumMediaPickerOriginType")
-                    .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_CAMERA_PHOTO_LIBRARY ||
-                n ===
-                  o("WAWebWamEnumMediaPickerOriginType")
-                    .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_CAMERA_CAPTURE ||
-                n ===
-                  o("WAWebWamEnumMediaPickerOriginType")
-                    .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_CAMERA_MEDIA_STRIP ||
-                n ===
-                  o("WAWebWamEnumMediaPickerOriginType")
-                    .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_GIF,
-              v = null,
-              S = null;
-            if (b && p.canvas != null) {
-              var R = yield o("WAWebImageUtils").rotateAndResize(
-                  p.canvas,
-                  o("WAWebMediaConstants").STATUS_IMG_THUMB_MAX_EDGE,
-                  o("WAWebImageUtils").DATA_URL,
-                ),
-                L = R.images,
-                E = L == null ? void 0 : L.dataUrl;
-              E != null &&
-                E !== "" &&
-                ((v = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
-                  r("WAWebURLUtils").parseDataURL(E).data,
-                )),
-                (S = {
-                  width: o("WAWebMediaConstants").STATUS_IMG_THUMB_MAX_EDGE,
-                  height: Math.round(
-                    (o("WAWebMediaConstants").STATUS_IMG_THUMB_MAX_EDGE * m) /
-                      f,
-                  ),
-                }));
-            }
-            return (
-              u.endSuccess(),
-              {
-                type: o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE,
-                mediaBlob: p.blob,
-                mimetype: (c = p.blob) == null ? void 0 : c.type,
-                fullWidth: f,
-                fullHeight: m,
-                preview: C,
-                fullPreviewData: v,
-                fullPreviewSize: S,
-              }
-            );
-          } catch (e) {
-            throw (
-              u.endFailWithError(
-                e instanceof Error ? e.name : "processRawImageError",
-                e instanceof Error ? e.message : String(e),
-              ),
-              e
-            );
+            }));
+        }
+        return (
+          u.endSuccess(),
+          {
+            type: o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE,
+            mediaBlob: _.blob,
+            mimetype: (c = _.blob) == null ? void 0 : c.type,
+            fullWidth: f,
+            fullHeight: m,
+            preview: C,
+            fullPreviewData: v,
+            fullPreviewSize: S,
           }
-        })),
-        I.apply(this, arguments)
-      );
+        );
+      } catch (e) {
+        throw (
+          u.endFailWithError(
+            e instanceof Error ? e.name : "processRawImageError",
+            e instanceof Error ? e.message : String(e),
+          ),
+          e
+        );
+      }
     }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.forceToBlob(),
-            n = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
-              "sticker",
-              t,
-            );
-          try {
-            var a = yield o("WAWebImageUtils").rotateAndResize(
-                t,
-                o("WAWebABProps").getABPropConfigValue("web_image_max_edge"),
-                o("WAWebImageUtils").BLOB,
-                { transparency: !0 },
-              ),
-              i = a.height,
-              l = a.images,
-              s = a.width;
-            if (l == null || l.blob == null)
-              throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
-            var u = yield o("WAWebImageUtils").toWebpSticker(l.blob),
-              c = yield r("WAWebMediaOpaqueData").createFromData(u, u.type);
-            return (
-              n.endSuccess(),
-              {
-                type: o("WAWebMediaTypes").OUTWARD_TYPES.STICKER,
-                mediaBlob: c,
-                mimetype: u.type,
-                fullWidth: s,
-                fullHeight: i,
-              }
-            );
-          } catch (e) {
-            throw (
-              n.endFailWithError(
-                e instanceof Error ? e.name : "processRawStickerError",
-                e instanceof Error ? e.message : String(e),
-              ),
-              e
-            );
+    async function R(e) {
+      var t = e.forceToBlob(),
+        n = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl("sticker", t);
+      try {
+        var a = await o("WAWebImageUtils").rotateAndResize(
+            t,
+            o("WAWebABProps").getABPropConfigValue("web_image_max_edge"),
+            o("WAWebImageUtils").BLOB,
+            { transparency: !0 },
+          ),
+          i = a.height,
+          l = a.images,
+          s = a.width;
+        if (l == null || l.blob == null)
+          throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
+        var u = await o("WAWebImageUtils").toWebpSticker(l.blob),
+          c = await r("WAWebMediaOpaqueData").createFromData(u, u.type);
+        return (
+          n.endSuccess(),
+          {
+            type: o("WAWebMediaTypes").OUTWARD_TYPES.STICKER,
+            mediaBlob: c,
+            mimetype: u.type,
+            fullWidth: s,
+            fullHeight: i,
           }
-        })),
-        D.apply(this, arguments)
-      );
+        );
+      } catch (e) {
+        throw (
+          n.endFailWithError(
+            e instanceof Error ? e.name : "processRawStickerError",
+            e instanceof Error ? e.message : String(e),
+          ),
+          e
+        );
+      }
     }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e._mimetype,
-            a = e.accessibilityLabel,
-            i = e.asGif,
-            l = e.asPtt,
-            m = e.gifAttribution,
-            p = e.opaqueData,
-            _ = e.precomputedFields,
-            f = e.resetMediaPreview,
-            g = e.setMediaPreview,
-            h = e.setMimeType,
-            y = e.setProgressPercentage,
-            C = !1;
-          try {
-            var b,
-              v = p.forceToBlob(),
-              S = v instanceof File ? v.name : "",
-              R = new (o(
-                "WAWebVideoTranscoderWamEvent",
-              ).VideoTranscoderWamEvent)({
-                sourceHeight: _ == null ? void 0 : _.fullHeight,
-                sourceWidth: _ == null ? void 0 : _.fullWidth,
-                sourceDuration: _ == null ? void 0 : _.duration,
-                sourceFileSize: p.size(),
-                sourceFormat:
-                  i === !0
-                    ? o("WAWebWamEnumVideoTranscoderSourceFormatType")
-                        .VIDEO_TRANSCODER_SOURCE_FORMAT_TYPE.GIF
-                    : o("WAWebWamEnumVideoTranscoderSourceFormatType")
-                        .VIDEO_TRANSCODER_SOURCE_FORMAT_TYPE.VIDEO,
-                sourceMimeType: v.type,
-                sourceFileExtension: S.split(".").pop(),
-              }),
-              L =
-                (b =
-                  n("cr:10296") == null
-                    ? void 0
-                    : n("cr:10296").isWindowsHybridTranscoderEnabled()) != null
-                  ? b
-                  : !1,
-              E = v.type.startsWith("video/"),
-              k = v.type === "video/mp4",
-              I = L && E && !k;
-            R.startTranscoderT();
-            var T = null;
-            if (!I) {
-              var D = !1,
-                x = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
-                  E ? "video" : "audio",
-                  v,
-                ),
-                $;
-              if (
-                (E
-                  ? ($ = yield o(
-                      "WAWebMediaAnalyzer",
-                    ).transcodeToMp4AndMp4RepairMux(v, !!i, x))
-                  : ($ = yield o("WAWebMediaAnalyzer").checkAndRepairAudio(
-                      v,
-                      !!i,
-                      x,
-                    )),
-                $.success)
-              ) {
-                var P = $.value;
-                ((T = P[0]),
-                  (D = P[1]),
-                  x.endSuccess(),
-                  (R.transcoderAlgorithm = D
-                    ? o("WAWebWamEnumVideoTranscoderAlgorithmType")
-                        .VIDEO_TRANSCODER_ALGORITHM_TYPE
-                        .WASM_MP4_CHECK_AND_REPAIR
-                    : o("WAWebWamEnumVideoTranscoderAlgorithmType")
-                        .VIDEO_TRANSCODER_ALGORITHM_TYPE.WEB_MEDIA_WORKER));
-              } else x.endFailWithError($.error.error, $.error.errorDetail);
-            }
-            if (I || (!T && L)) {
-              R.transcoderAlgorithm = o(
-                "WAWebWamEnumVideoTranscoderAlgorithmType",
-              ).VIDEO_TRANSCODER_ALGORITHM_TYPE.HYBRID_BRIDGE;
-              var N = yield n("cr:10296") == null
+    async function L(e) {
+      var t = e._mimetype,
+        a = e.accessibilityLabel,
+        i = e.asGif,
+        l = e.asPtt,
+        m = e.gifAttribution,
+        p = e.opaqueData,
+        _ = e.precomputedFields,
+        f = e.resetMediaPreview,
+        g = e.setMediaPreview,
+        h = e.setMimeType,
+        y = e.setProgressPercentage,
+        C = !1;
+      try {
+        var b,
+          v = p.forceToBlob(),
+          S = v instanceof File ? v.name : "",
+          R = new (o("WAWebVideoTranscoderWamEvent").VideoTranscoderWamEvent)({
+            sourceHeight: _ == null ? void 0 : _.fullHeight,
+            sourceWidth: _ == null ? void 0 : _.fullWidth,
+            sourceDuration: _ == null ? void 0 : _.duration,
+            sourceFileSize: p.size(),
+            sourceFormat:
+              i === !0
+                ? o("WAWebWamEnumVideoTranscoderSourceFormatType")
+                    .VIDEO_TRANSCODER_SOURCE_FORMAT_TYPE.GIF
+                : o("WAWebWamEnumVideoTranscoderSourceFormatType")
+                    .VIDEO_TRANSCODER_SOURCE_FORMAT_TYPE.VIDEO,
+            sourceMimeType: v.type,
+            sourceFileExtension: S.split(".").pop(),
+          }),
+          L =
+            (b =
+              n("cr:10296") == null
                 ? void 0
-                : n("cr:10296").transcodeVideo({
-                    file: v,
-                    onProgress: y,
-                    resetMediaPreview: f,
-                    setMediaPreview: g,
-                    setMimeType: h,
-                  });
-              if (N != null) {
-                var M = N[0],
-                  w = N[1];
-                ((v = M), (C = w), (T = { type: v.type, file: v, isGif: !1 }));
-              }
-            }
-            if ((R.markTranscoderT(), !T))
+                : n("cr:10296").isWindowsHybridTranscoderEnabled()) != null
+              ? b
+              : !1,
+          E = v.type.startsWith("video/"),
+          k = v.type === "video/mp4",
+          I = L && E && !k;
+        R.startTranscoderT();
+        var T = null;
+        if (!I) {
+          var D = !1,
+            x = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
+              E ? "video" : "audio",
+              v,
+            ),
+            $;
+          if (
+            (E
+              ? ($ = await o(
+                  "WAWebMediaAnalyzer",
+                ).transcodeToMp4AndMp4RepairMux(v, !!i, x))
+              : ($ = await o("WAWebMediaAnalyzer").checkAndRepairAudio(
+                  v,
+                  !!i,
+                  x,
+                )),
+            $.success)
+          ) {
+            var P = $.value;
+            ((T = P[0]),
+              (D = P[1]),
+              x.endSuccess(),
+              (R.transcoderAlgorithm = D
+                ? o("WAWebWamEnumVideoTranscoderAlgorithmType")
+                    .VIDEO_TRANSCODER_ALGORITHM_TYPE.WASM_MP4_CHECK_AND_REPAIR
+                : o("WAWebWamEnumVideoTranscoderAlgorithmType")
+                    .VIDEO_TRANSCODER_ALGORITHM_TYPE.WEB_MEDIA_WORKER));
+          } else x.endFailWithError($.error.error, $.error.errorDetail);
+        }
+        if (I || (!T && L)) {
+          R.transcoderAlgorithm = o(
+            "WAWebWamEnumVideoTranscoderAlgorithmType",
+          ).VIDEO_TRANSCODER_ALGORITHM_TYPE.HYBRID_BRIDGE;
+          var N = await (n("cr:10296") == null
+            ? void 0
+            : n("cr:10296").transcodeVideo({
+                file: v,
+                onProgress: y,
+                resetMediaPreview: f,
+                setMediaPreview: g,
+                setMimeType: h,
+              }));
+          if (N != null) {
+            var M = N[0],
+              w = N[1];
+            ((v = M), (C = w), (T = { type: v.type, file: v, isGif: !1 }));
+          }
+        }
+        if ((R.markTranscoderT(), !T))
+          throw (
+            R.set({
+              transcoderResult: o("WAWebWamEnumVideoTranscoderResultType")
+                .VIDEO_TRANSCODER_RESULT_TYPE.FAILED,
+            }),
+            R.commit(),
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "processRawAudioVideo bad video file ",
+                  "",
+                ])),
+              v.type,
+            ),
+            new (o("WAWebMediaFileErrors").InvalidMediaCheckRepairFailedType)()
+          );
+        var A = T.type,
+          F = T.file;
+        R.set({ targetFileSize: F.size });
+        var O = i === !0 || T.isGif === !0;
+        e: {
+          var B = o("WAWebFileUtils").typeFromMimetype(A);
+          if (B === o("WAWebFileUtils").FILETYPE.VIDEO) {
+            if (l)
               throw (
                 R.set({
                   transcoderResult: o("WAWebWamEnumVideoTranscoderResultType")
                     .VIDEO_TRANSCODER_RESULT_TYPE.FAILED,
                 }),
                 R.commit(),
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "processRawAudioVideo bad video file ",
-                      "",
-                    ])),
-                  v.type,
-                ),
-                new (o(
-                  "WAWebMediaFileErrors",
-                ).InvalidMediaCheckRepairFailedType)()
+                o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Assertion failed!",
+                      ])),
+                  )
+                  .sendLogs("media-fault: ptt became video"),
+                new (o("WAWebMediaFileErrors").InvalidMediaFileType)()
               );
-            var A = T.type,
-              F = T.file;
-            R.set({ targetFileSize: F.size });
-            var O = i === !0 || T.isGif === !0;
-            e: {
-              var B = o("WAWebFileUtils").typeFromMimetype(A);
-              if (B === o("WAWebFileUtils").FILETYPE.VIDEO) {
-                if (l)
-                  throw (
-                    R.set({
-                      transcoderResult: o(
-                        "WAWebWamEnumVideoTranscoderResultType",
-                      ).VIDEO_TRANSCODER_RESULT_TYPE.FAILED,
-                    }),
-                    R.commit(),
-                    o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "Assertion failed!",
-                          ])),
-                      )
-                      .sendLogs("media-fault: ptt became video"),
-                    new (o("WAWebMediaFileErrors").InvalidMediaFileType)()
-                  );
-                R.set({
-                  targetFormat: o("WAWebWamEnumVideoTranscoderTargetFormatType")
-                    .VIDEO_TRANSCODER_TARGET_FORMAT_TYPE.VIDEO,
-                  transcoderResult: o("WAWebWamEnumVideoTranscoderResultType")
-                    .VIDEO_TRANSCODER_RESULT_TYPE.SUCCEEDED,
-                });
-                var W = {
-                  type: o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO,
-                  mediaBlob: F,
-                  mimetype: A,
-                  isGif: O,
-                  gifAttribution: O ? m || 0 : void 0,
-                  accessibilityLabel: a,
-                  size: F.size,
-                };
-                if (
-                  _ &&
-                  _.duration != null &&
-                  _.fullHeight != null &&
-                  _.fullHeight !== 0 &&
-                  _.fullWidth != null &&
-                  _.fullWidth !== 0 &&
-                  !r("isStringNullOrEmpty")(_.preview)
-                ) {
-                  var q = _.duration;
-                  return (
-                    R.set({
-                      sourceHeight: _.fullHeight,
-                      sourceWidth: _.fullWidth,
-                      sourceDuration: q,
-                    }),
-                    R.commit(),
-                    babelHelpers.extends({}, W, {
-                      fullWidth: _.fullWidth,
-                      fullHeight: _.fullHeight,
-                      preview: _.preview,
-                      duration: q == null ? void 0 : q.toString(),
-                    })
-                  );
-                }
-                var U = yield o(
-                    "WAWebImageUtils",
-                  ).generateVideoThumbsAndDuration({
-                    file: F,
-                    maxDimensions: [
-                      o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
-                      o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE,
-                    ],
-                    debugHint: "processRawAudioVideo",
-                    logContext: {
-                      callsite: "PROCESS_RAW_AUDIO_VIDEO",
-                      mediaType: O ? "GIF" : "VIDEO",
-                    },
-                  }),
-                  V = U.duration,
-                  H = U.thumbs,
-                  G = H[0],
-                  z = H[1],
-                  j = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
-                    r("WAWebURLUtils").parseDataURL(z.url).data,
-                  );
-                return (
-                  R.set({
-                    sourceHeight: G.fullHeight,
-                    sourceWidth: G.fullWidth,
-                    sourceDuration: V,
-                  }),
-                  R.commit(),
-                  babelHelpers.extends({}, W, {
-                    fullWidth: G.fullWidth,
-                    fullHeight: G.fullHeight,
-                    preview: r("WAWebURLUtils").parseDataURL(G.url).data,
-                    fullPreviewData: j,
-                    duration: V.toString(),
-                  })
-                );
-                break e;
-              }
-              if (B === o("WAWebFileUtils").FILETYPE.AUDIO) {
-                var K,
-                  Q,
-                  X =
-                    (K = _ == null ? void 0 : _.duration) != null
-                      ? K
-                      : yield o("WAWebFileUtils").getAudioDuration(F),
-                  Y =
-                    (Q = _ == null ? void 0 : _.waveform) != null
-                      ? Q
-                      : yield o("WAWebWaveformUtils").computeWaveform(F);
-                return {
-                  type: l
-                    ? o("WAWebMediaTypes").OUTWARD_TYPES.PTT
-                    : o("WAWebMediaTypes").OUTWARD_TYPES.AUDIO,
-                  mediaBlob: F,
-                  mimetype: A,
-                  duration: X.toString(),
-                  waveform: Y,
-                };
-              }
-              if (
-                B === o("WAWebFileUtils").FILETYPE.IMAGE ||
-                B === o("WAWebFileUtils").FILETYPE.DOCUMENT ||
-                B === o("WAWebFileUtils").FILETYPE.STICKER ||
-                B === o("WAWebFileUtils").FILETYPE.STICKER_PACK
-              ) {
-                throw (
-                  R.set({
-                    transcoderResult: o("WAWebWamEnumVideoTranscoderResultType")
-                      .VIDEO_TRANSCODER_RESULT_TYPE.FAILED,
-                  }),
-                  R.commit(),
-                  o("WALogger")
-                    .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "Assertion failed!",
-                        ])),
-                    )
-                    .sendLogs("media-fault: audio/video became other"),
-                  r("err")("audio/video became " + A)
-                );
-                break e;
-              }
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  B,
-              );
-            }
-          } catch (e) {
-            throw (
-              o("WALogger").ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "processRawAudioVideo error: ",
-                    "",
-                  ])),
-                e,
-              ),
-              C && f != null && f(),
-              e
-            );
-          }
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.type;
-          if (n) {
-            if (n === "image/svg+xml")
-              throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
-                "disallowed mimetype " + n,
-              );
+            R.set({
+              targetFormat: o("WAWebWamEnumVideoTranscoderTargetFormatType")
+                .VIDEO_TRANSCODER_TARGET_FORMAT_TYPE.VIDEO,
+              transcoderResult: o("WAWebWamEnumVideoTranscoderResultType")
+                .VIDEO_TRANSCODER_RESULT_TYPE.SUCCEEDED,
+            });
+            var W = {
+              type: o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO,
+              mediaBlob: F,
+              mimetype: A,
+              isGif: O,
+              gifAttribution: O ? m || 0 : void 0,
+              accessibilityLabel: a,
+              size: F.size,
+            };
             if (
-              o("WAWebMimeTypes").DOC_MIMES === "*" ||
-              o("WAWebMimeTypes").DOC_MIMES.includes(n)
-            )
-              return n;
-            throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
-              "disallowed mimetype " + n,
-            );
-          } else {
-            var a = Math.min(
-                o("WAWebMimeTypes").MIMETYPE_DETERMINING_LENGTH,
-                e.size,
-              ),
-              i = yield h(e.slice(0, a)),
-              l = new Uint8Array(i);
-            if (
-              o("WAWebMimeTypes").isMsCompoundFileBinaryFormat(l.subarray(0, 8))
+              _ &&
+              _.duration != null &&
+              _.fullHeight != null &&
+              _.fullHeight !== 0 &&
+              _.fullWidth != null &&
+              _.fullWidth !== 0 &&
+              !r("isStringNullOrEmpty")(_.preview)
             ) {
-              var s;
-              return t != null &&
-                (s = o("WAWebFileUtils").getMimeTypeForFilepath(t)) != null
-                ? s
-                : o("WAWebMimeTypes").MSCFB_MIME;
-            }
-            var u = o("WAWebFileTypeFromBytes").fileTypeFromBytes(l);
-            if (u != null && u.mime) {
-              var c = o("WAWebMimeTypes").isAllowedDocumentMimetype(
-                u.mime,
-                t,
-                !0,
-              );
-              if (!r("isStringNullOrEmpty")(c)) return c;
-            } else if (!r("isStringNullOrEmpty")(t)) {
-              var d = o("WAWebFileUtils").getMimeTypeForFilepath(t);
-              if (!r("isStringNullOrEmpty")(d)) return d;
-            }
-            throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
-              "type: " + String(e.type) + " name: " + String(t),
-            );
-          }
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M(e, t, n, r, o, a) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l, s) {
-            var u = e.forceToBlob(),
-              c = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
-                "document",
-                u,
-              );
-            try {
-              var d,
-                m,
-                _ = o("WAWebMediaCleanFileName").cleanFilename(
-                  u.name || (t != null ? t : ""),
-                ),
-                f = yield P(u, _),
-                g = a ? o("WAWebFileUtils").blobToText(u) : null,
-                h = yield (p || (p = n("Promise"))).all([
-                  o("WAWebDocumentUploadEnrichment").enrich(u, f, s),
-                  g,
-                ]),
-                y = h[0],
-                C = h[1],
-                b = y.pdfImg,
-                v =
-                  (d =
-                    b == null || (m = b.microThumbnail) == null
-                      ? void 0
-                      : m.dataUrl) != null
-                    ? d
-                    : b == null
-                      ? void 0
-                      : b.thumbUrl,
-                S = r("isStringNullOrEmpty")(v)
-                  ? null
-                  : r("WAWebURLUtils").parseDataURL(v).data,
-                R = yield r("WAWebMediaOpaqueData").createFromData(u, f);
+              var q = _.duration;
               return (
-                c.endSuccess(),
-                {
-                  type: l,
-                  mediaBlob: R,
-                  mimetype: f,
-                  filename: _ || void 0,
-                  documentPreview: b,
-                  preview: S,
-                  fullPreviewData: b == null ? void 0 : b.fullPreviewData,
-                  fullPreviewSize: b
-                    ? { width: b.width, height: b.height }
-                    : null,
-                  pageCount: i != null ? i : b == null ? void 0 : b.pdfPages,
-                  isPasswordProtected: y.isPasswordProtected,
-                  isVcardOverMmsDocument: a,
-                  parsedVcards: C
-                    ? o("WAWebVcardParsingUtils").parseMultiVcard(C)
-                    : null,
-                }
-              );
-            } catch (e) {
-              throw (
-                c.endFailWithError(
-                  e instanceof Error ? e.name : "processRawDocumentError",
-                  e instanceof Error ? e.message : String(e),
-                ),
-                e
+                R.set({
+                  sourceHeight: _.fullHeight,
+                  sourceWidth: _.fullWidth,
+                  sourceDuration: q,
+                }),
+                R.commit(),
+                babelHelpers.extends({}, W, {
+                  fullWidth: _.fullWidth,
+                  fullHeight: _.fullHeight,
+                  preview: _.preview,
+                  duration: q == null ? void 0 : q.toString(),
+                })
               );
             }
-          },
-        )),
-        w.apply(this, arguments)
-      );
+            var U = await o("WAWebImageUtils").generateVideoThumbsAndDuration({
+                file: F,
+                maxDimensions: [
+                  o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
+                  o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE,
+                ],
+                debugHint: "processRawAudioVideo",
+                logContext: {
+                  callsite: "PROCESS_RAW_AUDIO_VIDEO",
+                  mediaType: O ? "GIF" : "VIDEO",
+                },
+              }),
+              V = U.duration,
+              H = U.thumbs,
+              G = H[0],
+              z = H[1],
+              j = await r("WAWebMediaOpaqueData").createFromBase64Jpeg(
+                r("WAWebURLUtils").parseDataURL(z.url).data,
+              );
+            return (
+              R.set({
+                sourceHeight: G.fullHeight,
+                sourceWidth: G.fullWidth,
+                sourceDuration: V,
+              }),
+              R.commit(),
+              babelHelpers.extends({}, W, {
+                fullWidth: G.fullWidth,
+                fullHeight: G.fullHeight,
+                preview: r("WAWebURLUtils").parseDataURL(G.url).data,
+                fullPreviewData: j,
+                duration: V.toString(),
+              })
+            );
+            break e;
+          }
+          if (B === o("WAWebFileUtils").FILETYPE.AUDIO) {
+            var K,
+              Q,
+              X =
+                (K = _ == null ? void 0 : _.duration) != null
+                  ? K
+                  : await o("WAWebFileUtils").getAudioDuration(F),
+              Y =
+                (Q = _ == null ? void 0 : _.waveform) != null
+                  ? Q
+                  : await o("WAWebWaveformUtils").computeWaveform(F);
+            return {
+              type: l
+                ? o("WAWebMediaTypes").OUTWARD_TYPES.PTT
+                : o("WAWebMediaTypes").OUTWARD_TYPES.AUDIO,
+              mediaBlob: F,
+              mimetype: A,
+              duration: X.toString(),
+              waveform: Y,
+            };
+          }
+          if (
+            B === o("WAWebFileUtils").FILETYPE.IMAGE ||
+            B === o("WAWebFileUtils").FILETYPE.DOCUMENT ||
+            B === o("WAWebFileUtils").FILETYPE.STICKER ||
+            B === o("WAWebFileUtils").FILETYPE.STICKER_PACK
+          ) {
+            throw (
+              R.set({
+                transcoderResult: o("WAWebWamEnumVideoTranscoderResultType")
+                  .VIDEO_TRANSCODER_RESULT_TYPE.FAILED,
+              }),
+              R.commit(),
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "Assertion failed!",
+                    ])),
+                )
+                .sendLogs("media-fault: audio/video became other"),
+              r("err")("audio/video became " + A)
+            );
+            break e;
+          }
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              B,
+          );
+        }
+      } catch (e) {
+        throw (
+          o("WALogger").ERROR(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "processRawAudioVideo error: ",
+                "",
+              ])),
+            e,
+          ),
+          C && f != null && f(),
+          e
+        );
+      }
     }
-    function A(e) {
+    async function E(e, t) {
+      var n = e.type;
+      if (n) {
+        if (n === "image/svg+xml")
+          throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
+            "disallowed mimetype " + n,
+          );
+        if (
+          o("WAWebMimeTypes").DOC_MIMES === "*" ||
+          o("WAWebMimeTypes").DOC_MIMES.includes(n)
+        )
+          return n;
+        throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
+          "disallowed mimetype " + n,
+        );
+      } else {
+        var a = Math.min(
+            o("WAWebMimeTypes").MIMETYPE_DETERMINING_LENGTH,
+            e.size,
+          ),
+          i = await g(e.slice(0, a)),
+          l = new Uint8Array(i);
+        if (
+          o("WAWebMimeTypes").isMsCompoundFileBinaryFormat(l.subarray(0, 8))
+        ) {
+          var s;
+          return t != null &&
+            (s = o("WAWebFileUtils").getMimeTypeForFilepath(t)) != null
+            ? s
+            : o("WAWebMimeTypes").MSCFB_MIME;
+        }
+        var u = o("WAWebFileTypeFromBytes").fileTypeFromBytes(l);
+        if (u != null && u.mime) {
+          var c = o("WAWebMimeTypes").isAllowedDocumentMimetype(u.mime, t, !0);
+          if (!r("isStringNullOrEmpty")(c)) return c;
+        } else if (!r("isStringNullOrEmpty")(t)) {
+          var d = o("WAWebFileUtils").getMimeTypeForFilepath(t);
+          if (!r("isStringNullOrEmpty")(d)) return d;
+        }
+        throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
+          "type: " + String(e.type) + " name: " + String(t),
+        );
+      }
+    }
+    async function k(e, t, n, a, i, l) {
+      var s = e.forceToBlob(),
+        u = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl("document", s);
+      try {
+        var c,
+          d,
+          m = o("WAWebMediaCleanFileName").cleanFilename(
+            s.name || (t != null ? t : ""),
+          ),
+          p = await E(s, m),
+          _ = n ? o("WAWebFileUtils").blobToText(s) : null,
+          f = await Promise.all([
+            o("WAWebDocumentUploadEnrichment").enrich(s, p, l),
+            _,
+          ]),
+          g = f[0],
+          h = f[1],
+          y = g.pdfImg,
+          C =
+            (c =
+              y == null || (d = y.microThumbnail) == null
+                ? void 0
+                : d.dataUrl) != null
+              ? c
+              : y == null
+                ? void 0
+                : y.thumbUrl,
+          b = r("isStringNullOrEmpty")(C)
+            ? null
+            : r("WAWebURLUtils").parseDataURL(C).data,
+          v = await r("WAWebMediaOpaqueData").createFromData(s, p);
+        return (
+          u.endSuccess(),
+          {
+            type: i,
+            mediaBlob: v,
+            mimetype: p,
+            filename: m || void 0,
+            documentPreview: y,
+            preview: b,
+            fullPreviewData: y == null ? void 0 : y.fullPreviewData,
+            fullPreviewSize: y ? { width: y.width, height: y.height } : null,
+            pageCount: a != null ? a : y == null ? void 0 : y.pdfPages,
+            isPasswordProtected: g.isPasswordProtected,
+            isVcardOverMmsDocument: n,
+            parsedVcards: h
+              ? o("WAWebVcardParsingUtils").parseMultiVcard(h)
+              : null,
+          }
+        );
+      } catch (e) {
+        throw (
+          u.endFailWithError(
+            e instanceof Error ? e.name : "processRawDocumentError",
+            e instanceof Error ? e.message : String(e),
+          ),
+          e
+        );
+      }
+    }
+    function I(e) {
       var t = [];
       function n(e) {
         (e.retain(), t.push(e));
@@ -774,115 +667,90 @@ __d(
           for (var e = 0; e < t.length; e++) t[e].autorelease();
         });
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    async function T(e) {
+      var t = await r("WAWebNetworkGetResponseIfOnline")({
+        data: null,
+        method: "GET",
+        responseType: o("WAWebXHR").RESP_TYPE.ARRAY_BUFFER,
+        url: e,
+      });
+      return t
+        ? Promise.resolve({ result: t.response, status: t.status })
+        : Promise.resolve(null);
     }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebNetworkGetResponseIfOnline")({
-            data: null,
-            method: "GET",
-            responseType: o("WAWebXHR").RESP_TYPE.ARRAY_BUFFER,
-            url: e,
-          });
-          return t
-            ? (p || (p = n("Promise"))).resolve({
-                result: t.response,
-                status: t.status,
-              })
-            : (p || (p = n("Promise"))).resolve(null);
-        })),
-        O.apply(this, arguments)
-      );
-    }
-    function B() {
+    function D() {
       return !!o("WAWebMediaLoad").canPlayOgg;
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
-    }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.retain();
-          var n, a;
-          try {
-            switch (e.type) {
-              case o("WAWebMediaTypes").TYPE.VIDEO:
-              case o("WAWebMediaTypes").TYPE.PTV: {
-                var i = t.forceToBlob(),
-                  l = yield o("WAWebImageUtils").generateVideoThumbsAndDuration(
-                    {
-                      file: i,
-                      maxDimensions: [
-                        o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE,
-                      ],
-                      debugHint: "attachBlobAndGatherAndSetMetadata",
-                      logContext: {
-                        callsite: "GATHER_AND_SET_METADATA",
-                        mediaType:
-                          e.type === o("WAWebMediaTypes").TYPE.PTV
-                            ? "PTV"
-                            : "VIDEO",
-                      },
-                    },
-                  ),
-                  s = l.thumbs,
-                  u = s[0],
-                  c = l.duration,
-                  d = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
-                    r("WAWebURLUtils").parseDataURL(u.url).data,
-                  );
-                n = {
-                  mediaBlob: t,
-                  renderableUrl: t.url(),
-                  fullWidth: u.fullWidth,
-                  fullHeight: u.fullHeight,
-                  duration: c !== void 0 ? "" + Math.ceil(c) : void 0,
-                  fullPreviewData: d,
-                };
-                break;
-              }
-              case o("WAWebMediaTypes").TYPE.AUDIO: {
-                var p = yield R(t);
-                (p.retain(),
-                  (n = { mediaBlob: p, renderableUrl: p.url() }),
-                  (a = function () {
-                    return p.autorelease();
-                  }));
-                break;
-              }
-              default:
-                ((e.type === o("WAWebMediaTypes").TYPE.IMAGE ||
-                  e.type === o("WAWebMediaTypes").TYPE.STICKER) &&
-                  o("WALogger")
-                    .ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "object type: ",
-                          "",
-                        ])),
-                      e.type || "",
-                    )
-                    .sendLogs(
-                      "Entering gatherAndSetMetadata (with OpaqueData) unexpectedly",
-                    ),
-                  (n = { mediaBlob: t, renderableUrl: t.url() }));
-            }
-            e.consolidate(n);
-          } catch (n) {
-            if (n instanceof o("WAWebMediaLoadErrors").MediaUnsupportedError)
-              e.consolidate({ mediaBlob: t, renderableUrl: t.url() });
-            else throw n;
-          } finally {
-            (t.autorelease(), a != null && a());
+    async function x(e, t) {
+      t.retain();
+      var n, a;
+      try {
+        switch (e.type) {
+          case o("WAWebMediaTypes").TYPE.VIDEO:
+          case o("WAWebMediaTypes").TYPE.PTV: {
+            var i = t.forceToBlob(),
+              l = await o("WAWebImageUtils").generateVideoThumbsAndDuration({
+                file: i,
+                maxDimensions: [o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE],
+                debugHint: "attachBlobAndGatherAndSetMetadata",
+                logContext: {
+                  callsite: "GATHER_AND_SET_METADATA",
+                  mediaType:
+                    e.type === o("WAWebMediaTypes").TYPE.PTV ? "PTV" : "VIDEO",
+                },
+              }),
+              s = l.thumbs,
+              u = s[0],
+              c = l.duration,
+              d = await r("WAWebMediaOpaqueData").createFromBase64Jpeg(
+                r("WAWebURLUtils").parseDataURL(u.url).data,
+              );
+            n = {
+              mediaBlob: t,
+              renderableUrl: t.url(),
+              fullWidth: u.fullWidth,
+              fullHeight: u.fullHeight,
+              duration: c !== void 0 ? "" + Math.ceil(c) : void 0,
+              fullPreviewData: d,
+            };
+            break;
           }
-        })),
-        q.apply(this, arguments)
-      );
+          case o("WAWebMediaTypes").TYPE.AUDIO: {
+            var p = await b(t);
+            (p.retain(),
+              (n = { mediaBlob: p, renderableUrl: p.url() }),
+              (a = function () {
+                return p.autorelease();
+              }));
+            break;
+          }
+          default:
+            ((e.type === o("WAWebMediaTypes").TYPE.IMAGE ||
+              e.type === o("WAWebMediaTypes").TYPE.STICKER) &&
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "object type: ",
+                      "",
+                    ])),
+                  e.type || "",
+                )
+                .sendLogs(
+                  "Entering gatherAndSetMetadata (with OpaqueData) unexpectedly",
+                ),
+              (n = { mediaBlob: t, renderableUrl: t.url() }));
+        }
+        e.consolidate(n);
+      } catch (n) {
+        if (n instanceof o("WAWebMediaLoadErrors").MediaUnsupportedError)
+          e.consolidate({ mediaBlob: t, renderableUrl: t.url() });
+        else throw n;
+      } finally {
+        (t.autorelease(), a != null && a());
+      }
     }
-    function U(e) {
+    function $(e) {
       return (
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER ||
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE ||
@@ -896,7 +764,7 @@ __d(
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_AUDIO
       );
     }
-    function V(e) {
+    function P(e) {
       var t =
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER ||
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE ||
@@ -923,8 +791,8 @@ __d(
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_VIDEO;
       return t || n;
     }
-    function H(e, t) {
-      return new (p || (p = n("Promise")))(function (n) {
+    function N(e, t) {
+      return new Promise(function (n) {
         var r = new Image();
         (r.setAttribute("crossorigin", "anonymous"),
           (r.onload = function () {
@@ -970,7 +838,7 @@ __d(
           (r.src = e));
       });
     }
-    function G(e) {
+    function M(e) {
       return e
         ? e.fullPreviewData
           ? e.fullPreviewData.url()
@@ -979,24 +847,24 @@ __d(
             : null
         : null;
     }
-    ((l.getImageWidthHeight = f),
-      (l.getImageWidthHeightNoOpaque = g),
-      (l.opaqueDataToArrayBuffer = y),
-      (l.decodeWebpToRGBANoOpaque = C),
-      (l.parseWebpNoOpaque = v),
-      (l.getImageMetadata = L),
-      (l.processRawImage = k),
-      (l.processRawSticker = T),
-      (l.processRawAudioVideo = x),
-      (l.getRawDocumentMimetype = P),
-      (l.processRawDocument = M),
-      (l.fetchMedia = F),
-      (l.canPlayOgg = B),
-      (l.attachBlobAndGatherAndSetMetadata = W),
-      (l.shouldUseMediaCache = U),
-      (l.shouldUseLruMediaStore = V),
-      (l.getResizedThumbData = H),
-      (l.getHighestQualityThumbnailUrl = G));
+    ((l.getImageWidthHeight = _),
+      (l.getImageWidthHeightNoOpaque = f),
+      (l.opaqueDataToArrayBuffer = h),
+      (l.decodeWebpToRGBANoOpaque = y),
+      (l.parseWebpNoOpaque = C),
+      (l.getImageMetadata = v),
+      (l.processRawImage = S),
+      (l.processRawSticker = R),
+      (l.processRawAudioVideo = L),
+      (l.getRawDocumentMimetype = E),
+      (l.processRawDocument = k),
+      (l.fetchMedia = T),
+      (l.canPlayOgg = D),
+      (l.attachBlobAndGatherAndSetMetadata = x),
+      (l.shouldUseMediaCache = $),
+      (l.shouldUseLruMediaStore = P),
+      (l.getResizedThumbData = N),
+      (l.getHighestQualityThumbnailUrl = M));
   },
   98,
 );

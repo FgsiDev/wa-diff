@@ -26,7 +26,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebL10N",
     "WAWebMsgGetters",
-    "WAWebMsgModelUtils",
+    "WAWebMsgNotificationPreview",
     "WAWebMsgType",
     "WAWebPollCreationUtils",
     "WAWebSpoilerNotificationMask",
@@ -50,7 +50,9 @@ __d(
         a,
         i,
         l,
-        m = o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e),
+        m = o("WAWebMsgNotificationPreview").shouldShowMsgNotificationPreview(
+          e,
+        ),
         _ = e.safe(),
         f = "";
       if (p && !m) return p().toString();
@@ -386,6 +388,9 @@ __d(
           ]);
           break;
         }
+        case "music":
+          f = s._(/*BTDS*/ "Sent music");
+          break;
         case "album": {
           var te = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCF7 " : "",
             ne = r("WAWebAlbumsFormatAlbumMessageText")({

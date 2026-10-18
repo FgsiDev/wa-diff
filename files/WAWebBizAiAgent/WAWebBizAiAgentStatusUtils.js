@@ -17,7 +17,6 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
-    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebEventTargetValue",
     "useWAWebListener",
@@ -113,15 +112,12 @@ __d(
       return g(e) || b(e);
     }
     function S(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [o("WAWebChatGetters").getCapiThreadControl]), (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebChatValues").useChatValues(e, n),
-        a = r[0];
+      var t = o("useWAWebChatValues").useChatValues(e, [
+          o("WAWebChatGetters").getCapiThreadControl,
+        ]),
+        n = t[0];
       return (
-        a ===
+        n ===
         o("WAWebProtobufsE2E.pb")
           .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
           .CONTROL_TAKEN

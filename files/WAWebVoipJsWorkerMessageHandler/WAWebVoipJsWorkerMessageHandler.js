@@ -756,6 +756,7 @@ __d(
             t.relayGeneration,
             t.attemptId,
             t.sendRing,
+            t.datagramConfig,
           );
         else if (t.jsWorkerCmd === "resetWebTransportDatagramHealth")
           o(

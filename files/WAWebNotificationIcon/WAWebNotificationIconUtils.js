@@ -11,7 +11,6 @@ __d(
     "WAWebNotificationTone",
     "WAWebProfilePicThumbCollection",
     "WAWebProfilePicThumbGetters",
-    "asyncToGeneratorRuntime",
     "bx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,18 +27,10 @@ __d(
           ? c
           : d;
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    async function _(e, t, n) {
+      return e.isLocked ? u : f(e.id, t, n != null ? n : p(e));
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return e.isLocked ? u : g(e.id, t, n != null ? n : p(e));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(t, n, a) {
+    function f(t, n, a) {
       return o("WAPromiseTimeout")
         .promiseTimeout(
           r("WAPromiseRaceAbort")(
@@ -83,7 +74,7 @@ __d(
       (l.USER_DEFAULT_ICON = d),
       (l.getDefaultChatNotificationIcon = p),
       (l.getChatNotificationIcon = _),
-      (l.getNotificationIconByWid = g));
+      (l.getNotificationIconByWid = f));
   },
   98,
 );

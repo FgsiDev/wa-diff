@@ -1,1 +1,67 @@
-__d("WACryptoLtHash",["Promise","WACryptoHkdf","asyncToGeneratorRuntime"],(function(t,n,r,o,a,i,l){"use strict";var e,s=2,u=128,c=new ArrayBuffer(u),d=(function(){function t(e){this.salt=e}var r=t.prototype;return r.add=function(r,o){var t=this;return o.reduce((function(){var e=n("asyncToGeneratorRuntime").asyncToGenerator(function*(e,n){return t.$1(yield e,n)});return function(t,n){return e.apply(this,arguments)}})(),(e||(e=n("Promise"))).resolve(r))},r.subtract=function(r,o){var t=this;return o.reduce((function(){var e=n("asyncToGeneratorRuntime").asyncToGenerator(function*(e,n){return t.$2(yield e,n)});return function(t,n){return e.apply(this,arguments)}})(),(e||(e=n("Promise"))).resolve(r))},r.subtractThenAdd=(function(){var e=n("asyncToGeneratorRuntime").asyncToGenerator(function*(e,t,n){var r=yield this.subtract(e,n),o=yield this.add(r,t);return{ltHash:o,subtractResult:r}});function t(t,n,r){return e.apply(this,arguments)}return t})(),r.$1=(function(){var e=n("asyncToGeneratorRuntime").asyncToGenerator(function*(e,t){var n=yield o("WACryptoHkdf").extractAndExpand(t,this.salt,u);return this.performPointwiseWithOverflow(e,n,function(e,t){return e+t})});function t(t,n){return e.apply(this,arguments)}return t})(),r.$2=(function(){var e=n("asyncToGeneratorRuntime").asyncToGenerator(function*(e,t){var n=yield o("WACryptoHkdf").extractAndExpand(t,this.salt,u);return this.performPointwiseWithOverflow(e,n,function(e,t){return e-t})});function t(t,n){return e.apply(this,arguments)}return t})(),r.performPointwiseWithOverflow=function(t,n,r){for(var e=new DataView(t),o=new DataView(n),a=new ArrayBuffer(e.byteLength),i=new DataView(a),l=0;l<e.byteLength;l+=s)i.setUint16(l,r(e.getUint16(l,!0),o.getUint16(l,!0)),!0);return a},t})(),m=new d("WhatsApp Patch Integrity");l.KEY_LENGTH_BYTES=u,l.EMPTY_LT_HASH=c,l.LtHash16=d,l.LT_HASH_ANTI_TAMPERING=m}),98);
+__d(
+  "WACryptoLtHash",
+  ["WACryptoHkdf"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = 2,
+      s = 128,
+      u = new ArrayBuffer(s),
+      c = (function () {
+        function t(e) {
+          this.salt = e;
+        }
+        var n = t.prototype;
+        return (
+          (n.add = function (t, n) {
+            var e = this;
+            return n.reduce(async function (t, n) {
+              return e.$1(await t, n);
+            }, Promise.resolve(t));
+          }),
+          (n.subtract = function (t, n) {
+            var e = this;
+            return n.reduce(async function (t, n) {
+              return e.$2(await t, n);
+            }, Promise.resolve(t));
+          }),
+          (n.subtractThenAdd = async function (t, n, r) {
+            var e = await this.subtract(t, r),
+              o = await this.add(e, n);
+            return { ltHash: o, subtractResult: e };
+          }),
+          (n.$1 = async function (t, n) {
+            var e = await o("WACryptoHkdf").extractAndExpand(n, this.salt, s);
+            return this.performPointwiseWithOverflow(t, e, function (e, t) {
+              return e + t;
+            });
+          }),
+          (n.$2 = async function (t, n) {
+            var e = await o("WACryptoHkdf").extractAndExpand(n, this.salt, s);
+            return this.performPointwiseWithOverflow(t, e, function (e, t) {
+              return e - t;
+            });
+          }),
+          (n.performPointwiseWithOverflow = function (n, r, o) {
+            for (
+              var t = new DataView(n),
+                a = new DataView(r),
+                i = new ArrayBuffer(t.byteLength),
+                l = new DataView(i),
+                s = 0;
+              s < t.byteLength;
+              s += e
+            )
+              l.setUint16(s, o(t.getUint16(s, !0), a.getUint16(s, !0)), !0);
+            return i;
+          }),
+          t
+        );
+      })(),
+      d = new c("WhatsApp Patch Integrity");
+    ((l.KEY_LENGTH_BYTES = s),
+      (l.EMPTY_LT_HASH = u),
+      (l.LtHash16 = c),
+      (l.LT_HASH_ANTI_TAMPERING = d));
+  },
+  98,
+);

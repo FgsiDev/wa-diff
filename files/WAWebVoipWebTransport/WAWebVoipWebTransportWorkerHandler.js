@@ -11,82 +11,110 @@ __d(
     "use strict";
     var e = 262144,
       s = 20,
-      u = 20,
-      c = 256,
-      d = 16,
-      m = 0,
-      p = 256,
-      _ = 272,
-      f = 2049,
-      g = 2050,
-      h = 2052,
-      y = 2053,
-      C = new Set([f, h]),
-      b = new Set([g, y]),
-      v = 3e4,
-      S = 32,
-      R = new Map(),
-      L = 0,
-      E = null,
-      k = 0,
-      I = 0;
-    function T() {
+      u = 512,
+      c = 64;
+    function d(e, t, n) {
+      (t > 0 && "incomingMaxBufferedDatagrams" in e
+        ? (e.incomingMaxBufferedDatagrams = t)
+        : t > 0 &&
+          "incomingHighWaterMark" in e &&
+          (e.incomingHighWaterMark = t),
+        n > 0 && "outgoingMaxBufferedDatagrams" in e
+          ? (e.outgoingMaxBufferedDatagrams = n)
+          : n > 0 &&
+            "outgoingHighWaterMark" in e &&
+            (e.outgoingHighWaterMark = n));
+    }
+    function m(e, t) {
+      if (!(t <= 0 || !("outgoingMaxAge" in e)))
+        try {
+          e.outgoingMaxAge = t;
+        } catch (e) {}
+    }
+    function p(e) {
+      try {
+        var t = e.maxDatagramSize;
+        return typeof t == "number" && Number.isFinite(t) && t > 0 ? t : null;
+      } catch (e) {
+        return null;
+      }
+    }
+    var _ = 20,
+      f = 256,
+      g = 16,
+      h = 0,
+      y = 256,
+      C = 272,
+      b = 2049,
+      v = 2050,
+      S = 2052,
+      R = 2053,
+      L = new Set([b, S]),
+      E = new Set([v, R]),
+      k = 3e4,
+      I = 32,
+      T = new Map(),
+      D = 0,
+      x = null,
+      $ = 0,
+      P = 0;
+    function N() {
       var e = globalThis.performance;
       if (e == null) return Date.now();
       var t = e.timeOrigin;
       return typeof t == "number" && t > 0 ? t + e.now() : Date.now();
     }
-    function D(e) {
+    function M(e) {
       return (
-        e.byteLength >= u &&
+        e.byteLength >= _ &&
         e[4] === 33 &&
         e[5] === 18 &&
         e[6] === 164 &&
         e[7] === 66
       );
     }
-    function x(e) {
+    function w(e) {
       return e[0] * 256 + e[1];
     }
-    function $(e) {
-      return (Math.floor(e / c) % 2) * c + (Math.floor(e / d) % 2) * d;
+    function A(e) {
+      return (Math.floor(e / f) % 2) * f + (Math.floor(e / g) % 2) * g;
     }
-    function P(e) {
-      return b.has(e) ? !1 : C.has(e) || $(e) === m;
+    function F(e) {
+      return E.has(e) ? !1 : L.has(e) || A(e) === h;
     }
-    function N(e) {
-      if (b.has(e)) return !0;
-      var t = $(e);
-      return t === p || t === _;
+    function O(e) {
+      if (E.has(e)) return !0;
+      var t = A(e);
+      return t === y || t === C;
     }
-    function M(e) {
-      for (var t = "", n = 8; n < u; n++)
+    function B(e) {
+      for (var t = "", n = 8; n < _; n++)
         t += e[n].toString(16).padStart(2, "0");
       return t;
     }
-    function w(e, t) {
+    function W(e, t) {
       for (var n of e) {
         var r = n[0],
           o = n[1];
-        if (t - o < v) break;
+        if (t - o < k) break;
         e.delete(r);
       }
-      for (; e.size >= S; ) {
+      for (; e.size >= I; ) {
         var a = e.keys().next().value;
         if (a == null) return;
         e.delete(a);
       }
     }
-    function A(e, t, n) {
-      if (!(!D(t) || !P(x(t)))) {
+    function q(e, t, n) {
+      if (!(!M(t) || !F(w(t)))) {
         var r = e.pendingStunRequests,
-          o = M(t);
-        (r.delete(o), w(r, n), r.set(o, n));
+          o = B(t);
+        (r.delete(o), W(r, n), r.set(o, n));
       }
     }
-    function F(e, t, n, r) {
-      if (!(!D(n) || !N(x(n)))) {
-        var a = M(n),
+    function U(e, t, n, r) {
+      if (!(!M(n) || !O(w(n)))) {
+        var a = B(n),
           i = t.pendingStunRequests.get(a);
         if (i != null) {
           t.pendingStunRequests.delete(a);
@@ -106,9 +134,9 @@ __d(
         }
       }
     }
-    function O() {
+    function V() {
       var e = 0;
-      for (var t of R.values()) {
+      for (var t of T.values()) {
         var n, r;
         e +=
           t.pendingDatagramBytes +
@@ -121,27 +149,27 @@ __d(
       }
       return e;
     }
-    function B() {
-      L = Math.max(L, O());
+    function H() {
+      D = Math.max(D, V());
     }
-    function W() {
-      for (var e of R.values()) return e.voipWasm;
+    function G() {
+      for (var e of T.values()) return e.voipWasm;
       return null;
     }
-    function q() {
-      E != null &&
-        (self.clearInterval(E), (E = null), (L = 0), (k = 0), (I = 0));
+    function z() {
+      x != null &&
+        (self.clearInterval(x), (x = null), (D = 0), ($ = 0), (P = 0));
     }
-    function U() {
-      var e = O(),
-        t = Math.max(L, e);
-      if (((L = e), !(t === 0 && e === 0 && k === 0 && I === 0))) {
-        var n = W();
+    function j() {
+      var e = V(),
+        t = Math.max(D, e);
+      if (((D = e), !(t === 0 && e === 0 && $ === 0 && P === 0))) {
+        var n = G();
         if (n != null)
           try {
-            (n.updateSctpBufferedAmount(t, e), (k = t), (I = e));
+            (n.updateSctpBufferedAmount(t, e), ($ = t), (P = e));
           } catch (e) {
-            (q(),
+            (z(),
               o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
                 1,
                 "voip: [WebTransportThread] Failed to publish buffered amount: " +
@@ -150,19 +178,19 @@ __d(
           }
       }
     }
-    function V() {
-      E == null && ((L = O()), (E = self.setInterval(U, s)));
+    function K() {
+      x == null && ((D = V()), (x = self.setInterval(j, s)));
     }
-    function H() {
-      E == null || R.size > 0 || q();
+    function Q() {
+      x == null || T.size > 0 || z();
     }
-    function G(e) {
+    function X(e) {
       r("SecurePostMessage").sendMessageForCurrentOrigin(
         self,
         babelHelpers.extends({ type: "webTransportState" }, e),
       );
     }
-    function z(e) {
+    function Y(e) {
       var t = function (n) {
           if (e != null && typeof e == "object" && n in e) return e[n];
         },
@@ -179,17 +207,17 @@ __d(
         streamErrorCode: typeof i == "number" ? i : null,
       };
     }
-    function j(e, t, n) {
+    function J(e, t, n) {
       if (n == null) return !1;
       var r = o(
         "WAWebVoipWebTransportSendRingBuffer",
       ).createWebTransportSendRingConsumer(
         n,
         function (t) {
-          oe(e, t);
+          ue(e, t);
         },
         function (t) {
-          var n = z(t);
+          var n = Y(t);
           o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
             1,
             "voip: [WebTransportThread] Send ring handler failed on " +
@@ -211,7 +239,7 @@ __d(
           !1)
         : ((t.sendRingConsumer = r), r.start(), !0);
     }
-    function K(e, t) {
+    function Z(e, t) {
       var n = t.sendRingConsumer;
       if (n != null) {
         ((t.sendRingConsumer = null), n.stop());
@@ -229,15 +257,15 @@ __d(
         );
       }
     }
-    function Q(e) {
+    function ee(e) {
       var t = e.connectionId,
         n = e.state,
         r = e.voipWasm;
       if (!n.cleaned) {
         ((n.cleaned = !0),
           (n.closing = !0),
-          R.get(t) === n && R.delete(t),
-          K(t, n),
+          T.get(t) === n && T.delete(t),
+          Z(t, n),
           (n.sendQueue = []),
           (n.queuedBytes = 0),
           (n.pendingDatagramBytes = 0),
@@ -254,13 +282,13 @@ __d(
         try {
           n.transport.close();
         } catch (e) {}
-        ((n.reader = null), (n.writer = null), H());
+        ((n.reader = null), (n.writer = null), Q());
       }
     }
-    function X(e, t, n, r, a) {
+    function te(e, t, n, r, a) {
       (n.stats.receivedPackets++,
         (n.stats.receivedBytes += r.byteLength),
-        F(e, n, r, a),
+        U(e, n, r, a),
         n.hasReceivedFirstDatagram ||
           ((n.hasReceivedFirstDatagram = !0),
           o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
@@ -270,7 +298,7 @@ __d(
               ", size=" +
               r.byteLength,
           ),
-          G({
+          X({
             connectionId: t,
             attemptId: n.attemptId,
             event: "first_datagram",
@@ -288,56 +316,58 @@ __d(
       (e.GROWABLE_HEAP_U8().set(r, i),
         e.handleOnMessageFromHeap(i, r.byteLength, n.ip, n.port));
     }
-    function Y(e, t, n) {
-      return J.apply(this, arguments);
+    function ne(e, t, n) {
+      return re.apply(this, arguments);
     }
-    function J() {
+    function re() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = n.transport.datagrams.readable.getReader();
-          n.reader = r;
-          try {
-            for (; !n.closing; ) {
-              var o = yield r.read(),
-                a = o.done,
-                i = o.value,
-                l = T();
-              if (a) {
-                !n.cleaned &&
-                  R.get(t) === n &&
-                  (G({
-                    connectionId: t,
-                    attemptId: n.attemptId,
-                    event: "closed",
-                    stats: n.stats,
-                  }),
-                  Q({ connectionId: t, state: n, voipWasm: e }));
-                return;
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            var r = n.transport.datagrams.readable.getReader();
+            n.reader = r;
+            try {
+              for (; !n.closing; ) {
+                var o = yield r.read(),
+                  a = o.done,
+                  i = o.value,
+                  l = N();
+                if (a) {
+                  !n.cleaned &&
+                    T.get(t) === n &&
+                    (X({
+                      connectionId: t,
+                      attemptId: n.attemptId,
+                      event: "closed",
+                      stats: n.stats,
+                    }),
+                    ee({ connectionId: t, state: n, voipWasm: e }));
+                  return;
+                }
+                i != null && te(e, t, n, i, l);
               }
-              i != null && X(e, t, n, i, l);
+            } catch (r) {
+              !n.closing &&
+                T.get(t) === n &&
+                (X({
+                  connectionId: t,
+                  attemptId: n.attemptId,
+                  event: "error",
+                  error: Y(r),
+                  stats: n.stats,
+                }),
+                ee({ connectionId: t, state: n, voipWasm: e }));
             }
-          } catch (r) {
-            !n.closing &&
-              R.get(t) === n &&
-              (G({
-                connectionId: t,
-                attemptId: n.attemptId,
-                event: "error",
-                error: z(r),
-                stats: n.stats,
-              }),
-              Q({ connectionId: t, state: n, voipWasm: e }));
-          }
-        })),
-        J.apply(this, arguments)
+          },
+        )),
+        re.apply(this, arguments)
       );
     }
-    function Z(e, t) {
-      return ee.apply(this, arguments);
+    function oe(e, t) {
+      return ae.apply(this, arguments);
     }
-    function ee() {
+    function ae() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (!t.draining) {
             t.draining = !0;
             try {
@@ -354,16 +384,16 @@ __d(
                     var o = new Uint8Array(n),
                       a = t.relayGeneration;
                     yield r.write(o);
-                    var i = T(),
-                      l = D(o);
-                    (A(t, o, i),
+                    var i = N(),
+                      l = M(o);
+                    (q(t, o, i),
                       t.stats.sentPackets++,
                       (t.stats.sentBytes += n.byteLength),
                       t.relayGeneration === a &&
                         !t.hasSentStunTraffic &&
                         l &&
                         ((t.hasSentStunTraffic = !0),
-                        G({
+                        X({
                           connectionId: e,
                           attemptId: t.attemptId,
                           event: "first_stun_datagram_sent",
@@ -373,7 +403,7 @@ __d(
                         !t.hasSentRelayTraffic &&
                         !l &&
                         ((t.hasSentRelayTraffic = !0),
-                        G({
+                        X({
                           connectionId: e,
                           attemptId: t.attemptId,
                           event: "first_relay_datagram_sent",
@@ -386,7 +416,7 @@ __d(
                       0,
                       t.pendingDatagramBytes - n.byteLength,
                     )),
-                      B());
+                      H());
                   }
                 }
               }
@@ -395,20 +425,20 @@ __d(
             }
           }
         })),
-        ee.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    function te(e, t, n, r, o, a, i, l) {
-      return ne.apply(this, arguments);
+    function ie(e, t, n, r, o, a, i, l, s) {
+      return le.apply(this, arguments);
     }
-    function ne() {
+    function le() {
       return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s) {
-            if (!R.has(t)) {
-              var u = self.WebTransport;
-              if (u == null) {
-                G({
+        (le = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a, i, l, s, _) {
+            if (!T.has(t)) {
+              var f = self.WebTransport;
+              if (f == null) {
+                X({
                   connectionId: t,
                   attemptId: l,
                   event: "error",
@@ -422,12 +452,30 @@ __d(
                 });
                 return;
               }
-              var c = null,
-                d = null;
+              var g = null,
+                h = null;
               try {
-                c = new u(n);
-                var m = {
-                  transport: c,
+                var y, C, b;
+                ((g = new f(n)),
+                  d(
+                    g.datagrams,
+                    (y = _ == null ? void 0 : _.incomingMaxBufferedDatagrams) !=
+                      null
+                      ? y
+                      : u,
+                    (C = _ == null ? void 0 : _.outgoingMaxBufferedDatagrams) !=
+                      null
+                      ? C
+                      : c,
+                  ),
+                  m(
+                    g.datagrams,
+                    (b = _ == null ? void 0 : _.outgoingMaxAgeMs) != null
+                      ? b
+                      : 0,
+                  ));
+                var v = {
+                  transport: g,
                   reader: null,
                   writer: null,
                   ip: r,
@@ -460,81 +508,101 @@ __d(
                   },
                 };
                 if (
-                  ((d = m),
-                  R.set(t, m),
-                  yield c.ready,
-                  m.closing || R.get(t) !== m)
+                  ((h = v),
+                  T.set(t, v),
+                  yield g.ready,
+                  v.closing || T.get(t) !== v)
                 )
                   return;
-                ((m.writer = c.datagrams.writable.getWriter()),
-                  (m.opened = !0),
-                  V());
-                var p = j(t, m, s);
-                (G({
+                var S = p(g.datagrams);
+                (S != null &&
+                  ((v.stats.maxDatagramSize = S),
+                  o("WAWebVoipJsWorkerMessageHandlerHelpers").logToPhysicalLogs(
+                    3,
+                    "voip: [WebTransportThread] Max datagram size on " +
+                      t +
+                      ": " +
+                      S,
+                  )),
+                  (v.writer = g.datagrams.writable.getWriter()),
+                  (v.opened = !0),
+                  K());
+                var R = J(t, v, s);
+                (X({
                   connectionId: t,
                   attemptId: l,
                   event: "open",
-                  sendRingReady: p,
+                  sendRingReady: R,
                 }),
-                  Y(e, t, m),
-                  c.closed
+                  ne(e, t, v),
+                  g.closed
                     .then(function () {
-                      !m.closing &&
-                        R.get(t) === m &&
-                        (G({
+                      !v.closing &&
+                        T.get(t) === v &&
+                        (X({
                           connectionId: t,
                           attemptId: l,
                           event: "closed",
-                          stats: m.stats,
+                          stats: v.stats,
                         }),
-                        Q({ connectionId: t, state: m, voipWasm: e }));
+                        ee({ connectionId: t, state: v, voipWasm: e }));
                     })
                     .catch(function (n) {
-                      !m.closing &&
-                        R.get(t) === m &&
-                        (G({
+                      !v.closing &&
+                        T.get(t) === v &&
+                        (X({
                           connectionId: t,
                           attemptId: l,
                           event: "error",
-                          error: z(n),
-                          stats: m.stats,
+                          error: Y(n),
+                          stats: v.stats,
                         }),
-                        Q({ connectionId: t, state: m, voipWasm: e }));
+                        ee({ connectionId: t, state: v, voipWasm: e }));
                     }));
               } catch (n) {
-                var _;
-                if (d != null) {
-                  var f = !d.cleaned && R.get(t) === d;
-                  if ((Q({ connectionId: t, state: d, voipWasm: e }), !f))
+                var L;
+                if (h != null) {
+                  var E = !h.cleaned && T.get(t) === h;
+                  if ((ee({ connectionId: t, state: h, voipWasm: e }), !E))
                     return;
-                } else if (c != null)
+                } else if (g != null)
                   try {
-                    c.close();
+                    g.close();
                   } catch (e) {}
-                G({
+                X({
                   connectionId: t,
                   attemptId: l,
                   event: "error",
-                  error: z(n),
-                  stats: (_ = d) == null ? void 0 : _.stats,
+                  error: Y(n),
+                  stats: (L = h) == null ? void 0 : L.stats,
                 });
               }
             }
           },
         )),
-        ne.apply(this, arguments)
+        le.apply(this, arguments)
       );
     }
-    function re(e) {
-      for (var t of R.values())
+    function se(e) {
+      for (var t of T.values())
         ((t.hasReceivedFirstDatagram = !1),
           (t.hasSentStunTraffic = !1),
           (t.hasSentRelayTraffic = !1),
           (t.relayGeneration = e));
     }
-    function oe(t, n) {
-      var r = R.get(t);
+    function ue(t, n) {
+      var r = T.get(t);
       if (!(r == null || !r.opened || r.closing)) {
+        var o = p(r.transport.datagrams);
+        if (o != null && ((r.stats.maxDatagramSize = o), n.byteLength > o)) {
+          var a, i;
+          (r.stats.droppedPackets++,
+            (r.stats.oversizedPackets =
+              ((a = r.stats.oversizedPackets) != null ? a : 0) + 1),
+            (r.stats.oversizedBytes =
+              ((i = r.stats.oversizedBytes) != null ? i : 0) + n.byteLength));
+          return;
+        }
         if (r.queuedBytes + n.byteLength > e) {
           r.stats.droppedPackets++;
           return;
@@ -542,41 +610,41 @@ __d(
         (r.sendQueue.push(n),
           (r.queuedBytes += n.byteLength),
           (r.pendingDatagramBytes += n.byteLength),
-          B(),
-          Z(t, r));
+          H(),
+          oe(t, r));
       }
     }
-    function ae(e, t) {
+    function ce(e, t) {
       if (t != null) {
-        var n = R.get(t);
+        var n = T.get(t);
         n != null &&
           ((n.closing = !0),
-          G({
+          X({
             connectionId: t,
             attemptId: n.attemptId,
             event: "closed",
             stats: n.stats,
           }),
-          Q({ connectionId: t, state: n, voipWasm: e }));
+          ee({ connectionId: t, state: n, voipWasm: e }));
         return;
       }
-      for (var r of Array.from(R.entries())) {
+      for (var r of Array.from(T.entries())) {
         var o = r[0],
           a = r[1];
         ((a.closing = !0),
-          G({
+          X({
             connectionId: o,
             attemptId: a.attemptId,
             event: "closed",
             stats: a.stats,
           }),
-          Q({ connectionId: o, state: a, voipWasm: e }));
+          ee({ connectionId: o, state: a, voipWasm: e }));
       }
     }
-    ((l.openWebTransport = te),
-      (l.resetWebTransportDatagramHealth = re),
-      (l.sendWebTransportDatagram = oe),
-      (l.closeWebTransport = ae));
+    ((l.openWebTransport = ie),
+      (l.resetWebTransportDatagramHealth = se),
+      (l.sendWebTransportDatagram = ue),
+      (l.closeWebTransport = ce));
   },
   98,
 );

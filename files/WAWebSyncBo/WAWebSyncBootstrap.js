@@ -2,7 +2,6 @@ __d(
   "WAWebSyncBootstrap",
   [
     "$InternalEnum",
-    "Promise",
     "QPLFlow",
     "WAJobOrchestratorTypes",
     "WALogger",
@@ -49,7 +48,6 @@ __d(
     "WAWebWamMemoryStat",
     "WAWebWindowsHybridBridgeInitiator",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
     "cr:17219",
     "getErrorSafe",
     "getSafeQplErrorMessage",
@@ -112,32 +110,31 @@ __d(
       ae,
       ie,
       le,
-      se,
-      ue = r("requireDeferred")("WAWebBootstrapNewsletter").__setRef(
+      se = r("requireDeferred")("WAWebBootstrapNewsletter").__setRef(
         "WAWebSyncBootstrap",
       ),
-      ce = r("qpl")._(891423540, "2533"),
-      de =
+      ue = r("qpl")._(891423540, "2533"),
+      ce =
         n("cr:17219") == null
           ? void 0
           : n("cr:17219").getWindowsBridge(
               r("WAWebWindowsHybridBridgeInitiator").WAWebSyncBootstrap,
             ),
-      me = 40,
-      pe = 20,
-      _e = 180,
-      fe = n("$InternalEnum").Mirrored([
+      de = 40,
+      me = 20,
+      pe = 180,
+      _e = n("$InternalEnum").Mirrored([
         "NotStarted",
         "InProcess",
         "Completed",
       ]),
-      ge = { initialChatHistory: !1, readReceipts: !1, syncdCritical: !1 },
-      he = { initialChatHistoryTotalMsg: -1, initialChatHistoryTotalChats: -1 },
-      ye = 20,
-      Ce = (function () {
+      fe = { initialChatHistory: !1, readReceipts: !1, syncdCritical: !1 },
+      ge = { initialChatHistoryTotalMsg: -1, initialChatHistoryTotalChats: -1 },
+      he = 20,
+      ye = (function () {
         function t() {
           ((this.$1 = {}),
-            (this.$2 = he),
+            (this.$2 = ge),
             (this.$6 = !1),
             (this.$7 = null),
             (this.$8 = null),
@@ -145,103 +142,87 @@ __d(
             (this.$10 = !1),
             this.initState());
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.initState = function () {
-            ((this.$1 = babelHelpers.extends({}, ge)),
-              (this.$2 = babelHelpers.extends({}, he)),
-              (this.$3 = fe.NotStarted),
-              (this.$4 = fe.NotStarted),
-              (this.$5 = fe.NotStarted));
+          (n.initState = function () {
+            ((this.$1 = babelHelpers.extends({}, fe)),
+              (this.$2 = babelHelpers.extends({}, ge)),
+              (this.$3 = _e.NotStarted),
+              (this.$4 = _e.NotStarted),
+              (this.$5 = _e.NotStarted));
           }),
-          (a.$11 = function () {
+          (n.$11 = function () {
             for (var e in this.$1) if (!this.$1[e]) return !1;
             return !0;
           }),
-          (a.$12 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
+          (n.$12 = async function (n) {
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bootstrap][history sync] completed sync for ",
+                  "",
+                ])),
+              n,
+            ),
+              (this.$1[n] = !0),
+              this.$11() &&
                 (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bootstrap][history sync] completed sync for ",
-                      "",
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bootstrap][history sync] critical sync done",
                     ])),
-                  t,
                 ),
-                  (this.$1[t] = !0),
-                  this.$11() &&
-                    (o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[bootstrap][history sync] critical sync done",
-                        ])),
-                    ),
-                    yield o(
-                      "WAWebUserPrefsAppStateSync",
-                    ).setAllCriticalDataSynced(),
-                    o(
-                      "WAWebBackendEventBus",
-                    ).BackendEventBus.triggerCriticalSyncDone(),
-                    r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
-                      o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
-                        .INITIAL_PAIRING,
-                    ),
-                    o("WAWebWamMemoryStat").setCurrentMemoryScenario(
-                      o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
-                    ),
-                    this.syncNonCriticalData()));
-              },
-            );
-            function a(e) {
-              return t.apply(this, arguments);
+                await o(
+                  "WAWebUserPrefsAppStateSync",
+                ).setAllCriticalDataSynced(),
+                o(
+                  "WAWebBackendEventBus",
+                ).BackendEventBus.triggerCriticalSyncDone(),
+                r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
+                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
+                    .INITIAL_PAIRING,
+                ),
+                o("WAWebWamMemoryStat").setCurrentMemoryScenario(
+                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
+                ),
+                this.syncNonCriticalData()));
+          }),
+          (n.$13 = async function (t, n) {
+            (o("WALogger")
+              .LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "start contact sync for ",
+                    " chunks of contacts during the initial sync",
+                  ])),
+                t ? n.length + 1 : 0,
+              )
+              .tags("contact-sync"),
+              t != null &&
+                (await o("WAWebSyncContactJob").syncContactListJob(
+                  Array.from(t),
+                  !1,
+                  "query",
+                )));
+            for (var e = 0; e < n.length; e++) {
+              var r = Array.from(n[e]);
+              (await o("WAPromiseDelays").delayMs(me * 1e3),
+                await o("WAWebSyncContactJob").syncContactListJob(
+                  r,
+                  !0,
+                  "query",
+                ));
             }
-            return a;
-          })()),
-          (a.$13 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                (o("WALogger")
-                  .LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "start contact sync for ",
-                        " chunks of contacts during the initial sync",
-                      ])),
-                    e ? t.length + 1 : 0,
-                  )
-                  .tags("contact-sync"),
-                  e != null &&
-                    (yield o("WAWebSyncContactJob").syncContactListJob(
-                      Array.from(e),
-                      !1,
-                      "query",
-                    )));
-                for (var n = 0; n < t.length; n++) {
-                  var r = Array.from(t[n]);
-                  (yield o("WAPromiseDelays").delayMs(pe * 1e3),
-                    yield o("WAWebSyncContactJob").syncContactListJob(
-                      r,
-                      !0,
-                      "query",
-                    ));
-                }
-                o("WALogger")
-                  .LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "initial contact sync completes",
-                      ])),
-                  )
-                  .tags("contact-sync");
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$14 = function (t) {
+            o("WALogger")
+              .LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "initial contact sync completes",
+                  ])),
+              )
+              .tags("contact-sync");
+          }),
+          (n.$14 = function (t) {
             if (t == null)
               return (
                 o("WALogger")
@@ -252,7 +233,7 @@ __d(
                       ])),
                   )
                   .tags("contact-sync"),
-                (se || (se = n("Promise"))).resolve()
+                Promise.resolve()
               );
             o("WALogger")
               .LOG(
@@ -279,49 +260,31 @@ __d(
                   .sendLogs("Sync device failed: " + String(e));
               });
           }),
-          (a.setReadReceiptsSynced = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              yield this.$12("readReceipts");
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.setInitialChatHistorySynced = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield this.$12("initialChatHistory"),
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync][continueProgressiveHistorySyncProcessingV2] initial chat history synced.",
-                    ])),
-                ),
-                o("WAWebSyncdGetChat").logLidPnChatDistribution({}),
-                be.continueProgressiveHistorySyncProcessingV2(
-                  o("WAWebHistorySyncNotificationUtils")
-                    .HistorySyncScheduleSource.InitialSyncComplete,
-                ));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.setSyncDCriticalSynced = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              ((this.$3 = fe.Completed),
-                !this.$1.syncdCritical && (yield this.$12("syncdCritical")));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.syncNonCriticalData = function () {
+          (n.setReadReceiptsSynced = async function () {
+            await this.$12("readReceipts");
+          }),
+          (n.setInitialChatHistorySynced = async function () {
+            (await this.$12("initialChatHistory"),
+              o("WALogger").LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync][continueProgressiveHistorySyncProcessingV2] initial chat history synced.",
+                  ])),
+              ),
+              o("WAWebSyncdGetChat").logLidPnChatDistribution({}),
+              Ce.continueProgressiveHistorySyncProcessingV2(
+                o("WAWebHistorySyncNotificationUtils").HistorySyncScheduleSource
+                  .InitialSyncComplete,
+              ));
+          }),
+          (n.setSyncDCriticalSynced = async function () {
+            ((this.$3 = _e.Completed),
+              !this.$1.syncdCritical && (await this.$12("syncdCritical")));
+          }),
+          (n.syncNonCriticalData = function () {
             var e = this,
               t = [];
-            ((this.$5 = fe.InProcess),
+            ((this.$5 = _e.InProcess),
               o("WAWebQueryAndUpdateGroupMetadataJob")
                 .queryAndUpdateAllGroupMetadata({ isHistorySyncInProgress: !0 })
                 .then(function () {
@@ -361,10 +324,10 @@ __d(
                 .then(function () {
                   self.setTimeout(function () {
                     e.$13(t[0], t.slice(1, t.length));
-                  }, me * 1e3);
+                  }, de * 1e3);
                 })
                 .finally(function () {
-                  e.$5 = fe.Completed;
+                  e.$5 = _e.Completed;
                 }),
               o("WAWebHandleAccountSyncNotification")
                 .getAndUpdateStatus()
@@ -402,14 +365,14 @@ __d(
               o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                 "updateOptOutList",
               ),
-              ue.load().then(function (e) {
+              se.load().then(function (e) {
                 var t = e.bootstrapNewsletterBackend;
                 return t();
               }),
               o(
                 "WAWebFetchOwnUsernameOnPairing",
               ).initOwnUsernameFetchOnPairing(),
-              (this.$4 = fe.InProcess),
+              (this.$4 = _e.InProcess),
               o("WAWebSyncd")
                 .markCollectionsForSync([
                   o("WAWebSyncdConst").CollectionName.Regular,
@@ -418,8 +381,8 @@ __d(
                 ])
                 .then(function () {
                   var t;
-                  ((e.$4 = fe.Completed),
-                    de == null || (t = de.contacts) == null || t.initialize());
+                  ((e.$4 = _e.Completed),
+                    ce == null || (t = ce.contacts) == null || t.initialize());
                 })
                 .catch(function (e) {
                   o("WALogger")
@@ -435,22 +398,22 @@ __d(
                     });
                 }));
           }),
-          (a.markInitialHistorySyncCountDebugStats = function (t, n) {
+          (n.markInitialHistorySyncCountDebugStats = function (t, n) {
             this.$2 = {
               initialChatHistoryTotalMsg: t,
               initialChatHistoryTotalChats: n,
             };
           }),
-          (a.isSyncDCriticalDataSyncInProcess = function () {
-            return this.$3 === fe.InProcess;
+          (n.isSyncDCriticalDataSyncInProcess = function () {
+            return this.$3 === _e.InProcess;
           }),
-          (a.isSyncDBootstrapInProcess = function () {
-            return this.$3 === fe.InProcess || this.$4 === fe.InProcess;
+          (n.isSyncDBootstrapInProcess = function () {
+            return this.$3 === _e.InProcess || this.$4 === _e.InProcess;
           }),
-          (a.isSyncDBootstrapGroupMetadataQueryInProcess = function () {
-            return this.$5 === fe.InProcess;
+          (n.isSyncDBootstrapGroupMetadataQueryInProcess = function () {
+            return this.$5 === _e.InProcess;
           }),
-          (a.$15 = function () {
+          (n.$15 = function () {
             var e = this;
             this.$7 == null &&
               (o("WALogger").LOG(
@@ -459,158 +422,147 @@ __d(
                     "[bootstrap][history sync] setting critical data syncd timeout (",
                     ")",
                   ])),
-                _e,
+                pe,
               ),
-              (this.$7 = self.setTimeout(
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  var t = yield e.$16("timeout");
-                  if (!t) {
-                    try {
-                      var n = yield e.getCriticalSyncDebugSummary();
-                      (o("WALogger").LOG(
-                        v ||
-                          (v = babelHelpers.taggedTemplateLiteralLoose(
-                            [
-                              "[bootstrap][syncd] syncDCriticalDataState: ",
-                              "\nsyncDNonCriticalDataState: ",
-                              "\ndebugSummary: ",
-                              "",
-                            ],
-                            [
-                              "[bootstrap][syncd] syncDCriticalDataState: ",
-                              "\\nsyncDNonCriticalDataState: ",
-                              "\\ndebugSummary: ",
-                              "",
-                            ],
-                          )),
-                        e.$3,
-                        e.$4,
-                        n,
-                      ),
-                        o("WALogger")
-                          .ERROR(
-                            S ||
-                              (S = babelHelpers.taggedTemplateLiteralLoose([
-                                "[bootstrap][syncd] syncd critical data timeout exceeded, logging out.",
-                              ])),
-                          )
-                          .tags("bootstrap", "syncd", "logout")
-                          .sendLogs("bootstrap-syncd-timeout-logout", {
-                            sampling: 0.1,
-                          }),
-                        yield o("WAPromiseDelays").delayMs(5e3));
-                    } catch (e) {}
-                    (o(
-                      "WAWebMetricsAttributionActions",
-                    ).stopAllHistorySyncAttributionTracking(),
-                      o(
-                        "WAWebForceFlushWamBuffers",
-                      ).forceFlushAllWamAndQplBuffers(),
-                      o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
-                        "syncd critical data timeout exceeded, logging out",
-                      ),
-                      o("WAWebCoreActionsODS").logSessionForcedLogout(),
-                      yield o("WAWebSocketLogoutJob").socketLogout(
-                        o("WAWebLogoutReasonConstants").LogoutReason
-                          .SyncdTimeout,
-                      ));
-                  }
-                  var r = yield o(
-                    "WAWebUserPrefsHistorySync",
-                  ).getInitialHistorySyncComplete();
-                  if (r !== !0) {
-                    try {
-                      var a = yield e.getCriticalSyncDebugSummary();
-                      (o("WALogger").LOG(
-                        R ||
-                          (R = babelHelpers.taggedTemplateLiteralLoose([
-                            "[bootstrap][history-sync] history sync debug summary: ",
+              (this.$7 = self.setTimeout(async function () {
+                var t = await e.$16("timeout");
+                if (!t) {
+                  try {
+                    var n = await e.getCriticalSyncDebugSummary();
+                    (o("WALogger").LOG(
+                      v ||
+                        (v = babelHelpers.taggedTemplateLiteralLoose(
+                          [
+                            "[bootstrap][syncd] syncDCriticalDataState: ",
+                            `
+syncDNonCriticalDataState: `,
+                            `
+debugSummary: `,
                             "",
-                          ])),
-                        a,
-                      ),
-                        o("WALogger")
-                          .ERROR(
-                            L ||
-                              (L = babelHelpers.taggedTemplateLiteralLoose([
-                                "[bootstrap][history-sync] history sync critical data timeout exceeded, logging out.",
-                              ])),
-                          )
-                          .tags("bootstrap", "history-sync", "logout")
-                          .sendLogs("bootstrap-history-sync-timeout-logout", {
-                            sampling: 0.1,
-                          }),
-                        yield o("WAPromiseDelays").delayMs(5e3));
-                    } catch (e) {}
-                    (o(
+                          ],
+                          [
+                            "[bootstrap][syncd] syncDCriticalDataState: ",
+                            "\\nsyncDNonCriticalDataState: ",
+                            "\\ndebugSummary: ",
+                            "",
+                          ],
+                        )),
+                      e.$3,
+                      e.$4,
+                      n,
+                    ),
+                      o("WALogger")
+                        .ERROR(
+                          S ||
+                            (S = babelHelpers.taggedTemplateLiteralLoose([
+                              "[bootstrap][syncd] syncd critical data timeout exceeded, logging out.",
+                            ])),
+                        )
+                        .tags("bootstrap", "syncd", "logout")
+                        .sendLogs("bootstrap-syncd-timeout-logout", {
+                          sampling: 0.1,
+                        }),
+                      await o("WAPromiseDelays").delayMs(5e3));
+                  } catch (e) {}
+                  (o(
+                    "WAWebMetricsAttributionActions",
+                  ).stopAllHistorySyncAttributionTracking(),
+                    o(
                       "WAWebForceFlushWamBuffers",
                     ).forceFlushAllWamAndQplBuffers(),
-                      o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
-                        "history sync critical data timeout exceeded, logging out",
-                      ),
-                      o("WAWebCoreActionsODS").logSessionForcedLogout(),
-                      yield o("WAWebSocketLogoutJob").socketLogout(
-                        o("WAWebLogoutReasonConstants").LogoutReason
-                          .HistorySyncTimeout,
-                      ));
-                  }
-                  o("WALogger").LOG(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bootstrap][history sync] all critical data synced within timeout period",
-                      ])),
-                  );
-                }),
-                _e * 1e3,
-              )));
-          }),
-          (a.$16 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield o("WAWebSyncdDb").getSyncActionsRows(
-                    ["action"],
-                    [o("WAWebSyncdConst").Actions.SettingPushName],
-                  ),
-                  n = t.filter(function (e) {
-                    return (
-                      e.actionState ===
-                      o("WAWebSyncdConst").SyncActionState.Success
-                    );
-                  }).length,
-                  r = t
-                    .map(function (e) {
-                      var t;
-                      return (t = e.actionState) != null ? t : "null";
-                    })
-                    .join(","),
-                  a = n > 0;
-                return (
-                  o("WALogger").LOG(
-                    k ||
-                      (k = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bootstrap][syncd] push name persistence check: source=",
-                        ", complete=",
-                        ", actionRows=",
-                        ", successRows=",
-                        ", actionStates=",
-                        "",
-                      ])),
-                    e,
-                    a,
-                    t.length,
-                    n,
-                    r || "none",
-                  ),
-                  a
+                    o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
+                      "syncd critical data timeout exceeded, logging out",
+                    ),
+                    o("WAWebCoreActionsODS").logSessionForcedLogout(),
+                    await o("WAWebSocketLogoutJob").socketLogout(
+                      o("WAWebLogoutReasonConstants").LogoutReason.SyncdTimeout,
+                    ));
+                }
+                var r = await o(
+                  "WAWebUserPrefsHistorySync",
+                ).getInitialHistorySyncComplete();
+                if (r !== !0) {
+                  try {
+                    var a = await e.getCriticalSyncDebugSummary();
+                    (o("WALogger").LOG(
+                      R ||
+                        (R = babelHelpers.taggedTemplateLiteralLoose([
+                          "[bootstrap][history-sync] history sync debug summary: ",
+                          "",
+                        ])),
+                      a,
+                    ),
+                      o("WALogger")
+                        .ERROR(
+                          L ||
+                            (L = babelHelpers.taggedTemplateLiteralLoose([
+                              "[bootstrap][history-sync] history sync critical data timeout exceeded, logging out.",
+                            ])),
+                        )
+                        .tags("bootstrap", "history-sync", "logout")
+                        .sendLogs("bootstrap-history-sync-timeout-logout", {
+                          sampling: 0.1,
+                        }),
+                      await o("WAPromiseDelays").delayMs(5e3));
+                  } catch (e) {}
+                  (o(
+                    "WAWebForceFlushWamBuffers",
+                  ).forceFlushAllWamAndQplBuffers(),
+                    o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
+                      "history sync critical data timeout exceeded, logging out",
+                    ),
+                    o("WAWebCoreActionsODS").logSessionForcedLogout(),
+                    await o("WAWebSocketLogoutJob").socketLogout(
+                      o("WAWebLogoutReasonConstants").LogoutReason
+                        .HistorySyncTimeout,
+                    ));
+                }
+                o("WALogger").LOG(
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bootstrap][history sync] all critical data synced within timeout period",
+                    ])),
                 );
-              },
+              }, pe * 1e3)));
+          }),
+          (n.$16 = async function (t) {
+            var e = await o("WAWebSyncdDb").getSyncActionsRows(
+                ["action"],
+                [o("WAWebSyncdConst").Actions.SettingPushName],
+              ),
+              n = e.filter(function (e) {
+                return (
+                  e.actionState === o("WAWebSyncdConst").SyncActionState.Success
+                );
+              }).length,
+              r = e
+                .map(function (e) {
+                  var t;
+                  return (t = e.actionState) != null ? t : "null";
+                })
+                .join(","),
+              a = n > 0;
+            return (
+              o("WALogger").LOG(
+                k ||
+                  (k = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bootstrap][syncd] push name persistence check: source=",
+                    ", complete=",
+                    ", actionRows=",
+                    ", successRows=",
+                    ", actionStates=",
+                    "",
+                  ])),
+                t,
+                a,
+                e.length,
+                n,
+                r || "none",
+              ),
+              a
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.setSyncDCriticalDataSyncCompleted = function () {
+          }),
+          (n.setSyncDCriticalDataSyncCompleted = function () {
             this.$7 != null &&
               (o("WALogger").LOG(
                 I ||
@@ -656,552 +608,506 @@ __d(
                     .catching(r("getErrorSafe")(e));
                 }));
           }),
-          (a.getCriticalSyncDebugSummary = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (yield this.isCriticalDataSynced())
-                return "-------\nAll critical data synced\n-------\n\n";
-              var e = yield o(
-                "WAWebUserPrefsHistorySync",
-              ).getHistorySyncStatus();
-              return (
-                "-------\n Initial history sync complete: " +
-                (e ? "true" : this.$1.initialChatHistory.toString()) +
-                "\n Initial msgs: " +
-                this.$2.initialChatHistoryTotalMsg +
-                ", initial chats: " +
-                this.$2.initialChatHistoryTotalChats +
-                "\n Receipt sync complete: " +
-                this.$1.readReceipts.toString() +
-                " \n " +
-                ("Critical collection sync complete: " +
-                  this.$1.syncdCritical.toString() +
-                  " \n-------\n")
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.isCriticalDataSynced = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return (
-                (this.$6 =
-                  this.$6 ||
-                  (yield o(
-                    "WAWebUserPrefsAppStateSync",
-                  ).getAllCriticalDataSynced())),
-                this.$6
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.syncCriticalData = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              (r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
-                o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
-                  .INITIAL_PAIRING,
-              ),
-                o("WALogger").LOG(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bootstrap][history sync] need to sync critical data: true",
-                    ])),
-                ));
-              var t = yield this.getCriticalSyncDebugSummary();
-              (o("WALogger").LOG(
-                P ||
-                  (P = babelHelpers.taggedTemplateLiteralLoose([
-                    "[bootstrap][history sync] ",
-                    "",
-                  ])),
-                t,
-              ),
-                o("WALogger")
-                  .LOG(
-                    N ||
-                      (N = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bootstrap] syncing my device list",
-                      ])),
-                  )
-                  .tags("history-sync"));
-              var a = o(
-                  "WAWebSyncDeviceAdvDeviceListJob",
-                ).syncMyDeviceListJob(),
-                i = new (se || (se = n("Promise")))(function (t, n) {
-                  o("WAWebAccountSyncJob")
-                    .updatePrivacySettings()
-                    .then(function () {
-                      return e.setReadReceiptsSynced();
-                    })
-                    .then(t)
-                    .catch(n);
-                }).catch(function (e) {
-                  var t = r("getErrorSafe")(e);
-                  (o("WALogger")
-                    .ERROR(
-                      M ||
-                        (M = babelHelpers.taggedTemplateLiteralLoose([
-                          "failed to sync privacy settings",
-                        ])),
-                    )
-                    .catching(t)
-                    .verbose()
-                    .sendLogs(
-                      "failed to update privacy settings from privacy request to server",
-                    ),
-                    o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
-                      "failed to sync privacy settings, logging out",
-                    ),
-                    o("WAWebCoreActionsODS").logSessionForcedLogout(),
-                    o("WAWebSocketLogoutJob").socketLogout(
-                      o("WAWebLogoutReasonConstants").LogoutReason
-                        .AccountSyncError,
-                    ));
-                });
-              (this.$15(), (this.$3 = fe.InProcess));
-              var l = a
-                  .then(function () {
-                    return o("WAWebSyncd").markCollectionsForSync([
-                      o("WAWebSyncdConst").CollectionName.CriticalBlock,
-                      o("WAWebSyncdConst").CollectionName.CriticalUnblockLow,
-                    ]);
-                  })
-                  .then(
-                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                      if (
-                        (o("WALogger").LOG(
-                          w ||
-                            (w = babelHelpers.taggedTemplateLiteralLoose([
-                              "[bootstrap][syncd] critical collection processing completed: state=",
-                              ", syncdCritical=",
-                              "",
-                            ])),
-                          e.$3,
-                          e.$1.syncdCritical,
-                        ),
-                        !e.$1.syncdCritical)
-                      ) {
-                        var t = yield e.$16("post_collection");
-                        t &&
-                          (yield e.setSyncDCriticalSynced(),
-                          e.setSyncDCriticalDataSyncCompleted());
-                      }
-                    }),
-                  ),
-                s = yield o(
-                  "WAWebUserPrefsHistorySync",
-                ).getInitialHistorySyncComplete();
-              s === !0 && (yield this.setInitialChatHistorySynced());
-              var u = o("WAWebAccountSyncJob")
-                .updateDefaultDisappearingMode()
-                .catch(function (e) {
-                  var t = r("getErrorSafe")(e);
-                  o("WALogger")
-                    .ERROR(
-                      A ||
-                        (A = babelHelpers.taggedTemplateLiteralLoose([
-                          "failed to sync default disappearing mode",
-                        ])),
-                    )
-                    .catching(t)
-                    .verbose()
-                    .sendLogs(
-                      "failed initial sync of default disappearing mode",
-                    );
-                });
-              yield se.all([i, l, u]);
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$17 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (
-                !o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd
-              ) {
-                o("WALogger")
-                  .LOG(
-                    F ||
-                      (F = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync][continueProgressiveHistorySyncProcessingV2] Skip processLoop, until main is loaded",
-                      ])),
-                  )
-                  .tags("history-sync");
-                return;
-              }
-              var e = yield o(
-                "WAWebApiHistorySyncNotification",
-              ).fetchNextHistorySyncChunkForProcessing();
-              if (!e) {
-                o("WALogger")
-                  .LOG(
-                    O ||
-                      (O = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync][continueProgressiveHistorySyncProcessingV2] no chunk found",
-                      ])),
-                  )
-                  .tags("history-sync");
-                return;
-              }
-              var t = o("QPLFlow").startQPLFlow(ce, {
-                annotations: { int: { syncType: e.syncType } },
-                timeoutInMs: 12e4,
-              });
-              try {
-                if (
-                  (o("WALogger").LOG(
-                    B ||
-                      (B = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync][continueProgressiveHistorySyncProcessingV2] processLoop picked up chunk",
-                      ])),
-                  ),
-                  e.syncType ===
-                    o("WAWebProtobufsHistorySync.pb")
-                      .HistorySync$HistorySyncType.RECENT &&
-                    e.chunkOrder != null)
-                ) {
-                  var n = e.msgKey;
-                  o("WAWebApiHistorySyncNotification")
-                    .recentSyncChunkHandlingTriedCount[n] != null
-                    ? (o("WAWebApiHistorySyncNotification")
-                        .recentSyncChunkHandlingTriedCount[n]++,
-                      o("WAWebApiHistorySyncNotification")
-                        .recentSyncChunkHandlingTriedCount[n] > ye &&
-                        o("WALogger")
-                          .ERROR(
-                            W ||
-                              (W = babelHelpers.taggedTemplateLiteralLoose([
-                                "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync chunk handling retry limit reached",
-                              ])),
-                          )
-                          .sendLogs(
-                            "history-sync-recent-sync-chunk-handling-retry-limit",
-                          ))
-                    : (o(
-                        "WAWebApiHistorySyncNotification",
-                      ).recentSyncChunkHandlingTriedCount[n] = 1);
-                }
-                (e.syncType ===
-                o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
-                  .RECENT
-                  ? yield o(
-                      "WAWebHandleWorkerCompatibleRecentSyncChunk",
-                    ).handleWorkerCompatibleRecentSyncChunk(e, t)
-                  : yield o(
-                      "WAWebHandleHistorySyncChunk",
-                    ).handleHistorySyncChunk(e),
-                  t.endSuccess());
-              } catch (e) {
-                throw (
-                  t.endFail(
-                    o("getSafeQplErrorMessage").getSafeQPLErrorMessage(e),
-                  ),
-                  e
-                );
-              }
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$18 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (n.getCriticalSyncDebugSummary = async function () {
+            if (await this.isCriticalDataSynced())
+              return `-------
+All critical data synced
+-------
+
+`;
+            var e = await o("WAWebUserPrefsHistorySync").getHistorySyncStatus();
+            return (
+              `-------
+ Initial history sync complete: ` +
+              (e ? "true" : this.$1.initialChatHistory.toString()) +
+              `
+ Initial msgs: ` +
+              this.$2.initialChatHistoryTotalMsg +
+              ", initial chats: " +
+              this.$2.initialChatHistoryTotalChats +
+              `
+ Receipt sync complete: ` +
+              this.$1.readReceipts.toString() +
+              ` 
+ ` +
+              ("Critical collection sync complete: " +
+                this.$1.syncdCritical.toString() +
+                ` 
+-------
+`)
+            );
+          }),
+          (n.isCriticalDataSynced = async function () {
+            return (
+              (this.$6 =
+                this.$6 ||
+                (await o(
+                  "WAWebUserPrefsAppStateSync",
+                ).getAllCriticalDataSynced())),
+              this.$6
+            );
+          }),
+          (n.syncCriticalData = async function () {
+            var e = this;
+            (r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
+              o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE
+                .INITIAL_PAIRING,
+            ),
               o("WALogger").LOG(
-                q ||
-                  (q = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync][continueProgressiveHistorySyncProcessingV2] job starts",
+                $ ||
+                  ($ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bootstrap][history sync] need to sync critical data: true",
                   ])),
-              );
-              try {
-                (yield o(
-                  "WAWebDbEncryptionKey",
-                ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
-                  yield this.$17());
-              } catch (t) {
-                var e = r("getErrorSafe")(t);
+              ));
+            var t = await this.getCriticalSyncDebugSummary();
+            (o("WALogger").LOG(
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bootstrap][history sync] ",
+                  "",
+                ])),
+              t,
+            ),
+              o("WALogger")
+                .LOG(
+                  N ||
+                    (N = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bootstrap] syncing my device list",
+                    ])),
+                )
+                .tags("history-sync"));
+            var n = o("WAWebSyncDeviceAdvDeviceListJob").syncMyDeviceListJob(),
+              a = new Promise(function (t, n) {
+                o("WAWebAccountSyncJob")
+                  .updatePrivacySettings()
+                  .then(function () {
+                    return e.setReadReceiptsSynced();
+                  })
+                  .then(t)
+                  .catch(n);
+              }).catch(function (e) {
+                var t = r("getErrorSafe")(e);
+                (o("WALogger")
+                  .ERROR(
+                    M ||
+                      (M = babelHelpers.taggedTemplateLiteralLoose([
+                        "failed to sync privacy settings",
+                      ])),
+                  )
+                  .catching(t)
+                  .verbose()
+                  .sendLogs(
+                    "failed to update privacy settings from privacy request to server",
+                  ),
+                  o("WAWebJestE2ELogUtils").maybeLogToJestE2eJSConsole(
+                    "failed to sync privacy settings, logging out",
+                  ),
+                  o("WAWebCoreActionsODS").logSessionForcedLogout(),
+                  o("WAWebSocketLogoutJob").socketLogout(
+                    o("WAWebLogoutReasonConstants").LogoutReason
+                      .AccountSyncError,
+                  ));
+              });
+            (this.$15(), (this.$3 = _e.InProcess));
+            var i = n
+                .then(function () {
+                  return o("WAWebSyncd").markCollectionsForSync([
+                    o("WAWebSyncdConst").CollectionName.CriticalBlock,
+                    o("WAWebSyncdConst").CollectionName.CriticalUnblockLow,
+                  ]);
+                })
+                .then(async function () {
+                  if (
+                    (o("WALogger").LOG(
+                      w ||
+                        (w = babelHelpers.taggedTemplateLiteralLoose([
+                          "[bootstrap][syncd] critical collection processing completed: state=",
+                          ", syncdCritical=",
+                          "",
+                        ])),
+                      e.$3,
+                      e.$1.syncdCritical,
+                    ),
+                    !e.$1.syncdCritical)
+                  ) {
+                    var t = await e.$16("post_collection");
+                    t &&
+                      (await e.setSyncDCriticalSynced(),
+                      e.setSyncDCriticalDataSyncCompleted());
+                  }
+                }),
+              l = await o(
+                "WAWebUserPrefsHistorySync",
+              ).getInitialHistorySyncComplete();
+            l === !0 && (await this.setInitialChatHistorySynced());
+            var s = o("WAWebAccountSyncJob")
+              .updateDefaultDisappearingMode()
+              .catch(function (e) {
+                var t = r("getErrorSafe")(e);
                 o("WALogger")
                   .ERROR(
-                    U ||
-                      (U = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync][continueProgressiveHistorySyncProcessingV2] _progressiveHistorySyncRun failed",
+                    A ||
+                      (A = babelHelpers.taggedTemplateLiteralLoose([
+                        "failed to sync default disappearing mode",
                       ])),
                   )
-                  .catching(e);
+                  .catching(t)
+                  .verbose()
+                  .sendLogs("failed initial sync of default disappearing mode");
+              });
+            await Promise.all([a, i, s]);
+          }),
+          (n.$17 = async function () {
+            if (
+              !o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd
+            ) {
+              o("WALogger")
+                .LOG(
+                  F ||
+                    (F = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][continueProgressiveHistorySyncProcessingV2] Skip processLoop, until main is loaded",
+                    ])),
+                )
+                .tags("history-sync");
+              return;
+            }
+            var e = await o(
+              "WAWebApiHistorySyncNotification",
+            ).fetchNextHistorySyncChunkForProcessing();
+            if (!e) {
+              o("WALogger")
+                .LOG(
+                  O ||
+                    (O = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][continueProgressiveHistorySyncProcessingV2] no chunk found",
+                    ])),
+                )
+                .tags("history-sync");
+              return;
+            }
+            var t = o("QPLFlow").startQPLFlow(ue, {
+              annotations: { int: { syncType: e.syncType } },
+              timeoutInMs: 12e4,
+            });
+            try {
+              if (
+                (o("WALogger").LOG(
+                  B ||
+                    (B = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][continueProgressiveHistorySyncProcessingV2] processLoop picked up chunk",
+                    ])),
+                ),
+                e.syncType ===
+                  o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+                    .RECENT && e.chunkOrder != null)
+              ) {
+                var n = e.msgKey;
+                o("WAWebApiHistorySyncNotification")
+                  .recentSyncChunkHandlingTriedCount[n] != null
+                  ? (o("WAWebApiHistorySyncNotification")
+                      .recentSyncChunkHandlingTriedCount[n]++,
+                    o("WAWebApiHistorySyncNotification")
+                      .recentSyncChunkHandlingTriedCount[n] > he &&
+                      o("WALogger")
+                        .ERROR(
+                          W ||
+                            (W = babelHelpers.taggedTemplateLiteralLoose([
+                              "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync chunk handling retry limit reached",
+                            ])),
+                        )
+                        .sendLogs(
+                          "history-sync-recent-sync-chunk-handling-retry-limit",
+                        ))
+                  : (o(
+                      "WAWebApiHistorySyncNotification",
+                    ).recentSyncChunkHandlingTriedCount[n] = 1);
               }
+              (e.syncType ===
+              o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+                .RECENT
+                ? await o(
+                    "WAWebHandleWorkerCompatibleRecentSyncChunk",
+                  ).handleWorkerCompatibleRecentSyncChunk(e, t)
+                : await o("WAWebHandleHistorySyncChunk").handleHistorySyncChunk(
+                    e,
+                  ),
+                t.endSuccess());
+            } catch (e) {
+              throw (
+                t.endFail(
+                  o("getSafeQplErrorMessage").getSafeQPLErrorMessage(e),
+                ),
+                e
+              );
+            }
+          }),
+          (n.$18 = async function () {
+            o("WALogger").LOG(
+              q ||
+                (q = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync][continueProgressiveHistorySyncProcessingV2] job starts",
+                ])),
+            );
+            try {
+              (await o(
+                "WAWebDbEncryptionKey",
+              ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
+                await this.$17());
+            } catch (t) {
+              var e = r("getErrorSafe")(t);
+              o("WALogger")
+                .ERROR(
+                  U ||
+                    (U = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][continueProgressiveHistorySyncProcessingV2] _progressiveHistorySyncRun failed",
+                    ])),
+                )
+                .catching(e);
+            }
+            o("WALogger").LOG(
+              V ||
+                (V = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync][continueProgressiveHistorySyncProcessingV2] finish main flow",
+                ])),
+            );
+            var t = await o("WAWebUserPrefsHistorySync").getHistorySyncStatus();
+            if ((t == null ? void 0 : t.recentCompleted) === !0) {
+              var n = !0;
               o("WALogger").LOG(
-                V ||
-                  (V = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync][continueProgressiveHistorySyncProcessingV2] finish main flow",
+                H ||
+                  (H = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync finishes, check remaining on demand sync notifications",
                   ])),
               );
-              var t = yield o(
-                "WAWebUserPrefsHistorySync",
-              ).getHistorySyncStatus();
-              if ((t == null ? void 0 : t.recentCompleted) === !0) {
-                var n = !0;
+              var a = await o("WAWebSchemaHistorySyncNotification")
+                .getHistorySyncNotificationTable()
+                .equals(
+                  ["processed", "syncType"],
+                  [
+                    0,
+                    o("WAWebProtobufsHistorySync.pb")
+                      .HistorySync$HistorySyncType.ON_DEMAND,
+                  ],
+                  { shouldDecrypt: !1 },
+                );
+              if (
+                (a.length > 0
+                  ? ((n = !1),
+                    this.continueProgressiveHistorySyncProcessingV2(
+                      o("WAWebHistorySyncNotificationUtils")
+                        .HistorySyncScheduleSource.LastProcessedNotification,
+                    ))
+                  : o("WALogger").LOG(
+                      G ||
+                        (G = babelHelpers.taggedTemplateLiteralLoose([
+                          "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no on demand notifications",
+                        ])),
+                    ),
+                o("WAWebClientFeatureFlags").isFeatureEnabled(
+                  "debug_1_year_history_sync",
+                ))
+              ) {
                 o("WALogger").LOG(
-                  H ||
-                    (H = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync finishes, check remaining on demand sync notifications",
+                  z ||
+                    (z = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync finishes, check remaining full sync notifications",
                     ])),
                 );
-                var a = yield o("WAWebSchemaHistorySyncNotification")
+                var i = await o("WAWebSchemaHistorySyncNotification")
                   .getHistorySyncNotificationTable()
                   .equals(
                     ["processed", "syncType"],
                     [
                       0,
                       o("WAWebProtobufsHistorySync.pb")
-                        .HistorySync$HistorySyncType.ON_DEMAND,
+                        .HistorySync$HistorySyncType.FULL,
                     ],
                     { shouldDecrypt: !1 },
                   );
-                if (
-                  (a.length > 0
-                    ? ((n = !1),
-                      this.continueProgressiveHistorySyncProcessingV2(
-                        o("WAWebHistorySyncNotificationUtils")
-                          .HistorySyncScheduleSource.LastProcessedNotification,
-                      ))
-                    : o("WALogger").LOG(
-                        G ||
-                          (G = babelHelpers.taggedTemplateLiteralLoose([
-                            "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no on demand notifications",
-                          ])),
-                      ),
-                  o("WAWebClientFeatureFlags").isFeatureEnabled(
-                    "debug_1_year_history_sync",
-                  ))
-                ) {
-                  o("WALogger").LOG(
-                    z ||
-                      (z = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync finishes, check remaining full sync notifications",
-                      ])),
-                  );
-                  var i = yield o("WAWebSchemaHistorySyncNotification")
-                    .getHistorySyncNotificationTable()
-                    .equals(
-                      ["processed", "syncType"],
-                      [
-                        0,
-                        o("WAWebProtobufsHistorySync.pb")
-                          .HistorySync$HistorySyncType.FULL,
-                      ],
-                      { shouldDecrypt: !1 },
+                i.length > 0
+                  ? ((n = !1),
+                    this.continueProgressiveHistorySyncProcessingV2(
+                      o("WAWebHistorySyncNotificationUtils")
+                        .HistorySyncScheduleSource.LastProcessedNotification,
+                    ))
+                  : o("WALogger").LOG(
+                      j ||
+                        (j = babelHelpers.taggedTemplateLiteralLoose([
+                          "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no on full sync notifications",
+                        ])),
                     );
-                  i.length > 0
-                    ? ((n = !1),
-                      this.continueProgressiveHistorySyncProcessingV2(
-                        o("WAWebHistorySyncNotificationUtils")
-                          .HistorySyncScheduleSource.LastProcessedNotification,
-                      ))
-                    : o("WALogger").LOG(
-                        j ||
-                          (j = babelHelpers.taggedTemplateLiteralLoose([
-                            "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no on full sync notifications",
-                          ])),
-                      );
-                }
-                n &&
-                  o(
-                    "WAWebMetricsAttributionActions",
-                  ).stopAllHistorySyncAttributionTracking();
-                return;
               }
+              n &&
+                o(
+                  "WAWebMetricsAttributionActions",
+                ).stopAllHistorySyncAttributionTracking();
+              return;
+            }
+            o("WALogger").LOG(
+              K ||
+                (K = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync is incompleted, check remaining recent sync notifications",
+                ])),
+            );
+            var l = await o(
+              "WAWebHistorySyncNotificationUtils",
+            ).getUnprocessedRecentSyncNotifications();
+            if (l.length === 0) {
               o("WALogger").LOG(
-                K ||
-                  (K = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync][continueProgressiveHistorySyncProcessingV2] recent sync is incompleted, check remaining recent sync notifications",
+                Q ||
+                  (Q = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no recent notifications",
                   ])),
               );
-              var l = yield o(
-                "WAWebHistorySyncNotificationUtils",
-              ).getUnprocessedRecentSyncNotifications();
-              if (l.length === 0) {
-                o("WALogger").LOG(
-                  Q ||
-                    (Q = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no recent notifications",
-                    ])),
-                );
-                return;
-              }
-              var s = l[0].chunkOrder;
-              if (s == null) {
-                o("WALogger").LOG(
-                  X ||
-                    (X = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as first recent notification doesn't have chunk order",
-                    ])),
-                );
-                return;
-              }
-              var u = yield o(
-                "WAWebUserPrefsHistorySync",
-              ).getLastHistoryRecentSyncedChunk();
-              if (
-                (o("WALogger").LOG(
-                  Y ||
-                    (Y = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync][continueProgressiveHistorySyncProcessingV2] next unprocessed recent notification has chunk order: ",
-                      ", last chunk order: ",
-                      "",
-                    ])),
-                  s,
-                  u == null ? void 0 : u.chunkOrder,
-                ),
-                u != null && u.chunkOrder + 1 !== s && s !== 1)
-              ) {
-                o("WALogger").LOG(
-                  J ||
-                    (J = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no recent notifications with correct chunk order",
-                    ])),
-                );
-                return;
-              }
-              if (
-                (u == null ? void 0 : u.chunkOrder) === this.$8 &&
-                s === this.$9
-              ) {
-                (this.$10 ||
-                  ((this.$10 = !0),
-                  o("WALogger")
-                    .ERROR(
-                      Z ||
-                        (Z = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] loop detected, unexpected last chunk order",
-                        ])),
-                    )
-                    .sendLogs("history-sync-unexpected-chunk-order", {
-                      sampling: 0.01,
-                    })),
-                  yield o("WAPromiseDelays").delayMs(5e3));
-                return;
-              }
-              if (
-                ((this.$8 = u == null ? void 0 : u.chunkOrder),
-                (this.$9 = s),
-                o("WAWebApiHistorySyncNotification")
-                  .recentSyncChunkHandlingTriedCount[l[0].msgKey] > ye)
-              ) {
-                o("WALogger").LOG(
-                  ee ||
-                    (ee = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as recent notification with order ",
-                      " fails too many times",
-                    ])),
-                  s,
-                );
-                return;
-              }
-              (o("WALogger").LOG(
-                te ||
-                  (te = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync][continueProgressiveHistorySyncProcessingV2] init next run",
-                  ])),
-              ),
-                this.continueProgressiveHistorySyncProcessingV2(
-                  o("WAWebHistorySyncNotificationUtils")
-                    .HistorySyncScheduleSource.LastProcessedNotification,
-                ));
-            });
-            function t() {
-              return e.apply(this, arguments);
+              return;
             }
-            return t;
-          })()),
-          (a.continueProgressiveHistorySyncProcessingV2 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                if (!this.$6 && this.$1.initialChatHistory !== !0)
+            var s = l[0].chunkOrder;
+            if (s == null) {
+              o("WALogger").LOG(
+                X ||
+                  (X = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as first recent notification doesn't have chunk order",
+                  ])),
+              );
+              return;
+            }
+            var u = await o(
+              "WAWebUserPrefsHistorySync",
+            ).getLastHistoryRecentSyncedChunk();
+            if (
+              (o("WALogger").LOG(
+                Y ||
+                  (Y = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync][continueProgressiveHistorySyncProcessingV2] next unprocessed recent notification has chunk order: ",
+                    ", last chunk order: ",
+                    "",
+                  ])),
+                s,
+                u == null ? void 0 : u.chunkOrder,
+              ),
+              u != null && u.chunkOrder + 1 !== s && s !== 1)
+            ) {
+              o("WALogger").LOG(
+                J ||
+                  (J = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as no recent notifications with correct chunk order",
+                  ])),
+              );
+              return;
+            }
+            if (
+              (u == null ? void 0 : u.chunkOrder) === this.$8 &&
+              s === this.$9
+            ) {
+              (this.$10 ||
+                ((this.$10 = !0),
+                o("WALogger")
+                  .ERROR(
+                    Z ||
+                      (Z = babelHelpers.taggedTemplateLiteralLoose([
+                        "[history sync] loop detected, unexpected last chunk order",
+                      ])),
+                  )
+                  .sendLogs("history-sync-unexpected-chunk-order", {
+                    sampling: 0.01,
+                  })),
+                await o("WAPromiseDelays").delayMs(5e3));
+              return;
+            }
+            if (
+              ((this.$8 = u == null ? void 0 : u.chunkOrder),
+              (this.$9 = s),
+              o("WAWebApiHistorySyncNotification")
+                .recentSyncChunkHandlingTriedCount[l[0].msgKey] > he)
+            ) {
+              o("WALogger").LOG(
+                ee ||
+                  (ee = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync][continueProgressiveHistorySyncProcessingV2] skip scheduling the next run as recent notification with order ",
+                    " fails too many times",
+                  ])),
+                s,
+              );
+              return;
+            }
+            (o("WALogger").LOG(
+              te ||
+                (te = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync][continueProgressiveHistorySyncProcessingV2] init next run",
+                ])),
+            ),
+              this.continueProgressiveHistorySyncProcessingV2(
+                o("WAWebHistorySyncNotificationUtils").HistorySyncScheduleSource
+                  .LastProcessedNotification,
+              ));
+          }),
+          (n.continueProgressiveHistorySyncProcessingV2 = async function (t) {
+            var e = this;
+            if (!this.$6 && this.$1.initialChatHistory !== !0)
+              return (
+                o("WALogger").LOG(
+                  ne ||
+                    (ne = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync][continueProgressiveHistorySyncProcessingV2] Skip job scheduling as initial chat sync is incomplete",
+                    ])),
+                ),
+                Promise.resolve()
+              );
+            if (
+              t ===
+              o("WAWebHistorySyncNotificationUtils").HistorySyncScheduleSource
+                .BackendStart
+            ) {
+              var n = await o(
+                "WAWebUserPrefsHistorySync",
+              ).getHistorySyncStatus();
+              if ((n == null ? void 0 : n.recentCompleted) === !0)
+                return (
+                  o("WALogger").LOG(
+                    re ||
+                      (re = babelHelpers.taggedTemplateLiteralLoose([
+                        "[history sync][continueProgressiveHistorySyncProcessingV2] Skip job scheduling as recent sync is complete when starting backend",
+                      ])),
+                  ),
+                  Promise.resolve()
+                );
+            }
+            return o("WAWebOrchestratorNonPersistedJob")
+              .createNonPersistedJob(
+                "continueProgressiveHistorySyncProcessingV2",
+                async function (n) {
                   return (
                     o("WALogger").LOG(
-                      ne ||
-                        (ne = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync][continueProgressiveHistorySyncProcessingV2] Skip job scheduling as initial chat sync is incomplete",
+                      oe ||
+                        (oe = babelHelpers.taggedTemplateLiteralLoose([
+                          "[history sync][continueProgressiveHistorySyncProcessingV2] job is scheduled, source: ",
+                          "",
                         ])),
+                      t,
                     ),
-                    (se || (se = n("Promise"))).resolve()
+                    e.$18()
                   );
-                if (
-                  e ===
-                  o("WAWebHistorySyncNotificationUtils")
-                    .HistorySyncScheduleSource.BackendStart
-                ) {
-                  var a = yield o(
-                    "WAWebUserPrefsHistorySync",
-                  ).getHistorySyncStatus();
-                  if ((a == null ? void 0 : a.recentCompleted) === !0)
-                    return (
-                      o("WALogger").LOG(
-                        re ||
-                          (re = babelHelpers.taggedTemplateLiteralLoose([
-                            "[history sync][continueProgressiveHistorySyncProcessingV2] Skip job scheduling as recent sync is complete when starting backend",
-                          ])),
-                      ),
-                      (se || (se = n("Promise"))).resolve()
-                    );
-                }
-                return o("WAWebOrchestratorNonPersistedJob")
-                  .createNonPersistedJob(
-                    "continueProgressiveHistorySyncProcessingV2",
-                    (function () {
-                      var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (n) {
-                          return (
-                            o("WALogger").LOG(
-                              oe ||
-                                (oe = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[history sync][continueProgressiveHistorySyncProcessingV2] job is scheduled, source: ",
-                                  "",
-                                ])),
-                              e,
-                            ),
-                            t.$18()
-                          );
-                        },
-                      );
-                      return function (e) {
-                        return r.apply(this, arguments);
-                      };
-                    })(),
-                    {
-                      priority: o("WAJobOrchestratorTypes").JOB_PRIORITY
-                        .HISTORY_SYNC,
-                      maxTimeoutMs: 12e4,
-                    },
+                },
+                {
+                  priority: o("WAJobOrchestratorTypes").JOB_PRIORITY
+                    .HISTORY_SYNC,
+                  maxTimeoutMs: 1e3 * 120,
+                },
+              )
+              .waitUntilCompleted()
+              .catch(function (e) {
+                var t = r("getErrorSafe")(e);
+                o("WALogger")
+                  .ERROR(
+                    ae ||
+                      (ae = babelHelpers.taggedTemplateLiteralLoose([
+                        "[history sync][continueProgressiveHistorySyncProcessingV2] error while running job",
+                      ])),
                   )
-                  .waitUntilCompleted()
-                  .catch(function (e) {
-                    var t = r("getErrorSafe")(e);
-                    o("WALogger")
-                      .ERROR(
-                        ae ||
-                          (ae = babelHelpers.taggedTemplateLiteralLoose([
-                            "[history sync][continueProgressiveHistorySyncProcessingV2] error while running job",
-                          ])),
-                      )
-                      .catching(t);
-                  });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.getIsHistorySyncRunning = function () {
+                  .catching(t);
+              });
+          }),
+          (n.getIsHistorySyncRunning = function () {
             var e = o("WAWebJobOrchestrator").getInstance(),
               t = e.getSnapshot(
                 o("WAJobOrchestratorTypes").JOB_PRIORITY.HISTORY_SYNC,
@@ -1214,17 +1120,17 @@ __d(
           t
         );
       })(),
-      be = new Ce();
+      Ce = new ye();
     (o("WAWebBackendEventBus").BackendEventBus.onInitialChatHistorySynced(
-      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      async function () {
         (o("WAWebAppTracker").AppTracker.stop(
           o("WAWebAppTracker").AppTrackerType.CriticalSync,
         ),
-          yield be.setInitialChatHistorySynced());
-      }),
+          await Ce.setInitialChatHistorySynced());
+      },
     ),
       o("WAWebBackendEventBus").BackendEventBus.onLogout(function () {
-        be.initState();
+        Ce.initState();
       }),
       o("WAWebBackendEventBus").BackendEventBus.onRecentChatHistorySynced(
         function () {
@@ -1258,8 +1164,8 @@ __d(
             ));
         },
       ));
-    var ve = be;
-    l.default = ve;
+    var be = Ce;
+    l.default = be;
   },
   98,
 );

@@ -9,7 +9,6 @@ __d(
     "WAWebSyncdKeyTypes",
     "WAWebSyncdNetCallbacksApi",
     "WAWebSyncdRequestEncode",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,52 +16,31 @@ __d(
       s = 2e3,
       u = 10,
       c = 100;
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      var t = e.activeSyncKeyId,
+        n = e.mutationsBlob,
+        r = e.patchMac,
+        a = e.snapshotMac,
+        i = await o("WAWebSyncdNetCallbacksApi").uploadSyncExternalPatch(n),
+        l = await m(i, n);
+      return p({ externalMutations: l, keyId: t, patchMac: r, snapshotMac: a });
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.activeSyncKeyId,
-            n = e.mutationsBlob,
-            r = e.patchMac,
-            a = e.snapshotMac,
-            i = yield o("WAWebSyncdNetCallbacksApi").uploadSyncExternalPatch(n),
-            l = yield p(i, n);
-          return f({
-            externalMutations: l,
-            keyId: t,
-            patchMac: r,
-            snapshotMac: a,
-          });
-        })),
-        m.apply(this, arguments)
-      );
+    async function m(e, t) {
+      var n = e.directPath,
+        r = e.encFilehash,
+        a = e.handle,
+        i = e.mediaKey,
+        l = await o("WAMediaCalculateFilehash").calculateFilehash(t);
+      return {
+        mediaKey: i,
+        directPath: n,
+        handle: a,
+        fileSizeBytes: t.byteLength,
+        fileSha256: o("WABase64").decodeB64(l),
+        fileEncSha256: r,
+      };
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.directPath,
-            r = e.encFilehash,
-            a = e.handle,
-            i = e.mediaKey,
-            l = yield o("WAMediaCalculateFilehash").calculateFilehash(t);
-          return {
-            mediaKey: i,
-            directPath: n,
-            handle: a,
-            fileSizeBytes: t.byteLength,
-            fileSha256: o("WABase64").decodeB64(l),
-            fileEncSha256: r,
-          };
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
+    function p(e) {
       var t = e.externalMutations,
         n = e.keyId,
         r = e.patchMac,
@@ -76,7 +54,7 @@ __d(
         deviceIndex: i,
       });
     }
-    function g(t) {
+    function _(t) {
       var n = Math.min(
         s,
         Math.max(
@@ -86,7 +64,7 @@ __d(
       );
       return t.length > n;
     }
-    function h(e) {
+    function f(e) {
       var t =
         Math.min(
           c,
@@ -98,9 +76,8 @@ __d(
       return e.byteLength > t;
     }
     ((l.uploadPatch = d),
-      (l.buildExternalBlobReference = p),
-      (l.exceedInlineMutationCount = g),
-      (l.exceedPatchProtobufSize = h));
+      (l.exceedInlineMutationCount = _),
+      (l.exceedPatchProtobufSize = f));
   },
   98,
 );
