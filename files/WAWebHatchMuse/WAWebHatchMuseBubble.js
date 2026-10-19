@@ -27,12 +27,19 @@ __d(
     function d(e, t) {
       return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(e)
         ? t
+          ? o("WAWebHatchMuseBubbleTheme.stylex").museSendButtonDark
+          : o("WAWebHatchMuseBubbleTheme.stylex").museSendButtonLight
+        : null;
+    }
+    function m(e, t) {
+      return o("WAWebHatchFrontendGating").isHatchThemeColorsEnabled(e)
+        ? t
           ? o("WAWebHatchMuseBubbleTheme.stylex").museWallpaperDark
           : o("WAWebHatchMuseBubbleTheme.stylex").museWallpaperLight
         : null;
     }
-    function m(e, t, n) {
-      var r = d(e, t);
+    function p(e, t, n) {
+      var r = m(e, t);
       if (r == null) return n;
       var o = {};
       for (var a of Object.keys(n.backgroundWrapperStyle))
@@ -42,8 +49,9 @@ __d(
     ((l.getHatchMuseBubbleStyle = s),
       (l.getHatchMuseChatThemeFlags = u),
       (l.withHatchMuseInlineOverrides = c),
-      (l.getHatchMuseWallpaperStyle = d),
-      (l.getHatchMusePanelTheme = m));
+      (l.getHatchMuseSendButtonTheme = d),
+      (l.getHatchMuseWallpaperStyle = m),
+      (l.getHatchMusePanelTheme = p));
   },
   98,
 );
