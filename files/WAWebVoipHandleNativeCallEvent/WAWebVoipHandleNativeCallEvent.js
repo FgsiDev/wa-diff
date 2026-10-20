@@ -36,6 +36,7 @@ __d(
     "WAWebVoipPersistentFS",
     "WAWebVoipQplHelpers",
     "WAWebVoipSctpConnectionManager",
+    "WAWebVoipSctpIceTcpFallback",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
     "WAWebVoipThreadPoolManagerRegistry",
@@ -1120,10 +1121,15 @@ __d(
             (Ie(c, u, typeof s.callId == "string" ? s.callId : null),
             o("WAWebVoipWebTransportCallSummary").recordWtCallState(l),
             ke(c),
-            o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-              (l === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
-                l === o("WAWebVoipWaCallEnums").CallState.AcceptReceived) &&
-              o("WAWebVoipWebTransportConnectionManager").handleCallAccepted(),
+            (l === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
+              l === o("WAWebVoipWaCallEnums").CallState.AcceptReceived) &&
+              (o(
+                "WAWebVoipSctpIceTcpFallback",
+              ).noteIceTcpFallbackCallAccepted(),
+              o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                o(
+                  "WAWebVoipWebTransportConnectionManager",
+                ).handleCallAccepted()),
             m)
           ) {
             (o("WALogger").LOG(
@@ -1338,7 +1344,8 @@ __d(
             l === o("WAWebVoipWaCallEnums").CallState.CallStateEnding &&
               (o("WAWebVoipErrorLogUpload").captureWamCallResult(e),
               o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
-              (J.callIsActive = !1)),
+              (J.callIsActive = !1),
+              o("WAWebVoipSctpIceTcpFallback").resetIceTcpFallback()),
             l === o("WAWebVoipWaCallEnums").CallState.None)
           ) {
             (o("WAWebVoipQplHelpers").voipEndCallQplAddPoint(

@@ -9,13 +9,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    var e, s, u;
+    function c(e, t, n) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           var a = t.chatType,
             i = t.chatWid,
             l = t.originLid;
@@ -58,10 +58,47 @@ __d(
               .sendLogs("meta-ai-chat-action-log-failed");
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.commitMetaAiChatListAction = u;
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var n = yield o(
+              "WAWebMetaAiChatActionIdentity",
+            ).getMetaAiConversationThreadId(e, t);
+            return n != null
+              ? {
+                  chatActionChatType: o("WAWebWamEnumChatActionChatType")
+                    .CHAT_ACTION_CHAT_TYPE[t],
+                  conversationThreadId: n,
+                }
+              : {
+                  chatActionChatType: o("WAWebWamEnumChatActionChatType")
+                    .CHAT_ACTION_CHAT_TYPE[t],
+                };
+          } catch (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[meta-ai-chat-action] capture-failed",
+                    ])),
+                )
+                .sendLogs("meta-ai-chat-action-capture-failed"),
+              {}
+            );
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    ((l.commitMetaAiChatListAction = c), (l.readMetaAiChatActionFields = m));
   },
   98,
 );

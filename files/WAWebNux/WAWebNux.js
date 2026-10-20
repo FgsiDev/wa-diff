@@ -29,6 +29,9 @@ __d(
       SMB_LISTS_INTRO: "smb_lists_intro",
       WEB_UI_REFRESH: "web_ui_refresh",
       DO_AUTOMATIC_LABEL: "do_automatic_label",
+      AE_ONBOARDING: "ae_onboarding",
+      AE_ONBOARDING_LISTS_HOME: "ae_onboarding_lists_home",
+      AE_ONBOARDING_NOT_NOW: "ae_onboarding_not_now",
       META_AI_CTA_BANNER: "meta_ai_cta_banner",
       FEEDBACK_INTRO: "feedback_intro",
       NEWSLETTER_QUESTIONS_RESPONSE_PRIVACY_BANNER:
@@ -62,6 +65,8 @@ __d(
       CALLS_TAB_NOTIFICATIONS_OFF_BANNER: "calls_tab_notifications_off_banner",
       TEE_CHAT_NOT_AVAILABLE_ON_WEB: "tee_chat_not_available_on_web",
       CALLS_TAB_PERMISSIONS_OFF_BANNER: "calls_tab_permissions_off_banner",
+      CONTACTS_AND_GROUPS_RESTRICTED_CHATS_BANNER:
+        "contacts_and_groups_restricted_chats_banner",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -156,6 +161,9 @@ __d(
           SMB_LISTS_INTRO: "smb_lists_intro",
           WEB_UI_REFRESH: "web_ui_refresh",
           DO_AUTOMATIC_LABEL: "do_automatic_label",
+          AE_ONBOARDING: "ae_onboarding",
+          AE_ONBOARDING_LISTS_HOME: "ae_onboarding_lists_home",
+          AE_ONBOARDING_NOT_NOW: "ae_onboarding_not_now",
           META_AI_CTA_BANNER: "meta_ai_cta_banner",
           NEWSLETTER_QUESTIONS_RESPONSE_PRIVACY_BANNER:
             "newsletter_questions_response_privacy_banner",

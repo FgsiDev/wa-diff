@@ -2,19 +2,23 @@ __d(
   "WAWebMetaAiChatActionLogger",
   [
     "JSResourceForInteraction",
+    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebBotUtils",
     "WAWebMetaAiThreadChat",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumChatActionEntryPoint",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = r("JSResourceForInteraction")("WAWebMetaAiChatActionEvents").__setRef(
+      s,
+      u,
+      c = r("JSResourceForInteraction")("WAWebMetaAiChatActionEvents").__setRef(
         "WAWebMetaAiChatActionLogger",
       );
-    function u(e) {
+    function d(e) {
       return e.isUser()
         ? o("WAWebBotUtils").isMetaAiBot(e)
           ? "META_AI"
@@ -23,7 +27,7 @@ __d(
             : null
         : null;
     }
-    function c(e, t) {
+    function m(e, t) {
       return e != null && !e.isEmptyQuery()
         ? {
             entryPoint: o("WAWebWamEnumChatActionEntryPoint")
@@ -38,10 +42,10 @@ __d(
               threadInboxPosition: t,
             };
     }
-    function d(e, t, n) {
+    function p(e, t, n) {
       var r;
       if (n == null) return null;
-      var a = u(e),
+      var a = d(e),
         i =
           (r = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
             ? void 0
@@ -54,7 +58,7 @@ __d(
         )
       )
         return null;
-      var l = m();
+      var l = _();
       return {
         commit: function () {
           return l.then(function (r) {
@@ -69,8 +73,8 @@ __d(
         },
       };
     }
-    function m() {
-      return s.load().catch(function () {
+    function _() {
+      return c.load().catch(function () {
         return (
           o("WALogger")
             .WARN(
@@ -84,9 +88,55 @@ __d(
         );
       });
     }
-    ((l.resolveMetaAiChatActionChatType = u),
-      (l.getMetaAiChatListRow = c),
-      (l.startMetaAiChatListAction = d));
+    function f(e) {
+      var t,
+        r =
+          (t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+            ? void 0
+            : t.toString(),
+        a = d(e),
+        i =
+          a == null ||
+          !o("WAWebABProps").getABPropConfigValue(
+            "ai_chat_action_logging_addition_enabled",
+          )
+            ? (u || (u = n("Promise"))).resolve({})
+            : _().then(function (t) {
+                var n;
+                return (n =
+                  t == null ? void 0 : t.readMetaAiChatActionFields(e, a)) !=
+                  null
+                  ? n
+                  : {};
+              });
+      return {
+        resolve: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e,
+              t = yield i;
+            return ((e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+              ? void 0
+              : e.toString()) !== r
+              ? (o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[meta-ai-chat-action] account-changed",
+                    ])),
+                ),
+                null)
+              : t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+      };
+    }
+    ((l.resolveMetaAiChatActionChatType = d),
+      (l.getMetaAiChatListRow = m),
+      (l.startMetaAiChatListAction = p),
+      (l.captureMetaAiChatActionFields = f));
   },
   98,
 );

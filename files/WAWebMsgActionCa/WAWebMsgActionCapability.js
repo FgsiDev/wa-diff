@@ -388,7 +388,10 @@ __d(
         ? !1
         : o("WAWebFrontendMsgGetters").getAsMms(t) != null ||
             o("WAWebMsgGetters").getLinkPreview(t) ||
-            t.type === o("WAWebMsgType").MSG_TYPE.VCARD ||
+            [
+              o("WAWebMsgType").MSG_TYPE.VCARD,
+              o("WAWebMsgType").MSG_TYPE.MULTI_VCARD,
+            ].includes(t.type) ||
             t.type === o("WAWebMsgType").MSG_TYPE.LOCATION ||
             t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||
             t.type === o("WAWebMsgType").MSG_TYPE.POLL_RESULT_SNAPSHOT ||

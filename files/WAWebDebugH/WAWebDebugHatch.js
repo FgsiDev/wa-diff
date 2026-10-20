@@ -3,6 +3,8 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WATimeUtils",
+    "WAWebDebugUtils",
     "WAWebHandleHatchMetadataSync",
     "WAWebHatchApprovalDebug",
     "WAWebHatchApprovalDialog.react",
@@ -12,12 +14,17 @@ __d(
     "WAWebHatchReadinessDebug",
     "WAWebHatchSpacesDebug",
     "WAWebHatchSpacesManager",
-    "WAWebMuseDefaultAssistantVariant",
+    "WAWebInteractiveMessageType",
+    "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebMsgKey",
+    "WAWebMsgModel",
+    "WAWebMsgType",
     "WAWebPrimaryFeatures",
     "WAWebPrimaryFeaturesModel",
     "WAWebPrimaryVersion",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
+    "WAWebUserPrefsMeUser",
     "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
@@ -266,32 +273,64 @@ __d(
       "hatchSetLinked registers a debug fetcher for later linked-status requests.\nhatchSetLinked(true) returns an ACTIVE paired status.\nhatchSetLinked(false) returns a status with hasChannel and isPaired set to false.\nThe debug fetcher updates the composer and disconnect button after the request resolves.\nA 515 or 516 stream-error reconnect replaces the debug fetcher with the server fetcher.\nRegistering the debug fetcher during an active request invalidates that response and starts a replacement request.\nCalling hatchSetLinked again replaces the debug fetcher with the new return value.\nThe resolved linked or unlinked state is also stored for the connectors load check, so it outlives a reload until a later confirmed fetch replaces it, such as another hatchSetLinked call.\nhatchLinkedStatus still reports this session's state only."),
       (N.paramsToExecute = [!0]));
     function M(e) {
-      e === void 0 && (e = 1);
-      var t = o(
-          "WAWebMuseDefaultAssistantVariant",
-        ).overrideMuseDefaultAssistantVariantForDebug(e),
-        n = o(
-          "WAWebMuseDefaultAssistantVariant",
-        ).getMuseDefaultAssistantVariant();
+      e === void 0 && (e = "ios");
+      var t = o("WAWebDebugUtils").getSelectedChat(),
+        n =
+          e === "ios"
+            ? "itms-apps://itunes.apple.com/us/app/muse-from-meta/id6760173601?qp_h=debug"
+            : e === "android"
+              ? "whatsapp://hatch"
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })(),
+        a = new (o("WAWebMsgModel").Msg)({
+          id: new (r("WAWebMsgKey"))({
+            fromMe: !1,
+            remote: t.id,
+            id: "DEBUG_MUSE_PSA_" + Date.now().toString(36),
+          }),
+          t: o("WATimeUtils").unixTime(),
+          from: t.id,
+          to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+          type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
+          caption:
+            "*New: Meet Muse, your personal AI agent*\nHand off everyday tasks like managing your email, booking reservations, and tracking prices right from WhatsApp.\n\nJust download the Muse app and add WhatsApp as a messaging channel.",
+          interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+          nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName").CTA_URL,
+          nativeFlowInteractiveMsg: !0,
+          interactivePayload: {
+            messageVersion: 1,
+            buttons: [
+              {
+                name: "cta_url",
+                buttonParamsJson: JSON.stringify({
+                  display_text: "Try Muse",
+                  url: n,
+                  webview_interaction: !0,
+                }),
+              },
+            ],
+          },
+        });
       return (
+        t.msgs.add(a),
         o("WALogger").LOG(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
-              "[debugHatch] default assistant variant override ",
-              " applied=",
-              " effective=",
-              "",
+              "[debugHatch] injected the Muse PSA (",
+              " CTA) into the open chat",
             ])),
-          String(e),
-          String(t),
-          n,
+          e,
         ),
         n
       );
     }
     ((M.doc =
-      "hatchSetDefaultAssistantVariant pins ai_meta_ai_muse_default_assistant_variant in memory, debug builds only.\n0 is Meta AI, 1 is Muse once linked, 2 is Muse always; null clears the override. Unknown values read as 0.\nReturns the variant now in effect. The override is lost on reload."),
-      (M.paramsToExecute = [1]));
+      "hatchInjectMusePsa adds the Muse PSA to the open chat, in memory only: the \"Try Muse\" button carries the link the PSA campaign sends to the given primary.\n'ios' (default) is the Muse App Store link, 'android' is whatsapp://hatch. Tapping the button shows the page Web opens instead. Gone after a reload."),
+      (M.paramsToExecute = ["ios"]));
     function w(e) {
       return A.apply(this, arguments);
     }
@@ -355,6 +394,7 @@ __d(
       ai_hatch_revoke_enabled: !0,
       ai_hatch_manage_subscription_enabled: !0,
       ai_hatch_avatar_working_video_enabled: !0,
+      ai_hatch_approval_notification_enabled: !0,
       ai_meta_ai_muse_default_assistant_variant_1: !0,
       ai_meta_ai_muse_default_assistant_variant_2: !0,
       ai_meta_ai_muse_default_assistant_variant_3: !0,
@@ -459,11 +499,11 @@ __d(
       hatchPrimaryVersion: F,
       hatchReadiness: V,
       hatchSetLinked: N,
-      hatchSetDefaultAssistantVariant: M,
       hatchSetPrimaryFeature: B,
       hatchSetPrimaryVersion: w,
       hatchInjectApproval: k,
       hatchInjectCheckout: I,
+      hatchInjectMusePsa: M,
       hatchInjectNotification: T,
       hatchInjectSpaces: D,
       hatchPayloads: v,
