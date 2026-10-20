@@ -1666,6 +1666,7 @@ __d(
       INSTANT_ADS_PRODUCT_CARD_HOVER: "instant_ads_product_card_hover",
       INSTANT_ADS_PREGENERATE_INTENTION_WITH_PERSONAS:
         "instant_ads_pregenerate_intention_with_personas",
+      INSTANT_ADS_PREGENERATE_REQUESTED: "instant_ads_pregenerate_requested",
       INSTANT_ADS_PREGENERATE_FUNNEL_OUTCOME:
         "instant_ads_pregenerate_funnel_outcome",
       INSTANT_ADS_CREATIVES_GENERATING: "instant_ads_creatives_generating",
@@ -1816,6 +1817,8 @@ __d(
       LOCAL_ADS_ADDRESS_ENTRY: "local_ads_address_entry",
       LOCAL_ADS_LOCATION_ROW_REMOVED: "local_ads_location_row_removed",
       LOCAL_ADS_LOCATIONS_SAVED: "local_ads_locations_saved",
+      LOCAL_ADS_CREATIVE_NORMALIZATION_APPLIED:
+        "local_ads_creative_normalization_applied",
       IG_PLACEMENT_REMOVED_STORY_INVALID: "ig_placement_removed_story_invalid",
       IG_PLACEMENT_RECOVERED_BY_AD_ACCOUNT:
         "ig_placement_recovered_by_ad_account",

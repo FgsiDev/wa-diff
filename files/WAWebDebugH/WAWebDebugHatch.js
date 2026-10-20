@@ -344,7 +344,6 @@ __d(
       ai_hatch_ideas_enabled: !0,
       ai_hatch_video_avatars_enabled: !0,
       ai_hatch_theme_enabled: !0,
-      ai_hatch_theme_colors_enabled: !0,
       ai_hatch_response_ux_parity_enabled: !0,
       ai_hatch_connectors_enabled: !0,
       ai_hatch_secure_credentials_enabled: !0,
