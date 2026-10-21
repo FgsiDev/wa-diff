@@ -1,0 +1,136 @@
+__d(
+  "WAWebBookingConfirmation",
+  [
+    "WAWebBookingConfirmationGating",
+    "WAWebInteractiveMessageType",
+    "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebMsgType",
+  ],
+  function (t, n, r, o, a, i, l) {
+    function e(e) {
+      try {
+        var t,
+          n,
+          r,
+          o,
+          a,
+          i,
+          l,
+          s,
+          u,
+          c,
+          d,
+          m,
+          p,
+          _,
+          f,
+          g,
+          h = JSON.parse(e);
+        if (
+          h.start_datetime == null ||
+          (h.location == null &&
+            h.booking_url == null &&
+            h.phone_number == null)
+        )
+          return null;
+        var y =
+          h.display_content != null
+            ? {
+                displayLanguage:
+                  (t = h.display_content.display_language) != null ? t : null,
+                displayMeetingType:
+                  (n = h.display_content.display_meeting_type) != null
+                    ? n
+                    : null,
+                displayBottomSheetHeader:
+                  (r = h.display_content.display_bottom_sheet_header) != null
+                    ? r
+                    : null,
+                displayAddToCalendarCtaText:
+                  (o = h.display_content.display_add_to_calendar_cta_text) !=
+                  null
+                    ? o
+                    : null,
+                displayViewOnMapsCtaText:
+                  (a = h.display_content.display_view_on_maps_cta_text) != null
+                    ? a
+                    : null,
+                displayManageBookingCtaText:
+                  (i = h.display_content.display_manage_booking_cta_text) !=
+                  null
+                    ? i
+                    : null,
+                displayManageBookingNotSupportedText:
+                  (l =
+                    h.display_content
+                      .display_manage_booking_not_supported_text) != null
+                    ? l
+                    : null,
+                displayReadMore:
+                  (s = h.display_content.display_read_more) != null ? s : null,
+              }
+            : null;
+        return {
+          startDatetime: h.start_datetime,
+          endDatetime: (u = h.end_datetime) != null ? u : null,
+          location: (c = h.location) != null ? c : null,
+          bookingUrl: (d = h.booking_url) != null ? d : null,
+          phoneNumber: (m = h.phone_number) != null ? m : null,
+          bookingManagementUrl:
+            (p = h.booking_management_url) != null ? p : null,
+          description: (_ = h.description) != null ? _ : null,
+          email: (f = h.email) != null ? f : null,
+          displayText: (g = h.display_text) != null ? g : null,
+          displayContent: y,
+        };
+      } catch (e) {
+        return null;
+      }
+    }
+    function s(e) {
+      return e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+        ? null
+        : u({
+            interactivePayload: e.interactivePayload,
+            interactiveType: e.interactiveType,
+            nativeFlowName: e.nativeFlowName,
+            type: e.type,
+          });
+    }
+    function u(t) {
+      var n,
+        a = t.interactivePayload,
+        i = t.interactiveType,
+        l = t.nativeFlowName,
+        s = t.type;
+      if (
+        l !==
+          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION ||
+        s !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        i !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !(a != null && a.buttons) ||
+        !o("WAWebBookingConfirmationGating").isBookingConfirmationEnabled()
+      )
+        return null;
+      var u = (n = a.buttons[0]) == null ? void 0 : n.buttonParamsJson;
+      return u == null ? null : e(u);
+    }
+    var c = "booking_status";
+    function d(t) {
+      var n = t == null ? void 0 : t.name;
+      if (
+        (n !==
+          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION &&
+          n !== c) ||
+        !o("WAWebBookingConfirmationGating").isBookingConfirmationEnabled()
+      )
+        return null;
+      var a = t.buttonParamsJson;
+      return a == null ? null : e(a);
+    }
+    ((l.getBookingConfirmationInfo = s),
+      (l.getBookingConfirmationInfoFor = u),
+      (l.parseBookingConfirmationButton = d));
+  },
+  98,
+);

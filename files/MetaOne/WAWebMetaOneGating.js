@@ -37,7 +37,7 @@ __d(
       return (
         o("WAWebABProps").getABPropConfigValue("wa_meta_one_enabled") === !0 &&
         o("WAWebABProps").getABPropConfigValue(
-          "wa_meta_one_rollout_enabled",
+          "wa_meta_one_eligibility_check_enabled",
         ) === !0
       );
     }

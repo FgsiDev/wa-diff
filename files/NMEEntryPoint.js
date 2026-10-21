@@ -899,6 +899,10 @@ __d(
       META_ONE_APP_PLUS_MARKETING_SITE_V1:
         "meta_one_app_plus_marketing_site_v1",
       META_ONE_BIZ_AI_BIZ_CLAW_UPSELL: "meta_one_biz_ai_biz_claw_upsell",
+      META_ONE_BIZ_AI_MBS_AIHOME_QUOTA_LIFECYCLE:
+        "meta_one_biz_ai_mbs_aihome_quota_lifecycle",
+      META_ONE_BIZ_AI_MBS_INBOX_QUOTA_LIFECYCLE:
+        "meta_one_biz_ai_mbs_inbox_quota_lifecycle",
       META_ONE_BIZ_AI_MBS_UPSELL: "meta_one_biz_ai_mbs_upsell",
       META_ONE_BIZ_AI_MESSENGER_UPSELL: "meta_one_biz_ai_messenger_upsell",
       META_ONE_BIZ_AI_QUOTA_EMAIL: "meta_one_biz_ai_quota_email",
@@ -921,6 +925,8 @@ __d(
         "meta_one_ig_subscription_completion_notif",
       META_ONE_IG_SUBSCRIPTION_REVOCATION_NOTIF:
         "meta_one_ig_subscription_revocation_notif",
+      META_ONE_MBS_HOME_AUTO_INVITE_UPSELL:
+        "meta_one_mbs_home_auto_invite_upsell",
       META_ONE_PBIS_APPEAL_NEEDED_ENTRY: "meta_one_pbis_appeal_needed_entry",
       META_ONE_PROFILE_VERIFICATION_FAILED_RETRY_ENTRY:
         "meta_one_profile_verification_failed_retry_entry",

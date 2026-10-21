@@ -65,7 +65,7 @@ __d(
         g = [
           u.jsx(
             r("WAWebChatContextMenuItemAddContact.react"),
-            { chat: i },
+            { chatId: i.id },
             "AddContact",
           ),
           u.jsx(
@@ -78,10 +78,14 @@ __d(
             { chatId: i.id },
             "Lock",
           ),
-          u.jsx(r("WAWebChatContextMenuItemMute.react"), { chat: i }, "Mute"),
+          u.jsx(
+            r("WAWebChatContextMenuItemMute.react"),
+            { chatId: i.id },
+            "Mute",
+          ),
           u.jsx(
             r("WAWebChatContextMenuItemPin.react"),
-            { chat: i, cellRef: a, metaAiChatListRow: f },
+            { chatId: i.id, cellRef: a, metaAiChatListRow: f },
             "Pin",
           ),
         ];
@@ -96,7 +100,9 @@ __d(
             }),
           ),
         g.push(
-          u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), { chat: i }),
+          u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), {
+            chatId: i.id,
+          }),
         ),
         o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled())
       ) {
@@ -170,7 +176,9 @@ __d(
       ),
         g.push(u.jsx(r("WAWebDropdownItemSeparator.react"), {})),
         i.id.isBot() ||
-          g.push(u.jsx(r("WAWebChatContextMenuItemBlock.react"), { chat: i })));
+          g.push(
+            u.jsx(r("WAWebChatContextMenuItemBlock.react"), { chatId: i.id }),
+          ));
       var b = s._(/*BTDS*/ "Clear chat");
       return (
         g.push(
