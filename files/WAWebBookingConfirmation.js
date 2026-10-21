@@ -113,18 +113,21 @@ __d(
       var u = (n = a.buttons[0]) == null ? void 0 : n.buttonParamsJson;
       return u == null ? null : e(u);
     }
-    function c(t) {
+    var c = "booking_status";
+    function d(t) {
+      var n = t == null ? void 0 : t.name;
       if (
-        (t == null ? void 0 : t.name) !==
-        r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
+        n !==
+          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION &&
+        n !== c
       )
         return null;
-      var n = t.buttonParamsJson;
-      return n == null ? null : e(n);
+      var o = t.buttonParamsJson;
+      return o == null ? null : e(o);
     }
     ((l.getBookingConfirmationInfo = s),
       (l.getBookingConfirmationInfoFor = u),
-      (l.parseBookingConfirmationButton = c));
+      (l.parseBookingConfirmationButton = d));
   },
   98,
 );

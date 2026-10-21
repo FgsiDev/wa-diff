@@ -7,19 +7,27 @@ __d(
       s = "1",
       u = "delta.presentation",
       c = "citation";
-    function d(t) {
+    function d(e) {
+      return (function (e) {
+        return (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.__typename === "XMSGGenAIJarvisPayload"
+        );
+      })(e == null ? void 0 : e.passthrough_payload);
+    }
+    function m(t) {
       var n = t.passthrough_payload;
       return n == null || n.__typename !== e || n.envelope_schema_version !== s
         ? null
-        : _(n.jarvis_envelope);
+        : f(n.jarvis_envelope);
     }
-    var m = new WeakMap();
-    function p(e) {
-      if (m.has(e)) return m.get(e);
-      var t = d(e);
-      return (m.set(e, t), t);
-    }
+    var p = new WeakMap();
     function _(e) {
+      if (p.has(e)) return p.get(e);
+      var t = m(e);
+      return (p.set(e, t), t);
+    }
+    function f(e) {
       var t, n, r;
       try {
         r = JSON.parse(e);
@@ -32,7 +40,7 @@ __d(
           o("WAWebHatchJsonReaders").readString(a, "event_name") === u
             ? o("WAWebHatchJsonReaders").readObject(a, "payload")
             : null,
-        l = f(i),
+        l = g(i),
         s =
           (t = [
             o("WAWebHatchJsonReaders").readString(i, "fallback_text"),
@@ -50,21 +58,21 @@ __d(
           ? n
           : !0;
       return {
-        citations: h(o("WAWebHatchJsonReaders").readArray(a, "resources")),
+        citations: y(o("WAWebHatchJsonReaders").readArray(a, "resources")),
         displayText: s,
         displayTextReady: c,
-        fileMetadata: y(
+        fileMetadata: C(
           o("WAWebHatchJsonReaders").readObject(r, "file_metadata"),
         ),
         inlineWidgets:
           l == null && c
-            ? g(o("WAWebHatchJsonReaders").readArray(r, "inline_widgets"))
+            ? h(o("WAWebHatchJsonReaders").readArray(r, "inline_widgets"))
             : [],
         messageId: o("WAWebHatchJsonReaders").readString(a, "message_id"),
         presentation: l,
       };
     }
-    function f(e) {
+    function g(e) {
       var t,
         n = o("WAWebHatchJsonReaders").readNonEmptyString(e, "kind");
       return n == null
@@ -78,16 +86,16 @@ __d(
             kind: n,
           };
     }
-    function g(e) {
+    function h(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
-        var r = o("WAWebHatchJsonReaders").isObject(n) ? f(n) : null;
+        var r = o("WAWebHatchJsonReaders").isObject(n) ? g(n) : null;
         r != null && t.push(r);
       }
       return t;
     }
-    function h(e) {
+    function y(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -100,7 +108,7 @@ __d(
             a == null
           )
         ) {
-          var i = b(o("WAWebHatchJsonReaders").readString(n, "metadata"));
+          var i = v(o("WAWebHatchJsonReaders").readString(n, "metadata"));
           t.push({
             domain: o("WAWebHatchJsonReaders").readString(i, "domain"),
             faviconUrl: o("WAWebHatchJsonReaders").readString(i, "favicon_url"),
@@ -111,7 +119,7 @@ __d(
       }
       return t;
     }
-    function y(e) {
+    function C(e) {
       var t = new Map();
       if (e == null || typeof e != "object") return t;
       for (var n of Object.keys(e)) {
@@ -119,7 +127,7 @@ __d(
           a = o("WAWebHatchJsonReaders").readNonEmptyString(r, "url");
         a != null &&
           t.set(n, {
-            encryptedMedia: C(
+            encryptedMedia: b(
               o("WAWebHatchJsonReaders").readObject(r, "encrypted_media"),
             ),
             filename: o("WAWebHatchJsonReaders").readNonEmptyString(
@@ -140,7 +148,7 @@ __d(
       }
       return t;
     }
-    function C(e) {
+    function b(e) {
       var t = o("WAWebHatchSecureMediaDecoder").hasMmgTransport(e)
           ? o("WAWebHatchSecureMediaDecoder").decodeMmgMediaKeys(e)
           : null,
@@ -160,7 +168,7 @@ __d(
             width: o("WAWebHatchJsonReaders").readInteger(e, "width"),
           });
     }
-    function b(e) {
+    function v(e) {
       if (e == null) return null;
       try {
         var t = JSON.parse(e);
@@ -169,7 +177,9 @@ __d(
         return null;
       }
     }
-    ((l.parseHatchJarvisPayload = d), (l.getHatchJarvisPayload = p));
+    ((l.hasHatchJarvisPayload = d),
+      (l.parseHatchJarvisPayload = m),
+      (l.getHatchJarvisPayload = _));
   },
   98,
 );

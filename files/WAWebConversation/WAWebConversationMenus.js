@@ -411,13 +411,13 @@ __d(
       }
       var X;
       if (
-        (a[38] !== i
+        (a[38] !== i.id
           ? ((X = u.jsx(
               r("WAWebChatContextMenuItemLock.react"),
-              { chat: i },
+              { chatId: i.id },
               "Lock",
             )),
-            (a[38] = i),
+            (a[38] = i.id),
             (a[39] = X))
           : (X = a[39]),
         v.push(X),

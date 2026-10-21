@@ -54,7 +54,7 @@ __d(
         R.push(
           u.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
-            { chat: b },
+            { chatId: b.id },
             "Archive",
           ),
         ),

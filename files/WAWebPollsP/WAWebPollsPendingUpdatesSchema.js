@@ -29,6 +29,17 @@ __d(
               "selectedOptionLocalIds",
               o("WAWebStorageSchema").EncryptedValueType.ARRAY_BUFFER,
             ),
+            i(
+              "unresolvedOptionHashes",
+              o("WAWebStorageSchema").EncryptedValueType.ARRAY_BUFFER,
+            ),
+            n("t"),
+            n("parkedMsgPayload"),
+            i(
+              "parkedMsgOpaqueData",
+              o("WAWebStorageSchema").EncryptedValueType.ARRAY_BUFFER,
+            ),
+            n("reportingTokenInfo"),
             n("createdAtMs"),
             r(["parentMsgKey", "dependencyType", "dependencyId"]),
             l("parentMsgKey"),

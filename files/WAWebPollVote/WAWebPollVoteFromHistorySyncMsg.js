@@ -1,1 +1,34 @@
-__d("WAWebPollVoteFromHistorySyncMsg",["WAWebPollsParseWebMsgInfoPollUpdates","WAWebPollsVoteDataUtils","asyncToGeneratorRuntime"],(function(t,n,r,o,a,i,l){function e(e){return s.apply(this,arguments)}function s(){return s=n("asyncToGeneratorRuntime").asyncToGenerator(function*(e){return o("WAWebPollsParseWebMsgInfoPollUpdates").parseWebMsgInfoPollUpdates(e).then(function(e){return e.map(o("WAWebPollsVoteDataUtils").voteDataToPollVoteMsgData)})}),s.apply(this,arguments)}l.default=e}),98);
+__d(
+  "WAWebPollVoteFromHistorySyncMsg",
+  [
+    "WAWebPollsParseWebMsgInfoPollUpdates",
+    "WAWebPollsVoteDataUtils",
+    "asyncToGeneratorRuntime",
+  ],
+  function (t, n, r, o, a, i, l) {
+    function e(e) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o(
+            "WAWebPollsParseWebMsgInfoPollUpdates",
+          ).parseWebMsgInfoPollUpdates(e);
+          return t.map(function (e) {
+            var t = e.pollUpdateMessageMetadata,
+              n = e.voteData;
+            return babelHelpers.extends(
+              {},
+              o("WAWebPollsVoteDataUtils").voteDataToPollVoteMsgData(n),
+              { pollUpdateMessageMetadata: t },
+            );
+          });
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    l.default = e;
+  },
+  98,
+);

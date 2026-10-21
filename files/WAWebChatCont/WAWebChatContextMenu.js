@@ -70,10 +70,14 @@ __d(
           ),
           u.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
-            { chat: i, metaAiChatListRow: f },
+            { chatId: i.id, metaAiChatListRow: f },
             "Archive",
           ),
-          u.jsx(r("WAWebChatContextMenuItemLock.react"), { chat: i }, "Lock"),
+          u.jsx(
+            r("WAWebChatContextMenuItemLock.react"),
+            { chatId: i.id },
+            "Lock",
+          ),
           u.jsx(r("WAWebChatContextMenuItemMute.react"), { chat: i }, "Mute"),
           u.jsx(
             r("WAWebChatContextMenuItemPin.react"),

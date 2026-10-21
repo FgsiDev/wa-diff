@@ -90,7 +90,7 @@ __d(
           ),
           s.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
-            { chat: n },
+            { chatId: n.id },
             "Archive",
           ),
           s.jsx(r("WAWebChatContextMenuItemMute.react"), { chat: n }, "Mute"),
