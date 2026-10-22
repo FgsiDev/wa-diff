@@ -1,1 +1,32 @@
-__d("WDSDialogBridge",[],(function(t,n,r,o,a,i){"use strict";var e=150,l=null,s=null,u=null;function c(e){l!=null?l(e):u=e}function d(){s!=null?s():u!=null&&(u=null)}function m(e,t){if(l=e,s=t,u!=null){var n=u;u=null,e(n)}return function(){l=null,s=null}}i.DIALOG_EXIT_ANIMATION_DURATION=e,i.openWDSDialog=c,i.closeWDSDialog=d,i.registerDialogManager=m}),66);
+__d(
+  "WDSDialogBridge",
+  ["WDSDialogDismissRegistry"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = 150,
+      s = null,
+      u = null,
+      c = null;
+    function d(e) {
+      s != null ? s(e) : (c = e);
+    }
+    function m() {
+      (o("WDSDialogDismissRegistry").clearDialogDismissHandler(),
+        u != null ? u() : c != null && (c = null));
+    }
+    function p(e, t) {
+      if (((s = e), (u = t), c != null)) {
+        var n = c;
+        ((c = null), e(n));
+      }
+      return function () {
+        ((s = null), (u = null));
+      };
+    }
+    ((l.DIALOG_EXIT_ANIMATION_DURATION = e),
+      (l.openWDSDialog = d),
+      (l.closeWDSDialog = m),
+      (l.registerDialogManager = p));
+  },
+  98,
+);
