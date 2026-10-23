@@ -36,6 +36,8 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "cr:10198",
+    "cr:17732",
+    "cr:17733",
     "cr:627",
     "getErrorSafe",
     "gkx",
@@ -192,7 +194,22 @@ __d(
                             k == null ||
                             k !== (R == null ? void 0 : R.identityKey) ||
                             P.isIdentityChangedSinceSend;
-                        if (yield T(i, D, w, F)) return;
+                        if (
+                          yield T(
+                            (n("cr:17733") == null
+                              ? void 0
+                              : n("cr:17733").isAeaBotAccount(i)) === !0
+                              ? o("WAWebWidFactory").asUserWidOrThrow(D)
+                              : a != null
+                                ? a
+                                : i,
+                            D,
+                            w,
+                            F,
+                            R == null ? void 0 : R.identityKey,
+                          )
+                        )
+                          return;
                         var O = {
                           to: p,
                           participant: _,
@@ -245,21 +262,23 @@ __d(
         r !== "voip_1x1_retry"
       );
     }
-    function T(e, t, n, r) {
+    function T(e, t, n, r, o) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i) {
+          function* (e, t, a, i, l) {
             if (
               n("cr:627") == null ||
-              !e.isRegularUser() ||
+              (n("cr:17733") == null
+                ? void 0
+                : n("cr:17733").isRegularUserOrAeaBot(e)) !== !0 ||
               o("WAWebUserPrefsMeUser").isMeAccount(t)
             )
               return !1;
             try {
-              var l = yield n("cr:627").isAeaRetryBlocked({
+              var s = yield n("cr:627").isAeaRetryBlocked({
                 recipient: e,
                 message: o(
                   "WAWebOutgoingMessage",
@@ -271,9 +290,11 @@ __d(
                   "WAWebMsgGetters",
                 ).getIsBotFeedbackMessage(a.data),
                 isIdentityChangedSinceSend: i,
+                requester: t,
+                authorizedIdentityKey: l,
               });
               return (
-                l &&
+                s &&
                   o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -282,7 +303,7 @@ __d(
                       ])),
                     t.toLogString(),
                   ),
-                l
+                s
               );
             } catch (e) {
               return (
@@ -385,11 +406,18 @@ __d(
             return yield o("WAWebSendMsgQueueMap").sendMsgQueueMap.enqueue(
               e.toString(),
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var n = yield o("WAWebSignalProtocolStore")
-                  .getPersistSignalProtocolStore()
-                  .getIdentityWithRowId(
-                    o("WAWebSignalCommonUtils").createSignalAddress(m),
-                  );
+                var a,
+                  i = yield o("WAWebSignalProtocolStore")
+                    .getPersistSignalProtocolStore()
+                    .getIdentityWithRowId(
+                      o("WAWebSignalCommonUtils").createSignalAddress(m),
+                    ),
+                  s =
+                    (a = i == null ? void 0 : i.identityKey) != null
+                      ? a
+                      : n("cr:17732") == null
+                        ? void 0
+                        : n("cr:17732").readAeaIdentityChangeBaselineKey(m);
                 (yield o(
                   "WAWebUpdateLocalSignalSession",
                 ).updateLocalSignalSession(e, t, r),
@@ -397,8 +425,11 @@ __d(
                     identityChanged: !1,
                     sessionScope: r,
                     wids: [m],
-                  }));
-                var a = yield o("WAWebSignalProtocolStore")
+                  }),
+                  yield n("cr:17732") == null
+                    ? void 0
+                    : n("cr:17732").restoreAeaIdentityChangeBaseline(m));
+                var c = yield o("WAWebSignalProtocolStore")
                   .getPersistSignalProtocolStore()
                   .getIdentityWithRowId(
                     o("WAWebSignalCommonUtils").createSignalAddress(m),
@@ -408,8 +439,8 @@ __d(
                   chat: e,
                   requester: m,
                   isLidBot: l,
-                  identity: a,
-                  previousIdentityKey: n == null ? void 0 : n.identityKey,
+                  identity: c,
+                  previousIdentityKey: s,
                 };
               }),
             );

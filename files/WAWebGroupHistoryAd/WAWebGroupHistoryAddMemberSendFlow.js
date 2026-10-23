@@ -1,0 +1,233 @@
+__d(
+  "WAWebGroupHistoryAddMemberSendFlow",
+  [
+    "fbt",
+    "WALogger",
+    "WATimeUtils",
+    "WAWebABProps",
+    "WAWebDetailImage.react",
+    "WAWebFlex.react",
+    "WAWebFrontendContactGetters",
+    "WAWebGetGroupHistoryBundleMessagesCount",
+    "WAWebGroupHistoryGating",
+    "WAWebGroupHistoryPostJoinConfirmPopup.react",
+    "WAWebGroupHistoryPostJoinEligibility",
+    "WAWebGroupHistoryRestrictionHelper",
+    "WAWebGroupHistorySentOnceAction",
+    "WAWebGroupHistoryShareToggleDefaultAction",
+    "WAWebModalManager",
+    "WAWebSendHistoryBundleAction",
+    "WAWebToast.react",
+    "WAWebToastManager",
+    "WAWebWidFactory",
+    "WAWebWidToJid",
+    "asyncToGeneratorRuntime",
+    "getErrorSafe",
+    "react",
+  ],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e,
+      u,
+      c,
+      d,
+      m,
+      p = m || (m = o("react")),
+      _ = 64,
+      f = {
+        titleHeader: { rowGap: "x8a3fw1", alignItems: "x1qjc9v5", $$css: !0 },
+      };
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = t.groupMetadata;
+          if (a != null) {
+            var i = o("WAWebWidFactory").asGroupWidOrThrow(a.id);
+            if (y(a, i, n)) {
+              var l = o("WATimeUtils").unixTime(),
+                s;
+              try {
+                s = yield o(
+                  "WAWebGetGroupHistoryBundleMessagesCount",
+                ).getGroupHistoryBundleMessageCount({
+                  groupWid: i,
+                  targetStartMessageTime: l,
+                });
+              } catch (t) {
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[group-history] add-member availability probe failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("group-history-add-member-probe-failed");
+                return;
+              }
+              s !== 0 && C(i, n, l);
+            }
+          }
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e, t, n) {
+      return (
+        o(
+          "WAWebGroupHistoryPostJoinEligibility",
+        ).isPostJoinHistoryGroupStructurallyEligible(
+          o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(e),
+        ) &&
+        !o("WAWebGroupHistoryRestrictionHelper").isHistoryRestrictedWid(n.id) &&
+        !e.participants.isParticipantWidOrAlternateWidValid(
+          o("WAWebWidFactory").asUserWidOrThrow(n.id),
+          function (e) {
+            return o(
+              "WAWebGroupHistoryPostJoinEligibility",
+            ).isAlreadyReceivedState(
+              e == null ? void 0 : e.groupHistorySentState,
+            );
+          },
+        ) &&
+        o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(t) &&
+        o("WAWebABProps").getABPropConfigValue(
+          "group_history_send_adding_from_contact_message",
+        )
+      );
+    }
+    function C(e, t, a) {
+      var i = o("WAWebFrontendContactGetters").getFormattedShortName(t);
+      o("WAWebModalManager").ModalManager.openSupportModal(
+        p.jsx(r("WAWebGroupHistoryPostJoinConfirmPopup.react"), {
+          title: p.jsxs(o("WAWebFlex.react").FlexColumn, {
+            xstyle: f.titleHeader,
+            children: [
+              p.jsx("div", {
+                className: "x78zum5 xl56j7k",
+                "data-testid": "group-history-add-member-modal-avatar",
+                children: p.jsx(o("WAWebDetailImage.react").DetailImage, {
+                  id: t.id,
+                  size: _,
+                }),
+              }),
+              s._(/*BTDS*/ "Send message history to {contactName}?", [
+                s._param("contactName", i),
+              ]),
+            ],
+          }),
+          okText: s._(/*BTDS*/ "Send history"),
+          cancelText: s._(/*BTDS*/ "Not now"),
+          onCancel: o("WAWebModalManager").closeModalManager,
+          onConfirm: n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* () {
+              (o("WAWebModalManager").closeModalManager(), yield b(e, t, a));
+            },
+          ),
+          children: s._(
+            /*BTDS*/ "{contactName} will get recent messages from this group.",
+            [s._param("contactName", i)],
+          ),
+        }),
+      );
+    }
+    function b(e, t, n) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = o("WAWebGroupHistoryRestrictionHelper").filterParticipants([
+              t.id,
+            ]),
+            i = a.historyReceivers,
+            l = a.nonHistoryReceivers;
+          if (i.length === 0) {
+            S(t);
+            return;
+          }
+          try {
+            var m = yield o(
+                "WAWebSendHistoryBundleAction",
+              ).sendHistoryBundleAction(
+                o("WAWebWidToJid").widToGroupJid(e),
+                i,
+                l,
+                null,
+                n,
+              ),
+              _ = m.bundleAcked;
+            if (!_) {
+              (o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[group-history] add-member history bundle was not acked",
+                    ])),
+                )
+                .sendLogs("group-history-add-member-send-not-acked"),
+                S(t));
+              return;
+            }
+            (o(
+              "WAWebGroupHistoryGating",
+            ).isGroupHistorySendOnceDefaultOnEnabled() &&
+              o("WAWebGroupHistorySentOnceAction").markGroupHistorySentOnce(),
+              o("WAWebGroupHistoryShareToggleDefaultAction")
+                .setGroupHistoryShareToggleDefault(e, !0)
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "[group-history] failed to seed share-toggle default",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("group-history-add-member-toggle-default-failed");
+                }),
+              o("WAWebToastManager").ToastManager.open(
+                p.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(/*BTDS*/ "Message history sent to {contactName}", [
+                    s._param(
+                      "contactName",
+                      o("WAWebFrontendContactGetters").getFormattedShortName(t),
+                    ),
+                  ]),
+                }),
+              ));
+          } catch (e) {
+            (o("WALogger")
+              .ERROR(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history] failed to send add-member history bundle",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("group-history-add-member-send-failed"),
+              S(t));
+          }
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      o("WAWebToastManager").ToastManager.open(
+        p.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Couldn't send message history to {contactName}", [
+            s._param(
+              "contactName",
+              o("WAWebFrontendContactGetters").getFormattedShortName(e),
+            ),
+          ]),
+        }),
+      );
+    }
+    l.offerGroupHistoryAfterAddingMember = g;
+  },
+  226,
+);

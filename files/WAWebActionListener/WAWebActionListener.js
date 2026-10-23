@@ -84,6 +84,7 @@ __d(
     "react-compiler-runtime",
     "useWAWebBotActionListeners",
     "useWAWebCommunityActionListeners",
+    "useWAWebCustomerManagerActionListeners",
     "useWAWebListener",
     "useWAWebNewsletterActionListeners",
     "useWAWebUIM",
@@ -886,6 +887,7 @@ __d(
         : (et = a[52]),
         o("useWAWebListener").useListener(o("WAWebCmd").Cmd, et, Ee),
         r("useWAWebBotActionListeners")(i, l),
+        r("useWAWebCustomerManagerActionListeners")(i, l),
         r("useWAWebCommunityActionListeners")(),
         r("useWAWebNewsletterActionListeners")());
       var tt;
@@ -1036,7 +1038,7 @@ __d(
     function P(e, t) {
       ((e.pendingAction = e.pendingAction + 1),
         o("WAWebUpdateUnreadChatAction")
-          .markUnread(e, t)
+          .markUnread(e, { unread: t })
           .finally(function () {
             e.pendingAction = e.pendingAction - 1;
           }));

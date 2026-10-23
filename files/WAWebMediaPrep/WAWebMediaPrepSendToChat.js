@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAPromiseBackoffs",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebBotBaseGating",
     "WAWebChannelVideoServerTranscodeGating",
@@ -35,6 +34,7 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
     "WAWebSpoilerFormatRegex",
+    "WAWebSpoilerGating",
     "WAWebWamEnumMessageSendResultType",
     "asyncToGeneratorRuntime",
     "err",
@@ -146,8 +146,9 @@ __d(
               o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(
                 k != null ? k : null,
               ) &&
-              o("WAWebABProps").getABPropConfigValue(
-                "is_spoiler_rich_format_sender_enabled",
+              o("WAWebSpoilerGating").isSpoilerSenderEnabledForDestination(
+                i.id.isStatus(),
+                v.isNewsletterStatus === !0,
               ),
             F,
             O = !1;

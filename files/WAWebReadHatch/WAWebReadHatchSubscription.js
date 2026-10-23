@@ -1,55 +1,62 @@
 __d(
   "WAWebReadHatchSubscription",
   [
-    "fbt",
     "WALogger",
     "WAWebHatchJsonReaders",
     "WAWebHatchSubscriptionGetJob",
     "asyncToGeneratorRuntime",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u,
-      c = 100,
-      d = new Set(["METERED", "UNLIMITED", "UNKNOWN"]),
-      m = new Set(["CHANGE_PLAN", "OPEN_PAYWALL"]),
-      p = new Set([
+      s,
+      u = 100,
+      c = new Set(["METERED", "UNLIMITED", "UNKNOWN"]),
+      d = new Set([
+        "CANCEL",
+        "CLAIM_META_HOME_LINK",
+        "DISMISS",
+        "MANAGE_BILLING",
+        "REACTIVATE",
+        "REFRESH",
+        "REVOKE_AND_REFUND",
+      ]),
+      m = new Set([
         "NOT_ABRA_LINKED",
         "SESSION_INVALID",
         "UPSTREAM_UNAVAILABLE",
       ]);
-    function _() {
-      return f.apply(this, arguments);
+    function p() {
+      return _.apply(this, arguments);
     }
-    function f() {
+    function _() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           try {
             e = yield o(
               "WAWebHatchSubscriptionGetJob",
             ).commitHatchSubscriptionGet();
           } catch (e) {
-            return g("request");
+            return f("request");
           }
-          if (e == null || e.success == null) return g("empty");
+          if (e == null || e.success == null) return f("empty");
           if (e.success !== !0 || e.error_code != null)
-            return g(
+            return f(
               "error_code:" +
-                (p.has(e.error_code) ? String(e.error_code) : "other"),
+                (m.has(e.error_code) ? String(e.error_code) : "other"),
             );
           var t;
           try {
-            t = h(e.subscription);
+            t = g(e.subscription);
           } catch (e) {
-            return g("malformed");
+            return f("malformed");
           }
-          return t == null ? g("malformed") : { kind: "ok", subscription: t };
+          return t == null ? f("malformed") : { kind: "ok", subscription: t };
         })),
-        f.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function g(t) {
+    function f(t) {
       try {
         o("WALogger")
           .WARN(
@@ -64,7 +71,7 @@ __d(
       } catch (e) {}
       return { kind: "unavailable" };
     }
-    function h(e) {
+    function g(e) {
       var t,
         n = (t = o("WAWebHatchJsonReaders")).readObject(e, "tier"),
         r = t.readObject(e, "usage"),
@@ -75,47 +82,48 @@ __d(
         o("WAWebHatchJsonReaders").readString(n, "tier_id") == null ||
         a == null ||
         i == null ||
-        !d.has(l)
+        !c.has(l)
       )
         return null;
       var s = null,
-        u = null;
+        d = null;
       if (l === "METERED") {
         if (
           ((s = o("WAWebHatchJsonReaders").readInteger(r, "percent_used")),
-          s == null || s < 0 || s > c)
+          s == null || s < 0 || s > u)
         )
           return null;
         var m = o("WAWebHatchJsonReaders").readInteger(r, "resets_at");
-        u = m != null && m > 0 ? m : null;
+        d = m != null && m > 0 ? m : null;
       }
       return {
         billingSubtitle: R(e, "billing_subtitle"),
         isPaid: i,
+        managementRows: b(e),
         percentUsed: s,
         planName: a,
-        primaryAction: v(e, i),
-        resetsAtSeconds: u,
+        quotaStatus: o("WAWebHatchJsonReaders").readString(r, "quota_status"),
+        resetsAtSeconds: d,
         statusSubtitle: R(e, "status_subtitle"),
-        topUp: C(e),
+        topUp: y(e),
         topUpEligible: o("WAWebHatchJsonReaders").readBool(e, "topup_eligible"),
         usageRowFooter: R(e, "usage_row_footer"),
         usageRowLabel: R(e, "usage_row_label"),
         usageRowValueLabel: R(e, "usage_row_value_label"),
       };
     }
-    function y(e) {
+    function h(e) {
       return e.topUpEligible === !0;
     }
-    function C(e) {
+    function y(e) {
       try {
-        return b(e);
+        return C(e);
       } catch (e) {
         try {
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "hatch-subscription: top-up unreadable",
                 ])),
             )
@@ -124,7 +132,7 @@ __d(
         return null;
       }
     }
-    function b(e) {
+    function C(e) {
       var t = o("WAWebHatchJsonReaders").readInteger(e, "topup_total"),
         n = o("WAWebHatchJsonReaders").readInteger(e, "topup_balance"),
         r = R(e, "topup_row_value_label");
@@ -141,38 +149,45 @@ __d(
       var a = Math.min(Math.max(n, 0), t),
         i = R(e, "topup_row_label");
       return {
-        percentUsed: Math.round((c * (t - a)) / t),
+        percentUsed: Math.round((u * (t - a)) / t),
         title: i != null && i.trim() !== "" ? i : null,
         valueLabel: r,
       };
     }
-    function v(e, t) {
-      var n = o("WAWebHatchJsonReaders").readObject(e, "management_actions"),
-        r = o("WAWebHatchJsonReaders").readObject(n, "primary_cta");
-      if (r != null) {
-        var a = R(r, "label");
-        return m.has(o("WAWebHatchJsonReaders").readString(r, "action")) &&
-          a != null
-          ? { label: a }
-          : null;
+    function b(e) {
+      var t = o("WAWebHatchJsonReaders").readObject(e, "management_actions"),
+        n = [];
+      for (var r of o("WAWebHatchJsonReaders").readObjects(
+        t,
+        "management_rows",
+      )) {
+        var a = v(r);
+        a != null && n.push(a);
       }
-      return t
-        ? n != null
-          ? null
-          : (function (e) {
-              if (e === !0) return { label: S() };
-              if (e === !1)
-                return { label: s._(/*BTDS*/ "Change subscription") };
-              if (e == null) return null;
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  e,
-              );
-            })(o("WAWebHatchJsonReaders").readBool(e, "upgrade_eligible"))
-        : { label: S() };
+      return n;
     }
-    function S() {
-      return s._(/*BTDS*/ "Upgrade");
+    function v(e) {
+      var t = o("WAWebHatchJsonReaders").readString(e, "action"),
+        n = R(e, "label"),
+        r = S(o("WAWebHatchJsonReaders").readString(e, "style"));
+      if (t == null || !d.has(t) || n == null || n.trim() === "" || r == null)
+        return null;
+      var a = R(e, "subtitle");
+      return {
+        action: t,
+        label: n,
+        style: r,
+        subtitle: a != null && a.trim() !== "" ? a : null,
+      };
+    }
+    function S(e) {
+      return e === "destructive"
+        ? "destructive"
+        : e === "primary"
+          ? "primary"
+          : e === "secondary"
+            ? "secondary"
+            : null;
     }
     function R(e, t) {
       var n,
@@ -187,9 +202,9 @@ __d(
       ).trim();
       return s === "" ? null : s;
     }
-    ((l.readHatchSubscription = _),
-      (l.parseHatchSubscription = h),
-      (l.shouldShowBuyAdditionalTokens = y));
+    ((l.readHatchSubscription = p),
+      (l.parseHatchSubscription = g),
+      (l.shouldShowBuyAdditionalTokens = h));
   },
-  226,
+  98,
 );

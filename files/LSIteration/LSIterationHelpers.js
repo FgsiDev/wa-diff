@@ -7,7 +7,6 @@ __d(
     "ReStoreKeyComparer",
     "ReStoreVaulting",
     "isNativeTask",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -19,7 +18,6 @@ __d(
     }
     function d(e, t, n) {
       return (
-        r("vulture")("XAbHNYyjKYHVy_Y7wf_OFU8cD24="),
         e && t.name === "pending_tasks" && n != null && r("isNativeTask")(n)
       );
     }

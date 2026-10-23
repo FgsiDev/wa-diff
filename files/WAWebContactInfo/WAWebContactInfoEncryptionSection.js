@@ -5,9 +5,7 @@ __d(
     "WAWebABPropsSaga",
     "WAWebABPropsSupportGroup",
     "WAWebAeaAccountState",
-    "WAWebAeaRollout",
     "WAWebChatCollection",
-    "WAWebChatGetters",
     "WAWebContactGetters",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
@@ -25,7 +23,7 @@ __d(
     "WAWebWid",
     "react",
     "react-compiler-runtime",
-    "useWAWebChatValues",
+    "useWAWebAeaEnforcedThreadState",
     "useWAWebContactValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -33,108 +31,87 @@ __d(
       u = e || (e = o("react"));
     function c(e) {
       var t,
-        n,
-        a = o("react-compiler-runtime").c(16),
-        i = e.contactId,
-        l = e.onVerificationClick,
-        c;
-      a[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = [
+        n = o("react-compiler-runtime").c(14),
+        a = e.contactId,
+        i = e.onVerificationClick,
+        l;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [
             o("WAWebContactGetters").getPrivacyMode,
             o("WAWebContactGetters").getIsHosted,
           ]),
-          (a[0] = c))
-        : (c = a[0]);
-      var m = o("useWAWebContactValues").useContactValues(i, c),
-        p = m[0],
-        _ = m[1],
-        f =
-          (t = o("useWAWebChatValues").useOptionalChatValues(
-            (n = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(
-              i,
-            )) == null
-              ? void 0
-              : n.id,
-            [o("WAWebChatGetters").getAeaThreadState],
-          )) != null
-            ? t
-            : [null],
-        g = f[0],
+          (n[0] = l))
+        : (l = n[0]);
+      var c = o("useWAWebContactValues").useContactValues(a, l),
+        m = c[0],
+        p = c[1],
+        _ = r("useWAWebAeaEnforcedThreadState")(
+          (t = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(
+            a,
+          )) == null
+            ? void 0
+            : t.id,
+        ),
+        f = _.isResolved,
+        g = _.state,
         h;
-      a[1] !== g
-        ? ((h = o("WAWebAeaRollout").isAeaEnforcementEnabled()
-            ? o("WAWebAeaAccountState").AeaAccountState.cast(g)
-            : null),
-          (a[1] = g),
-          (a[2] = h))
-        : (h = a[2]);
-      var y = h,
-        C;
-      if (a[3] !== y || a[4] !== i || a[5] !== _ || a[6] !== p) {
-        var b = o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(p),
-          v =
-            y === o("WAWebAeaAccountState").AeaAccountState.E2EE &&
-            (_ === !0 ||
-              b === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB) &&
-            o(
-              "WAWebUserPrefsMultiDevice",
-            ).getIsHostedMeAccountFromLocalStorage() !== !0;
-        ((C = v
-          ? null
-          : d(
-              y === o("WAWebAeaAccountState").AeaAccountState.NON_E2EE &&
-                b === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE
-                ? o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB
-                : b,
-              i,
-              _ === !0 ||
-                y === o("WAWebAeaAccountState").AeaAccountState.HYBRID_E2EE,
-            )),
-          (a[3] = y),
-          (a[4] = i),
-          (a[5] = _),
-          (a[6] = p),
-          (a[7] = C));
-      } else C = a[7];
-      var S = C;
-      if (S) {
-        var R;
+      if (n[1] !== g || n[2] !== a || n[3] !== p || n[4] !== m) {
+        var y = o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(m);
+        ((h = d(
+          g === o("WAWebAeaAccountState").AeaAccountState.NON_E2EE &&
+            y === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE
+            ? o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB
+            : y,
+          a,
+          p === !0 ||
+            g === o("WAWebAeaAccountState").AeaAccountState.HYBRID_E2EE,
+        )),
+          (n[1] = g),
+          (n[2] = a),
+          (n[3] = p),
+          (n[4] = m),
+          (n[5] = h));
+      } else h = n[5];
+      var C = h;
+      if (!f) return null;
+      if (C) {
+        var b;
         return (
-          a[8] !== S.header || a[9] !== S.onClick || a[10] !== S.text
-            ? ((R = u.jsx(r("WAWebSecurityDrawerSection.react"), {
-                header: S.header,
-                text: S.text,
-                onClick: S.onClick,
+          n[6] !== C.header || n[7] !== C.onClick || n[8] !== C.text
+            ? ((b = u.jsx(r("WAWebSecurityDrawerSection.react"), {
+                header: C.header,
+                text: C.text,
+                onClick: C.onClick,
               })),
-              (a[8] = S.header),
-              (a[9] = S.onClick),
-              (a[10] = S.text),
-              (a[11] = R))
-            : (R = a[11]),
-          R
+              (n[6] = C.header),
+              (n[7] = C.onClick),
+              (n[8] = C.text),
+              (n[9] = b))
+            : (b = n[9]),
+          b
         );
       }
-      var L, E;
-      a[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = s._(
+      var v, S;
+      n[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = s._(
             /*BTDS*/ "Messages are end-to-end encrypted. Click to verify.",
           )),
-          (E = { type: "encryption" }),
-          (a[12] = L),
-          (a[13] = E))
-        : ((L = a[12]), (E = a[13]));
-      var k;
+          (S = { type: "encryption" }),
+          (n[10] = v),
+          (n[11] = S))
+        : ((v = n[10]), (S = n[11]));
+      var R;
       return (
-        a[14] !== l
-          ? ((k = u.jsx(r("WAWebSecurityDrawerSection.react"), {
-              onClick: l,
-              text: L,
-              header: E,
+        n[12] !== i
+          ? ((R = u.jsx(r("WAWebSecurityDrawerSection.react"), {
+              onClick: i,
+              text: v,
+              header: S,
             })),
-            (a[14] = l),
-            (a[15] = k))
-          : (k = a[15]),
-        k
+            (n[12] = i),
+            (n[13] = R))
+          : (R = n[13]),
+        R
       );
     }
     function d(e, t, n) {
