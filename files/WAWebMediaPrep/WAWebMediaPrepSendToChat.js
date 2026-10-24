@@ -57,21 +57,22 @@ __d(
       ),
       h = new AbortController().signal,
       y = r("err")("upload failed: retryable, auto-retrying"),
-      C = 3,
-      b = function (t) {
-        var e = t.baseProps,
-          n = t.chat,
-          a = t.options,
-          i = t.prep;
-        return (
-          (a.chatWid = n.id),
-          (a.downloadOrigin = o(
-            "WAWebMediaPrepHelpers",
-          ).getDownloadOriginForChat(n, e)),
-          (a.isNewsletterMsg = o("WAWebChatGetters").getIsNewsletter(n)),
-          r("WAWebMediaPrepMediaProps")(i, a)
-        );
-      };
+      C = 3;
+    function b(e) {
+      var t = e.baseProps,
+        n = e.chat,
+        a = e.options,
+        i = e.prep;
+      return (
+        (a.chatWid = n.id),
+        (a.downloadOrigin = o("WAWebMediaPrepHelpers").getDownloadOriginForChat(
+          n,
+          t,
+        )),
+        (a.isNewsletterMsg = o("WAWebChatGetters").getIsNewsletter(n)),
+        r("WAWebMediaPrepMediaProps")(i, a)
+      );
+    }
     function v(e) {
       return S.apply(this, arguments);
     }

@@ -2,6 +2,7 @@ __d(
   "WAWebCopyGroupInviteLinkAction",
   [
     "WALogger",
+    "WAWebAddMemberInviteLinkLogger",
     "WAWebBackendErrors",
     "WAWebChatGroupUtils",
     "WAWebCopyLinkToast.react",
@@ -10,40 +11,60 @@ __d(
     "WAWebGroupInviteAction",
     "WAWebGroupInviteLinkErrors.react",
     "WAWebGroupInviteUtils.react",
+    "WAWebGroupMetadataGetters",
+    "WAWebNameGroupToShare.react",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
+    function u(e, t, n) {
+      y(
+        e,
+        function () {
+          (o("WAWebAddMemberInviteLinkLogger").logAddMemberInviteOptionsOpened(
+            r("nullthrows")(e.groupMetadata),
+          ),
+            t());
+        },
+        n,
+      );
     }
-    function c() {
+    function c(e, t) {
+      y(
+        e,
+        function () {
+          return d(r("nullthrows")(e.groupMetadata));
+        },
+        t,
+      );
+    }
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(e.groupMetadata);
-          if (o("WAWebChatGroupUtils").isInviteGrowthLockedGroup(e)) {
-            p(t);
-            return;
-          }
-          var n;
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          o("WAWebAddMemberInviteLinkLogger").logAddMemberCopyLinkClick(e);
+          var t;
           try {
-            n = yield _(t);
-          } catch (e) {
-            m(t, e);
+            t = yield g(e);
+          } catch (t) {
+            _(e, t);
             return;
           }
           o("WAWebCopyLinkToast.react").openLinkCopyResultToast(
-            n != null &&
-              (yield o("WAWebCopyToClipboard").copyTextToClipboard(n)),
+            t != null &&
+              (yield o("WAWebCopyToClipboard").copyTextToClipboard(t)),
           );
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function d(t) {
+    function p(t) {
       var n = r("nullthrows")(t.groupMetadata);
       o("WAWebChatGroupUtils").isInviteGrowthLockedGroup(t) ||
+        o("WAWebGroupMetadataGetters").getIsUnnamed(n) ||
         o("WAWebFrontendGroupMetadataGetters").getGroupInviteLink(n) != null ||
         o("WAWebGroupInviteAction")
           .queryGroupInviteCode(n)
@@ -56,7 +77,7 @@ __d(
             );
           });
     }
-    function m(e, t) {
+    function _(e, t) {
       if (!(t instanceof o("WAWebBackendErrors").ServerStatusCodeError)) {
         (o("WALogger").WARN(
           s ||
@@ -74,14 +95,14 @@ __d(
         (o("WAWebGroupInviteLinkErrors.react").refreshGrowthLockedGroupMetadata(
           e.id,
         ),
-          p(e));
+          f(e));
         return;
       }
       o("WAWebGroupInviteLinkErrors.react").openGroupInviteLinkErrorToast(
         t.statusCode,
       );
     }
-    function p(e) {
+    function f(e) {
       o("WAWebGroupInviteUtils.react").openGrowthLockedModal(
         e.participants.iAmAdmin(),
         !0,
@@ -89,22 +110,41 @@ __d(
         !0,
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebFrontendGroupMetadataGetters").getGroupInviteLink(e);
           return t != null
             ? t
             : (yield o("WAWebGroupInviteAction").queryGroupInviteCode(e),
               o("WAWebFrontendGroupMetadataGetters").getGroupInviteLink(e));
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((l.copyGroupInviteLink = u), (l.prefetchGroupInviteLink = d));
+    function y(e, t, n) {
+      var a = r("nullthrows")(e.groupMetadata);
+      if (o("WAWebChatGroupUtils").isInviteGrowthLockedGroup(e)) {
+        f(a);
+        return;
+      }
+      if (o("WAWebGroupMetadataGetters").getIsUnnamed(a)) {
+        o("WAWebNameGroupToShare.react").openNameGroupToShareModal({
+          chat: e,
+          onNamed: t,
+          signal: n,
+          stackOverExistingModal: !0,
+        });
+        return;
+      }
+      t();
+    }
+    ((l.openInviteOptions = u),
+      (l.copyGroupInviteLink = c),
+      (l.prefetchGroupInviteLink = p));
   },
   98,
 );
